@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E6D8271C2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav in Resources */ = {isa = PBXBuildFile; fileRef = E6D8271B2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav */; };
+		E6D8271D2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav in Resources */ = {isa = PBXBuildFile; fileRef = E6D8271B2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav */; };
+		E6D8271E2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav in Resources */ = {isa = PBXBuildFile; fileRef = E6D8271B2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		E60AC5842E80DB8F00FB6BD1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +33,7 @@
 		E60AC5742E80DB8D00FB6BD1 /* VocFr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VocFr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E60AC5832E80DB8F00FB6BD1 /* VocFrTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VocFrTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E60AC58D2E80DB8F00FB6BD1 /* VocFrUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VocFrUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6D8271B2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +82,7 @@
 		E60AC56B2E80DB8D00FB6BD1 = {
 			isa = PBXGroup;
 			children = (
+				E6D8271B2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav */,
 				E60AC5762E80DB8D00FB6BD1 /* VocFr */,
 				E60AC5862E80DB8F00FB6BD1 /* VocFrTests */,
 				E60AC5902E80DB8F00FB6BD1 /* VocFrUITests */,
@@ -212,6 +220,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6D8271C2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +228,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6D8271D2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,6 +236,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6D8271E2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

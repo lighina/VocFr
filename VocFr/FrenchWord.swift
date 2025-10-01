@@ -2,8 +2,13 @@ import Foundation
 import SwiftData
 
 class FrenchVocabularySeeder {
+    // 全局缓存：跨 section 复用已创建的 Word，避免重复实体
+    private static var globalWordCache: [String: Word] = [:]
     
     static func seedAllData(to modelContext: ModelContext) throws {
+        // 开始一次完整播种前清空全局缓存
+        Self.globalWordCache.removeAll()
+        
         let unites = createAllUnites()
         
         for unite in unites {
@@ -488,7 +493,7 @@ class FrenchVocabularySeeder {
     
     private static func createSectionWords(from wordData: [(String, String, String, String, String?)], section: Section) -> [SectionWord] {
         var sectionWords: [SectionWord] = []
-        var existingWords: [String: Word] = [:] // 用于复用已创建的单词
+        // var existingWords: [String: Word] = [:] // 用于复用已创建的单词 (删除本地缓存)
         
         for (index, wordTuple) in wordData.enumerated() {
             let canonical = wordTuple.0
@@ -497,19 +502,20 @@ class FrenchVocabularySeeder {
             let category = wordTuple.3
             let specialForm = wordTuple.4
             
-            // 检查是否已经存在该单词
+            // 检查全局缓存中是否已有该单词（跨 section 复用）
             let word: Word
-            if let existingWord = existingWords[canonical] {
-                word = existingWord
+            if let cached = Self.globalWordCache[canonical] {
+                word = cached
             } else {
-                word = createWord(
+                let newWord = createWord(
                     canonical: canonical,
                     chinese: chinese,
                     genderOrPos: genderOrPos,
                     category: category,
                     specialForm: specialForm
                 )
-                existingWords[canonical] = word
+                Self.globalWordCache[canonical] = newWord
+                word = newWord
             }
             
             let sectionWord = SectionWord(orderIndex: index + 1)
@@ -525,49 +531,59 @@ class FrenchVocabularySeeder {
     
     /// Maps canonical word forms to actual asset image names
     private static func mapToAssetImageName(canonical: String, genderOrPos: String) -> String {
-        // Handle special cases where asset names don't follow the standard pattern
-        let assetNameMappings: [String: String] = [
-            // Example mappings - update these based on your actual asset names
-            "bureau": "un_bureau",
-            "table": "une_table", 
-            "chaise": "une_chaise",
-            "livre": "un_livre",
-            "cahier": "un_cahier",
-            "feuille": "une_feuille",
-            "crayon": "un_crayon",
-            "stylo": "un_stylo",
-            "porte": "une_porte",
-            "fenêtre": "une_fenetre",
-            "école": "une_ecole",
-            // Add more mappings as needed based on your actual asset names
+        // Since you've named images using the pattern: word_image (e.g., bureau_image)
+        // Let's use this as the primary naming pattern
+        
+        let possibleNames = [
+            // Primary pattern: canonical_image
+            "\(canonical)_image",
+            // Try normalized version with _image
+            "\(normalizeForAssetName(canonical))_image",
+            // Also try without _image suffix for fallback
+            canonical,
+            canonical.replacingOccurrences(of: " ", with: "_"),
+            canonical.replacingOccurrences(of: "'", with: "_"),
+            canonical.replacingOccurrences(of: "-", with: "_"),
+            // Try normalized versions (removing accents)
+            normalizeForAssetName(canonical)
         ]
         
-        // Check if there's a specific mapping for this word
-        if let mappedName = assetNameMappings[canonical] {
-            return mappedName
-        }
-        
-        // For words that follow patterns, try different conventions
-        // First check if the simple name (without _image suffix) exists
-        if Bundle.main.url(forResource: canonical, withExtension: nil) != nil {
-            return canonical
-        }
-        
-        // Try with articles based on gender
-        if genderOrPos == "masculine" {
-            let withArticle = "un_\(canonical)"
-            if Bundle.main.url(forResource: withArticle, withExtension: nil) != nil {
-                return withArticle
-            }
-        } else if genderOrPos == "feminine" {
-            let withArticle = "une_\(canonical)"
-            if Bundle.main.url(forResource: withArticle, withExtension: nil) != nil {
-                return withArticle
+        // Return the first name that actually exists in the bundle
+        for name in possibleNames {
+            if Bundle.main.url(forResource: name, withExtension: nil) != nil ||
+               Bundle.main.url(forResource: name, withExtension: "png") != nil ||
+               Bundle.main.url(forResource: name, withExtension: "jpg") != nil ||
+               Bundle.main.url(forResource: name, withExtension: "jpeg") != nil {
+                return name
             }
         }
         
-        // Fall back to the original naming convention
+        // Fallback to canonical_image pattern
         return "\(canonical)_image"
+    }
+    
+    /// Normalize French text for asset filenames (remove accents, spaces, etc.)
+    private static func normalizeForAssetName(_ text: String) -> String {
+        return text
+            .replacingOccurrences(of: "é", with: "e")
+            .replacingOccurrences(of: "è", with: "e")
+            .replacingOccurrences(of: "ê", with: "e")
+            .replacingOccurrences(of: "ë", with: "e")
+            .replacingOccurrences(of: "à", with: "a")
+            .replacingOccurrences(of: "â", with: "a")
+            .replacingOccurrences(of: "ä", with: "a")
+            .replacingOccurrences(of: "ù", with: "u")
+            .replacingOccurrences(of: "û", with: "u")
+            .replacingOccurrences(of: "ü", with: "u")
+            .replacingOccurrences(of: "ô", with: "o")
+            .replacingOccurrences(of: "ö", with: "o")
+            .replacingOccurrences(of: "î", with: "i")
+            .replacingOccurrences(of: "ï", with: "i")
+            .replacingOccurrences(of: "ç", with: "c")
+            .replacingOccurrences(of: " ", with: "_")
+            .replacingOccurrences(of: "'", with: "_")
+            .replacingOccurrences(of: "-", with: "_")
+            .lowercased()
     }
     
     private static func createWord(canonical: String, chinese: String, genderOrPos: String, category: String, specialForm: String?) -> Word {
@@ -718,16 +734,28 @@ class FrenchVocabularySeeder {
     
     static func addAudioTimestamps(to modelContext: ModelContext) {
         let audioFile = AudioFile(
-            fileName: "unite1_audio.mp3",
-            filePath: "unite1_audio",
-            duration: 120.0 // 根据实际音频长度
+            fileName: "alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav",
+            filePath: "alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z",
+            duration: 120.0 // You may want to adjust this to the actual duration
         )
         modelContext.insert(audioFile)
         
         let timestampData = parseAudioTimestamps()
+        var successCount = 0
+        var failedWords: [String] = []
         
         for (wordId, formType, startTime, endTime) in timestampData {
-            if let word = getWord(by: wordId, from: modelContext) {
+            // Get ALL instances of words with this canonical form
+            let allWords = getAllWords(by: wordId, from: modelContext)
+            
+            if allWords.isEmpty {
+                failedWords.append(wordId)
+                print("❌ 未找到单词: \(wordId)")
+                continue
+            }
+            
+            // Create audio segments for ALL instances of this word
+            for word in allWords {
                 let segment = AudioSegment(
                     startTime: startTime,
                     endTime: endTime,
@@ -739,11 +767,19 @@ class FrenchVocabularySeeder {
                 segment.audioFile = audioFile
                 
                 modelContext.insert(segment)
+                successCount += 1
+                print("✅ 创建音频片段: \(wordId) (\(startTime)s - \(endTime)s) - Word ID: \(word.id)")
             }
         }
         
         do {
             try modelContext.save()
+            print("音频时间戳导入完成:")
+            print("- 成功创建: \(successCount) 个音频片段")
+            print("- 失败: \(failedWords.count) 个单词")
+            if !failedWords.isEmpty {
+                print("- 失败的单词: \(failedWords.joined(separator: ", "))")
+            }
         } catch {
             print("保存音频时间戳时出错: \(error)")
         }
@@ -859,11 +895,267 @@ class FrenchVocabularySeeder {
         return timestampData
     }
     
+    /// 诊断特定单词的音频片段状态
+    static func diagnoseWordAudio(wordId: String, from modelContext: ModelContext) -> String {
+        var report = "单词 '\(wordId)' 音频诊断报告\n"
+        report += "========================\n\n"
+        
+        // 1. 检查所有该单词的实例
+        let allWords = getAllWords(by: wordId, from: modelContext)
+        
+        if allWords.isEmpty {
+            report += "❌ 错误: 单词 '\(wordId)' 不存在于数据库中\n"
+            return report
+        }
+        
+        report += "✅ 找到 \(allWords.count) 个 '\(wordId)' 的实例:\n"
+        for (index, word) in allWords.enumerated() {
+            report += "   \(index + 1). ID: \(word.id), 中文: \(word.chinese), 词性: \(word.partOfSpeech.rawValue)\n"
+        }
+        report += "\n"
+        
+        // 2. 检查音频文件
+        let audioFileDescriptor = FetchDescriptor<AudioFile>()
+        guard let audioFiles = try? modelContext.fetch(audioFileDescriptor) else {
+            report += "❌ 错误: 无法获取音频文件列表\n"
+            return report
+        }
+        
+        report += "音频文件列表 (\(audioFiles.count) 个):\n"
+        for (index, file) in audioFiles.enumerated() {
+            report += "   \(index + 1). \(file.fileName) (路径: \(file.filePath))\n"
+        }
+        report += "\n"
+        
+        // 3. 检查该单词所有实例的音频片段
+        let segmentDescriptor = FetchDescriptor<AudioSegment>(
+            predicate: #Predicate<AudioSegment> { segment in
+                segment.word?.canonical == wordId
+            }
+        )
+        
+        guard let segments = try? modelContext.fetch(segmentDescriptor) else {
+            report += "❌ 错误: 无法获取音频片段\n"
+            return report
+        }
+        
+        if segments.isEmpty {
+            report += "❌ 该单词的所有实例都没有音频片段\n"
+            
+            // 检查时间戳数据中是否有该单词
+            let timestampData = parseAudioTimestamps()
+            let hasTimestamp = timestampData.contains { $0.0 == wordId }
+            
+            if hasTimestamp {
+                report += "⚠️  时间戳数据中存在该单词，但音频片段未创建\n"
+                if let timestamp = timestampData.first(where: { $0.0 == wordId }) {
+                    report += "   时间戳: \(timestamp.2)s - \(timestamp.3)s\n"
+                    report += "   表单类型: \(timestamp.1)\n"
+                }
+            } else {
+                report += "⚠️  时间戳数据中也不存在该单词\n"
+            }
+        } else {
+            report += "✅ 找到 \(segments.count) 个音频片段:\n"
+            for (index, segment) in segments.enumerated() {
+                report += "   \(index + 1). \(segment.startTime)s - \(segment.endTime)s"
+                report += " (类型: \(segment.formType), 质量: \(segment.quality.rawValue))\n"
+                if let word = segment.word {
+                    report += "      关联单词实例: \(word.id) (\(word.chinese))\n"
+                } else {
+                    report += "      ❌ 未关联单词\n"
+                }
+                if let audioFile = segment.audioFile {
+                    report += "      关联音频文件: \(audioFile.fileName)\n"
+                } else {
+                    report += "      ❌ 未关联音频文件\n"
+                }
+            }
+            
+            // 检查是否每个单词实例都有音频片段
+            let wordsWithAudio = Set(segments.compactMap { $0.word?.id })
+            let allWordIds = Set(allWords.map { $0.id })
+            let missingAudio = allWordIds.subtracting(wordsWithAudio)
+            
+            if !missingAudio.isEmpty {
+                report += "\n⚠️ 以下单词实例缺少音频片段:\n"
+                for missingId in missingAudio {
+                    report += "   - \(missingId)\n"
+                }
+            }
+        }
+        
+        return report
+    }
+    
+    /// 重新创建特定单词的音频片段
+    static func recreateAudioSegmentForWord(wordId: String, in modelContext: ModelContext) -> Bool {
+        print("🔄 尝试重新创建单词 '\(wordId)' 的音频片段...")
+        
+        let allWords = getAllWords(by: wordId, from: modelContext)
+        
+        if allWords.isEmpty {
+            print("❌ 单词 '\(wordId)' 不存在")
+            return false
+        }
+        
+        print("📍 找到 \(allWords.count) 个 '\(wordId)' 的实例")
+        
+        // 删除所有现有的音频片段（基于 canonical 而不是 ID）
+        let existingSegments = FetchDescriptor<AudioSegment>(
+            predicate: #Predicate<AudioSegment> { segment in
+                segment.word?.canonical == wordId
+            }
+        )
+        
+        if let segments = try? modelContext.fetch(existingSegments) {
+            for segment in segments {
+                print("🗑️ 删除现有音频片段: \(segment.startTime)s - \(segment.endTime)s (Word: \(segment.word?.id ?? "unknown"))")
+                modelContext.delete(segment)
+            }
+        }
+        
+        // 获取音频文件
+        let audioFileDescriptor = FetchDescriptor<AudioFile>()
+        guard let audioFiles = try? modelContext.fetch(audioFileDescriptor),
+              let audioFile = audioFiles.first else {
+            print("❌ 未找到音频文件")
+            return false
+        }
+        
+        // 从时间戳数据中找到该单词
+        let timestampData = parseAudioTimestamps()
+        guard let wordTimestamp = timestampData.first(where: { $0.0 == wordId }) else {
+            print("❌ 时间戳数据中未找到单词 '\(wordId)'")
+            return false
+        }
+        
+        // 为所有单词实例创建新的音频片段
+        var createdCount = 0
+        for word in allWords {
+            let segment = AudioSegment(
+                startTime: wordTimestamp.2,
+                endTime: wordTimestamp.3,
+                formType: wordTimestamp.1,
+                quality: .normal,
+                confidence: 0.9
+            )
+            segment.word = word
+            segment.audioFile = audioFile
+            
+            modelContext.insert(segment)
+            createdCount += 1
+            print("✅ 为单词实例 '\(word.id)' 创建音频片段: \(wordTimestamp.2)s - \(wordTimestamp.3)s")
+        }
+        
+        do {
+            try modelContext.save()
+            print("✅ 成功重新创建 \(createdCount) 个音频片段")
+            return true
+        } catch {
+            print("❌ 保存失败: \(error)")
+            return false
+        }
+    }
+    
     private static func getWord(by id: String, from modelContext: ModelContext) -> Word? {
         let descriptor = FetchDescriptor<Word>(
             predicate: #Predicate<Word> { word in word.id == id }
         )
         return try? modelContext.fetch(descriptor).first
+    }
+    
+    /// Gets ALL word instances with the given canonical form (for reused words)
+    private static func getAllWords(by canonical: String, from modelContext: ModelContext) -> [Word] {
+        let descriptor = FetchDescriptor<Word>(
+            predicate: #Predicate<Word> { word in word.canonical == canonical }
+        )
+        return (try? modelContext.fetch(descriptor)) ?? []
+    }
+    
+    /// 修复所有缺失的音频片段（特别是复用单词的问题）
+    static func fixMissingAudioSegments(in modelContext: ModelContext) -> String {
+        var report = "修复缺失音频片段报告\n"
+        report += "===================\n\n"
+        
+        let timestampData = parseAudioTimestamps()
+        let wordIdsWithTimestamps = Set(timestampData.map { $0.0 })
+        
+        var totalFixed = 0
+        var problemWords: [String] = []
+        
+        // 获取音频文件
+        let audioFileDescriptor = FetchDescriptor<AudioFile>()
+        guard let audioFiles = try? modelContext.fetch(audioFileDescriptor),
+              let audioFile = audioFiles.first else {
+            report += "❌ 错误: 未找到音频文件\n"
+            return report
+        }
+        
+        for wordCanonical in wordIdsWithTimestamps {
+            let allWords = getAllWords(by: wordCanonical, from: modelContext)
+            
+            if allWords.isEmpty {
+                problemWords.append(wordCanonical)
+                continue
+            }
+            
+            // 检查哪些单词实例缺少音频片段
+            let segmentDescriptor = FetchDescriptor<AudioSegment>(
+                predicate: #Predicate<AudioSegment> { segment in
+                    segment.word?.canonical == wordCanonical
+                }
+            )
+            
+            let existingSegments = (try? modelContext.fetch(segmentDescriptor)) ?? []
+            let wordsWithAudio = Set(existingSegments.compactMap { $0.word?.id })
+            let allWordIds = Set(allWords.map { $0.id })
+            let missingAudio = allWordIds.subtracting(wordsWithAudio)
+            
+            if !missingAudio.isEmpty {
+                report += "🔄 修复单词 '\(wordCanonical)' (\(missingAudio.count) 个实例缺少音频)\n"
+                
+                // 获取时间戳信息
+                guard let timestamp = timestampData.first(where: { $0.0 == wordCanonical }) else {
+                    report += "   ❌ 未找到时间戳数据\n"
+                    continue
+                }
+                
+                // 为缺少音频的单词实例创建音频片段
+                let wordsNeedingAudio = allWords.filter { missingAudio.contains($0.id) }
+                for word in wordsNeedingAudio {
+                    let segment = AudioSegment(
+                        startTime: timestamp.2,
+                        endTime: timestamp.3,
+                        formType: timestamp.1,
+                        quality: .normal,
+                        confidence: 0.9
+                    )
+                    segment.word = word
+                    segment.audioFile = audioFile
+                    
+                    modelContext.insert(segment)
+                    totalFixed += 1
+                    report += "   ✅ 为实例 '\(word.id)' 创建音频片段\n"
+                }
+            }
+        }
+        
+        if !problemWords.isEmpty {
+            report += "\n⚠️ 以下单词在数据库中不存在:\n"
+            for word in problemWords {
+                report += "   - \(word)\n"
+            }
+        }
+        
+        do {
+            try modelContext.save()
+            report += "\n✅ 修复完成！总共创建了 \(totalFixed) 个音频片段\n"
+        } catch {
+            report += "\n❌ 保存失败: \(error)\n"
+        }
+        
+        return report
     }
 }
 
