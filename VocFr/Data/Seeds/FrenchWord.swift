@@ -1310,30 +1310,30 @@ extension FrenchVocabularySeeder {
             // School objects
             "bureau_image", "table_image", "chaise_image", "cahier_image", "livre_image", "feuille_image",
             "classeur_image", "crayon_image", "gomme_image", "taille-crayon_image", "stylo_image", "feutre_image",
-            "colle_image", "trousse_image", "devoir_image", "craie_image", "éponge_image", "sac_image",
-            "cartable_image", "tableau_image", "ordinateur_image", "porte_image", "fenêtre_image",
-            "salle de classe_image", "école_image", "image_image", "balle_image", "ballon_image",
+            "colle_image", "trousse_image", "devoir_image", "craie_image", "eponge_image", "sac_image",
+            "cartable_image", "tableau_image", "ordinateur_image", "porte_image", "fenetre_image",
+            "salle de classe_image", "ecole_image", "image_image", "balle_image", "ballon_image",
             // People
-            "enseignante_image", "enseignant_image", "fille_image", "garçon_image",
+            "enseignante_image", "enseignant_image", "fille_image", "garcon_image",
             // Colors
             "vert_image", "jaune_image", "orange_image", "rouge_image", "rose_image", "mauve_image",
             "violet_image", "bleu_image", "brun_image", "gris_image", "noir_image", "blanc_image",
             // Numbers
-            "zéro_image", "un_image", "deux_image", "trois_image", "quatre_image", "cinq_image",
+            "zero_image", "un_image", "deux_image", "trois_image", "quatre_image", "cinq_image",
             "six_image", "sept_image", "huit_image", "neuf_image", "dix_image", "onze_image", "douze_image",
             // Pronouns & Verbs
             "Je_image", "tu_image", "il_image", "elle_image", "chercher_image", "dessiner_image",
-            "jouer_image", "montrer_image", "écouter_image", "coller_image", "chanter_image",
+            "jouer_image", "montrer_image", "ecouter_image", "coller_image", "chanter_image",
             "trouver_image", "fermer_image", "ranger_image", "regarder_image",
             // Prepositions
-            "sur_image", "sous_image", "dans_image", "devant_image", "derrière_image"
+            "sur_image", "sous_image", "dans_image", "devant_image", "derriere_image"
         ]
         
         let unite2Words = [
             // Family
-            "famille_image", "père_image", "mère_image", "parents_image", "papa_image", "maman_image",
-            "grand-père_image", "grand-mère_image", "grands-parents_image", "papy_image", "mamie_image",
-            "frère_image", "soeur_image", "oncle_image", "tante_image",
+            "famille_image", "pere_image", "mere_image", "parents_image", "papa_image", "maman_image",
+            "grand_pere_image", "grand_mere_image", "grands-parents_image", "papy_image", "mamie_image",
+            "frere_image", "soeur_image", "oncle_image", "tante_image",
             // Food
             "gâteau_image", "tarte_image", "glace_image", "bonbon_image", "chocolat_image", "pain_image",
             "baguette_image", "fruits_image", "citron_image", "banane_image", "pomme_image", "poire_image",
