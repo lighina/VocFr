@@ -4,25 +4,36 @@ import SwiftData
 class FrenchVocabularySeeder {
     // 全局缓存：跨 section 复用已创建的 Word，避免重复实体
     private static var globalWordCache: [String: Word] = [:]
-    
+
     static func seedAllData(to modelContext: ModelContext) throws {
         // 开始一次完整播种前清空全局缓存
         Self.globalWordCache.removeAll()
-        
-        let unites = createAllUnites()
-        
+
+        // Load vocabulary data from JSON
+        print("📖 Loading vocabulary data from JSON...")
+        let unites = try VocabularyDataLoader.loadVocabularyData()
+        print("✅ Successfully loaded \(unites.count) unités from JSON")
+
         for unite in unites {
             modelContext.insert(unite)
         }
-        
+
         // 创建初始用户进度
         let userProgress = UserProgress()
         modelContext.insert(userProgress)
-        
+
         try modelContext.save()
-        print("成功导入 \(unites.count) 个单元的数据")
+        print("✅ 成功导入 \(unites.count) 个单元的数据到 SwiftData")
     }
-    
+
+    // MARK: - Legacy Hardcoded Data (To be removed after JSON migration is verified)
+    // =============================================================================
+    // The functions below contain hardcoded vocabulary data.
+    // They are kept temporarily for reference and fallback during Phase 2 migration.
+    // Once JSON data loading is verified to work correctly, this entire section
+    // (approximately 1,200 lines) will be removed to reduce file size from 1,461 to ~300 lines.
+    // =============================================================================
+
     private static func createAllUnites() -> [Unite] {
         return [
             createUnite1(),
