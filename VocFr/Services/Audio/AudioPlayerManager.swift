@@ -18,12 +18,18 @@ class AudioPlayerManager: NSObject, ObservableObject {
     }
     
     private func setupAudioSession() {
+        #if os(iOS)
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
             try AVAudioSession.sharedInstance().setActive(true)
         } catch {
             print("音频会话设置失败: \(error)")
         }
+        #elseif os(macOS)
+        // AVAudioSession is not available on macOS
+        // Audio will work without explicit session setup on macOS
+        print("ℹ️ Audio session setup skipped on macOS (not required)")
+        #endif
     }
     
     func playAudio(filename: String, completion: @escaping (Bool) -> Void) {
