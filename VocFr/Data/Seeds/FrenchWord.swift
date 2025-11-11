@@ -570,7 +570,7 @@ class FrenchVocabularySeeder {
         }
         
         // Fallback to canonical_image pattern
-        return "\(canonical)_image"
+        return "\(normalizeForAssetName(canonical))_image"
     }
     
     /// Normalize French text for asset filenames (remove accents, spaces, etc.)
