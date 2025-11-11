@@ -630,6 +630,13 @@ class FrenchVocabularySeeder {
                     gender: .masculine,
                     number: .singular
                 ))
+                forms.append(WordForm(
+                    formType: .indefiniteArticle,
+                    french: "un \(canonical)",
+                    articleOnly: "un",
+                    gender: .masculine,
+                    number: .singular
+                ))
             } else {
                 forms.append(WordForm(
                     formType: .indefiniteArticle,
@@ -663,6 +670,13 @@ class FrenchVocabularySeeder {
                     formType: .definiteArticle,
                     french: "la \(canonical)",
                     articleOnly: "la",
+                    gender: .feminine,
+                    number: .singular
+                ))
+                forms.append(WordForm(
+                    formType: .indefiniteArticle,
+                    french: "une \(canonical)",
+                    articleOnly: "une",
                     gender: .feminine,
                     number: .singular
                 ))
@@ -1444,3 +1458,4 @@ struct PetitFrancaisApp: App {
     }
 }
 */
+

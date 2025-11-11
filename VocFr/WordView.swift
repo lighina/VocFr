@@ -13,7 +13,7 @@ import AVFoundation
 struct WordDetailView: View {
     let section: Section
     @State private var currentWordIndex: Int
-    @State private var showChinese = false
+    @State private var showWordCard = true
     @State private var isShuffled = false
     @State private var shuffledWords: [SectionWord] = []
     @State private var originalWords: [SectionWord] = []
@@ -78,52 +78,59 @@ struct WordDetailView: View {
                             }
                         }
                         .id(word.id) // For smooth animation
+                        .onTapGesture {
+                            withAnimation(.easeInOut) {
+                                showWordCard = true
+                            }
+                        }
+                        
+                        // Hint when card is hidden
+                        if !showWordCard {
+                            Text("Touchez l’image pour afficher la carte du mot")
+                                .font(.footnote)
+                                .foregroundStyle(.secondary)
+                        }
                         
                         // Word display - updated card style
-                        VStack(spacing: 20) {
-                            Text(getWordWithArticle(for: word))
-                                .font(.system(size: 36, weight: .medium, design: .default))
-                                .foregroundColor(.black)
-                                .multilineTextAlignment(.center)
-                            
-                            // Grammatical indicator - updated style
-                            Text(getGrammaticalIndicator(for: word))
-                                .font(.system(size: 16, weight: .regular, design: .default))
-                                .foregroundStyle(.secondary)
-                                .italic()
-                            
-                            // Chinese translation (when toggle is on)
-                            if showChinese {
-                                Text(word.chinese)
-                                    .font(.system(size: 16, weight: .regular))
-                                    .foregroundColor(.secondary)
+                        if showWordCard {
+                            VStack(spacing: 16) {
+                                // Main word line (for nouns, show base word; others show canonical)
+                                Text(getWordTitle(for: word))
+                                    .font(.system(size: 36, weight: .medium, design: .default))
+                                    .foregroundColor(.black)
                                     .multilineTextAlignment(.center)
-                                    .padding(.bottom, 10)
+
+                                // Grammatical indicator
+                                Text(getGrammaticalIndicator(for: word))
+                                    .font(.system(size: 16, weight: .regular, design: .default))
+                                    .foregroundStyle(.secondary)
+                                    .italic()
+
+                                // Audio button
+                                Button(action: { playAudio(for: word) }) {
+                                    Image(systemName: audioManager.isPlaying ? "stop.fill" : "play.fill")
+                                        .font(.system(size: 16, weight: .medium))
+                                        .foregroundColor(.white)
+                                        .frame(width: 44, height: 44)
+                                        .background(Color.blue)
+                                        .clipShape(Circle())
+                                }
+                                .animation(.easeInOut(duration: 0.2), value: audioManager.isPlaying)
+
+                                // Articles inside the card (for nouns)
+                                if word.partOfSpeech == .noun {
+                                    articleBlock(for: word)
+                                        .padding(.top, 4)
+                                }
                             }
-                            
-                            // Audio button - updated design
-                            Button(action: { playAudio(for: word) }) {
-                                Image(systemName: audioManager.isPlaying ? "stop.fill" : "play.fill")
-                                    .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(.white)
-                                    .frame(width: 44, height: 44)
-                                    .background(Color.blue)
-                                    .clipShape(Circle())
-                            }
-                            .animation(.easeInOut(duration: 0.2), value: audioManager.isPlaying)
-                        }
-                        .padding(.top, 32)
-                        .padding(.bottom, 40)
-                        .padding(.horizontal, 24)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.white)
-                        .cornerRadius(24)
-                        .shadow(color: Color.black.opacity(0.08), radius: 12, x: 0, y: 4)
-                        .shadow(color: Color.black.opacity(0.04), radius: 2, x: 0, y: 1)
-                        
-                        // Show article forms for nouns (outside the card)
-                        if word.partOfSpeech == .noun {
-                            getArticleForms(for: word)
+                            .padding(.top, 24)
+                            .padding(.bottom, 28)
+                            .padding(.horizontal, 24)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.white)
+                            .cornerRadius(24)
+                            .shadow(color: Color.black.opacity(0.08), radius: 12, x: 0, y: 4)
+                            .shadow(color: Color.black.opacity(0.04), radius: 2, x: 0, y: 1)
                         }
                     }
                     
@@ -145,16 +152,16 @@ struct WordDetailView: View {
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
                         HStack(spacing: 12) {
-                            // Chinese translation toggle
-                            Button(action: { showChinese.toggle() }) {
-                                Image(systemName: showChinese ? "eye.fill" : "eye")
+                            // Word card toggle
+                            Button(action: { showWordCard.toggle() }) {
+                                Image(systemName: showWordCard ? "eye.fill" : "eye")
                                     .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(showChinese ? .blue : .secondary)
+                                    .foregroundColor(showWordCard ? .blue : .secondary)
                                     .frame(width: 44, height: 32)
-                                    .background(showChinese ? Color.blue.opacity(0.1) : Color.clear)
+                                    .background(showWordCard ? Color.blue.opacity(0.1) : Color.clear)
                                     .clipShape(RoundedRectangle(cornerRadius: 8))
                             }
-                            .animation(.easeInOut(duration: 0.2), value: showChinese)
+                            .animation(.easeInOut(duration: 0.2), value: showWordCard)
                             
                             // Shuffle toggle
                             Button(action: { toggleShuffle() }) {
@@ -210,6 +217,12 @@ struct WordDetailView: View {
         return word.canonical
     }
     
+    // Title for the word card
+    private func getWordTitle(for word: Word) -> String {
+        if word.partOfSpeech == .noun { return getBaseWord(for: word) }
+        return word.canonical
+    }
+
     // Helper function to get grammatical indicator in French
     private func getGrammaticalIndicator(for word: Word) -> String {
         if word.partOfSpeech == .noun {
@@ -259,68 +272,56 @@ struct WordDetailView: View {
         }
     }
     
-    // Helper function to display article forms for nouns
+    // Build articles block inside the card
     @ViewBuilder
-    private func getArticleForms(for word: Word) -> some View {
+    private func articleBlock(for word: Word) -> some View {
         let gender = determineGender(for: word)
-        let baseWord = getBaseWord(for: word)
-        
-        VStack(spacing: 8) {
-            HStack(spacing: 8) {
-                // Definite articles
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Défini:")
-                        .font(.caption)
-                        .foregroundStyle(.tertiary)
-                    
-                    if gender == .masculine {
-                        Text("le \(baseWord)")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundStyle(.secondary)
-                        Text("les \(baseWord)s")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundStyle(.secondary)
-                    } else {
-                        Text("la \(baseWord)")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundStyle(.secondary)
-                        Text("les \(baseWord)s")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundStyle(.secondary)
-                    }
-                }
-                
-                Spacer()
-                
-                // Indefinite articles
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Indéfini:")
-                        .font(.caption)
-                        .foregroundStyle(.tertiary)
-                    
-                    if gender == .masculine {
-                        Text("un \(baseWord)")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundStyle(.secondary)
-                        Text("des \(baseWord)s")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundStyle(.secondary)
-                    } else {
-                        Text("une \(baseWord)")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundStyle(.secondary)
-                        Text("des \(baseWord)s")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundStyle(.secondary)
-                    }
-                }
+        let base = getBaseWord(for: word)
+        VStack(alignment: .leading, spacing: 8) {
+            // Definite
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Défini:")
+                    .font(.caption)
+                    .foregroundStyle(.tertiary)
+                Text(definiteSingular(for: base, gender: gender))
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(.secondary)
+                Text("les \(pluralized(base))")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(.secondary)
+            }
+            // Indefinite
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Indéfini:")
+                    .font(.caption)
+                    .foregroundStyle(.tertiary)
+                Text(indefiniteSingular(for: base, gender: gender))
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(.secondary)
+                Text("des \(pluralized(base))")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(.secondary)
             }
         }
-        .padding(.top, 12)
-        .padding(.bottom, 12)
-        .padding(.horizontal, 16)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
     }
+
+    // Elision helpers
+    private func beginsWithVowelOrH(_ word: String) -> Bool {
+        let lower = word.lowercased()
+        let vowels = ["a","e","i","o","u","y","à","â","ä","é","è","ê","ë","î","ï","ô","ö","ù","û","ü","h"]
+        return vowels.contains { lower.hasPrefix($0) }
+    }
+
+    private func definiteSingular(for base: String, gender: Gender) -> String {
+        if beginsWithVowelOrH(base) { return "l'\(base)" }
+        return (gender == .masculine ? "le " : "la ") + base
+    }
+
+    private func indefiniteSingular(for base: String, gender: Gender) -> String {
+        return (gender == .masculine ? "un " : "une ") + base
+    }
+
+    private func pluralized(_ base: String) -> String { return base + "s" }
     
     // Helper function to determine gender
     private func determineGender(for word: Word) -> Gender {
@@ -451,7 +452,7 @@ struct WordDetailView: View {
             
             // Use toggle playback with timestamps for precise word pronunciation
             audioManager.togglePlayback(
-                filename: audioFile.filePath,
+                filename: audioFile.fileName,
                 startTime: audioSegment.startTime,
                 endTime: audioSegment.endTime
             ) { success in

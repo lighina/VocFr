@@ -75,6 +75,11 @@ struct WordDetailViewFixed: View {
                                 .clipShape(Circle())
                         }
                         .animation(.easeInOut(duration: 0.2), value: audioManager.isPlaying)
+                        
+                        // Articles inside the card
+                        if word.partOfSpeech == .noun {
+                            articleBlock()
+                        }
                     }
                     .padding(.top, 32)
                     .padding(.bottom, 40)
@@ -120,15 +125,15 @@ struct WordDetailViewFixed: View {
     private func getPartOfSpeechText() -> String {
         switch word.partOfSpeech {
         case .noun:
-            // 检查是否有定冠词形式来判断性别
+            if let elided = word.forms.first(where: { $0.formType == .withElision }) {
+                // Infer gender from other forms or articleOnly if needed
+                if let g = elided.gender { return g == .masculine ? "nom (m.)" : "nom (f.)" }
+            }
             if let definiteForm = word.forms.first(where: { $0.formType == .definiteArticle }) {
-                if definiteForm.french.lowercased().hasPrefix("le ") {
-                    return "nom (m.)"
-                } else if definiteForm.french.lowercased().hasPrefix("la ") {
-                    return "nom (f.)"
-                } else if definiteForm.french.lowercased().hasPrefix("les ") {
-                    return "nom (pl.)"
-                }
+                let l = definiteForm.french.lowercased()
+                if l.hasPrefix("le ") { return "nom (m.)" }
+                if l.hasPrefix("la ") { return "nom (f.)" }
+                if l.hasPrefix("les ") { return "nom (pl.)" }
             }
             return "nom"
         case .verb:
@@ -343,4 +348,68 @@ struct WordDetailViewFixed: View {
             }
         }
     }
+    
+    @ViewBuilder
+    private func articleBlock() -> some View {
+        let base = getBaseWord()
+        let gender = getGender()
+        VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Défini:")
+                    .font(.caption)
+                    .foregroundStyle(.tertiary)
+                Text(definiteSingular(for: base, gender: gender))
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(.secondary)
+                Text("les \(pluralized(base))")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(.secondary)
+            }
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Indéfini:")
+                    .font(.caption)
+                    .foregroundStyle(.tertiary)
+                Text(indefiniteSingular(for: base, gender: gender))
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(.secondary)
+                Text("des \(pluralized(base))")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(.secondary)
+            }
+        }
+    }
+
+    private func getBaseWord() -> String {
+        let wordsWithArticles = ["le ", "la ", "les ", "un ", "une ", "des "]
+        let lower = word.canonical.lowercased()
+        for a in wordsWithArticles { if lower.hasPrefix(a) { return String(word.canonical.dropFirst(a.count)) } }
+        return word.canonical
+    }
+
+    private func getGender() -> Gender {
+        if let def = word.forms.first(where: { $0.formType == .definiteArticle }) {
+            let l = def.french.lowercased()
+            if l.hasPrefix("le ") { return .masculine }
+            if l.hasPrefix("la ") { return .feminine }
+        }
+        // fallback guess
+        return word.canonical.hasSuffix("e") ? .feminine : .masculine
+    }
+
+    private func beginsWithVowelOrH(_ base: String) -> Bool {
+        let lower = base.lowercased()
+        let prefixes = ["a","e","i","o","u","y","à","â","ä","é","è","ê","ë","î","ï","ô","ö","ù","û","ü","h"]
+        return prefixes.contains { lower.hasPrefix($0) }
+    }
+
+    private func definiteSingular(for base: String, gender: Gender) -> String {
+        if beginsWithVowelOrH(base) { return "l'\(base)" }
+        return (gender == .masculine ? "le " : "la ") + base
+    }
+
+    private func indefiniteSingular(for base: String, gender: Gender) -> String {
+        return (gender == .masculine ? "un " : "une ") + base
+    }
+
+    private func pluralized(_ base: String) -> String { return base + "s" }
 }
