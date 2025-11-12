@@ -94,15 +94,14 @@ def get_article_forms(word_data: Dict) -> tuple[str, str]:
 def generate_audio_text(word_data: Dict) -> str:
     """
     Generate the text to be spoken by TTS.
-    Format: "En français: un/une word, puis le/la/l' word"
-    Adding "En français:" prefix forces TTS to recognize the text as French.
+    Format: "un/une word. le/la/l' word"
+    Simple, clean format - language recognition is handled by instructions parameter.
     """
     indefinite_form, definite_form = get_article_forms(word_data)
 
-    # Prefix with "En français:" to force French language recognition
-    # This ensures TTS engine interprets all following words as French,
-    # preventing misreading of words that look similar to English (e.g., "bureau")
-    audio_text = f"En français: {indefinite_form}, puis {definite_form}"
+    # Simple format: two forms separated by period (long pause)
+    # The period creates a pause, and instructions tell TTS not to read it
+    audio_text = f"{indefinite_form}. {definite_form}"
 
     return audio_text
 
@@ -112,8 +111,9 @@ def generate_audio_file(
     word_data: Dict,
     output_dir: Path,
     voice: str = "alloy",
-    model: str = "tts-1",
-    speed: float = 1.0
+    model: str = "gpt-4o-mini-tts",
+    speed: float = 1.0,
+    instructions: str = ""
 ) -> Optional[Path]:
     """
     Generate audio file for a single word using OpenAI TTS API.
@@ -122,9 +122,10 @@ def generate_audio_file(
         client: OpenAI client instance
         word_data: Dictionary containing word information
         output_dir: Directory to save audio files
-        voice: TTS voice to use (alloy, echo, fable, onyx, nova, shimmer)
-        model: TTS model (tts-1 or tts-1-hd)
+        voice: TTS voice to use (alloy, ash, ballad, coral, echo, fable, nova, onyx, sage, shimmer)
+        model: TTS model (gpt-4o-mini-tts, tts-1, or tts-1-hd)
         speed: Speech speed (0.25 to 4.0, default 1.0)
+        instructions: Instructions for the TTS model (only supported by gpt-4o-mini-tts)
 
     Returns:
         Path to generated audio file, or None if failed
@@ -149,12 +150,19 @@ def generate_audio_file(
         print(f"      Text: {audio_text}")
 
         # Call OpenAI TTS API
-        response = client.audio.speech.create(
-            model=model,
-            voice=voice,
-            input=audio_text,
-            speed=speed
-        )
+        # Build request parameters
+        request_params = {
+            "model": model,
+            "voice": voice,
+            "input": audio_text,
+            "speed": speed
+        }
+
+        # Add instructions if provided (only supported by gpt-4o-mini-tts)
+        if instructions and model == "gpt-4o-mini-tts":
+            request_params["instructions"] = instructions
+
+        response = client.audio.speech.create(**request_params)
 
         # Save audio file
         response.stream_to_file(str(output_file))
@@ -184,8 +192,9 @@ def generate_audio_for_section(
     section_num: int,
     output_base_dir: Path,
     voice: str = "alloy",
-    model: str = "tts-1",
-    speed: float = 1.0
+    model: str = "gpt-4o-mini-tts",
+    speed: float = 1.0,
+    instructions: str = ""
 ) -> tuple[int, int]:
     """
     Generate audio files for all words in a specific section.
@@ -225,7 +234,7 @@ def generate_audio_for_section(
     success_count = 0
     for i, word_data in enumerate(words, 1):
         print(f"[{i}/{len(words)}]")
-        result = generate_audio_file(client, word_data, output_dir, voice, model, speed)
+        result = generate_audio_file(client, word_data, output_dir, voice, model, speed, instructions)
         if result:
             success_count += 1
         print()  # Empty line for readability
@@ -258,15 +267,15 @@ def main():
         '--voice', '-v',
         type=str,
         default='alloy',
-        choices=['alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer'],
-        help='TTS voice (default: alloy)'
+        choices=['alloy', 'ash', 'ballad', 'coral', 'echo', 'fable', 'nova', 'onyx', 'sage', 'shimmer'],
+        help='TTS voice (default: alloy, try coral or nova for better French)'
     )
     parser.add_argument(
         '--model', '-m',
         type=str,
-        default='tts-1',
-        choices=['tts-1', 'tts-1-hd'],
-        help='TTS model (default: tts-1, use tts-1-hd for higher quality)'
+        default='gpt-4o-mini-tts',
+        choices=['gpt-4o-mini-tts', 'tts-1', 'tts-1-hd'],
+        help='TTS model (default: gpt-4o-mini-tts, supports instructions parameter)'
     )
     parser.add_argument(
         '--output-dir', '-o',
@@ -278,6 +287,12 @@ def main():
         type=float,
         default=0.8,
         help='Speech speed (0.25 to 4.0, default: 0.8 for clearer French pronunciation)'
+    )
+    parser.add_argument(
+        '--instructions',
+        type=str,
+        default='Speak français in a clear, slow, educational tone. "." is a long pause without being read.',
+        help='Instructions for gpt-4o-mini-tts model to control speech characteristics'
     )
 
     args = parser.parse_args()
@@ -304,6 +319,8 @@ def main():
     print(f"⚙️  Model: {args.model}")
     print(f"🎤 Voice: {args.voice}")
     print(f"🎚️  Speed: {args.speed}x")
+    if args.model == "gpt-4o-mini-tts" and args.instructions:
+        print(f"📝 Instructions: {args.instructions}")
     print(f"📂 Output: {output_base_dir}")
     print("=" * 60)
     print()
@@ -316,7 +333,8 @@ def main():
             output_base_dir=output_base_dir,
             voice=args.voice,
             model=args.model,
-            speed=args.speed
+            speed=args.speed,
+            instructions=args.instructions
         )
 
         print("=" * 60)
