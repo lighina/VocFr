@@ -94,13 +94,14 @@ def get_article_forms(word_data: Dict) -> tuple[str, str]:
 def generate_audio_text(word_data: Dict) -> str:
     """
     Generate the text to be spoken by TTS.
-    Format: "un/une word, le/la/l' word"
-    The comma creates a natural pause between the two forms.
+    Format: "un/une word. le/la/l' word"
+    Using period and extra spacing for longer, more natural pause.
     """
     indefinite_form, definite_form = get_article_forms(word_data)
 
-    # Using comma for natural pause
-    audio_text = f"{indefinite_form}, {definite_form}"
+    # Using period for longer pause between the two forms
+    # Period creates a more distinct separation than comma
+    audio_text = f"{indefinite_form}. {definite_form}."
 
     return audio_text
 
@@ -110,7 +111,8 @@ def generate_audio_file(
     word_data: Dict,
     output_dir: Path,
     voice: str = "alloy",
-    model: str = "tts-1"
+    model: str = "tts-1",
+    speed: float = 1.0
 ) -> Optional[Path]:
     """
     Generate audio file for a single word using OpenAI TTS API.
@@ -121,6 +123,7 @@ def generate_audio_file(
         output_dir: Directory to save audio files
         voice: TTS voice to use (alloy, echo, fable, onyx, nova, shimmer)
         model: TTS model (tts-1 or tts-1-hd)
+        speed: Speech speed (0.25 to 4.0, default 1.0)
 
     Returns:
         Path to generated audio file, or None if failed
@@ -148,7 +151,8 @@ def generate_audio_file(
         response = client.audio.speech.create(
             model=model,
             voice=voice,
-            input=audio_text
+            input=audio_text,
+            speed=speed
         )
 
         # Save audio file
@@ -179,7 +183,8 @@ def generate_audio_for_section(
     section_num: int,
     output_base_dir: Path,
     voice: str = "alloy",
-    model: str = "tts-1"
+    model: str = "tts-1",
+    speed: float = 1.0
 ) -> tuple[int, int]:
     """
     Generate audio files for all words in a specific section.
@@ -219,7 +224,7 @@ def generate_audio_for_section(
     success_count = 0
     for i, word_data in enumerate(words, 1):
         print(f"[{i}/{len(words)}]")
-        result = generate_audio_file(client, word_data, output_dir, voice, model)
+        result = generate_audio_file(client, word_data, output_dir, voice, model, speed)
         if result:
             success_count += 1
         print()  # Empty line for readability
@@ -267,6 +272,12 @@ def main():
         type=str,
         help='Output directory (default: VocFr/Resources/Audio/Words)'
     )
+    parser.add_argument(
+        '--speed',
+        type=float,
+        default=0.8,
+        help='Speech speed (0.25 to 4.0, default: 0.8 for clearer French pronunciation)'
+    )
 
     args = parser.parse_args()
 
@@ -291,6 +302,7 @@ def main():
     print("=" * 60)
     print(f"⚙️  Model: {args.model}")
     print(f"🎤 Voice: {args.voice}")
+    print(f"🎚️  Speed: {args.speed}x")
     print(f"📂 Output: {output_base_dir}")
     print("=" * 60)
     print()
@@ -302,7 +314,8 @@ def main():
             section_num=args.section,
             output_base_dir=output_base_dir,
             voice=args.voice,
-            model=args.model
+            model=args.model,
+            speed=args.speed
         )
 
         print("=" * 60)
