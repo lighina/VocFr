@@ -2,7 +2,10 @@ import SwiftUI
 import SwiftData
 import AVFoundation
 
-// Extension for custom corner radius
+#if os(iOS)
+import UIKit
+
+// Extension for custom corner radius (iOS only)
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape(RoundedCorner(radius: radius, corners: corners))
@@ -22,6 +25,7 @@ struct RoundedCorner: Shape {
         return Path(path.cgPath)
     }
 }
+#endif
 
 // 新的单词详情页面
 struct WordDetailViewFixed: View {
@@ -31,12 +35,21 @@ struct WordDetailViewFixed: View {
     var body: some View {
         ZStack {
             // Background gradient
+            #if os(iOS)
             LinearGradient(
                 gradient: Gradient(colors: [Color(.systemGray6), Color(.systemGray5)]),
                 startPoint: .top,
                 endPoint: .bottom
             )
             .ignoresSafeArea()
+            #else
+            LinearGradient(
+                gradient: Gradient(colors: [Color.gray.opacity(0.1), Color.gray.opacity(0.05)]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
+            #endif
             
             ScrollView {
                 VStack(spacing: 40) {
@@ -95,6 +108,7 @@ struct WordDetailViewFixed: View {
                 .padding(.horizontal, 20)
             }
         }
+        #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -102,6 +116,14 @@ struct WordDetailViewFixed: View {
                     .toggleStyle(SwitchToggleStyle(tint: .green))
             }
         }
+        #else
+        .toolbar {
+            ToolbarItem(placement: .automatic) {
+                Toggle("", isOn: .constant(true))
+                    .toggleStyle(SwitchToggleStyle(tint: .green))
+            }
+        }
+        #endif
     }
     
     @ViewBuilder
