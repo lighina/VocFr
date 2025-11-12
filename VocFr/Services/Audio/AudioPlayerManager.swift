@@ -99,8 +99,9 @@ class AudioPlayerManager: NSObject, ObservableObject {
         let normalizedName = normalizeFilename(word.canonical)
 
         // Try to get unite and section numbers from word's section
-        if let section = word.sectionWords.first?.section {
-            let uniteNumber = section.unite.number
+        if let section = word.sectionWords.first?.section,
+           let unite = section.unite {
+            let uniteNumber = unite.number
             let sectionIndex = section.orderIndex
 
             // Search path: Audio/Words/Unite{N}/Section{M}/{normalized_name}
