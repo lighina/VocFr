@@ -60,21 +60,36 @@ struct WordDetailView: View {
                     VStack(spacing: 40) {
                         // Word image - large and centered
                         Group {
-                            if !word.imageName.isEmpty {
+                            if !word.imageName.isEmpty && imageExists(named: word.imageName) {
+
                                 Image(word.imageName)
+
                                     .resizable()
+
                                     .aspectRatio(contentMode: .fit)
+
                                     .frame(maxWidth: 250, maxHeight: 250)
+
                             } else {
-                                // Placeholder with a more appealing design
+
+                                // Placeholder - shown when image name is empty or image file doesn't exist
+
                                 RoundedRectangle(cornerRadius: 20)
+
                                     .fill(Color.gray.opacity(0.2))
+
                                     .frame(width: 250, height: 200)
+
                                     .overlay(
+
                                         Image(systemName: "photo")
+
                                             .font(.system(size: 40))
+
                                             .foregroundColor(.gray.opacity(0.6))
+
                                     )
+
                             }
                         }
                         .id(word.id) // For smooth animation
@@ -204,6 +219,18 @@ struct WordDetailView: View {
                 .navigationTitle("单词")
             }
         }
+    }
+    
+    // MARK: - Helper Functions
+    /// Check if an image exists in the asset catalog
+    private func imageExists(named: String) -> Bool {
+        #if os(iOS)
+        return UIImage(named: named) != nil
+        #elseif os(macOS)
+        return NSImage(named: named) != nil
+        #else
+        return false
+        #endif
     }
     
     // Helper function to get word with appropriate article
