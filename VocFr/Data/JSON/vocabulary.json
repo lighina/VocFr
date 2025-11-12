@@ -740,9 +740,9 @@
               "elision": false
             },
             {
-              "canonical": "grands-parents",
+              "canonical": "grand-parent",
               "chinese": "祖父母/外祖父母",
-              "partOfSpeech": "verb",
+              "partOfSpeech": "noun",
               "genderOrPos": "plural",
               "category": "family",
               "elision": false
