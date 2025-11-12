@@ -667,7 +667,7 @@
       "id": "unite2",
       "number": 2,
       "title": "C'est la fête",
-      "isUnlocked": false,
+      "isUnlocked": true,
       "requiredStars": 50,
       "sections": [
         {
@@ -1415,7 +1415,7 @@
       "id": "unite3",
       "number": 3,
       "title": "Mon chez-moi",
-      "isUnlocked": false,
+      "isUnlocked": true,
       "requiredStars": 100,
       "sections": [
         {
