@@ -94,14 +94,15 @@ def get_article_forms(word_data: Dict) -> tuple[str, str]:
 def generate_audio_text(word_data: Dict) -> str:
     """
     Generate the text to be spoken by TTS.
-    Format: "un/une word, puis le/la/l' word"
-    Using "puis" (then) to connect the two forms naturally.
+    Format: "En français: un/une word, puis le/la/l' word"
+    Adding "En français:" prefix forces TTS to recognize the text as French.
     """
     indefinite_form, definite_form = get_article_forms(word_data)
 
-    # Using "puis" (French for "then") creates a natural pause and connection
-    # This ensures TTS recognizes the text as French and reads both parts
-    audio_text = f"{indefinite_form}, puis {definite_form}"
+    # Prefix with "En français:" to force French language recognition
+    # This ensures TTS engine interprets all following words as French,
+    # preventing misreading of words that look similar to English (e.g., "bureau")
+    audio_text = f"En français: {indefinite_form}, puis {definite_form}"
 
     return audio_text
 
