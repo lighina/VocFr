@@ -64,12 +64,21 @@ struct MainAppView: View {
             }
             .navigationTitle("法语学习")
             .toolbar {
+                #if os(iOS)
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: { showingMenu = true }) {
                         Image(systemName: "line.3.horizontal")
                             .font(.title2)
                     }
                 }
+                #else
+                ToolbarItem(placement: .automatic) {
+                    Button(action: { showingMenu = true }) {
+                        Image(systemName: "line.3.horizontal")
+                            .font(.title2)
+                    }
+                }
+                #endif
             }
             .sheet(isPresented: $showingMenu) {
                 MenuView()
