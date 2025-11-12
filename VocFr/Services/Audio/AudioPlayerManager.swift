@@ -1,22 +1,23 @@
 import Foundation
 import AVFoundation
 import Combine
+import SwiftData
 
 class AudioPlayerManager: NSObject, ObservableObject {
     static let shared = AudioPlayerManager()
-    
+
     @Published var isPlaying: Bool = false
-    
+
     private var audioPlayer: AVAudioPlayer?
     private var completionHandler: ((Bool) -> Void)?
     private var playbackTimer: Timer?
     private var segmentEndTime: Double?
-    
+
     private override init() {
         super.init()
         setupAudioSession()
     }
-    
+
     private func setupAudioSession() {
         #if os(iOS)
         do {
@@ -31,7 +32,103 @@ class AudioPlayerManager: NSObject, ObservableObject {
         print("ℹ️ Audio session setup skipped on macOS (not required)")
         #endif
     }
-    
+
+    // MARK: - Filename Normalization
+
+    /// Normalize French text to create valid filenames.
+    /// Converts accented characters to ASCII equivalents and replaces spaces with hyphens.
+    /// This matches the Python script's normalization logic.
+    ///
+    /// Examples:
+    /// - "éponge" -> "eponge"
+    /// - "fenêtre" -> "fenetre"
+    /// - "salle de classe" -> "salle-de-classe"
+    private func normalizeFilename(_ text: String) -> String {
+        // Remove diacritics (accents) to get ASCII equivalents
+        let normalized = text.folding(options: .diacriticInsensitive, locale: .current)
+
+        // Convert to lowercase
+        let lowercased = normalized.lowercased()
+
+        // Replace spaces with hyphens
+        let spacesReplaced = lowercased.replacingOccurrences(of: " ", with: "-")
+
+        // Remove any remaining special characters (keep only letters, numbers, hyphens)
+        let cleaned = spacesReplaced.components(separatedBy: CharacterSet.alphanumerics.union(CharacterSet(charactersIn: "-")).inverted).joined()
+
+        return cleaned
+    }
+
+    // MARK: - Word Audio Playback (Phase 2.6)
+
+    /// Find and play audio for a word, trying multiple strategies:
+    /// 1. Try independent audio file (Phase 2.6): Unite{N}/Section{M}/{normalized_name}.mp3
+    /// 2. Try audio segments with timestamps (Phase 2.0-2.5): audioWithTimestamps.m4a
+    /// 3. Fallback: Try root-level audio files
+    func playWordAudio(for word: Word, completion: @escaping (Bool) -> Void) {
+        print("🎵 Playing audio for word: '\(word.canonical)'")
+
+        // Strategy 1: Try independent audio files (Phase 2.6)
+        if let audioPath = findIndependentAudioFile(for: word) {
+            print("  ✅ Found independent audio: \(audioPath)")
+            playAudio(filename: audioPath, completion: completion)
+            return
+        }
+
+        // Strategy 2: Try audio segments with timestamps (backward compatibility)
+        if let audioSegment = word.audioSegments.first,
+           let audioFile = audioSegment.audioFile {
+            print("  ✅ Using timestamp-based audio: \(audioFile.fileName) (\(audioSegment.startTime)s-\(audioSegment.endTime)s)")
+            playAudioSegment(
+                filename: audioFile.fileName,
+                startTime: audioSegment.startTime,
+                endTime: audioSegment.endTime,
+                completion: completion
+            )
+            return
+        }
+
+        // Strategy 3: No audio found
+        print("  ❌ No audio found for word: '\(word.canonical)'")
+        completion(false)
+    }
+
+    /// Find independent audio file for a word using normalized filename.
+    /// Searches in: Resources/Audio/Words/Unite{N}/Section{M}/{normalized_name}.mp3
+    private func findIndependentAudioFile(for word: Word) -> String? {
+        let normalizedName = normalizeFilename(word.canonical)
+
+        // Try to get unite and section numbers from word's section
+        if let section = word.sectionWords.first?.section {
+            let uniteNumber = section.unite.number
+            let sectionIndex = section.orderIndex
+
+            // Search path: Audio/Words/Unite{N}/Section{M}/{normalized_name}
+            let searchPaths = [
+                "Audio/Words/Unite\(uniteNumber)/Section\(sectionIndex)/\(normalizedName)",
+                // Also try without subdirectories as fallback
+                "Audio/\(normalizedName)",
+                normalizedName
+            ]
+
+            for path in searchPaths {
+                if let url = resolveURL(for: path) {
+                    print("  📁 Found audio at: \(path).mp3")
+                    return path
+                }
+            }
+        }
+
+        // Fallback: try normalized name directly
+        if resolveURL(for: normalizedName) != nil {
+            return normalizedName
+        }
+
+        return nil
+    }
+
+    // MARK: - Basic Audio Playback
+
     func playAudio(filename: String, completion: @escaping (Bool) -> Void) {
         completionHandler = completion
         

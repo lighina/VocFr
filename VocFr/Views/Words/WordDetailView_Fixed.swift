@@ -228,39 +228,24 @@ struct WordDetailViewFixed: View {
     }
     
     private func playAudio() {
-        print("🔍 当前词: \(word.canonical), 片段数量: \(word.audioSegments.count)")
-        for s in word.audioSegments {
-            print("  ▶︎ \(s.startTime)-\(s.endTime), form: \(s.formType), file: \(s.audioFile?.fileName ?? "nil")")
-        }
+        print("🔍 Playing audio for word: \(word.canonical)")
 
-        // First try to use audio segments with timestamps
-        if let audioSegment = word.audioSegments.first,
-           let audioFile = audioSegment.audioFile {
-            
-            // Use toggle playback with timestamps
-            audioManager.togglePlayback(
-                filename: audioFile.fileName,
-                startTime: audioSegment.startTime,
-                endTime: audioSegment.endTime
-            ) { success in
-                if !success {
-                    print("播放音频片段失败")
-                    self.playFallbackAudio()
-                }
-            }
+        // Toggle playback if already playing
+        if audioManager.isPlaying {
+            audioManager.stopAudio()
             return
         }
-        
-        // Fallback: try to find individual word audio files
-        if let audioFileName = findAudioFile(for: word) {
-            audioManager.togglePlayback(filename: audioFileName) { success in
-                if !success {
-                    print("播放音频失败: \(audioFileName)")
-                    self.playFallbackAudio()
-                }
+
+        // Use the new unified playWordAudio method (Phase 2.6)
+        // This automatically tries:
+        // 1. Independent audio files (Unite/Section/*.mp3)
+        // 2. Timestamp-based audio segments (backward compatible)
+        // 3. Fallback handling
+        audioManager.playWordAudio(for: word) { success in
+            if !success {
+                print("⚠️ Failed to play audio for '\(self.word.canonical)', trying fallback")
+                self.playFallbackAudio()
             }
-        } else {
-            playFallbackAudio()
         }
     }
     
