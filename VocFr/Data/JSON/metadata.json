@@ -1,0 +1,13 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2025-11-12",
+  "description": "VocFr Vocabulary Data - Metadata",
+  "totalUnites": 3,
+  "availableUnites": [
+    1,
+    2,
+    3
+  ],
+  "dataFormat": "split",
+  "audioFormat": "timestamp"
+}

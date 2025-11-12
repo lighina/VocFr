@@ -13,6 +13,16 @@ class VocabularyDataLoader {
 
     // MARK: - JSON Structures
 
+    private struct MetadataJSON: Codable {
+        let version: String
+        let lastUpdated: String
+        let description: String
+        let totalUnites: Int
+        let availableUnites: [Int]
+        let dataFormat: String
+        let audioFormat: String
+    }
+
     private struct VocabularyJSON: Codable {
         let version: String
         let lastUpdated: String
@@ -47,42 +57,91 @@ class VocabularyDataLoader {
 
     // MARK: - Public Methods
 
-    /// Load vocabulary data from JSON file
+    /// Load vocabulary data from JSON files
     /// - Returns: Array of Unite objects
     /// - Throws: Loading or parsing errors
     static func loadVocabularyData() throws -> [Unite] {
-        // Load JSON file from bundle
-        // Try root directory first, then subdirectory (for flexibility)
-        let url: URL
-        if let rootURL = Bundle.main.url(forResource: "vocabulary", withExtension: "json") {
-            url = rootURL
-            print("📁 Found vocabulary.json in bundle root directory")
-        } else if let subdirURL = Bundle.main.url(forResource: "vocabulary", withExtension: "json", subdirectory: "Data/JSON") {
-            url = subdirURL
-            print("📁 Found vocabulary.json in Data/JSON subdirectory")
-        } else {
-            throw DataLoaderError.fileNotFound("vocabulary.json not found in bundle (searched root and Data/JSON)")
+        // Try new split-file format first
+        if let metadataURL = findFile(name: "metadata", extension: "json") {
+            print("📦 Loading split-file format (metadata.json + Unite*.json)")
+            return try loadSplitFormat(metadataURL: metadataURL)
         }
 
-        // Read file data
-        let data = try Data(contentsOf: url)
+        // Fallback to old monolithic format
+        if let vocabURL = findFile(name: "vocabulary", extension: "json") {
+            print("📦 Loading monolithic format (vocabulary.json)")
+            return try loadMonolithicFormat(vocabURL: vocabURL)
+        }
 
-        // Decode JSON
+        throw DataLoaderError.fileNotFound("No vocabulary data found (tried metadata.json and vocabulary.json)")
+    }
+
+    // MARK: - Private Loading Methods
+
+    /// Load vocabulary from split files (metadata.json + Unite*.json)
+    private static func loadSplitFormat(metadataURL: URL) throws -> [Unite] {
+        // Read metadata
+        let metadataData = try Data(contentsOf: metadataURL)
+        let decoder = JSONDecoder()
+        let metadata = try decoder.decode(MetadataJSON.self, from: metadataData)
+
+        print("📖 Metadata version: \(metadata.version)")
+        print("📅 Last updated: \(metadata.lastUpdated)")
+        print("📊 Total unités: \(metadata.totalUnites)")
+        print("🎯 Data format: \(metadata.dataFormat)")
+
+        // Load each unite file
+        var globalWordCache: [String: Word] = [:]
+        var unites: [Unite] = []
+
+        for uniteNumber in metadata.availableUnites.sorted() {
+            guard let uniteURL = findFile(name: "Unite\(uniteNumber)", extension: "json") else {
+                print("⚠️  Warning: Unite\(uniteNumber).json not found, skipping")
+                continue
+            }
+
+            let uniteData = try Data(contentsOf: uniteURL)
+            let uniteJSON = try decoder.decode(UniteJSON.self, from: uniteData)
+            let unite = convertToUnite(from: uniteJSON, wordCache: &globalWordCache)
+            unites.append(unite)
+
+            let wordCount = unite.sections.reduce(0) { $0 + $1.sectionWords.count }
+            print("  ✅ Loaded Unite \(uniteNumber): \(unite.title) (\(wordCount) words)")
+        }
+
+        print("✅ Successfully loaded \(unites.count) unités with \(globalWordCache.count) unique words")
+        return unites
+    }
+
+    /// Load vocabulary from monolithic file (vocabulary.json) - Legacy support
+    private static func loadMonolithicFormat(vocabURL: URL) throws -> [Unite] {
+        let data = try Data(contentsOf: vocabURL)
         let decoder = JSONDecoder()
         let vocabularyJSON = try decoder.decode(VocabularyJSON.self, from: data)
 
         print("📖 Loaded vocabulary data version: \(vocabularyJSON.version)")
         print("📅 Last updated: \(vocabularyJSON.lastUpdated)")
 
-        // Convert JSON to SwiftData models
         var globalWordCache: [String: Word] = [:]
         let unites = vocabularyJSON.unites.map { uniteJSON in
             convertToUnite(from: uniteJSON, wordCache: &globalWordCache)
         }
 
         print("✅ Successfully loaded \(unites.count) unités with \(globalWordCache.count) unique words")
-
         return unites
+    }
+
+    /// Find a file in bundle (searches root and Data/JSON subdirectory)
+    private static func findFile(name: String, extension ext: String) -> URL? {
+        // Try root directory first
+        if let rootURL = Bundle.main.url(forResource: name, withExtension: ext) {
+            return rootURL
+        }
+        // Try Data/JSON subdirectory
+        if let subdirURL = Bundle.main.url(forResource: name, withExtension: ext, subdirectory: "Data/JSON") {
+            return subdirURL
+        }
+        return nil
     }
 
     // MARK: - Private Conversion Methods
