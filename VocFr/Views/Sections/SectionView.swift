@@ -25,6 +25,7 @@ struct SectionDetailView: View {
         }
         .navigationTitle(section.name.capitalized)
         .toolbar {
+            #if os(iOS)
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink(destination: PracticeView(section: section)) {
                     HStack {
@@ -33,6 +34,16 @@ struct SectionDetailView: View {
                     }
                 }
             }
+            #else
+            ToolbarItem(placement: .automatic) {
+                NavigationLink(destination: PracticeView(section: section)) {
+                    HStack {
+                        Image(systemName: "play.circle.fill")
+                        Text("练习")
+                    }
+                }
+            }
+            #endif
         }
     }
 }

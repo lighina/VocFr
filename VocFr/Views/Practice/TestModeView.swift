@@ -23,7 +23,9 @@ struct TestModeView: View {
                 .foregroundColor(.secondary)
         }
         .navigationTitle("答题")
+        #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+        #endif
     }
 }
 
