@@ -52,8 +52,16 @@ class VocabularyDataLoader {
     /// - Throws: Loading or parsing errors
     static func loadVocabularyData() throws -> [Unite] {
         // Load JSON file from bundle
-        guard let url = Bundle.main.url(forResource: "vocabulary", withExtension: "json", subdirectory: "Data/JSON") else {
-            throw DataLoaderError.fileNotFound("vocabulary.json not found in bundle")
+        // Try root directory first, then subdirectory (for flexibility)
+        let url: URL
+        if let rootURL = Bundle.main.url(forResource: "vocabulary", withExtension: "json") {
+            url = rootURL
+            print("📁 Found vocabulary.json in bundle root directory")
+        } else if let subdirURL = Bundle.main.url(forResource: "vocabulary", withExtension: "json", subdirectory: "Data/JSON") {
+            url = subdirURL
+            print("📁 Found vocabulary.json in Data/JSON subdirectory")
+        } else {
+            throw DataLoaderError.fileNotFound("vocabulary.json not found in bundle (searched root and Data/JSON)")
         }
 
         // Read file data
