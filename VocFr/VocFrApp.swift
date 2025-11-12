@@ -3,13 +3,51 @@ import SwiftData
 
 @main
 struct VocFrApp: App {
+    init() {
+        // 诊断：检查 vocabulary.json 是否在 bundle 中
+        print("\n" + String(repeating: "=", count: 60))
+        print("🔍 检查 vocabulary.json Bundle 配置")
+        print(String(repeating: "=", count: 60))
+
+        if let jsonURL = Bundle.main.url(forResource: "vocabulary", withExtension: "json") {
+            print("✅ vocabulary.json 找到了！")
+            print("   路径：\(jsonURL.path)")
+        } else {
+            print("❌ vocabulary.json 未找到在 bundle 中")
+            print("\n📦 尝试查找 bundle 中的所有 JSON 文件：")
+
+            if let resourcePath = Bundle.main.resourcePath {
+                let fileManager = FileManager.default
+                var jsonFiles: [String] = []
+
+                if let enumerator = fileManager.enumerator(atPath: resourcePath) {
+                    while let file = enumerator.nextObject() as? String {
+                        if file.hasSuffix(".json") {
+                            jsonFiles.append(file)
+                        }
+                    }
+                }
+
+                if jsonFiles.isEmpty {
+                    print("   ❌ Bundle 中没有任何 .json 文件")
+                } else {
+                    print("   找到 \(jsonFiles.count) 个 JSON 文件：")
+                    for file in jsonFiles {
+                        print("     - \(file)")
+                    }
+                }
+            }
+        }
+        print(String(repeating: "=", count: 60) + "\n")
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .modelContainer(createModelContainer())
         }
     }
-    
+
     private func createModelContainer() -> ModelContainer {
         let schema = Schema([
             Unite.self,
