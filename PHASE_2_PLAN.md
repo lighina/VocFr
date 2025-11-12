@@ -161,6 +161,65 @@ VocFr/Data/JSON/
 
 **总计**: 5-7 小时
 
-## 下一步
+## Phase 2 完成状态
 
-开始 Step 1：创建目录结构和 JSON 模板
+### Phase 2.0-2.4 (已完成 ✅)
+- ✅ 创建 vocabulary.json (monolithic format)
+- ✅ 实现 VocabularyDataLoader.swift
+- ✅ 重构 FrenchVocabularySeeder
+- ✅ 所有功能测试通过
+
+### Phase 2.5: 数据文件拆分 (已完成 ✅)
+
+**完成日期**: 2025-11-12
+
+**实施内容**:
+1. ✅ 创建 `split_vocabulary.py` 工具
+2. ✅ 生成分离文件:
+   - `metadata.json` (229 bytes, 元数据)
+   - `Unite1.json` (18 KB, 77 words, À l'école)
+   - `Unite2.json` (20 KB, 88 words, C'est la fête)
+   - `Unite3.json` (15 KB, 63 words, Mon chez-moi)
+3. ✅ 更新 VocabularyDataLoader.swift:
+   - 添加 `loadSplitFormat()` 方法
+   - 添加 `loadMonolithicFormat()` 后向兼容
+   - 添加 `findFile()` 辅助方法
+4. ✅ 在 Xcode 中测试验证通过
+5. ✅ 创建 PHASE_2.5_TESTING.md 测试指南
+6. ✅ Git 提交并推送
+
+**测试结果**:
+```
+📦 Loading split-file format (metadata.json + Unite*.json)
+📖 Metadata version: 1.0
+📅 Last updated: 2025-11-12
+📊 Total unités: 3
+🎯 Data format: split
+  ✅ Loaded Unite 1: À l'école (77 words)
+  ✅ Loaded Unite 2: C'est la fête (88 words)
+  ✅ Loaded Unite 3: Mon chez-moi (63 words)
+✅ Successfully loaded 3 unités with 188 unique words
+```
+
+**优势验证**:
+- ✅ 文件大小合理 (~500-700 行/文件)
+- ✅ Git 工作流改善（修改不同 unite 不会冲突）
+- ✅ 向后兼容（fallback 到 vocabulary.json）
+- ✅ 可扩展性（易于添加 Unite4.json, Unite5.json...）
+
+## 下一步选项
+
+### 选项 A: Phase 3 - MVVM 架构重构
+- 分离视图和业务逻辑
+- 提高代码可测试性
+- 改善代码组织结构
+
+### 选项 B: Phase 2.6 - 音频架构重构
+- 当前：单一音频文件 + 时间戳
+- 目标：每个单词独立音频文件
+- 建议：先为 10-20 个单词生成测试音频
+
+### 选项 C: 内容扩展
+- 添加新的 unités
+- 生成缺失的图片资源
+- 生成音频文件
