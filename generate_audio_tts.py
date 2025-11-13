@@ -119,6 +119,8 @@ def generate_audio_file(
     client: OpenAI,
     word_data: Dict,
     output_dir: Path,
+    unite_num: int = 0,
+    section_num: int = 0,
     voice: str = "alloy",
     model: str = "gpt-4o-mini-tts",
     speed: float = 1.0,
@@ -131,6 +133,8 @@ def generate_audio_file(
         client: OpenAI client instance
         word_data: Dictionary containing word information
         output_dir: Directory to save audio files
+        unite_num: Unite number (for filename prefix)
+        section_num: Section number (for filename prefix)
         voice: TTS voice to use (alloy, ash, ballad, coral, echo, fable, nova, onyx, sage, shimmer)
         model: TTS model (gpt-4o-mini-tts, tts-1, or tts-1-hd)
         speed: Speech speed (0.25 to 4.0, default 1.0)
@@ -145,9 +149,14 @@ def generate_audio_file(
     # Generate audio text
     audio_text = generate_audio_text(word_data)
 
-    # Create filename
+    # Create filename with Unite/Section prefix to avoid duplicates
+    # Format: u{N}s{M}-{word}.mp3 (e.g., u1s1-bureau.mp3, u2s4-aimer.mp3)
     normalized_name = normalize_filename(canonical)
-    output_file = output_dir / f"{normalized_name}.mp3"
+    if unite_num > 0 and section_num > 0:
+        filename = f"u{unite_num}s{section_num}-{normalized_name}.mp3"
+    else:
+        filename = f"{normalized_name}.mp3"
+    output_file = output_dir / filename
 
     # Check if file already exists
     if output_file.exists():
@@ -243,7 +252,15 @@ def generate_audio_for_section(
     success_count = 0
     for i, word_data in enumerate(words, 1):
         print(f"[{i}/{len(words)}]")
-        result = generate_audio_file(client, word_data, output_dir, voice, model, speed, instructions)
+        result = generate_audio_file(
+            client, word_data, output_dir,
+            unite_num=unite_num,
+            section_num=section_num,
+            voice=voice,
+            model=model,
+            speed=speed,
+            instructions=instructions
+        )
         if result:
             success_count += 1
         print()  # Empty line for readability

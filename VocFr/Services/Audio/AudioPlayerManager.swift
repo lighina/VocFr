@@ -94,7 +94,10 @@ class AudioPlayerManager: NSObject, ObservableObject {
     }
 
     /// Find independent audio file for a word using normalized filename.
-    /// Searches in: Resources/Audio/Words/Unite{N}/Section{M}/{normalized_name}.mp3
+    /// Searches multiple locations with different naming strategies:
+    /// 1. Flat structure with prefix: u{N}s{M}-{word}.mp3 (for Xcode flat bundle)
+    /// 2. Directory structure: Audio/Words/Unite{N}/Section{M}/{word}.mp3 (for folder references)
+    /// 3. Root level fallback: {word}.mp3
     private func findIndependentAudioFile(for word: Word) -> String? {
         let normalizedName = normalizeFilename(word.canonical)
 
@@ -104,11 +107,20 @@ class AudioPlayerManager: NSObject, ObservableObject {
             let uniteNumber = unite.number
             let sectionIndex = section.orderIndex
 
-            // Search path: Audio/Words/Unite{N}/Section{M}/{normalized_name}
+            // Search paths (in order of preference):
             let searchPaths = [
+                // Strategy 1: Flat structure with prefix (Xcode 16 flat bundle)
+                // Format: u{N}s{M}-{word}.mp3 (e.g., u1s1-bureau.mp3, u2s4-aimer.mp3)
+                "u\(uniteNumber)s\(sectionIndex)-\(normalizedName)",
+
+                // Strategy 2: Directory structure (if folder references work)
+                // Format: Audio/Words/Unite{N}/Section{M}/{word}.mp3
                 "Audio/Words/Unite\(uniteNumber)/Section\(sectionIndex)/\(normalizedName)",
-                // Also try without subdirectories as fallback
+
+                // Strategy 3: Legacy directory structure
                 "Audio/\(normalizedName)",
+
+                // Strategy 4: Root level (backward compatibility)
                 normalizedName
             ]
 
@@ -120,7 +132,7 @@ class AudioPlayerManager: NSObject, ObservableObject {
             }
         }
 
-        // Fallback: try normalized name directly
+        // Final fallback: try normalized name directly
         if resolveURL(for: normalizedName) != nil {
             return normalizedName
         }
