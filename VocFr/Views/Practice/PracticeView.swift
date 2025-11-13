@@ -2,49 +2,44 @@ import SwiftUI
 import SwiftData
 
 struct PracticeView: View {
-    let section: Section
     @Environment(\.modelContext) private var modelContext
-    @State private var currentWordIndex = 0
-    @State private var showAnswer = false
-    @State private var correctCount = 0
-    @State private var isCompleted = false
-    
-    private var words: [Word] {
-        section.sectionWords
-            .sorted(by: { $0.orderIndex < $1.orderIndex })
-            .compactMap { $0.word }
+    @State private var viewModel: PracticeViewModel
+
+    init(section: Section) {
+        // Initialize viewModel with section
+        // modelContext will be set in onAppear
+        self._viewModel = State(initialValue: PracticeViewModel(section: section, modelContext: nil))
     }
-    
-    private var currentWord: Word? {
-        guard currentWordIndex < words.count else { return nil }
-        return words[currentWordIndex]
-    }
-    
+
     var body: some View {
         VStack(spacing: 20) {
-            if isCompleted {
+            if viewModel.isCompleted {
                 completedView
-            } else if let word = currentWord {
+            } else if let word = viewModel.currentWord {
                 practiceCard(for: word)
             } else {
                 Text("没有单词可以练习")
             }
         }
         .padding()
-        .navigationTitle("练习: \(section.name)")
+        .navigationTitle("练习: \(viewModel.sectionName)")
         #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         #endif
+        .onAppear {
+            // Set modelContext after view appears
+            viewModel = PracticeViewModel(section: viewModel.section, modelContext: modelContext)
+        }
     }
     
     private func practiceCard(for word: Word) -> some View {
         VStack(spacing: 20) {
             // Progress indicator
             HStack {
-                Text("\(currentWordIndex + 1) / \(words.count)")
+                Text(viewModel.progressText)
                     .font(.caption)
                 Spacer()
-                Text("正确: \(correctCount)")
+                Text(viewModel.correctCountText)
                     .font(.caption)
                     .foregroundColor(.green)
             }
@@ -74,7 +69,7 @@ struct PracticeView: View {
                 }
                 
                 // Chinese translation (show after tap)
-                if showAnswer {
+                if viewModel.showAnswer {
                     Text(word.chinese)
                         .font(.title)
                         .foregroundColor(.primary)
@@ -93,23 +88,22 @@ struct PracticeView: View {
             Spacer()
             
             // Action buttons
-            if showAnswer {
+            if viewModel.showAnswer {
                 HStack(spacing: 20) {
                     Button("答错了") {
-                        nextWord()
+                        viewModel.markIncorrect()
                     }
                     .buttonStyle(.bordered)
-                    
+
                     Button("答对了") {
-                        correctCount += 1
-                        nextWord()
+                        viewModel.markCorrect()
                     }
                     .buttonStyle(.borderedProminent)
                 }
             } else {
                 Button("显示答案") {
                     withAnimation(.spring(response: 0.5)) {
-                        showAnswer = true
+                        viewModel.showAnswerAction()
                     }
                 }
                 .buttonStyle(.borderedProminent)
@@ -123,62 +117,24 @@ struct PracticeView: View {
             Image(systemName: "checkmark.circle.fill")
                 .font(.system(size: 80))
                 .foregroundColor(.green)
-            
+
             Text("练习完成！")
                 .font(.largeTitle)
                 .fontWeight(.bold)
-            
-            Text("正确率: \(Int(Double(correctCount) / Double(words.count) * 100))%")
+
+            Text(viewModel.accuracyText)
                 .font(.title2)
                 .foregroundColor(.secondary)
-            
-            Text("答对 \(correctCount) / \(words.count) 个单词")
+
+            Text(viewModel.resultsSummaryText)
                 .font(.body)
                 .foregroundColor(.secondary)
-            
+
             Button("重新练习") {
-                restartPractice()
+                viewModel.restartPractice()
             }
             .buttonStyle(.borderedProminent)
             .padding(.top)
-        }
-    }
-    
-    private func nextWord() {
-        currentWordIndex += 1
-        showAnswer = false
-        
-        if currentWordIndex >= words.count {
-            withAnimation {
-                isCompleted = true
-            }
-            savePracticeRecord()
-        }
-    }
-    
-    private func restartPractice() {
-        currentWordIndex = 0
-        showAnswer = false
-        correctCount = 0
-        isCompleted = false
-    }
-    
-    private func savePracticeRecord() {
-        let accuracy = Double(correctCount) / Double(words.count)
-        let record = PracticeRecord(
-            sessionDate: Date(),
-            sessionType: "Section Practice",
-            wordsStudied: words.count,
-            accuracy: accuracy,
-            timeSpent: 0 // TODO: Implement time tracking
-        )
-        
-        modelContext.insert(record)
-        
-        do {
-            try modelContext.save()
-        } catch {
-            print("保存练习记录失败: \(error)")
         }
     }
 }
