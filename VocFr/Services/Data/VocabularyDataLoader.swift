@@ -179,14 +179,19 @@ class VocabularyDataLoader {
         var sectionWords: [SectionWord] = []
 
         for (index, wordJSON) in json.words.enumerated() {
+            // Create unique cache key: canonical + partOfSpeech
+            // This ensures words with same spelling but different meanings/parts of speech
+            // (e.g., "orange" as adjective vs. noun) are treated as separate entities
+            let cacheKey = "\(wordJSON.canonical)-\(wordJSON.partOfSpeech)"
+
             // Check cache first
             let word: Word
-            if let cachedWord = wordCache[wordJSON.canonical] {
+            if let cachedWord = wordCache[cacheKey] {
                 word = cachedWord
             } else {
                 // Create new word
                 word = convertToWord(from: wordJSON)
-                wordCache[wordJSON.canonical] = word
+                wordCache[cacheKey] = word
             }
 
             // Create SectionWord relationship
@@ -218,8 +223,13 @@ class VocabularyDataLoader {
         // Generate image name (normalized, ASCII-only)
         let imageName = normalizeForAssetName(json.canonical) + "_image"
 
+        // Generate unique ID: canonical + partOfSpeech
+        // This ensures words with same spelling but different meanings
+        // (e.g., "orange" as adjective vs. noun) have unique IDs
+        let wordId = "\(json.canonical)-\(json.partOfSpeech)"
+
         let word = Word(
-            id: json.canonical,
+            id: wordId,
             canonical: json.canonical,
             chinese: json.chinese,
             imageName: imageName,
