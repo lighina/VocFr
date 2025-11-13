@@ -94,14 +94,23 @@ def get_article_forms(word_data: Dict) -> tuple[str, str]:
 def generate_audio_text(word_data: Dict) -> str:
     """
     Generate the text to be spoken by TTS.
-    Format: "un/une word. le/la/l' word"
+
+    For nouns: "un/une word. le/la/l' word" (with articles)
+    For other parts of speech: "word" (no articles)
+
     Simple, clean format - language recognition is handled by instructions parameter.
     """
-    indefinite_form, definite_form = get_article_forms(word_data)
+    part_of_speech = word_data.get('partOfSpeech', 'noun')
 
-    # Simple format: two forms separated by period (long pause)
-    # The period creates a pause, and instructions tell TTS not to read it
-    audio_text = f"{indefinite_form}. {definite_form}"
+    # Only add articles for nouns
+    if part_of_speech == 'noun':
+        indefinite_form, definite_form = get_article_forms(word_data)
+        # Nouns: two forms separated by period (long pause)
+        audio_text = f"{indefinite_form}. {definite_form}"
+    else:
+        # Adjectives, verbs, numbers, etc.: just the word itself
+        canonical = word_data['canonical']
+        audio_text = canonical
 
     return audio_text
 
@@ -285,13 +294,13 @@ def main():
     parser.add_argument(
         '--speed',
         type=float,
-        default=0.8,
-        help='Speech speed (0.25 to 4.0, default: 0.8 for clearer French pronunciation)'
+        default=1.0,
+        help='Speech speed (0.25 to 4.0, default: 1.0)'
     )
     parser.add_argument(
         '--instructions',
         type=str,
-        default='Speak français in a clear, slow, educational tone. "." is a long pause without being read.',
+        default='Speak français slowly and clearly for language learners. Pause at periods.',
         help='Instructions for gpt-4o-mini-tts model to control speech characteristics'
     )
 

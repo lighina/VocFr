@@ -127,13 +127,13 @@ def main():
     parser.add_argument(
         '--speed',
         type=float,
-        default=0.8,
-        help='Speech speed (default: 0.8)'
+        default=1.0,
+        help='Speech speed (default: 1.0)'
     )
     parser.add_argument(
         '--instructions',
         type=str,
-        default='Speak français in a clear, slow, educational tone. "." is a long pause without being read.',
+        default='Speak français slowly and clearly for language learners. Pause at periods.',
         help='Instructions for gpt-4o-mini-tts model'
     )
     parser.add_argument(
