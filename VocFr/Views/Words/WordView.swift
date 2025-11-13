@@ -467,44 +467,22 @@ struct WordDetailView: View {
     }
     
     private func playAudio(for word: Word) {
-        // First try to use audio segments with timestamps (preferred method)
-        if let audioSegment = word.audioSegments.first,
-           let audioFile = audioSegment.audioFile {
-            
-            print("🔊 播放单词 '\(word.canonical)' 的音频片段:")
-            print("   文件: \(audioFile.filePath)")
-            print("   起始时间: \(audioSegment.startTime)s")
-            print("   结束时间: \(audioSegment.endTime)s")
-            print("   片段长度: \(audioSegment.endTime - audioSegment.startTime)s")
-            
-            // Use toggle playback with timestamps for precise word pronunciation
-            audioManager.togglePlayback(
-                filename: audioFile.fileName,
-                startTime: audioSegment.startTime,
-                endTime: audioSegment.endTime
-            ) { success in
-                if success {
-                    print("✅ 成功播放单词 '\(word.canonical)' 的音频片段")
-                } else {
-                    print("❌ 播放音频片段失败，尝试备用方法")
-                    self.playFallbackAudio(for: word)
-                }
-            }
+        // Toggle playback if already playing
+        if audioManager.isPlaying {
+            audioManager.stopAudio()
             return
         }
-        
-        // Fallback: try to find individual word audio files
-        if let audioFileName = findAudioFile(for: word) {
-            print("🔊 播放单词 '\(word.canonical)' 的独立音频文件: \(audioFileName)")
-            audioManager.togglePlayback(filename: audioFileName) { success in
-                if !success {
-                    print("播放独立音频失败: \(audioFileName)")
-                    self.playFallbackAudio(for: word)
-                }
+
+        // Use the new unified playWordAudio method (Phase 2.6)
+        // This automatically tries:
+        // 1. Independent audio files (Unite/Section/*.mp3)
+        // 2. Timestamp-based audio segments (backward compatible)
+        // 3. Fallback handling
+        audioManager.playWordAudio(for: word) { success in
+            if !success {
+                print("⚠️ Failed to play audio for '\(word.canonical)', trying fallback")
+                self.playFallbackAudio(for: word)
             }
-        } else {
-            print("⚠️ 未找到单词 '\(word.canonical)' 的音频片段或独立文件，播放完整音频")
-            playFallbackAudio(for: word)
         }
     }
     
