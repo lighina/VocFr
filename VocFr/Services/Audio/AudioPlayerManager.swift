@@ -65,11 +65,16 @@ class AudioPlayerManager: NSObject, ObservableObject {
     /// 1. Try independent audio file (Phase 2.6): Unite{N}/Section{M}/{normalized_name}.mp3
     /// 2. Try audio segments with timestamps (Phase 2.0-2.5): audioWithTimestamps.m4a
     /// 3. Fallback: Try root-level audio files
-    func playWordAudio(for word: Word, completion: @escaping (Bool) -> Void) {
+    ///
+    /// - Parameters:
+    ///   - word: The word to play audio for
+    ///   - section: Optional section context (important for words that appear in multiple sections)
+    ///   - completion: Callback with success/failure status
+    func playWordAudio(for word: Word, in section: Section? = nil, completion: @escaping (Bool) -> Void) {
         print("🎵 Playing audio for word: '\(word.canonical)'")
 
         // Strategy 1: Try independent audio files (Phase 2.6)
-        if let audioPath = findIndependentAudioFile(for: word) {
+        if let audioPath = findIndependentAudioFile(for: word, in: section) {
             print("  ✅ Found independent audio: \(audioPath)")
             playAudio(filename: audioPath, completion: completion)
             return
@@ -98,14 +103,21 @@ class AudioPlayerManager: NSObject, ObservableObject {
     /// 1. Flat structure with prefix: u{N}s{M}-{word}.mp3 (for Xcode flat bundle)
     /// 2. Directory structure: Audio/Words/Unite{N}/Section{M}/{word}.mp3 (for folder references)
     /// 3. Root level fallback: {word}.mp3
-    private func findIndependentAudioFile(for word: Word) -> String? {
+    ///
+    /// - Parameters:
+    ///   - word: The word to find audio for
+    ///   - section: Optional section context (if provided, uses this instead of word's first section)
+    private func findIndependentAudioFile(for word: Word, in section: Section?) -> String? {
         let normalizedName = normalizeFilename(word.canonical)
 
-        // Try to get unite and section numbers from word's section
-        if let section = word.sectionWords.first?.section,
-           let unite = section.unite {
+        // Use provided section or fall back to word's first section
+        let targetSection = section ?? word.sectionWords.first?.section
+
+        // Try to get unite and section numbers from section
+        if let targetSection = targetSection,
+           let unite = targetSection.unite {
             let uniteNumber = unite.number
-            let sectionIndex = section.orderIndex
+            let sectionIndex = targetSection.orderIndex
 
             print("  🔍 Searching for: Unite \(uniteNumber), Section \(sectionIndex), word '\(normalizedName)'")
 

@@ -474,11 +474,13 @@ struct WordDetailView: View {
         }
 
         // Use the new unified playWordAudio method (Phase 2.6)
+        // Pass the section context to handle words that appear in multiple sections
+        // (e.g., "orange" as both adjective in U1S2 and noun in U2S2)
         // This automatically tries:
         // 1. Independent audio files (Unite/Section/*.mp3)
         // 2. Timestamp-based audio segments (backward compatible)
         // 3. Fallback handling
-        audioManager.playWordAudio(for: word) { success in
+        audioManager.playWordAudio(for: word, in: section) { success in
             if !success {
                 print("⚠️ Failed to play audio for '\(word.canonical)', trying fallback")
                 self.playFallbackAudio(for: word)
