@@ -107,6 +107,8 @@ class AudioPlayerManager: NSObject, ObservableObject {
             let uniteNumber = unite.number
             let sectionIndex = section.orderIndex
 
+            print("  🔍 Searching for: Unite \(uniteNumber), Section \(sectionIndex), word '\(normalizedName)'")
+
             // Search paths (in order of preference):
             let searchPaths = [
                 // Strategy 1: Flat structure with prefix (Xcode 16 flat bundle)
@@ -125,11 +127,14 @@ class AudioPlayerManager: NSObject, ObservableObject {
             ]
 
             for path in searchPaths {
+                print("  🔍 Trying path: \(path)")
                 if let url = resolveURL(for: path) {
-                    print("  📁 Found audio at: \(path).mp3")
+                    print("  ✅ Found audio at: \(path) → \(url.lastPathComponent)")
                     return path
                 }
             }
+
+            print("  ❌ No audio found in any search path")
         }
 
         // Final fallback: try normalized name directly
