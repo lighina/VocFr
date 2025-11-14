@@ -20,9 +20,9 @@ struct UnitsView: View {
                 // Stars progress section (Part B.1)
                 Section {
                     StarsProgressView(modelContext: modelContext)
+                        .listRowInsets(EdgeInsets())
+                        .listRowBackground(Color.clear)
                 }
-                .listRowInsets(EdgeInsets())
-                .listRowBackground(Color.clear)
 
                 // Units list
                 Section {
