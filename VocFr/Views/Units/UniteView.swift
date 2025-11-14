@@ -127,7 +127,7 @@ struct SectionRowView: View {
         VStack(alignment: .leading, spacing: 4) {
             Text(section.name.capitalized)
                 .font(.headline)
-            Text("\(section.sectionWords.count) 个单词")
+            Text("section.words.count".localized(section.sectionWords.count))
                 .font(.caption)
                 .foregroundColor(.secondary)
         }

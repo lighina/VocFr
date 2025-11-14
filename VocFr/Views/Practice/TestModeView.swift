@@ -14,15 +14,15 @@ struct TestModeView: View {
             Image(systemName: "questionmark.circle")
                 .font(.system(size: 80))
                 .foregroundColor(.green)
-            
-            Text("答题模式")
+
+            Text("test.mode.title".localized)
                 .font(.title)
                 .fontWeight(.bold)
-            
-            Text("测试功能正在开发中")
+
+            Text("test.coming.soon".localized)
                 .foregroundColor(.secondary)
         }
-        .navigationTitle("答题")
+        .navigationTitle("test.title".localized)
         #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         #endif

@@ -83,10 +83,26 @@
 // MARK: - Progress View
 
 "progress.title" = "进度";
+"progress.no.data" = "暂无学习进度";
 "progress.total.stars" = "总星数";
-"progress.current.streak" = "当前连续天数";
+"progress.current.streak" = "连续天数";
+"progress.last.study" = "上次学习: %@";
+"progress.recent.activity" = "最近活动";
+"progress.no.records" = "暂无练习记录";
+"progress.words.count" = "%d 个单词";
+"progress.accuracy.label" = "%d%% 正确率";
 "progress.practice.sessions" = "练习次数";
 "progress.words.learned" = "已学单词";
+
+// MARK: - Test Mode View
+
+"test.title" = "答题";
+"test.mode.title" = "答题模式";
+"test.coming.soon" = "测试功能正在开发中";
+
+// MARK: - Section Detail View
+
+"section.words.count" = "%d 个单词";
 
 // MARK: - Common
 

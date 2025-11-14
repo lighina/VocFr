@@ -18,12 +18,12 @@ struct ProgressView: View {
                     recentActivity
                     Spacer()
                 } else {
-                    Text("暂无学习进度")
+                    Text("progress.no.data".localized)
                         .foregroundColor(.secondary)
                 }
             }
             .padding()
-            .navigationTitle("学习进度")
+            .navigationTitle("progress.title".localized)
         }
     }
     
@@ -38,11 +38,11 @@ struct ProgressView: View {
                     Text("\(progress.totalStars)")
                         .font(.title2)
                         .fontWeight(.bold)
-                    Text("总星数")
+                    Text("progress.total.stars".localized)
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
-                
+
                 VStack {
                     Image(systemName: "flame.fill")
                         .font(.system(size: 40))
@@ -50,7 +50,7 @@ struct ProgressView: View {
                     Text("\(progress.currentStreak)")
                         .font(.title2)
                         .fontWeight(.bold)
-                    Text("连续天数")
+                    Text("progress.current.streak".localized)
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -61,7 +61,8 @@ struct ProgressView: View {
             
             // Last study date
             if let lastStudy = progress.lastStudyDate {
-                Text("上次学习: \(lastStudy, format: .dateTime.day().month().year())")
+                let dateString = lastStudy.formatted(.dateTime.day().month().year())
+                Text("progress.last.study".localized(dateString))
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -70,12 +71,12 @@ struct ProgressView: View {
     
     private var recentActivity: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("最近活动")
+            Text("progress.recent.activity".localized)
                 .font(.headline)
                 .padding(.horizontal)
-            
+
             if practiceRecords.isEmpty {
-                Text("暂无练习记录")
+                Text("progress.no.records".localized)
                     .foregroundColor(.secondary)
                     .padding()
             } else {
@@ -105,10 +106,10 @@ struct ProgressView: View {
             Spacer()
             
             VStack(alignment: .trailing, spacing: 4) {
-                Text("\(record.wordsStudied) 个单词")
+                Text("progress.words.count".localized(record.wordsStudied))
                     .font(.caption)
-                
-                Text("\(Int(record.accuracy * 100))% 正确率")
+
+                Text("progress.accuracy.label".localized(Int(record.accuracy * 100)))
                     .font(.caption)
                     .foregroundColor(record.accuracy >= 0.8 ? .green : (record.accuracy >= 0.6 ? .orange : .red))
             }

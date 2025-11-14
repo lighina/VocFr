@@ -65,11 +65,13 @@ class LanguageManager {
            let language = AppLanguage(rawValue: savedLanguage) {
             self.currentLanguage = language
         } else {
-            // Default to English or Chinese based on system language
+            // Default language is English
+            // Only use Chinese if system language is Chinese
             let systemLanguage = Locale.current.language.languageCode?.identifier ?? "en"
             if systemLanguage.hasPrefix("zh") {
                 self.currentLanguage = .chinese
             } else {
+                // Default to English for all other languages
                 self.currentLanguage = .english
             }
         }

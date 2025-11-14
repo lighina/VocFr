@@ -83,10 +83,26 @@
 // MARK: - Progress View
 
 "progress.title" = "Progress";
+"progress.no.data" = "No learning progress yet";
 "progress.total.stars" = "Total Stars";
 "progress.current.streak" = "Current Streak";
+"progress.last.study" = "Last Study: %@";
+"progress.recent.activity" = "Recent Activity";
+"progress.no.records" = "No practice records yet";
+"progress.words.count" = "%d words";
+"progress.accuracy.label" = "%d%% accuracy";
 "progress.practice.sessions" = "Practice Sessions";
 "progress.words.learned" = "Words Learned";
+
+// MARK: - Test Mode View
+
+"test.title" = "Test";
+"test.mode.title" = "Test Mode";
+"test.coming.soon" = "Test feature is under development";
+
+// MARK: - Section Detail View
+
+"section.words.count" = "%d words";
 
 // MARK: - Common
 
