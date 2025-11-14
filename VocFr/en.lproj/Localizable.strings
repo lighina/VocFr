@@ -75,6 +75,10 @@
 "settings.language.description" = "App Interface Language";
 "settings.data.title" = "Data Management";
 "settings.data.description" = "Import, Export, Reset";
+"settings.data.reimport" = "Reimport Data";
+"settings.data.export" = "Export Learning Report";
+"settings.about.title" = "About";
+"settings.about.version" = "Version";
 
 // MARK: - Progress View
 

@@ -10,30 +10,47 @@ import SwiftData
 
 struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
-    
+    @State private var languageManager = LanguageManager.shared
+
     var body: some View {
         NavigationView {
             List {
-                SwiftUI.Section("数据管理") {
-                    Button("重新导入数据") {
+                // Language selection section
+                SwiftUI.Section {
+                    Picker("settings.language.title".localized, selection: $languageManager.currentLanguage) {
+                        ForEach(AppLanguage.allCases) { language in
+                            Text(language.displayName)
+                                .tag(language)
+                        }
+                    }
+                } header: {
+                    Text("settings.language.title".localized)
+                } footer: {
+                    Text("settings.language.description".localized)
+                }
+
+                // Data management section
+                SwiftUI.Section("settings.data.title".localized) {
+                    Button("settings.data.reimport".localized) {
                         reimportData()
                     }
-                    
-                    Button("导出学习报告") {
+
+                    Button("settings.data.export".localized) {
                         exportReport()
                     }
                 }
-                
-                SwiftUI.Section("关于") {
+
+                // About section
+                SwiftUI.Section("settings.about.title".localized) {
                     HStack {
-                        Text("版本")
+                        Text("settings.about.version".localized)
                         Spacer()
                         Text("1.0.0")
                             .foregroundColor(.secondary)
                     }
                 }
             }
-            .navigationTitle("设置")
+            .navigationTitle("settings.title".localized)
         }
     }
     
@@ -52,9 +69,9 @@ struct SettingsView: View {
             try FrenchVocabularySeeder.seedAllData(to: modelContext)
             FrenchVocabularySeeder.addAudioTimestamps(to: modelContext)
             
-            print("数据重新导入完成")
+            print("✅ Data reimport completed")
         } catch {
-            print("重新导入数据失败: \(error)")
+            print("❌ Data reimport failed: \(error)")
         }
     }
     
