@@ -55,6 +55,18 @@
 
 "section.button.practice" = "练习";
 
+// MARK: - Main App View
+
+"main.title" = "法语学习";
+"main.select.mode" = "选择学习模式";
+"main.select.mode.subtitle" = "选择适合您的学习方式";
+"main.study.title" = "学习";
+"main.study.description" = "系统化学习法语词汇";
+"main.test.title" = "答题";
+"main.test.description" = "测试您的法语水平";
+"main.game.title" = "游戏";
+"main.game.description" = "敬请期待";
+
 // MARK: - Menu View
 
 "menu.title" = "菜单";

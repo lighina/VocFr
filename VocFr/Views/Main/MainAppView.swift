@@ -15,54 +15,54 @@ struct MainAppView: View {
             VStack(spacing: 30) {
                 // 欢迎信息
                 VStack(spacing: 10) {
-                    Text("选择学习模式")
+                    Text("main.select.mode".localized)
                         .font(.title)
                         .fontWeight(.bold)
-                    
-                    Text("选择适合您的学习方式")
+
+                    Text("main.select.mode.subtitle".localized)
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
                 .padding(.top)
-                
+
                 Spacer()
-                
+
                 // 三个学习选项（堆积式布局）
                 VStack(spacing: 20) {
                     // 学习模式
                     NavigationLink(destination: UnitsView()) {
                         MainModeButton(
                             icon: "book.closed",
-                            title: "学习",
-                            description: "系统化学习法语词汇",
+                            title: "main.study.title".localized,
+                            description: "main.study.description".localized,
                             color: .blue
                         )
                     }
-                    
+
                     // 答题模式
                     NavigationLink(destination: TestModeView()) {
                         MainModeButton(
                             icon: "questionmark.circle",
-                            title: "答题",
-                            description: "测试您的法语水平",
+                            title: "main.test.title".localized,
+                            description: "main.test.description".localized,
                             color: .green
                         )
                     }
-                    
+
                     // 游戏模式
                     MainModeButton(
                         icon: "gamecontroller",
-                        title: "游戏",
-                        description: "敬请期待",
+                        title: "main.game.title".localized,
+                        description: "main.game.description".localized,
                         color: .purple,
                         isDisabled: true
                     )
                 }
                 .padding(.horizontal)
-                
+
                 Spacer()
             }
-            .navigationTitle("法语学习")
+            .navigationTitle("main.title".localized)
             .toolbar {
                 #if os(iOS)
                 ToolbarItem(placement: .navigationBarLeading) {

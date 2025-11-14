@@ -55,6 +55,18 @@
 
 "section.button.practice" = "Practice";
 
+// MARK: - Main App View
+
+"main.title" = "French Learning";
+"main.select.mode" = "Select Learning Mode";
+"main.select.mode.subtitle" = "Choose your learning style";
+"main.study.title" = "Study";
+"main.study.description" = "Systematic French vocabulary learning";
+"main.test.title" = "Test";
+"main.test.description" = "Test your French proficiency";
+"main.game.title" = "Game";
+"main.game.description" = "Coming soon";
+
 // MARK: - Menu View
 
 "menu.title" = "Menu";
