@@ -33,11 +33,11 @@ struct UnitsView: View {
                     .opacity(unite.isUnlocked ? 1.0 : 0.6)
                 }
             }
-            .navigationTitle("法语学习")
+            .navigationTitle("units.title".localized)
             .toolbar {
                 ToolbarItem {
                     Button(action: importData) {
-                        Label("Import Data", systemImage: viewModel.isImporting ? "arrow.down.circle" : "square.and.arrow.down")
+                        Label("units.import.button".localized, systemImage: viewModel.isImporting ? "arrow.down.circle" : "square.and.arrow.down")
                     }
                     .disabled(viewModel.isImporting)
                 }
@@ -49,15 +49,15 @@ struct UnitsView: View {
                 // Award daily login points (Part B.1)
                 PointsManager.shared.awardDailyLoginPoints(modelContext: modelContext)
             }
-            .alert("数据导入", isPresented: $showImportAlert) {
-                Button("确定") {
+            .alert("units.import.alert.title".localized, isPresented: $showImportAlert) {
+                Button("units.import.alert.ok".localized) {
                     viewModel.resetImportStatus()
                 }
             } message: {
                 if viewModel.importSucceeded {
-                    Text("数据导入成功！")
+                    Text("units.import.success".localized)
                 } else if let errorMessage = viewModel.errorMessage {
-                    Text("导入失败：\(errorMessage)")
+                    Text("units.import.failed".localized(errorMessage))
                 }
             }
         }
@@ -75,9 +75,9 @@ struct UniteRowView: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
-                Text("Unité \(unite.number): \(unite.title)")
+                Text("units.unite.title".localized(unite.number, unite.title))
                     .font(.headline)
-                Text("\(unite.sections.count) 个章节")
+                Text("units.sections.count".localized(unite.sections.count))
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -92,7 +92,7 @@ struct UniteRowView: View {
                     VStack {
                         Image(systemName: "lock")
                             .foregroundColor(.orange)
-                        Text("需要 \(unite.requiredStars) 星")
+                        Text("units.unlock.required".localized(unite.requiredStars))
                             .font(.caption2)
                             .foregroundColor(.orange)
                     }

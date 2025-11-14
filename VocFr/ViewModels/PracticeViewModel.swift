@@ -70,23 +70,13 @@ class PracticeViewModel {
 
     /// Correct count text
     var correctCountText: String {
-        "正确: \(correctCount)"
+        "practice.correct.count".localized(correctCount)
     }
 
     /// Accuracy percentage (0-100)
     var accuracyPercentage: Int {
         guard totalWords > 0 else { return 0 }
         return Int(Double(correctCount) / Double(totalWords) * 100)
-    }
-
-    /// Accuracy text
-    var accuracyText: String {
-        "正确率: \(accuracyPercentage)%"
-    }
-
-    /// Results summary text
-    var resultsSummaryText: String {
-        "答对 \(correctCount) / \(totalWords) 个单词"
     }
 
     /// Section name

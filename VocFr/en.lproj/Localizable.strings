@@ -1,0 +1,94 @@
+/*
+  Localizable.strings (English)
+  VocFr
+
+  Created by Claude on 14/11/2025.
+  Part B.2: Basic Internationalization
+*/
+
+// MARK: - Welcome View
+
+"welcome.title" = "French Learning";
+"welcome.subtitle" = "Start Your French Learning Journey";
+"welcome.feature.courses.title" = "Rich Courses";
+"welcome.feature.courses.description" = "Systematic French Learning Content";
+"welcome.feature.audio.title" = "Audio Practice";
+"welcome.feature.audio.description" = "Standard French Pronunciation Guide";
+"welcome.feature.progress.title" = "Learning Progress";
+"welcome.feature.progress.description" = "Track Your Learning Achievements";
+"welcome.button.start" = "Start Learning";
+
+// MARK: - Units View
+
+"units.title" = "French Learning";
+"units.import.button" = "Import Data";
+"units.import.alert.title" = "Data Import";
+"units.import.alert.ok" = "OK";
+"units.import.success" = "Data imported successfully!";
+"units.import.failed" = "Import failed: %@";
+"units.unite.title" = "Unité %d: %@";
+"units.sections.count" = "%d sections";
+"units.unlock.required" = "Need %d stars";
+
+// MARK: - Stars Progress View
+
+"stars.label" = "stars";
+"stars.streak.days" = "%d days";
+"stars.next.unlock" = "Next Unlock: Unité %d";
+"stars.need.more" = "Need %d more stars";
+"stars.all.unlocked" = "🎉 All units unlocked!";
+
+// MARK: - Practice View
+
+"practice.title" = "Practice: %@";
+"practice.no.words" = "No words to practice";
+"practice.question" = "Quel est le mot?";
+"practice.correct.count" = "Correct: %d";
+"practice.progress" = "%d / %d";
+"practice.completed.title" = "Practice Complete!";
+"practice.accuracy" = "Accuracy: %d%%";
+"practice.results" = "Correct: %d / %d words";
+"practice.points.earned" = "+%d stars";
+"practice.button.retry" = "Retry";
+
+// MARK: - Section View
+
+"section.button.practice" = "Practice";
+
+// MARK: - Menu View
+
+"menu.title" = "Menu";
+"menu.button.close" = "Close";
+"menu.progress.title" = "Progress";
+"menu.progress.description" = "View Learning Progress";
+"menu.settings.title" = "Settings";
+"menu.settings.description" = "App Settings and Data Management";
+"menu.about.title" = "About";
+"menu.about.description" = "Version Information";
+"menu.help.title" = "Help";
+"menu.help.description" = "Usage Help";
+
+// MARK: - Settings View
+
+"settings.title" = "Settings";
+"settings.language.title" = "Language";
+"settings.language.description" = "App Interface Language";
+"settings.data.title" = "Data Management";
+"settings.data.description" = "Import, Export, Reset";
+
+// MARK: - Progress View
+
+"progress.title" = "Progress";
+"progress.total.stars" = "Total Stars";
+"progress.current.streak" = "Current Streak";
+"progress.practice.sessions" = "Practice Sessions";
+"progress.words.learned" = "Words Learned";
+
+// MARK: - Common
+
+"common.loading" = "Loading...";
+"common.error" = "Error";
+"common.cancel" = "Cancel";
+"common.done" = "Done";
+"common.save" = "Save";
+"common.delete" = "Delete";

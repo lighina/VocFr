@@ -45,7 +45,7 @@ struct StarsProgressView: View {
                     .font(.system(size: 36, weight: .bold, design: .rounded))
                     .foregroundColor(.primary)
 
-                Text("星")
+                Text("stars.label".localized)
                     .font(.title3)
                     .foregroundColor(.secondary)
 
@@ -56,7 +56,7 @@ struct StarsProgressView: View {
                     HStack(spacing: 4) {
                         Image(systemName: "flame.fill")
                             .foregroundColor(.orange)
-                        Text("\(streak)天")
+                        Text("stars.streak.days".localized(streak))
                             .font(.caption)
                             .fontWeight(.semibold)
                     }
@@ -74,13 +74,13 @@ struct StarsProgressView: View {
 
                 VStack(alignment: .leading, spacing: 6) {
                     HStack {
-                        Text("下一解锁：Unité \(uniteNumber)")
+                        Text("stars.next.unlock".localized(uniteNumber))
                             .font(.caption)
                             .foregroundColor(.secondary)
 
                         Spacer()
 
-                        Text("还需 \(starsNeeded) 星")
+                        Text("stars.need.more".localized(starsNeeded))
                             .font(.caption)
                             .fontWeight(.medium)
                             .foregroundColor(.orange)
@@ -103,7 +103,7 @@ struct StarsProgressView: View {
                     .frame(height: 6)
                 }
             } else {
-                Text("🎉 所有单元已解锁！")
+                Text("stars.all.unlocked".localized)
                     .font(.caption)
                     .foregroundColor(.green)
                     .fontWeight(.semibold)

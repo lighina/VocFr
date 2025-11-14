@@ -18,11 +18,11 @@ struct PracticeView: View {
             } else if let word = viewModel.currentWord {
                 practiceCard(for: word)
             } else {
-                Text("没有单词可以练习")
+                Text("practice.no.words".localized)
             }
         }
         .padding()
-        .navigationTitle("练习: \(viewModel.sectionName)")
+        .navigationTitle("practice.title".localized(viewModel.sectionName))
         #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         #endif
@@ -48,7 +48,7 @@ struct PracticeView: View {
             .padding(.horizontal)
 
             // Question prompt
-            Text("Quel est le mot?")
+            Text("practice.question".localized)
                 .font(.title2)
                 .fontWeight(.semibold)
                 .foregroundColor(.primary)
@@ -174,15 +174,15 @@ struct PracticeView: View {
                 .font(.system(size: 80))
                 .foregroundColor(.green)
 
-            Text("练习完成！")
+            Text("practice.completed.title".localized)
                 .font(.largeTitle)
                 .fontWeight(.bold)
 
-            Text(viewModel.accuracyText)
+            Text("practice.accuracy".localized(viewModel.accuracyPercentage))
                 .font(.title2)
                 .foregroundColor(.secondary)
 
-            Text(viewModel.resultsSummaryText)
+            Text("practice.results".localized(viewModel.correctCount, viewModel.totalWords))
                 .font(.body)
                 .foregroundColor(.secondary)
 
@@ -193,7 +193,7 @@ struct PracticeView: View {
                         .foregroundColor(.yellow)
                         .font(.title2)
 
-                    Text("+\(viewModel.pointsEarned) 星")
+                    Text("practice.points.earned".localized(viewModel.pointsEarned))
                         .font(.title2)
                         .fontWeight(.semibold)
                         .foregroundColor(.orange)
@@ -205,7 +205,7 @@ struct PracticeView: View {
                 )
             }
 
-            Button("重新练习") {
+            Button("practice.button.retry".localized) {
                 viewModel.restartPractice()
             }
             .buttonStyle(.borderedProminent)

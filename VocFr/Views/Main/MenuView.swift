@@ -15,22 +15,22 @@ struct MenuView: View {
         NavigationView {
             List {
                 NavigationLink(destination: ProgressView()) {
-                    MenuRowView(icon: "chart.line.uptrend.xyaxis", title: "进度", description: "查看学习进度")
+                    MenuRowView(icon: "chart.line.uptrend.xyaxis", title: "menu.progress.title".localized, description: "menu.progress.description".localized)
                 }
-                
+
                 NavigationLink(destination: SettingsView()) {
-                    MenuRowView(icon: "gearshape", title: "设置", description: "应用设置和数据管理")
+                    MenuRowView(icon: "gearshape", title: "menu.settings.title".localized, description: "menu.settings.description".localized)
                 }
-                
+
                 SwiftUI.Section {
-                    MenuRowView(icon: "info.circle", title: "关于", description: "版本信息")
-                    MenuRowView(icon: "questionmark.circle", title: "帮助", description: "使用帮助")
+                    MenuRowView(icon: "info.circle", title: "menu.about.title".localized, description: "menu.about.description".localized)
+                    MenuRowView(icon: "questionmark.circle", title: "menu.help.title".localized, description: "menu.help.description".localized)
                 }
             }
-            .navigationTitle("菜单")
+            .navigationTitle("menu.title".localized)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("关闭") {
+                    Button("menu.button.close".localized) {
                         dismiss()
                     }
                 }

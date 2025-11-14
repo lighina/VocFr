@@ -30,7 +30,7 @@ struct SectionDetailView: View {
                 NavigationLink(destination: PracticeView(section: section)) {
                     HStack {
                         Image(systemName: "play.circle.fill")
-                        Text("练习")
+                        Text("section.button.practice".localized)
                     }
                 }
             }
@@ -39,7 +39,7 @@ struct SectionDetailView: View {
                 NavigationLink(destination: PracticeView(section: section)) {
                     HStack {
                         Image(systemName: "play.circle.fill")
-                        Text("练习")
+                        Text("section.button.practice".localized)
                     }
                 }
             }

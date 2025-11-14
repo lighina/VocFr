@@ -1,0 +1,94 @@
+/*
+  Localizable.strings (Simplified Chinese)
+  VocFr
+
+  Created by Claude on 14/11/2025.
+  Part B.2: Basic Internationalization
+*/
+
+// MARK: - Welcome View
+
+"welcome.title" = "法语学习";
+"welcome.subtitle" = "开始您的法语学习之旅";
+"welcome.feature.courses.title" = "丰富课程";
+"welcome.feature.courses.description" = "系统化的法语学习内容";
+"welcome.feature.audio.title" = "音频练习";
+"welcome.feature.audio.description" = "标准法语发音指导";
+"welcome.feature.progress.title" = "学习进度";
+"welcome.feature.progress.description" = "追踪您的学习成就";
+"welcome.button.start" = "开始学习";
+
+// MARK: - Units View
+
+"units.title" = "法语学习";
+"units.import.button" = "导入数据";
+"units.import.alert.title" = "数据导入";
+"units.import.alert.ok" = "确定";
+"units.import.success" = "数据导入成功！";
+"units.import.failed" = "导入失败：%@";
+"units.unite.title" = "Unité %d: %@";
+"units.sections.count" = "%d 个章节";
+"units.unlock.required" = "需要 %d 星";
+
+// MARK: - Stars Progress View
+
+"stars.label" = "星";
+"stars.streak.days" = "%d天";
+"stars.next.unlock" = "下一解锁：Unité %d";
+"stars.need.more" = "还需 %d 星";
+"stars.all.unlocked" = "🎉 所有单元已解锁！";
+
+// MARK: - Practice View
+
+"practice.title" = "练习: %@";
+"practice.no.words" = "没有单词可以练习";
+"practice.question" = "Quel est le mot?";
+"practice.correct.count" = "正确: %d";
+"practice.progress" = "%d / %d";
+"practice.completed.title" = "练习完成！";
+"practice.accuracy" = "正确率: %d%%";
+"practice.results" = "答对 %d / %d 个单词";
+"practice.points.earned" = "+%d 星";
+"practice.button.retry" = "重新练习";
+
+// MARK: - Section View
+
+"section.button.practice" = "练习";
+
+// MARK: - Menu View
+
+"menu.title" = "菜单";
+"menu.button.close" = "关闭";
+"menu.progress.title" = "进度";
+"menu.progress.description" = "查看学习进度";
+"menu.settings.title" = "设置";
+"menu.settings.description" = "应用设置和数据管理";
+"menu.about.title" = "关于";
+"menu.about.description" = "版本信息";
+"menu.help.title" = "帮助";
+"menu.help.description" = "使用帮助";
+
+// MARK: - Settings View
+
+"settings.title" = "设置";
+"settings.language.title" = "语言";
+"settings.language.description" = "应用界面语言";
+"settings.data.title" = "数据管理";
+"settings.data.description" = "导入、导出、重置";
+
+// MARK: - Progress View
+
+"progress.title" = "进度";
+"progress.total.stars" = "总星数";
+"progress.current.streak" = "当前连续天数";
+"progress.practice.sessions" = "练习次数";
+"progress.words.learned" = "已学单词";
+
+// MARK: - Common
+
+"common.loading" = "加载中...";
+"common.error" = "错误";
+"common.cancel" = "取消";
+"common.done" = "完成";
+"common.save" = "保存";
+"common.delete" = "删除";

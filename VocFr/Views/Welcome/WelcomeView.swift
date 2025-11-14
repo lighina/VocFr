@@ -19,13 +19,13 @@ struct WelcomeView: View {
                 Image(systemName: "book.fill")
                     .font(.system(size: 80))
                     .foregroundColor(.blue)
-                
-                Text("法语学习")
+
+                Text("welcome.title".localized)
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(.primary)
-                
-                Text("开始您的法语学习之旅")
+
+                Text("welcome.subtitle".localized)
                     .font(.title2)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -35,9 +35,9 @@ struct WelcomeView: View {
             
             // Features
             VStack(alignment: .leading, spacing: 20) {
-                WelcomeFeatureRow(icon: "book.closed", title: "丰富课程", description: "系统化的法语学习内容")
-                WelcomeFeatureRow(icon: "waveform", title: "音频练习", description: "标准法语发音指导")
-                WelcomeFeatureRow(icon: "chart.line.uptrend.xyaxis", title: "学习进度", description: "追踪您的学习成就")
+                WelcomeFeatureRow(icon: "book.closed", title: "welcome.feature.courses.title".localized, description: "welcome.feature.courses.description".localized)
+                WelcomeFeatureRow(icon: "waveform", title: "welcome.feature.audio.title".localized, description: "welcome.feature.audio.description".localized)
+                WelcomeFeatureRow(icon: "chart.line.uptrend.xyaxis", title: "welcome.feature.progress.title".localized, description: "welcome.feature.progress.description".localized)
             }
             .padding(.horizontal)
             
@@ -52,7 +52,7 @@ struct WelcomeView: View {
                 HStack {
                     Image(systemName: "play.circle.fill")
                         .font(.title2)
-                    Text("开始学习")
+                    Text("welcome.button.start".localized)
                         .font(.title2)
                         .fontWeight(.semibold)
                 }
