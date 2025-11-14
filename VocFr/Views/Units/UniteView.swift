@@ -18,23 +18,19 @@ struct UnitsView: View {
         NavigationView {
             List {
                 // Stars progress section (Part B.1)
-                Section {
-                    StarsProgressView(modelContext: modelContext)
-                        .listRowInsets(EdgeInsets())
-                        .listRowBackground(Color.clear)
-                }
+                StarsProgressView(modelContext: modelContext)
+                    .listRowInsets(EdgeInsets())
+                    .listRowBackground(Color.clear)
 
                 // Units list
-                Section {
-                    ForEach(unites.sorted(by: { $0.number < $1.number })) { unite in
-                        NavigationLink {
-                            UniteDetailView(unite: unite)
-                        } label: {
-                            UniteRowView(unite: unite)
-                        }
-                        .disabled(!unite.isUnlocked)
-                        .opacity(unite.isUnlocked ? 1.0 : 0.6)
+                ForEach(unites.sorted(by: { $0.number < $1.number })) { unite in
+                    NavigationLink {
+                        UniteDetailView(unite: unite)
+                    } label: {
+                        UniteRowView(unite: unite)
                     }
+                    .disabled(!unite.isUnlocked)
+                    .opacity(unite.isUnlocked ? 1.0 : 0.6)
                 }
             }
             .navigationTitle("法语学习")
