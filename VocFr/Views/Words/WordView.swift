@@ -11,51 +11,35 @@ import AVFoundation
 
 // Clean minimalist WordDetailView with swipe navigation
 struct WordDetailView: View {
-    let section: Section
-    @State private var currentWordIndex: Int
-    @State private var showWordCard = true
-    @State private var isShuffled = false
-    @State private var shuffledWords: [SectionWord] = []
-    @State private var originalWords: [SectionWord] = []
     @Environment(\.dismiss) private var dismiss
     @ObservedObject private var audioManager = AudioPlayerManager.shared
-    
-    // Computed property to get current word
-    private var currentWord: Word? {
-        let wordsToUse = isShuffled ? shuffledWords : originalWords
-        guard currentWordIndex >= 0 && currentWordIndex < wordsToUse.count,
-              let word = wordsToUse[currentWordIndex].word else {
-            return nil
-        }
-        return word
-    }
-    
-    // Computed properties for navigation
-    private var canGoToPrevious: Bool {
-        currentWordIndex > 0
-    }
-    
-    private var canGoToNext: Bool {
-        let wordsToUse = isShuffled ? shuffledWords : originalWords
-        return currentWordIndex < wordsToUse.count - 1
-    }
-    
+    @State private var viewModel: WordDetailViewModel
+
     init(section: Section, currentWordIndex: Int) {
-        self.section = section
-        self._currentWordIndex = State(initialValue: currentWordIndex)
-        
-        // Initialize with sorted words
-        let sortedWords = section.sectionWords.sorted(by: { $0.orderIndex < $1.orderIndex })
-        self._originalWords = State(initialValue: sortedWords)
-        self._shuffledWords = State(initialValue: sortedWords.shuffled())
+        // Initialize ViewModel
+        self._viewModel = State(initialValue: WordDetailViewModel(section: section, currentWordIndex: currentWordIndex))
     }
-    
+
+    // Computed property to get current word (delegate to ViewModel)
+    private var currentWord: Word? {
+        viewModel.currentWord
+    }
+
+    // Navigation properties (delegate to ViewModel)
+    private var canGoToPrevious: Bool {
+        viewModel.canGoToPrevious
+    }
+
+    private var canGoToNext: Bool {
+        viewModel.canGoToNext
+    }
+
     var body: some View {
         Group {
             if let word = currentWord {
                 VStack(spacing: 0) {
                     Spacer()
-                    
+
                     // Main content area
                     VStack(spacing: 40) {
                         // Word image - large and centered
@@ -95,19 +79,19 @@ struct WordDetailView: View {
                         .id(word.id) // For smooth animation
                         .onTapGesture {
                             withAnimation(.easeInOut) {
-                                showWordCard = true
+                                viewModel.showCard()
                             }
                         }
-                        
+
                         // Hint when card is hidden
-                        if !showWordCard {
-                            Text("Touchez l’image pour afficher la carte du mot")
+                        if !viewModel.showWordCard {
+                            Text("Touchez l'image pour afficher la carte du mot")
                                 .font(.footnote)
                                 .foregroundStyle(.secondary)
                         }
-                        
+
                         // Word display - updated card style
-                        if showWordCard {
+                        if viewModel.showWordCard {
                             VStack(spacing: 16) {
                                 // Main word line (for nouns, show base word; others show canonical)
                                 Text(getWordTitle(for: word))
@@ -168,26 +152,26 @@ struct WordDetailView: View {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         HStack(spacing: 12) {
                             // Word card toggle
-                            Button(action: { showWordCard.toggle() }) {
-                                Image(systemName: showWordCard ? "eye.fill" : "eye")
+                            Button(action: { viewModel.toggleWordCard() }) {
+                                Image(systemName: viewModel.showWordCard ? "eye.fill" : "eye")
                                     .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(showWordCard ? .blue : .secondary)
+                                    .foregroundColor(viewModel.showWordCard ? .blue : .secondary)
                                     .frame(width: 44, height: 32)
-                                    .background(showWordCard ? Color.blue.opacity(0.1) : Color.clear)
+                                    .background(viewModel.showWordCard ? Color.blue.opacity(0.1) : Color.clear)
                                     .clipShape(RoundedRectangle(cornerRadius: 8))
                             }
-                            .animation(.easeInOut(duration: 0.2), value: showWordCard)
-                            
+                            .animation(.easeInOut(duration: 0.2), value: viewModel.showWordCard)
+
                             // Shuffle toggle
                             Button(action: { toggleShuffle() }) {
-                                Image(systemName: isShuffled ? "shuffle" : "shuffle")
+                                Image(systemName: viewModel.isShuffled ? "shuffle" : "shuffle")
                                     .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(isShuffled ? .green : .secondary)
+                                    .foregroundColor(viewModel.isShuffled ? .green : .secondary)
                                     .frame(width: 44, height: 32)
-                                    .background(isShuffled ? Color.green.opacity(0.1) : Color.clear)
+                                    .background(viewModel.isShuffled ? Color.green.opacity(0.1) : Color.clear)
                                     .clipShape(RoundedRectangle(cornerRadius: 8))
                             }
-                            .animation(.easeInOut(duration: 0.2), value: isShuffled)
+                            .animation(.easeInOut(duration: 0.2), value: viewModel.isShuffled)
                         }
                     }
                 }
@@ -197,14 +181,6 @@ struct WordDetailView: View {
                             handleSwipeGesture(value)
                         }
                 )
-                .animation(.easeInOut(duration: 0.3), value: currentWordIndex)
-                .onAppear {
-                    // Ensure original words are properly initialized
-                    if originalWords.isEmpty {
-                        originalWords = section.sectionWords.sorted(by: { $0.orderIndex < $1.orderIndex })
-                        shuffledWords = originalWords.shuffled()
-                    }
-                }
             } else {
                 // Fallback if no word is found
                 VStack {
@@ -409,61 +385,31 @@ struct WordDetailView: View {
     }
     
     private func goToPrevious() {
-        guard canGoToPrevious else { return }
-        
         withAnimation(.easeInOut(duration: 0.3)) {
-            currentWordIndex -= 1
+            viewModel.goToPrevious()
         }
-        
+
         // Provide haptic feedback
         let impactFeedback = UIImpactFeedbackGenerator(style: .light)
         impactFeedback.impactOccurred()
     }
-    
+
     private func goToNext() {
-        guard canGoToNext else { return }
-        
         withAnimation(.easeInOut(duration: 0.3)) {
-            currentWordIndex += 1
+            viewModel.goToNext()
         }
-        
+
         // Provide haptic feedback
         let impactFeedback = UIImpactFeedbackGenerator(style: .light)
         impactFeedback.impactOccurred()
     }
-    
+
     private func toggleShuffle() {
-        // Find current word to maintain position after shuffle
-        let currentWordId = currentWord?.id
-        
-        // Toggle shuffle state
-        isShuffled.toggle()
-        
+        viewModel.toggleShuffle()
+
         // Provide haptic feedback
         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
         impactFeedback.impactOccurred()
-        
-        if isShuffled {
-            // Re-shuffle the words to get a new random order
-            shuffledWords = originalWords.shuffled()
-            
-            // Try to find the current word in the new shuffled order
-            if let currentWordId = currentWordId,
-               let newIndex = shuffledWords.firstIndex(where: { $0.word?.id == currentWordId }) {
-                currentWordIndex = newIndex
-            } else {
-                // If we can't find the current word, start from beginning
-                currentWordIndex = 0
-            }
-        } else {
-            // Return to original order and find current word's original position
-            if let currentWordId = currentWordId,
-               let originalIndex = originalWords.firstIndex(where: { $0.word?.id == currentWordId }) {
-                currentWordIndex = originalIndex
-            } else {
-                currentWordIndex = 0
-            }
-        }
     }
     
     private func playAudio(for word: Word) {
@@ -480,7 +426,7 @@ struct WordDetailView: View {
         // 1. Independent audio files (Unite/Section/*.mp3)
         // 2. Timestamp-based audio segments (backward compatible)
         // 3. Fallback handling
-        audioManager.playWordAudio(for: word, in: section) { success in
+        audioManager.playWordAudio(for: word, in: viewModel.section) { success in
             if !success {
                 print("⚠️ Failed to play audio for '\(word.canonical)', trying fallback")
                 self.playFallbackAudio(for: word)
