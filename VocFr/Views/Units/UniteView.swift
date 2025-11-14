@@ -17,14 +17,24 @@ struct UnitsView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(unites.sorted(by: { $0.number < $1.number })) { unite in
-                    NavigationLink {
-                        UniteDetailView(unite: unite)
-                    } label: {
-                        UniteRowView(unite: unite)
+                // Stars progress section (Part B.1)
+                Section {
+                    StarsProgressView(modelContext: modelContext)
+                }
+                .listRowInsets(EdgeInsets())
+                .listRowBackground(Color.clear)
+
+                // Units list
+                Section {
+                    ForEach(unites.sorted(by: { $0.number < $1.number })) { unite in
+                        NavigationLink {
+                            UniteDetailView(unite: unite)
+                        } label: {
+                            UniteRowView(unite: unite)
+                        }
+                        .disabled(!unite.isUnlocked)
+                        .opacity(unite.isUnlocked ? 1.0 : 0.6)
                     }
-                    .disabled(!unite.isUnlocked)
-                    .opacity(unite.isUnlocked ? 1.0 : 0.6)
                 }
             }
             .navigationTitle("法语学习")
@@ -39,6 +49,9 @@ struct UnitsView: View {
             .onAppear {
                 // Initialize ViewModel with ModelContext
                 viewModel = UnitsViewModel(modelContext: modelContext)
+
+                // Award daily login points (Part B.1)
+                PointsManager.shared.awardDailyLoginPoints(modelContext: modelContext)
             }
             .alert("数据导入", isPresented: $showImportAlert) {
                 Button("确定") {
@@ -62,7 +75,7 @@ struct UnitsView: View {
 
 struct UniteRowView: View {
     let unite: Unite
-    
+
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
@@ -72,9 +85,9 @@ struct UniteRowView: View {
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
-            
+
             Spacer()
-            
+
             VStack(alignment: .trailing, spacing: 4) {
                 if unite.isUnlocked {
                     Image(systemName: "checkmark.circle.fill")
@@ -96,7 +109,7 @@ struct UniteRowView: View {
 
 struct UniteDetailView: View {
     let unite: Unite
-    
+
     var body: some View {
         List {
             ForEach(unite.sections.sorted(by: { $0.orderIndex < $1.orderIndex })) { section in
@@ -113,7 +126,7 @@ struct UniteDetailView: View {
 
 struct SectionRowView: View {
     let section: Section
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(section.name.capitalized)

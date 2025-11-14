@@ -186,6 +186,25 @@ struct PracticeView: View {
                 .font(.body)
                 .foregroundColor(.secondary)
 
+            // Points earned (Part B.1)
+            if viewModel.pointsEarned > 0 {
+                HStack(spacing: 8) {
+                    Image(systemName: "star.fill")
+                        .foregroundColor(.yellow)
+                        .font(.title2)
+
+                    Text("+\(viewModel.pointsEarned) 星")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.orange)
+                }
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.yellow.opacity(0.2))
+                )
+            }
+
             Button("重新练习") {
                 viewModel.restartPractice()
             }

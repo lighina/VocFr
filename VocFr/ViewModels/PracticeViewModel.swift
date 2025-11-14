@@ -40,6 +40,9 @@ class PracticeViewModel {
     /// Shuffled options for current word (includes 1 correct + 3 distractors)
     private(set) var currentOptions: [Word] = []
 
+    /// Points earned in this session
+    private(set) var pointsEarned: Int = 0
+
     // MARK: - Computed Properties
 
     /// Sorted words for this practice session
@@ -170,6 +173,7 @@ class PracticeViewModel {
         isCompleted = false
         selectedAnswerIndex = nil
         isAnswerCorrect = false
+        pointsEarned = 0
         generateOptions()
     }
 
@@ -196,8 +200,30 @@ class PracticeViewModel {
         do {
             try modelContext.save()
             print("✅ Practice record saved: \(correctCount)/\(totalWords) correct")
+
+            // Award points for completing practice (Part B.1)
+            let earnedPoints = calculatePoints(accuracy: accuracy)
+            pointsEarned = earnedPoints
+            PointsManager.shared.awardPracticePoints(accuracy: accuracy, modelContext: modelContext)
+
         } catch {
             print("❌ Failed to save practice record: \(error)")
+        }
+    }
+
+    /// Calculate points based on accuracy
+    private func calculatePoints(accuracy: Double) -> Int {
+        let percentage = Int(accuracy * 100)
+
+        switch percentage {
+        case 90...100:
+            return 20
+        case 80...89:
+            return 15
+        case 60...79:
+            return 10
+        default:
+            return 0
         }
     }
 }
