@@ -11,6 +11,8 @@ import SwiftData
 struct UnitsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var unites: [Unite]
+    @State private var viewModel = UnitsViewModel()
+    @State private var showImportAlert = false
 
     var body: some View {
         NavigationView {
@@ -28,20 +30,33 @@ struct UnitsView: View {
             .navigationTitle("法语学习")
             .toolbar {
                 ToolbarItem {
-                    Button(action: seedData) {
-                        Label("Import Data", systemImage: "square.and.arrow.down")
+                    Button(action: importData) {
+                        Label("Import Data", systemImage: viewModel.isImporting ? "arrow.down.circle" : "square.and.arrow.down")
                     }
+                    .disabled(viewModel.isImporting)
+                }
+            }
+            .onAppear {
+                // Initialize ViewModel with ModelContext
+                viewModel = UnitsViewModel(modelContext: modelContext)
+            }
+            .alert("数据导入", isPresented: $showImportAlert) {
+                Button("确定") {
+                    viewModel.resetImportStatus()
+                }
+            } message: {
+                if viewModel.importSucceeded {
+                    Text("数据导入成功！")
+                } else if let errorMessage = viewModel.errorMessage {
+                    Text("导入失败：\(errorMessage)")
                 }
             }
         }
     }
 
-    private func seedData() {
-        do {
-            try FrenchVocabularySeeder.seedAllData(to: modelContext)
-        } catch {
-            print("数据导入失败: \(error)")
-        }
+    private func importData() {
+        viewModel.importData()
+        showImportAlert = true
     }
 }
 
