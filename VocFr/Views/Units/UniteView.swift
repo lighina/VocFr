@@ -18,7 +18,7 @@ struct UnitsView: View {
         NavigationView {
             List {
                 // Stars progress section (Part B.1)
-                StarsProgressView(modelContext: modelContext)
+                StarsProgressView()
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
 

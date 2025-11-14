@@ -10,13 +10,30 @@ import SwiftUI
 import SwiftData
 
 struct StarsProgressView: View {
-    let modelContext: ModelContext
+    @Query private var userProgressList: [UserProgress]
+    @Query private var unites: [Unite]
+
+    private var userProgress: UserProgress? {
+        userProgressList.first
+    }
+
+    private var totalStars: Int {
+        userProgress?.totalStars ?? 0
+    }
+
+    private var streak: Int {
+        userProgress?.currentStreak ?? 0
+    }
+
+    private var nextUnlock: (uniteNumber: Int, starsRequired: Int)? {
+        let lockedUnites = unites
+            .filter { !$0.isUnlocked }
+            .sorted { $0.number < $1.number }
+
+        return lockedUnites.first.map { ($0.number, $0.requiredStars) }
+    }
 
     var body: some View {
-        let totalStars = PointsManager.shared.getTotalStars(from: modelContext)
-        let streak = PointsManager.shared.getCurrentStreak(from: modelContext)
-        let nextUnlock = PointsManager.shared.getNextUnlockRequirement(from: modelContext)
-
         VStack(spacing: 12) {
             // Current stars
             HStack(spacing: 8) {
@@ -116,7 +133,7 @@ struct StarsProgressView: View {
     userProgress.currentStreak = 5
     context.insert(userProgress)
 
-    return StarsProgressView(modelContext: context)
+    return StarsProgressView()
         .padding()
         .modelContainer(container)
 }
