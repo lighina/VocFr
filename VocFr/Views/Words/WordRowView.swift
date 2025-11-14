@@ -51,7 +51,7 @@ struct WordRowView: View {
         case .noun:
             return "nom"
         case .verb:
-            return "verbe"
+            return "v."
         case .adjective:
             return "adj."
         case .number:

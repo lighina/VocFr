@@ -31,87 +31,143 @@ struct PracticeView: View {
             viewModel = PracticeViewModel(section: viewModel.section, modelContext: modelContext)
         }
     }
-    
+
     private func practiceCard(for word: Word) -> some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 30) {
             // Progress indicator
             HStack {
                 Text(viewModel.progressText)
                     .font(.caption)
+                    .fontWeight(.medium)
                 Spacer()
                 Text(viewModel.correctCountText)
                     .font(.caption)
+                    .fontWeight(.medium)
                     .foregroundColor(.green)
             }
-            
-            // Word card
-            VStack(spacing: 15) {
-                // French word
-                Text(word.canonical)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding()
-                
-                // Part of speech
-                Text(word.partOfSpeech.rawValue)
-                    .font(.caption)
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 4)
-                    .background(Color.blue.opacity(0.2))
-                    .cornerRadius(8)
-                
-                // Main form (if available)
-                if let mainForm = word.forms.first(where: { $0.isMainForm }) {
-                    Text(mainForm.french)
-                        .font(.title2)
-                        .foregroundColor(.secondary)
-                        .padding(.top, 10)
-                }
-                
-                // Chinese translation (show after tap)
-                if viewModel.showAnswer {
-                    Text(word.chinese)
-                        .font(.title)
-                        .foregroundColor(.primary)
-                        .padding()
-                        .background(Color.green.opacity(0.1))
-                        .cornerRadius(10)
-                        .transition(.scale.combined(with: .opacity))
-                }
-            }
-            .frame(maxWidth: .infinity)
-            .padding()
-            .background(.regularMaterial)
-            .cornerRadius(15)
-            .shadow(radius: 5)
-            
-            Spacer()
-            
-            // Action buttons
-            if viewModel.showAnswer {
-                HStack(spacing: 20) {
-                    Button("答错了") {
-                        viewModel.markIncorrect()
-                    }
-                    .buttonStyle(.bordered)
+            .padding(.horizontal)
 
-                    Button("答对了") {
-                        viewModel.markCorrect()
-                    }
-                    .buttonStyle(.borderedProminent)
-                }
+            // Question prompt
+            Text("Quel est le mot?")
+                .font(.title2)
+                .fontWeight(.semibold)
+                .foregroundColor(.primary)
+
+            // Word image
+            if !word.imageName.isEmpty && imageExists(named: word.imageName) {
+                Image(word.imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(maxWidth: 250, maxHeight: 250)
+                    .cornerRadius(15)
+                    .shadow(radius: 5)
             } else {
-                Button("显示答案") {
-                    withAnimation(.spring(response: 0.5)) {
-                        viewModel.showAnswerAction()
-                    }
-                }
-                .buttonStyle(.borderedProminent)
-                .font(.headline)
+                // Placeholder
+                RoundedRectangle(cornerRadius: 15)
+                    .fill(Color.gray.opacity(0.2))
+                    .frame(width: 250, height: 200)
+                    .overlay(
+                        Image(systemName: "photo")
+                            .font(.system(size: 40))
+                            .foregroundColor(.gray.opacity(0.6))
+                    )
             }
+
+            // Answer options (4 buttons)
+            VStack(spacing: 12) {
+                ForEach(Array(viewModel.currentOptions.enumerated()), id: \.element.id) { index, option in
+                    answerButton(
+                        text: option.canonical,
+                        index: index,
+                        isCorrect: option.id == word.id
+                    )
+                }
+            }
+            .padding(.horizontal)
+
+            Spacer()
         }
     }
-    
+
+    /// Answer button with feedback
+    private func answerButton(text: String, index: Int, isCorrect: Bool) -> some View {
+        Button(action: {
+            withAnimation(.spring(response: 0.3)) {
+                viewModel.selectAnswer(at: index)
+            }
+        }) {
+            HStack {
+                Text(text)
+                    .font(.headline)
+                    .foregroundColor(buttonForegroundColor(index: index, isCorrect: isCorrect))
+
+                Spacer()
+
+                // Show checkmark or X after selection
+                if viewModel.selectedAnswerIndex == index {
+                    Image(systemName: viewModel.isAnswerCorrect ? "checkmark.circle.fill" : "xmark.circle.fill")
+                        .foregroundColor(viewModel.isAnswerCorrect ? .green : .red)
+                        .font(.title3)
+                } else if viewModel.selectedAnswerIndex != nil && isCorrect {
+                    // Show correct answer if user selected wrong
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundColor(.green)
+                        .font(.title3)
+                }
+            }
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(buttonBackgroundColor(index: index, isCorrect: isCorrect))
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(buttonBorderColor(index: index, isCorrect: isCorrect), lineWidth: 2)
+            )
+        }
+        .disabled(viewModel.selectedAnswerIndex != nil)
+    }
+
+    /// Button foreground color based on state
+    private func buttonForegroundColor(index: Int, isCorrect: Bool) -> Color {
+        if viewModel.selectedAnswerIndex == index {
+            return viewModel.isAnswerCorrect ? .white : .white
+        } else if viewModel.selectedAnswerIndex != nil && isCorrect {
+            return .white
+        }
+        return .primary
+    }
+
+    /// Button background color based on state
+    private func buttonBackgroundColor(index: Int, isCorrect: Bool) -> Color {
+        if viewModel.selectedAnswerIndex == index {
+            return viewModel.isAnswerCorrect ? .green : .red
+        } else if viewModel.selectedAnswerIndex != nil && isCorrect {
+            return .green.opacity(0.8)
+        }
+        return Color(.systemGray6)
+    }
+
+    /// Button border color based on state
+    private func buttonBorderColor(index: Int, isCorrect: Bool) -> Color {
+        if viewModel.selectedAnswerIndex == index {
+            return viewModel.isAnswerCorrect ? .green : .red
+        } else if viewModel.selectedAnswerIndex != nil && isCorrect {
+            return .green
+        }
+        return .clear
+    }
+
+    /// Check if an image exists in the asset catalog
+    private func imageExists(named: String) -> Bool {
+        #if os(iOS)
+        return UIImage(named: named) != nil
+        #elseif os(macOS)
+        return NSImage(named: named) != nil
+        #else
+        return false
+        #endif
+    }
+
     private var completedView: some View {
         VStack(spacing: 20) {
             Image(systemName: "checkmark.circle.fill")

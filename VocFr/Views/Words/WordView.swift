@@ -259,7 +259,7 @@ struct WordDetailView: View {
         // For other parts of speech, convert Chinese to French
         switch word.partOfSpeech {
         case .verb:
-            return "verbe"
+            return "v."
         case .adjective:
             return "adj."
         case .number:

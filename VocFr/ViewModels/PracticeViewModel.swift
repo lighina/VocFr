@@ -25,14 +25,20 @@ class PracticeViewModel {
     /// Current word index in the practice session
     private(set) var currentWordIndex: Int = 0
 
-    /// Whether the answer is currently shown
-    private(set) var showAnswer: Bool = false
-
     /// Number of correct answers
     private(set) var correctCount: Int = 0
 
     /// Whether the practice session is completed
     private(set) var isCompleted: Bool = false
+
+    /// Selected answer index (nil = not answered yet)
+    private(set) var selectedAnswerIndex: Int? = nil
+
+    /// Whether the selected answer is correct
+    private(set) var isAnswerCorrect: Bool = false
+
+    /// Shuffled options for current word (includes 1 correct + 3 distractors)
+    private(set) var currentOptions: [Word] = []
 
     // MARK: - Computed Properties
 
@@ -90,34 +96,65 @@ class PracticeViewModel {
     init(section: Section, modelContext: ModelContext? = nil) {
         self.section = section
         self.modelContext = modelContext
+        generateOptions()
     }
 
     // MARK: - Actions
 
-    /// Show the answer for the current word
-    func showAnswerAction() {
-        showAnswer = true
-    }
+    /// Select an answer
+    func selectAnswer(at index: Int) {
+        guard selectedAnswerIndex == nil else { return } // Already answered
 
-    /// Mark current answer as correct and move to next word
-    func markCorrect() {
-        correctCount += 1
-        nextWord()
-    }
+        selectedAnswerIndex = index
 
-    /// Mark current answer as incorrect and move to next word
-    func markIncorrect() {
-        nextWord()
+        // Check if answer is correct
+        let selectedWord = currentOptions[index]
+        isAnswerCorrect = (selectedWord.id == currentWord?.id)
+
+        if isAnswerCorrect {
+            correctCount += 1
+        }
+
+        // Auto advance after a short delay
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.nextWord()
+        }
     }
 
     /// Move to next word
     private func nextWord() {
         currentWordIndex += 1
-        showAnswer = false
+        selectedAnswerIndex = nil
+        isAnswerCorrect = false
 
         if currentWordIndex >= totalWords {
             completeSession()
+        } else {
+            generateOptions()
         }
+    }
+
+    /// Generate 4 options (1 correct + 3 distractors) for current word
+    private func generateOptions() {
+        guard let correctWord = currentWord else {
+            currentOptions = []
+            return
+        }
+
+        // Get all other words as potential distractors
+        var distractors = words.filter { $0.id != correctWord.id }
+
+        // Shuffle and take 3 random distractors
+        distractors.shuffle()
+        let selectedDistractors = Array(distractors.prefix(3))
+
+        // Combine correct word with distractors
+        var options = selectedDistractors + [correctWord]
+
+        // Shuffle options
+        options.shuffle()
+
+        currentOptions = options
     }
 
     /// Complete the practice session
@@ -129,9 +166,11 @@ class PracticeViewModel {
     /// Restart the practice session
     func restartPractice() {
         currentWordIndex = 0
-        showAnswer = false
         correctCount = 0
         isCompleted = false
+        selectedAnswerIndex = nil
+        isAnswerCorrect = false
+        generateOptions()
     }
 
     // MARK: - Persistence
