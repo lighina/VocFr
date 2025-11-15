@@ -11,10 +11,7 @@ import SwiftData
 
 struct AchievementView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query(sort: [
-        SortDescriptor(\Achievement.category),
-        SortDescriptor(\Achievement.orderIndex)
-    ]) private var allAchievements: [Achievement]
+    @Query(sort: [SortDescriptor(\Achievement.orderIndex)]) private var allAchievements: [Achievement]
 
     @State private var selectedCategory: AchievementCategory?
 

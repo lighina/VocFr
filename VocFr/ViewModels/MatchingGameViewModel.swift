@@ -72,6 +72,9 @@ class MatchingGameViewModel {
     /// Timer for tracking game duration
     private var timer: Timer?
 
+    /// Whether the game has started (first card clicked)
+    private var hasStarted: Bool = false
+
     /// Number of pairs to match
     private let pairCount: Int = 6
 
@@ -136,8 +139,7 @@ class MatchingGameViewModel {
 
         cards = newCards
 
-        // Start timer
-        startTimer()
+        // Don't start timer yet - wait for first card click
     }
 
     // MARK: - Timer Management
@@ -159,6 +161,12 @@ class MatchingGameViewModel {
 
     /// Select a card
     func selectCard(_ card: MatchingCard) {
+        // Start timer on first card click
+        if !hasStarted {
+            hasStarted = true
+            startTimer()
+        }
+
         // Find card index
         guard let index = cards.firstIndex(where: { $0.id == card.id }) else { return }
 
@@ -274,6 +282,8 @@ class MatchingGameViewModel {
         elapsedTime = 0
         score = 0
         isCompleted = false
+        hasStarted = false
+        stopTimer()
         setupGame()
     }
 

@@ -13,34 +13,36 @@ struct MatchingCardView: View {
     let onTap: () -> Void
 
     var body: some View {
-        ZStack {
-            // Card background
-            RoundedRectangle(cornerRadius: 12)
-                .fill(cardBackgroundColor)
-                .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
-
-            // Card content
-            if card.isFaceUp || card.isMatched {
-                // Face up - show content
-                frontContent
-            } else {
-                // Face down - show back pattern
-                backContent
-            }
-        }
-        .rotation3DEffect(
-            .degrees(card.isFaceUp || card.isMatched ? 0 : 180),
-            axis: (x: 0.0, y: 1.0, z: 0.0)
-        )
-        .opacity(card.isMatched ? 0.6 : 1.0)
-        .scaleEffect(card.isMatched ? 0.95 : 1.0)
-        .animation(.spring(response: 0.4, dampingFraction: 0.7), value: card.isFaceUp)
-        .animation(.spring(response: 0.4, dampingFraction: 0.7), value: card.isMatched)
-        .onTapGesture {
+        Button(action: {
             if !card.isMatched && !card.isFaceUp {
                 onTap()
             }
+        }) {
+            ZStack {
+                // Card background
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(cardBackgroundColor)
+                    .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+
+                // Card content
+                if card.isFaceUp || card.isMatched {
+                    // Face up - show content
+                    frontContent
+                } else {
+                    // Face down - show back pattern
+                    backContent
+                }
+            }
+            .rotation3DEffect(
+                .degrees(card.isFaceUp || card.isMatched ? 0 : 180),
+                axis: (x: 0.0, y: 1.0, z: 0.0)
+            )
+            .opacity(card.isMatched ? 0.6 : 1.0)
+            .scaleEffect(card.isMatched ? 0.95 : 1.0)
+            .animation(.spring(response: 0.4, dampingFraction: 0.7), value: card.isFaceUp)
+            .animation(.spring(response: 0.4, dampingFraction: 0.7), value: card.isMatched)
         }
+        .buttonStyle(PlainButtonStyle())
     }
 
     // MARK: - Card Content

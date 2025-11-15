@@ -138,21 +138,51 @@ struct ListeningPracticeView: View {
                 }
             }
         }
+        .onChange(of: viewModel.currentWordIndex) { _, _ in
+            // Auto-play audio when word changes
+            if viewModel.shouldAutoPlay() {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    playAudio(for: word)
+                    viewModel.markAutoPlayed()
+                }
+            }
+        }
     }
 
-    /// Answer button with feedback
+    /// Answer button with image feedback
     private func answerButton(text: String, index: Int, isCorrect: Bool) -> some View {
-        Button(action: {
+        let word = viewModel.currentOptions[index]
+
+        return Button(action: {
             withAnimation(.spring(response: 0.3)) {
                 viewModel.selectAnswer(at: index)
             }
         }) {
-            HStack {
-                Text(text)
-                    .font(.headline)
-                    .foregroundColor(buttonForegroundColor(index: index, isCorrect: isCorrect))
+            VStack(spacing: 8) {
+                // Word image
+                if let image = UIImage(named: word.imageName) {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 80)
+                        .cornerRadius(8)
+                } else {
+                    // Fallback if image not found
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color(.systemGray5))
+                            .frame(height: 80)
+                        Image(systemName: "photo")
+                            .font(.largeTitle)
+                            .foregroundColor(.gray)
+                    }
+                }
 
-                Spacer()
+                // Word text (smaller, below image)
+                Text(text)
+                    .font(.caption)
+                    .fontWeight(.medium)
+                    .foregroundColor(buttonForegroundColor(index: index, isCorrect: isCorrect))
 
                 // Show checkmark or X after selection
                 if viewModel.selectedAnswerIndex == index {
