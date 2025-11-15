@@ -71,8 +71,8 @@ struct FlashcardView: View {
     private var progressHeader: some View {
         VStack(spacing: 8) {
             // Progress bar
-            ProgressView(value: viewModel.progressPercentage, total: 1.0)
-                .progressViewStyle(LinearProgressViewStyle(tint: .blue))
+            ProgressView(value: viewModel.progressPercentage)
+                .tint(.blue)
                 .scaleEffect(x: 1, y: 2, anchor: .center)
 
             // Progress text
