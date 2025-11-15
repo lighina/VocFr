@@ -10,13 +10,13 @@ import SwiftData
 
 struct SectionDetailView: View {
     let section: Section
-    @Binding var navigationPath: NavigationPath
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         List {
             ForEach(Array(section.sectionWords.sorted(by: { $0.orderIndex < $1.orderIndex }).enumerated()), id: \.element.id) { index, sectionWord in
                 if let word = sectionWord.word {
-                    NavigationLink(value: WordNavigationData(section: section, wordIndex: index)) {
+                    NavigationLink(destination: WordDetailView(section: section, currentWordIndex: index)) {
                         WordRowView(word: word)
                     }
                 }
@@ -28,7 +28,7 @@ struct SectionDetailView: View {
             // Custom back button (leading)
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
-                    navigationPath.removeLast()
+                    dismiss()
                 }) {
                     HStack(spacing: 4) {
                         Image(systemName: "chevron.left")
@@ -43,12 +43,13 @@ struct SectionDetailView: View {
             ToolbarItem(placement: .navigationBarLeading) {
                 Menu {
                     Button(action: {
-                        navigationPath = NavigationPath()  // Clear path to go to root
+                        // Navigate to home - dismiss will handle this
+                        dismiss()
                     }) {
                         Label("Home", systemImage: "house")
                     }
                     Button(action: {
-                        navigationPath.removeLast()  // Go back one level
+                        dismiss()
                     }) {
                         Label(getUniteName(), systemImage: "book.closed")
                     }
@@ -125,8 +126,6 @@ struct SectionDetailView: View {
 }
 
 #Preview("Section View") {
-    @Previewable @State var path = NavigationPath()
-
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Unite.self, Section.self, Word.self, WordForm.self,
                                        AudioFile.self, AudioSegment.self, UserProgress.self,
@@ -136,6 +135,8 @@ struct SectionDetailView: View {
     let section = Section(id: "preview-section", name: "preview section", orderIndex: 0)
     container.mainContext.insert(section)
 
-    return SectionDetailView(section: section, navigationPath: $path)
-        .modelContainer(container)
+    return NavigationStack {
+        SectionDetailView(section: section)
+    }
+    .modelContainer(container)
 }

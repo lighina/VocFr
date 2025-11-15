@@ -10,10 +10,12 @@ import SwiftData
 
 struct ContentView: View {
     @State private var showMainApp = false
-    
+
     var body: some View {
         if showMainApp {
-            MainAppView()
+            NavigationStack {
+                MainAppView()
+            }
         } else {
             WelcomeView(showMainApp: $showMainApp)
         }

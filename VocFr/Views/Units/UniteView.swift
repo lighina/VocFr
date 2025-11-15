@@ -13,60 +13,48 @@ struct UnitsView: View {
     @Query private var unites: [Unite]
     @State private var viewModel = UnitsViewModel()
     @State private var showImportAlert = false
-    @State private var navigationPath = NavigationPath()
 
     var body: some View {
-        NavigationStack(path: $navigationPath) {
-            List {
-                // Stars progress section (Part B.1)
-                StarsProgressView()
-                    .listRowInsets(EdgeInsets())
-                    .listRowBackground(Color.clear)
+        List {
+            // Stars progress section (Part B.1)
+            StarsProgressView()
+                .listRowInsets(EdgeInsets())
+                .listRowBackground(Color.clear)
 
-                // Units list
-                ForEach(unites.sorted(by: { $0.number < $1.number })) { unite in
-                    NavigationLink(value: unite) {
-                        UniteRowView(unite: unite)
-                    }
-                    .disabled(!unite.isUnlocked)
-                    .opacity(unite.isUnlocked ? 1.0 : 0.6)
+            // Units list
+            ForEach(unites.sorted(by: { $0.number < $1.number })) { unite in
+                NavigationLink(destination: UniteDetailView(unite: unite)) {
+                    UniteRowView(unite: unite)
                 }
+                .disabled(!unite.isUnlocked)
+                .opacity(unite.isUnlocked ? 1.0 : 0.6)
             }
-            .navigationTitle("units.title".localized)
-            .navigationDestination(for: Unite.self) { unite in
-                UniteDetailView(unite: unite, navigationPath: $navigationPath)
-            }
-            .navigationDestination(for: Section.self) { section in
-                SectionDetailView(section: section, navigationPath: $navigationPath)
-            }
-            .navigationDestination(for: WordNavigationData.self) { data in
-                WordDetailView(section: data.section, currentWordIndex: data.wordIndex, navigationPath: $navigationPath)
-            }
-            .toolbar {
-                ToolbarItem {
-                    Button(action: importData) {
-                        Label("units.import.button".localized, systemImage: viewModel.isImporting ? "arrow.down.circle" : "square.and.arrow.down")
-                    }
-                    .disabled(viewModel.isImporting)
+        }
+        .navigationTitle("units.title".localized)
+        .toolbar {
+            ToolbarItem {
+                Button(action: importData) {
+                    Label("units.import.button".localized, systemImage: viewModel.isImporting ? "arrow.down.circle" : "square.and.arrow.down")
                 }
+                .disabled(viewModel.isImporting)
             }
-            .onAppear {
-                // Initialize ViewModel with ModelContext
-                viewModel = UnitsViewModel(modelContext: modelContext)
+        }
+        .onAppear {
+            // Initialize ViewModel with ModelContext
+            viewModel = UnitsViewModel(modelContext: modelContext)
 
-                // Award daily login points (Part B.1)
-                PointsManager.shared.awardDailyLoginPoints(modelContext: modelContext)
+            // Award daily login points (Part B.1)
+            PointsManager.shared.awardDailyLoginPoints(modelContext: modelContext)
+        }
+        .alert("units.import.alert.title".localized, isPresented: $showImportAlert) {
+            Button("units.import.alert.ok".localized) {
+                viewModel.resetImportStatus()
             }
-            .alert("units.import.alert.title".localized, isPresented: $showImportAlert) {
-                Button("units.import.alert.ok".localized) {
-                    viewModel.resetImportStatus()
-                }
-            } message: {
-                if viewModel.importSucceeded {
-                    Text("units.import.success".localized)
-                } else if let errorMessage = viewModel.errorMessage {
-                    Text("units.import.failed".localized(errorMessage))
-                }
+        } message: {
+            if viewModel.importSucceeded {
+                Text("units.import.success".localized)
+            } else if let errorMessage = viewModel.errorMessage {
+                Text("units.import.failed".localized(errorMessage))
             }
         }
     }
@@ -113,12 +101,11 @@ struct UniteRowView: View {
 
 struct UniteDetailView: View {
     let unite: Unite
-    @Binding var navigationPath: NavigationPath
 
     var body: some View {
         List {
             ForEach(unite.sections.sorted(by: { $0.orderIndex < $1.orderIndex })) { section in
-                NavigationLink(value: section) {
+                NavigationLink(destination: SectionDetailView(section: section)) {
                     SectionRowView(section: section)
                 }
             }
