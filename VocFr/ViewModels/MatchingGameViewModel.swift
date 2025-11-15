@@ -190,12 +190,10 @@ class MatchingGameViewModel {
 
         print("✅ Flipping card at index \(index)")
 
-        // Flip card face up
-        cards[index].isFaceUp = true
-
-        // Force SwiftUI to detect the change
-        let tempCards = cards
-        cards = tempCards
+        // Create a new array to trigger SwiftUI update
+        var newCards = cards
+        newCards[index].isFaceUp = true
+        cards = newCards
 
         selectedCards.append(cards[index])
 
@@ -243,32 +241,28 @@ class MatchingGameViewModel {
 
     /// Mark cards as matched
     private func markCardsAsMatched(_ card1: MatchingCard, _ card2: MatchingCard) {
-        if let index1 = cards.firstIndex(where: { $0.id == card1.id }) {
-            cards[index1].isMatched = true
+        var newCards = cards
+        if let index1 = newCards.firstIndex(where: { $0.id == card1.id }) {
+            newCards[index1].isMatched = true
         }
-        if let index2 = cards.firstIndex(where: { $0.id == card2.id }) {
-            cards[index2].isMatched = true
+        if let index2 = newCards.firstIndex(where: { $0.id == card2.id }) {
+            newCards[index2].isMatched = true
         }
-
-        // Force SwiftUI to detect the change
-        let tempCards = cards
-        cards = tempCards
+        cards = newCards
 
         print("✨ Marked cards as matched - UI should update now")
     }
 
     /// Flip cards back face down
     private func flipCardsBack(_ card1: MatchingCard, _ card2: MatchingCard) {
-        if let index1 = cards.firstIndex(where: { $0.id == card1.id }) {
-            cards[index1].isFaceUp = false
+        var newCards = cards
+        if let index1 = newCards.firstIndex(where: { $0.id == card1.id }) {
+            newCards[index1].isFaceUp = false
         }
-        if let index2 = cards.firstIndex(where: { $0.id == card2.id }) {
-            cards[index2].isFaceUp = false
+        if let index2 = newCards.firstIndex(where: { $0.id == card2.id }) {
+            newCards[index2].isFaceUp = false
         }
-
-        // Force SwiftUI to detect the change by triggering a new value
-        let tempCards = cards
-        cards = tempCards
+        cards = newCards
 
         print("🔄 Flipped cards back - UI should update now")
     }
