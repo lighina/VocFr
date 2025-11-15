@@ -19,21 +19,21 @@ struct FlashcardCard: View {
 
     var body: some View {
         ZStack {
-            if !isFaceUp {
-                // Front side: Image
-                frontSide
-                    .rotation3DEffect(
-                        .degrees(rotation),
-                        axis: (x: 0.0, y: 1.0, z: 0.0)
-                    )
-            } else {
-                // Back side: French word and translation
-                backSide
-                    .rotation3DEffect(
-                        .degrees(rotation + 180),
-                        axis: (x: 0.0, y: 1.0, z: 0.0)
-                    )
-            }
+            // Front side: Image
+            frontSide
+                .rotation3DEffect(
+                    .degrees(rotation),
+                    axis: (x: 0.0, y: 1.0, z: 0.0)
+                )
+                .opacity(rotation > 90 ? 0 : 1)
+
+            // Back side: French word and translation
+            backSide
+                .rotation3DEffect(
+                    .degrees(rotation + 180),
+                    axis: (x: 0.0, y: 1.0, z: 0.0)
+                )
+                .opacity(rotation > 90 ? 1 : 0)
         }
         .frame(maxWidth: .infinity)
         .aspectRatio(0.75, contentMode: .fit)
@@ -157,7 +157,6 @@ struct FlashcardCard: View {
                         .padding(.bottom, 24)
                 }
                 .padding(20)
-                .scaleEffect(x: -1, y: 1) // Flip horizontally to counteract 3D rotation mirror effect
             }
             .shadow(radius: 10)
     }

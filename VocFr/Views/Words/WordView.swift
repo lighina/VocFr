@@ -238,26 +238,26 @@ struct WordDetailView: View {
                 if let gender = mainForm.gender {
                     switch gender {
                     case .masculine:
-                        return "nom (m.)"
+                        return "n. (m.)"
                     case .feminine:
-                        return "nom (f.)"
+                        return "n. (f.)"
                     }
                 }
-                
+
                 // Check form type for gender clues
                 let formType = mainForm.formType.rawValue.lowercased()
                 if formType.contains("masculin") || formType.contains("m.") {
-                    return "nom (m.)"
+                    return "n. (m.)"
                 } else if formType.contains("féminin") || formType.contains("f.") {
-                    return "nom (f.)"
+                    return "n. (f.)"
                 }
             }
             
             // Fallback gender guess
             if word.canonical.hasSuffix("e") && !word.canonical.hasSuffix("le") && !word.canonical.hasSuffix("re") {
-                return "nom (f.)"
+                return "n. (f.)"
             } else {
-                return "nom (m.)"
+                return "n. (m.)"
             }
         }
         
@@ -276,7 +276,7 @@ struct WordDetailView: View {
         case .other:
             return "autre"
         case .noun:
-            return "nom" // fallback, should be handled above
+            return "n." // fallback, should be handled above
         }
     }
     

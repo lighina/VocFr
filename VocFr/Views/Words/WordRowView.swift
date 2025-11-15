@@ -45,7 +45,7 @@ struct WordRowView: View {
     private func getGrammaticalLabel(for partOfSpeech: PartOfSpeech) -> String {
         switch partOfSpeech {
         case .noun:
-            return "nom"
+            return "n."
         case .verb:
             return "v."
         case .adjective:
