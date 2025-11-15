@@ -123,8 +123,10 @@ struct UniteDetailView: View {
                 }
             }
         }
+        .listStyle(.plain)
         .navigationTitle(unite.title)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbarRole(.editor)
     }
 }
 

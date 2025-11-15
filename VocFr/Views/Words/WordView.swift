@@ -138,6 +138,7 @@ struct WordDetailView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarBackButtonHidden(true)
                 .toolbarBackground(.visible, for: .navigationBar)
+                .toolbarRole(.editor)
                 .toolbar {
                     // Breadcrumb navigation
                     ToolbarItem(placement: .principal) {
