@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E6D8271C2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav in Resources */ = {isa = PBXBuildFile; fileRef = E6D8271B2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav */; };
 		E6D8271D2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav in Resources */ = {isa = PBXBuildFile; fileRef = E6D8271B2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav */; };
 		E6D8271E2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav in Resources */ = {isa = PBXBuildFile; fileRef = E6D8271B2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav */; };
 /* End PBXBuildFile section */
@@ -200,6 +199,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = E60AC56B2E80DB8D00FB6BD1;
 			minimizedProjectReferenceProxies = 1;
@@ -220,7 +220,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6D8271C2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
