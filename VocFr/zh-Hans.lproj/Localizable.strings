@@ -58,11 +58,22 @@
 "listening.practice.play.count" = "播放次数:";
 "listening.practice.instruction" = "点击喇叭播放单词";
 
+// MARK: - Matching Game
+
+"matching.game.title" = "配对游戏: %@";
+"matching.game.instruction" = "将图片与法语单词配对";
+"matching.game.progress" = "已配对:";
+"matching.game.completed.title" = "恭喜完成！";
+"matching.game.time" = "用时:";
+"matching.game.attempts" = "尝试次数:";
+"matching.game.total.score" = "总得分: %d 星";
+
 // MARK: - Section View
 
 "section.button.practice" = "练习";
 "section.practice.visual" = "看图练习";
 "section.practice.listening" = "听力练习";
+"section.practice.matching" = "配对游戏";
 
 // MARK: - Main App View
 

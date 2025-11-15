@@ -55,6 +55,9 @@ struct SectionDetailView: View {
                     NavigationLink(destination: ListeningPracticeView(section: section)) {
                         Label("section.practice.listening".localized, systemImage: "speaker.wave.3")
                     }
+                    NavigationLink(destination: MatchingGameView(section: section)) {
+                        Label("section.practice.matching".localized, systemImage: "rectangle.on.rectangle")
+                    }
                 } label: {
                     HStack(spacing: 4) {
                         Image(systemName: "play.circle.fill")
@@ -72,6 +75,9 @@ struct SectionDetailView: View {
                     }
                     NavigationLink(destination: ListeningPracticeView(section: section)) {
                         Label("section.practice.listening".localized, systemImage: "speaker.wave.3")
+                    }
+                    NavigationLink(destination: MatchingGameView(section: section)) {
+                        Label("section.practice.matching".localized, systemImage: "rectangle.on.rectangle")
                     }
                 } label: {
                     HStack(spacing: 4) {

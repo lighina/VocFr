@@ -58,11 +58,22 @@
 "listening.practice.play.count" = "Plays:";
 "listening.practice.instruction" = "Tap the speaker to hear the word";
 
+// MARK: - Matching Game
+
+"matching.game.title" = "Matching Game: %@";
+"matching.game.instruction" = "Match images with French words";
+"matching.game.progress" = "Matched:";
+"matching.game.completed.title" = "Congratulations!";
+"matching.game.time" = "Time:";
+"matching.game.attempts" = "Attempts:";
+"matching.game.total.score" = "Total Score: %d stars";
+
 // MARK: - Section View
 
 "section.button.practice" = "Practice";
 "section.practice.visual" = "Visual Practice";
 "section.practice.listening" = "Listening Practice";
+"section.practice.matching" = "Matching Game";
 
 // MARK: - Main App View
 
