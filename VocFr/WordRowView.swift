@@ -17,10 +17,6 @@ struct WordRowView: View {
                 Text(word.canonical)
                     .font(.headline)
                     .foregroundColor(.primary)
-                
-                Text(word.chinese)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
             }
             
             Spacer()
