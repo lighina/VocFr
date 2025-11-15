@@ -78,6 +78,9 @@ struct SectionDetailView: View {
                     NavigationLink(destination: FlashcardView(section: section)) {
                         Label("section.practice.flashcard".localized, systemImage: "rectangle.stack")
                     }
+                    NavigationLink(destination: SpellingPracticeView(section: section)) {
+                        Label("section.practice.spelling".localized, systemImage: "keyboard")
+                    }
                     NavigationLink(destination: MatchingGameView(section: section)) {
                         Label("section.practice.matching".localized, systemImage: "rectangle.on.rectangle")
                     }
@@ -101,6 +104,9 @@ struct SectionDetailView: View {
                     }
                     NavigationLink(destination: FlashcardView(section: section)) {
                         Label("section.practice.flashcard".localized, systemImage: "rectangle.stack")
+                    }
+                    NavigationLink(destination: SpellingPracticeView(section: section)) {
+                        Label("section.practice.spelling".localized, systemImage: "keyboard")
                     }
                     NavigationLink(destination: MatchingGameView(section: section)) {
                         Label("section.practice.matching".localized, systemImage: "rectangle.on.rectangle")

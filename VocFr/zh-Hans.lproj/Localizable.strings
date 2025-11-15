@@ -86,6 +86,33 @@
 "flashcard.all.done" = "全部完成！";
 "flashcard.all.done.message" = "今天没有需要复习的卡片了，明天再来吧！";
 
+// MARK: - Spelling Practice
+
+"spelling.title" = "拼写练习: %@";
+"spelling.progress" = "进度:";
+"spelling.play.audio" = "播放音频";
+"spelling.type.word" = "输入法语单词:";
+"spelling.special.chars" = "特殊字符:";
+"spelling.hint" = "提示:";
+"spelling.hint.button" = "提示";
+"spelling.check" = "检查";
+"spelling.next" = "下一个";
+"spelling.correct.answer" = "正确答案:";
+"spelling.result.correct" = "完全正确！✨";
+"spelling.result.case" = "正确！（注意大小写）";
+"spelling.result.accents" = "几乎正确！缺少重音符号";
+"spelling.result.accents.detail" = "别忘了重音符号";
+"spelling.result.close" = "接近了！";
+"spelling.result.close.detail" = "还差%d个字符";
+"spelling.result.incorrect" = "下次再试";
+"spelling.completed.title" = "拼写练习完成！";
+"spelling.words.practiced" = "练习单词数:";
+"spelling.correct.count" = "正确答案数:";
+"spelling.accuracy" = "正确率:";
+"spelling.restart" = "再次练习";
+"spelling.empty.title" = "没有可用单词";
+"spelling.empty.message" = "该课程暂无可练习的单词。";
+
 // MARK: - Section View
 
 "section.button.practice" = "练习";
@@ -93,6 +120,7 @@
 "section.practice.listening" = "听力练习";
 "section.practice.matching" = "配对游戏";
 "section.practice.flashcard" = "闪卡复习";
+"section.practice.spelling" = "拼写练习";
 
 // MARK: - Main App View
 

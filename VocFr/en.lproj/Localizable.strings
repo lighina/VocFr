@@ -86,6 +86,33 @@
 "flashcard.all.done" = "All Done!";
 "flashcard.all.done.message" = "No cards due for review today. Come back tomorrow!";
 
+// MARK: - Spelling Practice
+
+"spelling.title" = "Spelling Practice: %@";
+"spelling.progress" = "Progress:";
+"spelling.play.audio" = "Play Audio";
+"spelling.type.word" = "Type the French word:";
+"spelling.special.chars" = "Special Characters:";
+"spelling.hint" = "Hint:";
+"spelling.hint.button" = "Hint";
+"spelling.check" = "Check";
+"spelling.next" = "Next";
+"spelling.correct.answer" = "Correct answer:";
+"spelling.result.correct" = "Perfect! ✨";
+"spelling.result.case" = "Correct! (Watch capitalization)";
+"spelling.result.accents" = "Almost! Missing accents";
+"spelling.result.accents.detail" = "Don't forget the accent marks";
+"spelling.result.close" = "Close!";
+"spelling.result.close.detail" = "%d character(s) off";
+"spelling.result.incorrect" = "Try again next time";
+"spelling.completed.title" = "Spelling Practice Complete!";
+"spelling.words.practiced" = "Words Practiced:";
+"spelling.correct.count" = "Correct Answers:";
+"spelling.accuracy" = "Accuracy:";
+"spelling.restart" = "Practice Again";
+"spelling.empty.title" = "No Words Available";
+"spelling.empty.message" = "This section has no words for spelling practice.";
+
 // MARK: - Section View
 
 "section.button.practice" = "Practice";
@@ -93,6 +120,7 @@
 "section.practice.listening" = "Listening Practice";
 "section.practice.matching" = "Matching Game";
 "section.practice.flashcard" = "Flashcards";
+"section.practice.spelling" = "Spelling Practice";
 
 // MARK: - Main App View
 
