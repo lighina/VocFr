@@ -51,9 +51,18 @@
 "practice.points.earned" = "+%d stars";
 "practice.button.retry" = "Retry";
 
+// MARK: - Listening Practice
+
+"listening.practice.title" = "Listening Practice: %@";
+"listening.practice.question" = "Listen and choose the correct word";
+"listening.practice.play.count" = "Plays:";
+"listening.practice.instruction" = "Tap the speaker to hear the word";
+
 // MARK: - Section View
 
 "section.button.practice" = "Practice";
+"section.practice.visual" = "Visual Practice";
+"section.practice.listening" = "Listening Practice";
 
 // MARK: - Main App View
 

@@ -51,9 +51,18 @@
 "practice.points.earned" = "+%d 星";
 "practice.button.retry" = "重新练习";
 
+// MARK: - Listening Practice
+
+"listening.practice.title" = "听力练习: %@";
+"listening.practice.question" = "听音频，选择正确的单词";
+"listening.practice.play.count" = "播放次数:";
+"listening.practice.instruction" = "点击喇叭播放单词";
+
 // MARK: - Section View
 
 "section.button.practice" = "练习";
+"section.practice.visual" = "看图练习";
+"section.practice.listening" = "听力练习";
 
 // MARK: - Main App View
 

@@ -48,7 +48,14 @@ struct SectionDetailView: View {
 
             #if os(iOS)
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink(destination: PracticeView(section: section)) {
+                Menu {
+                    NavigationLink(destination: PracticeView(section: section)) {
+                        Label("section.practice.visual".localized, systemImage: "photo")
+                    }
+                    NavigationLink(destination: ListeningPracticeView(section: section)) {
+                        Label("section.practice.listening".localized, systemImage: "speaker.wave.3")
+                    }
+                } label: {
                     HStack(spacing: 4) {
                         Image(systemName: "play.circle.fill")
                             .font(.system(size: 16, weight: .medium))
@@ -59,7 +66,14 @@ struct SectionDetailView: View {
             }
             #else
             ToolbarItem(placement: .automatic) {
-                NavigationLink(destination: PracticeView(section: section)) {
+                Menu {
+                    NavigationLink(destination: PracticeView(section: section)) {
+                        Label("section.practice.visual".localized, systemImage: "photo")
+                    }
+                    NavigationLink(destination: ListeningPracticeView(section: section)) {
+                        Label("section.practice.listening".localized, systemImage: "speaker.wave.3")
+                    }
+                } label: {
                     HStack(spacing: 4) {
                         Image(systemName: "play.circle.fill")
                             .font(.system(size: 16, weight: .medium))
