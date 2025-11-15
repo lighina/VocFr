@@ -9,80 +9,78 @@ import SwiftUI
 
 struct MainAppView: View {
     @State private var showingMenu = false
-    
+
     var body: some View {
-        NavigationView {
-            VStack(spacing: 30) {
-                // 欢迎信息
-                VStack(spacing: 10) {
-                    Text("main.select.mode".localized)
-                        .font(.title)
-                        .fontWeight(.bold)
+        VStack(spacing: 30) {
+            // 欢迎信息
+            VStack(spacing: 10) {
+                Text("main.select.mode".localized)
+                    .font(.title)
+                    .fontWeight(.bold)
 
-                    Text("main.select.mode.subtitle".localized)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                }
-                .padding(.top)
+                Text("main.select.mode.subtitle".localized)
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
+            .padding(.top)
 
-                Spacer()
+            Spacer()
 
-                // 三个学习选项（堆积式布局）
-                VStack(spacing: 20) {
-                    // 学习模式
-                    NavigationLink(destination: UnitsView()) {
-                        MainModeButton(
-                            icon: "book.closed",
-                            title: "main.study.title".localized,
-                            description: "main.study.description".localized,
-                            color: .blue
-                        )
-                    }
-
-                    // 答题模式
-                    NavigationLink(destination: TestModeView()) {
-                        MainModeButton(
-                            icon: "questionmark.circle",
-                            title: "main.test.title".localized,
-                            description: "main.test.description".localized,
-                            color: .green
-                        )
-                    }
-
-                    // 游戏模式
+            // 三个学习选项（堆积式布局）
+            VStack(spacing: 20) {
+                // 学习模式
+                NavigationLink(destination: UnitsView()) {
                     MainModeButton(
-                        icon: "gamecontroller",
-                        title: "main.game.title".localized,
-                        description: "main.game.description".localized,
-                        color: .purple,
-                        isDisabled: true
+                        icon: "book.closed",
+                        title: "main.study.title".localized,
+                        description: "main.study.description".localized,
+                        color: .blue
                     )
                 }
-                .padding(.horizontal)
 
-                Spacer()
-            }
-            .navigationTitle("main.title".localized)
-            .toolbar {
-                #if os(iOS)
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: { showingMenu = true }) {
-                        Image(systemName: "line.3.horizontal")
-                            .font(.title2)
-                    }
+                // 答题模式
+                NavigationLink(destination: TestModeView()) {
+                    MainModeButton(
+                        icon: "questionmark.circle",
+                        title: "main.test.title".localized,
+                        description: "main.test.description".localized,
+                        color: .green
+                    )
                 }
-                #else
-                ToolbarItem(placement: .automatic) {
-                    Button(action: { showingMenu = true }) {
-                        Image(systemName: "line.3.horizontal")
-                            .font(.title2)
-                    }
+
+                // 游戏模式
+                MainModeButton(
+                    icon: "gamecontroller",
+                    title: "main.game.title".localized,
+                    description: "main.game.description".localized,
+                    color: .purple,
+                    isDisabled: true
+                )
+            }
+            .padding(.horizontal)
+
+            Spacer()
+        }
+        .navigationTitle("main.title".localized)
+        .toolbar {
+            #if os(iOS)
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: { showingMenu = true }) {
+                    Image(systemName: "line.3.horizontal")
+                        .font(.title2)
                 }
-                #endif
             }
-            .sheet(isPresented: $showingMenu) {
-                MenuView()
+            #else
+            ToolbarItem(placement: .automatic) {
+                Button(action: { showingMenu = true }) {
+                    Image(systemName: "line.3.horizontal")
+                        .font(.title2)
+                }
             }
+            #endif
+        }
+        .sheet(isPresented: $showingMenu) {
+            MenuView()
         }
     }
 }

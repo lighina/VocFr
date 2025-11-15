@@ -15,12 +15,10 @@ struct WordDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject private var audioManager = AudioPlayerManager.shared
     @State private var viewModel: WordDetailViewModel
-    @Binding var navigationPath: NavigationPath
 
-    init(section: Section, currentWordIndex: Int, navigationPath: Binding<NavigationPath>) {
+    init(section: Section, currentWordIndex: Int) {
         // Initialize ViewModel
         self._viewModel = State(initialValue: WordDetailViewModel(section: section, currentWordIndex: currentWordIndex))
-        self._navigationPath = navigationPath
     }
 
     // Computed property to get current word (delegate to ViewModel)
@@ -141,7 +139,7 @@ struct WordDetailView: View {
                     // Custom back button (leading)
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button(action: {
-                            navigationPath.removeLast()
+                            dismiss()
                         }) {
                             HStack(spacing: 4) {
                                 Image(systemName: "chevron.left")
@@ -156,17 +154,17 @@ struct WordDetailView: View {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Menu {
                             Button(action: {
-                                navigationPath = NavigationPath()  // Clear all to go to root
+                                dismiss() // Return to section
                             }) {
                                 Label("Home", systemImage: "house")
                             }
                             Button(action: {
-                                navigationPath.removeLast(2)  // Remove 2 levels: Word -> Section -> Unite
+                                dismiss() // Return to section
                             }) {
                                 Label(getUniteName(), systemImage: "book.closed")
                             }
                             Button(action: {
-                                navigationPath.removeLast()  // Remove 1 level: Word -> Section
+                                dismiss()  // Return to section
                             }) {
                                 Label(viewModel.section.name.capitalized, systemImage: "list.dash")
                             }
@@ -509,11 +507,11 @@ struct WordDetailPreview: View {
         context.insert(section)
         context.insert(word)
         context.insert(sectionWord)
-        
-        @State var path = NavigationPath()
 
-        return WordDetailView(section: section, currentWordIndex: 0, navigationPath: $path)
-            .modelContainer(container)
+        return NavigationStack {
+            WordDetailView(section: section, currentWordIndex: 0)
+        }
+        .modelContainer(container)
     }
 }
 
