@@ -249,7 +249,7 @@ class ListeningPracticeViewModel {
             print("✅ Listening practice record saved: \(correctCount)/\(totalWords) correct, \(pointsEarned) stars earned")
 
             // Award points for completing practice
-            if let modelContext = modelContext, pointsEarned > 0 {
+            if pointsEarned > 0 {
                 PointsManager.shared.awardStars(points: pointsEarned, modelContext: modelContext, reason: "Listening practice completed")
             }
 

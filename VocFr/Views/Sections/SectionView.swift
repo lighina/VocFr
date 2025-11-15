@@ -109,8 +109,8 @@ struct SectionDetailView: View {
 
     let section = Section(id: "preview-section", name: "preview section", orderIndex: 0)
     container.mainContext.insert(section)
-    
-    @State var path = NavigationPath()
+
+    @Previewable @State var path = NavigationPath()
 
     return SectionDetailView(section: section, navigationPath: $path)
         .modelContainer(container)
