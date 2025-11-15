@@ -51,6 +51,9 @@ class MatchingGameViewModel {
     /// All cards in the game (6 words × 2 cards = 12 cards)
     var cards: [MatchingCard] = []
 
+    /// Refresh trigger to force SwiftUI to re-render cards
+    var refreshTrigger: UUID = UUID()
+
     /// Currently selected cards (max 2)
     private(set) var selectedCards: [MatchingCard] = []
 
@@ -194,6 +197,7 @@ class MatchingGameViewModel {
         var newCards = cards
         newCards[index].isFaceUp = true
         cards = newCards
+        refreshTrigger = UUID()  // Force UI refresh
 
         selectedCards.append(cards[index])
 
@@ -249,6 +253,7 @@ class MatchingGameViewModel {
             newCards[index2].isMatched = true
         }
         cards = newCards
+        refreshTrigger = UUID()  // Force UI refresh
 
         print("✨ Marked cards as matched - UI should update now")
     }
@@ -263,6 +268,7 @@ class MatchingGameViewModel {
             newCards[index2].isFaceUp = false
         }
         cards = newCards
+        refreshTrigger = UUID()  // Force UI refresh
 
         print("🔄 Flipped cards back - UI should update now")
     }

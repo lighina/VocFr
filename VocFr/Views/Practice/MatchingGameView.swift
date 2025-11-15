@@ -70,6 +70,7 @@ struct MatchingGameView: View {
                     }
                 }
                 .padding(.horizontal)
+                .id(viewModel.refreshTrigger)  // Force refresh when cards change
             }
 
             Spacer()
