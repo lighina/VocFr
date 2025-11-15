@@ -78,7 +78,7 @@ struct SpellingPracticeView: View {
     // MARK: - Progress Header
 
     private var progressHeader: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: isInputFocused ? 4 : 8) {
             // Progress bar
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
@@ -93,92 +93,89 @@ struct SpellingPracticeView: View {
             }
             .frame(height: 4)
 
-            // Progress text
-            HStack {
-                Text("spelling.progress".localized)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+            if !isInputFocused {
+                // Progress text - hide when keyboard is open
+                HStack {
+                    Text("spelling.progress".localized)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
 
-                Spacer()
+                    Spacer()
 
-                Text(viewModel.progressText)
-                    .font(.caption)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.blue)
+                    Text(viewModel.progressText)
+                        .font(.caption)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.blue)
+                }
             }
         }
+        .animation(.easeInOut(duration: 0.3), value: isInputFocused)
     }
 
     // MARK: - Image Section
 
     private func imageSection(word: Word) -> some View {
         HStack(spacing: 16) {
-            // Image - more compact when keyboard is open
+            // Image - compact when keyboard is open or after submitted
             if let image = UIImage(named: word.imageName) {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: viewModel.hasSubmitted ? 120 : 180, height: viewModel.hasSubmitted ? 100 : 150)
+                    .frame(width: isInputFocused || viewModel.hasSubmitted ? 100 : 180,
+                           height: isInputFocused || viewModel.hasSubmitted ? 80 : 150)
                     .background(Color.white)
                     .cornerRadius(12)
                     .shadow(radius: 3)
+                    .animation(.easeInOut(duration: 0.3), value: isInputFocused)
                     .animation(.easeInOut(duration: 0.3), value: viewModel.hasSubmitted)
             } else {
                 Image(systemName: "photo")
                     .font(.system(size: 50))
                     .foregroundColor(.gray.opacity(0.5))
-                    .frame(width: 180, height: 150)
+                    .frame(width: 100, height: 80)
             }
 
             VStack(spacing: 12) {
-                // Audio button - compact design
+                // Audio button - icon only
                 Button(action: {
                     playAudio(for: word)
                 }) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "speaker.wave.2.fill")
-                            .font(.title3)
-                        if !viewModel.hasSubmitted {
-                            Text("spelling.play.audio".localized)
-                                .font(.subheadline)
-                        }
-                    }
-                    .foregroundColor(.white)
-                    .padding(.horizontal, viewModel.hasSubmitted ? 12 : 20)
-                    .padding(.vertical, 10)
-                    .background(Color.blue)
-                    .cornerRadius(20)
+                    Image(systemName: "speaker.wave.2.fill")
+                        .font(.title2)
+                        .foregroundColor(.white)
+                        .padding(12)
+                        .background(Color.blue)
+                        .clipShape(Circle())
                 }
 
                 if viewModel.hasSubmitted {
-                    // Show word info when submitted
-                    VStack(spacing: 4) {
-                        Text(word.canonical)
-                            .font(.headline)
-                        Text(word.chinese)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                    }
+                    // Show only French word when submitted
+                    Text(word.canonical)
+                        .font(.headline)
+                        .foregroundColor(.primary)
                 }
             }
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 8)
+        .padding(.vertical, isInputFocused ? 4 : 8)
+        .animation(.easeInOut(duration: 0.3), value: isInputFocused)
     }
 
     // MARK: - Hint Section
 
     private var hintSection: some View {
-        VStack(spacing: 8) {
-            Text("spelling.hint".localized)
-                .font(.caption)
-                .foregroundColor(.secondary)
+        VStack(spacing: isInputFocused ? 4 : 8) {
+            if !isInputFocused {
+                Text("spelling.hint".localized)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
 
             Text(viewModel.hintText)
-                .font(.title3)
+                .font(isInputFocused ? .body : .title3)
                 .fontWeight(.medium)
                 .foregroundColor(.orange)
-                .padding()
+                .padding(isInputFocused ? 8 : 12)
                 .frame(maxWidth: .infinity)
                 .background(
                     RoundedRectangle(cornerRadius: 12)
@@ -189,19 +186,22 @@ struct SpellingPracticeView: View {
                         )
                 )
         }
+        .animation(.easeInOut(duration: 0.3), value: isInputFocused)
     }
 
     // MARK: - Input Section
 
     private var inputSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("spelling.type.word".localized)
-                .font(.subheadline)
-                .foregroundColor(.secondary)
+        VStack(alignment: .leading, spacing: isInputFocused ? 4 : 8) {
+            if !isInputFocused {
+                Text("spelling.type.word".localized)
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
 
             TextField("", text: $viewModel.userInput)
                 .textFieldStyle(.roundedBorder)
-                .font(.title2)
+                .font(isInputFocused ? .title3 : .title2)
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
                 .focused($isInputFocused)
@@ -211,49 +211,55 @@ struct SpellingPracticeView: View {
                     // Dismiss keyboard when user presses Done
                     isInputFocused = false
                 }
-                .padding()
+                .padding(isInputFocused ? 8 : 12)
                 .background(
                     RoundedRectangle(cornerRadius: 12)
                         .fill(Color(.systemGray6))
                 )
         }
+        .animation(.easeInOut(duration: 0.3), value: isInputFocused)
     }
 
     // MARK: - French Character Toolbar
 
     private var frenchCharacterToolbar: some View {
-        VStack(spacing: 8) {
-            Text("spelling.special.chars".localized)
-                .font(.caption2)
-                .foregroundColor(.secondary)
+        VStack(spacing: isInputFocused ? 4 : 8) {
+            if !isInputFocused {
+                Text("spelling.special.chars".localized)
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+            }
 
             // Row 1: à â ä é è ê ë
-            HStack(spacing: 8) {
+            HStack(spacing: isInputFocused ? 4 : 8) {
                 ForEach(["à", "â", "ä", "é", "è", "ê", "ë"], id: \.self) { char in
                     characterButton(char)
                 }
             }
 
             // Row 2: î ï ô ù û ü ç
-            HStack(spacing: 8) {
+            HStack(spacing: isInputFocused ? 4 : 8) {
                 ForEach(["î", "ï", "ô", "ù", "û", "ü", "ç"], id: \.self) { char in
                     characterButton(char)
                 }
             }
         }
-        .padding(.vertical, 8)
+        .padding(.vertical, isInputFocused ? 4 : 8)
+        .animation(.easeInOut(duration: 0.3), value: isInputFocused)
     }
 
     private func characterButton(_ character: String) -> some View {
         Button(action: {
             viewModel.userInput += character
+            // Keep focus on input field after adding character
+            isInputFocused = true
         }) {
             Text(character)
-                .font(.headline)
+                .font(isInputFocused ? .body : .headline)
                 .foregroundColor(.blue)
-                .frame(width: 35, height: 35)
+                .frame(width: isInputFocused ? 30 : 35, height: isInputFocused ? 30 : 35)
                 .background(Color.blue.opacity(0.1))
-                .cornerRadius(8)
+                .cornerRadius(6)
         }
         .disabled(viewModel.hasSubmitted)
     }
@@ -261,20 +267,22 @@ struct SpellingPracticeView: View {
     // MARK: - Action Buttons
 
     private var actionButtons: some View {
-        HStack(spacing: 16) {
+        HStack(spacing: isInputFocused ? 8 : 16) {
             // Hint button
             if !viewModel.hasSubmitted {
                 Button(action: {
                     viewModel.requestHint()
                 }) {
-                    HStack {
+                    HStack(spacing: isInputFocused ? 4 : 8) {
                         Image(systemName: "lightbulb.fill")
-                        Text("spelling.hint.button".localized)
+                        if !isInputFocused {
+                            Text("spelling.hint.button".localized)
+                        }
                     }
-                    .font(.headline)
+                    .font(isInputFocused ? .body : .headline)
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
-                    .padding()
+                    .padding(isInputFocused ? 10 : 12)
                     .background(Color.orange)
                     .cornerRadius(12)
                 }
@@ -305,20 +313,23 @@ struct SpellingPracticeView: View {
                     viewModel.submitAnswer()
                     isInputFocused = false
                 }) {
-                    HStack {
+                    HStack(spacing: isInputFocused ? 4 : 8) {
                         Image(systemName: "checkmark.circle.fill")
-                        Text("spelling.check".localized)
+                        if !isInputFocused {
+                            Text("spelling.check".localized)
+                        }
                     }
-                    .font(.headline)
+                    .font(isInputFocused ? .body : .headline)
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
-                    .padding()
+                    .padding(isInputFocused ? 10 : 12)
                     .background(Color.green)
                     .cornerRadius(12)
                 }
                 .disabled(viewModel.userInput.trimmingCharacters(in: .whitespaces).isEmpty)
             }
         }
+        .animation(.easeInOut(duration: 0.3), value: isInputFocused)
     }
 
     // MARK: - Result Feedback
