@@ -115,12 +115,6 @@ struct WordDetailView: View {
                                         .clipShape(Circle())
                                 }
                                 .animation(.easeInOut(duration: 0.2), value: audioManager.isPlaying)
-
-                                // Articles inside the card (for nouns)
-                                if word.partOfSpeech == .noun {
-                                    articleBlock(for: word)
-                                        .padding(.top, 4)
-                                }
                             }
                             .padding(.top, 24)
                             .padding(.bottom, 28)

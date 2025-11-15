@@ -25,6 +25,7 @@ struct SectionDetailView: View {
         .navigationTitle(section.name.capitalized)
         #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         #endif
         .toolbar {
             // Breadcrumb navigation in title
