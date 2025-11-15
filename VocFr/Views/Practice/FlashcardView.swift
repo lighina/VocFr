@@ -34,7 +34,7 @@ struct FlashcardView: View {
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             // Set modelContext after view appears
-            viewModel = FlashcardViewModel(section: viewModel.section, modelContext: modelContext)
+            viewModel.setModelContext(modelContext)
         }
     }
 

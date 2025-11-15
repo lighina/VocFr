@@ -17,12 +17,15 @@ class FlashcardViewModel {
     // MARK: - Dependencies
 
     let section: Section
-    private let modelContext: ModelContext?
+    private var modelContext: ModelContext?
 
     // MARK: - State
 
     /// All cards in review queue
     private(set) var reviewQueue: [Word] = []
+
+    /// Original review queue for restart
+    private var originalReviewQueue: [Word] = []
 
     /// Current card index
     private(set) var currentIndex: Int = 0
@@ -86,6 +89,18 @@ class FlashcardViewModel {
         loadStatistics()
     }
 
+    // MARK: - Setup
+
+    /// Set or update the model context
+    func setModelContext(_ context: ModelContext) {
+        self.modelContext = context
+        // Reload queue and statistics with new context
+        if reviewQueue.isEmpty {
+            loadReviewQueue()
+            loadStatistics()
+        }
+    }
+
     // MARK: - Queue Management
 
     /// Load cards due for review
@@ -96,6 +111,7 @@ class FlashcardViewModel {
         }
 
         reviewQueue = FlashcardManager.shared.getDueCards(section: section, context: modelContext)
+        originalReviewQueue = reviewQueue // Save original queue for restart
         print("📚 Loaded \(reviewQueue.count) cards for review")
 
         if reviewQueue.isEmpty {
@@ -180,8 +196,10 @@ class FlashcardViewModel {
         knownCount = 0
         isCompleted = false
         isFaceUp = false
-        loadReviewQueue()
+        // Restore original queue instead of reloading from database
+        reviewQueue = originalReviewQueue
         loadStatistics()
+        print("🔄 Restarting review with \(reviewQueue.count) cards")
     }
 
     // MARK: - Persistence
