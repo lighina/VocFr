@@ -83,9 +83,16 @@ struct SectionDetailView: View {
     private func dismissToRoot() {
         // Dismiss to root (back to Units view - 2 levels up)
         // SectionDetailView → UniteDetailView → UnitsView
+        recursiveDismiss(count: 2)
+    }
+
+    private func recursiveDismiss(count: Int) {
+        guard count > 0 else { return }
         presentationMode.wrappedValue.dismiss()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.presentationMode.wrappedValue.dismiss()
+        if count > 1 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+                recursiveDismiss(count: count - 1)
+            }
         }
     }
 }

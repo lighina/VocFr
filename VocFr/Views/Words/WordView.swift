@@ -518,21 +518,22 @@ struct WordDetailView: View {
     private func dismissToRoot() {
         // Dismiss to root (back to Units view - 3 levels up)
         // WordDetailView → SectionDetailView → UniteDetailView → UnitsView
-        presentationMode.wrappedValue.dismiss()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.presentationMode.wrappedValue.dismiss()
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-            self.presentationMode.wrappedValue.dismiss()
-        }
+        recursiveDismiss(count: 3)
     }
 
     private func dismissToUnitList() {
         // Dismiss to Section List (2 levels up)
         // WordDetailView → SectionDetailView → UniteDetailView (Section List)
+        recursiveDismiss(count: 2)
+    }
+
+    private func recursiveDismiss(count: Int) {
+        guard count > 0 else { return }
         presentationMode.wrappedValue.dismiss()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.presentationMode.wrappedValue.dismiss()
+        if count > 1 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+                recursiveDismiss(count: count - 1)
+            }
         }
     }
 }
