@@ -12,6 +12,7 @@ import AVFoundation
 // Clean minimalist WordDetailView with swipe navigation
 struct WordDetailView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.presentationMode) private var presentationMode
     @ObservedObject private var audioManager = AudioPlayerManager.shared
     @State private var viewModel: WordDetailViewModel
 
@@ -517,21 +518,21 @@ struct WordDetailView: View {
     private func dismissToRoot() {
         // Dismiss to root (back to Units view - 3 levels up)
         // WordDetailView → SectionDetailView → UniteDetailView → UnitsView
-        dismiss()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            self.dismiss()
+        presentationMode.wrappedValue.dismiss()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.presentationMode.wrappedValue.dismiss()
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            self.dismiss()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            self.presentationMode.wrappedValue.dismiss()
         }
     }
 
     private func dismissToUnitList() {
         // Dismiss to Section List (2 levels up)
         // WordDetailView → SectionDetailView → UniteDetailView (Section List)
-        dismiss()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            self.dismiss()
+        presentationMode.wrappedValue.dismiss()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.presentationMode.wrappedValue.dismiss()
         }
     }
 }

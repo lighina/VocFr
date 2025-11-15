@@ -10,6 +10,7 @@ import SwiftData
 
 struct SectionDetailView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.presentationMode) private var presentationMode
     let section: Section
 
     var body: some View {
@@ -82,9 +83,9 @@ struct SectionDetailView: View {
     private func dismissToRoot() {
         // Dismiss to root (back to Units view - 2 levels up)
         // SectionDetailView → UniteDetailView → UnitsView
-        dismiss()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            self.dismiss()
+        presentationMode.wrappedValue.dismiss()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.presentationMode.wrappedValue.dismiss()
         }
     }
 }
