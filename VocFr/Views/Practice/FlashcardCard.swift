@@ -157,10 +157,7 @@ struct FlashcardCard: View {
                         .padding(.bottom, 24)
                 }
                 .padding(20)
-                .rotation3DEffect(
-                    .degrees(180),
-                    axis: (x: 0.0, y: 1.0, z: 0.0)
-                )
+                .scaleEffect(x: -1, y: 1) // Flip horizontally to counteract 3D rotation mirror effect
             }
             .shadow(radius: 10)
     }
