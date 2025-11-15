@@ -18,6 +18,8 @@ struct FlashcardView: View {
     }
 
     var body: some View {
+        let title = String(format: "flashcard.title".localized, viewModel.sectionName)
+
         VStack(spacing: 20) {
             if viewModel.isCompleted {
                 completedView
@@ -28,7 +30,7 @@ struct FlashcardView: View {
             }
         }
         .padding()
-        .navigationTitle("flashcard.title".localized(viewModel.sectionName))
+        .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             // Set modelContext after view appears
