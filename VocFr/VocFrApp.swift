@@ -60,6 +60,7 @@ struct VocFrApp: App {
             UserProgress.self,
             WordProgress.self,
             PracticeRecord.self,
+            Achievement.self,
             Item.self // Keep for compatibility
         ])
         
@@ -81,7 +82,10 @@ struct VocFrApp: App {
                 print("首次启动，开始导入数据...")
                 try FrenchVocabularySeeder.seedAllData(to: context)
                 FrenchVocabularySeeder.addAudioTimestamps(to: context)
-                
+
+                // Initialize achievements
+                AchievementManager.shared.initializeAchievements(in: context)
+
                 print("数据导入完成")
                 print(FrenchVocabularySeeder.generateDataReport(from: context))
 

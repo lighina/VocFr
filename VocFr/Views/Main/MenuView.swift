@@ -14,6 +14,10 @@ struct MenuView: View {
     var body: some View {
         NavigationView {
             List {
+                NavigationLink(destination: AchievementView()) {
+                    MenuRowView(icon: "trophy.fill", title: "menu.achievements.title".localized, description: "menu.achievements.description".localized)
+                }
+
                 NavigationLink(destination: ProgressView()) {
                     MenuRowView(icon: "chart.line.uptrend.xyaxis", title: "menu.progress.title".localized, description: "menu.progress.description".localized)
                 }

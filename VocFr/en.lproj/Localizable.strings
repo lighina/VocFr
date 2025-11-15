@@ -91,6 +91,8 @@
 
 "menu.title" = "Menu";
 "menu.button.close" = "Close";
+"menu.achievements.title" = "Achievements";
+"menu.achievements.description" = "View Your Achievements";
 "menu.progress.title" = "Progress";
 "menu.progress.description" = "View Learning Progress";
 "menu.settings.title" = "Settings";
@@ -145,3 +147,77 @@
 "common.done" = "Done";
 "common.save" = "Save";
 "common.delete" = "Delete";
+
+// MARK: - Achievements
+
+"achievement.title" = "Achievements";
+"achievement.unlocked" = "Achievement Unlocked!";
+"achievement.unlocked.count" = "Achievements Unlocked";
+"achievement.empty" = "No achievements found";
+"achievement.category.all" = "All";
+
+// Achievement Categories
+"Learning Milestones" = "Learning Milestones";
+"Practice Master" = "Practice Master";
+"Consistency" = "Consistency";
+"Star Collector" = "Star Collector";
+"Explorer" = "Explorer";
+"Special" = "Special";
+
+// Learning Milestone Achievements
+"achievement.words.10.title" = "First Steps";
+"achievement.words.10.description" = "Learn 10 words";
+"achievement.words.50.title" = "Bookworm";
+"achievement.words.50.description" = "Learn 50 words";
+"achievement.words.100.title" = "Word Master";
+"achievement.words.100.description" = "Learn 100 words";
+"achievement.words.200.title" = "Vocabulary Expert";
+"achievement.words.200.description" = "Learn 200 words";
+"achievement.words.500.title" = "French Scholar";
+"achievement.words.500.description" = "Learn 500 words";
+
+// Practice Achievements
+"achievement.practice.5.title" = "Practice Beginner";
+"achievement.practice.5.description" = "Complete 5 practice sessions";
+"achievement.practice.20.title" = "Practice Champion";
+"achievement.practice.20.description" = "Complete 20 practice sessions";
+"achievement.perfect.10.title" = "Perfectionist";
+"achievement.perfect.10.description" = "Get perfect score 10 times";
+"achievement.perfect.single.title" = "Flawless Victory";
+"achievement.perfect.single.description" = "Get 20/20 in a single practice";
+
+// Streak Achievements
+"achievement.streak.3.title" = "Getting Started";
+"achievement.streak.3.description" = "Practice for 3 days in a row";
+"achievement.streak.7.title" = "Week Warrior";
+"achievement.streak.7.description" = "Practice for 7 days in a row";
+"achievement.streak.30.title" = "Month Master";
+"achievement.streak.30.description" = "Practice for 30 days in a row";
+"achievement.streak.100.title" = "Dedication Legend";
+"achievement.streak.100.description" = "Practice for 100 days in a row";
+
+// Points Achievements
+"achievement.stars.100.title" = "Star Beginner";
+"achievement.stars.100.description" = "Earn 100 stars";
+"achievement.stars.500.title" = "Star Collector";
+"achievement.stars.500.description" = "Earn 500 stars";
+"achievement.stars.1000.title" = "Star Master";
+"achievement.stars.1000.description" = "Earn 1000 stars";
+
+// Exploration Achievements
+"achievement.unlock.unit.title" = "Explorer";
+"achievement.unlock.unit.description" = "Unlock a new unit";
+"achievement.complete.section.10.title" = "Section Master";
+"achievement.complete.section.10.description" = "Complete 10 sections";
+"achievement.complete.unit.title" = "Unit Champion";
+"achievement.complete.unit.description" = "Complete an entire unit";
+
+// Special Achievements
+"achievement.early.bird.title" = "Early Bird";
+"achievement.early.bird.description" = "Practice between 5 AM - 8 AM";
+"achievement.night.owl.title" = "Night Owl";
+"achievement.night.owl.description" = "Practice between 10 PM - 2 AM";
+"achievement.speed.run.title" = "Speed Runner";
+"achievement.speed.run.description" = "Perfect score in under 60 seconds";
+"achievement.birthday.title" = "Anniversary";
+"achievement.birthday.description" = "Practice on your account anniversary";

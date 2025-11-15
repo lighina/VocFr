@@ -91,6 +91,8 @@
 
 "menu.title" = "菜单";
 "menu.button.close" = "关闭";
+"menu.achievements.title" = "成就";
+"menu.achievements.description" = "查看您的成就";
 "menu.progress.title" = "进度";
 "menu.progress.description" = "查看学习进度";
 "menu.settings.title" = "设置";
@@ -145,3 +147,77 @@
 "common.done" = "完成";
 "common.save" = "保存";
 "common.delete" = "删除";
+
+// MARK: - Achievements
+
+"achievement.title" = "成就";
+"achievement.unlocked" = "成就解锁！";
+"achievement.unlocked.count" = "已解锁成就";
+"achievement.empty" = "未找到成就";
+"achievement.category.all" = "全部";
+
+// Achievement Categories
+"Learning Milestones" = "学习里程碑";
+"Practice Master" = "练习大师";
+"Consistency" = "持之以恒";
+"Star Collector" = "星星收集者";
+"Explorer" = "探索者";
+"Special" = "特殊成就";
+
+// Learning Milestone Achievements
+"achievement.words.10.title" = "初入门径";
+"achievement.words.10.description" = "学习 10 个单词";
+"achievement.words.50.title" = "勤学善思";
+"achievement.words.50.description" = "学习 50 个单词";
+"achievement.words.100.title" = "词汇达人";
+"achievement.words.100.description" = "学习 100 个单词";
+"achievement.words.200.title" = "词汇专家";
+"achievement.words.200.description" = "学习 200 个单词";
+"achievement.words.500.title" = "法语学者";
+"achievement.words.500.description" = "学习 500 个单词";
+
+// Practice Achievements
+"achievement.practice.5.title" = "练习新手";
+"achievement.practice.5.description" = "完成 5 次练习";
+"achievement.practice.20.title" = "练习冠军";
+"achievement.practice.20.description" = "完成 20 次练习";
+"achievement.perfect.10.title" = "完美主义";
+"achievement.perfect.10.description" = "获得 10 次满分";
+"achievement.perfect.single.title" = "完美胜利";
+"achievement.perfect.single.description" = "单次练习获得 20/20 满分";
+
+// Streak Achievements
+"achievement.streak.3.title" = "初露锋芒";
+"achievement.streak.3.description" = "连续练习 3 天";
+"achievement.streak.7.title" = "一周战士";
+"achievement.streak.7.description" = "连续练习 7 天";
+"achievement.streak.30.title" = "月度大师";
+"achievement.streak.30.description" = "连续练习 30 天";
+"achievement.streak.100.title" = "坚持传奇";
+"achievement.streak.100.description" = "连续练习 100 天";
+
+// Points Achievements
+"achievement.stars.100.title" = "星星新手";
+"achievement.stars.100.description" = "获得 100 颗星";
+"achievement.stars.500.title" = "星星收集者";
+"achievement.stars.500.description" = "获得 500 颗星";
+"achievement.stars.1000.title" = "星星大师";
+"achievement.stars.1000.description" = "获得 1000 颗星";
+
+// Exploration Achievements
+"achievement.unlock.unit.title" = "探索者";
+"achievement.unlock.unit.description" = "解锁新单元";
+"achievement.complete.section.10.title" = "章节大师";
+"achievement.complete.section.10.description" = "完成 10 个章节";
+"achievement.complete.unit.title" = "单元冠军";
+"achievement.complete.unit.description" = "完成整个单元";
+
+// Special Achievements
+"achievement.early.bird.title" = "早起的鸟儿";
+"achievement.early.bird.description" = "在早上 5-8 点练习";
+"achievement.night.owl.title" = "夜猫子";
+"achievement.night.owl.description" = "在晚上 10 点至凌晨 2 点练习";
+"achievement.speed.run.title" = "速度挑战";
+"achievement.speed.run.description" = "60秒内获得满分";
+"achievement.birthday.title" = "周年纪念";
+"achievement.birthday.description" = "在账户周年纪念日练习";

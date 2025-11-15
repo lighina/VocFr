@@ -253,8 +253,43 @@ class ListeningPracticeViewModel {
                 PointsManager.shared.awardStars(points: pointsEarned, modelContext: modelContext, reason: "Listening practice completed")
             }
 
+            // Track achievements
+            trackAchievements(accuracy: accuracy, context: modelContext)
+
         } catch {
             print("❌ Failed to save listening practice record: \(error)")
+        }
+    }
+
+    /// Track achievements for this practice session
+    private func trackAchievements(accuracy: Double, context: ModelContext) {
+        // Get practice count
+        let descriptor = FetchDescriptor<PracticeRecord>()
+        if let allRecords = try? context.fetch(descriptor) {
+            AchievementManager.shared.checkPracticeCount(practiceCount: allRecords.count, context: context)
+        }
+
+        // Check for perfect practice
+        if accuracy >= 1.0 {
+            let perfectDescriptor = FetchDescriptor<PracticeRecord>(
+                predicate: #Predicate { $0.accuracy >= 1.0 }
+            )
+            if let perfectRecords = try? context.fetch(perfectDescriptor) {
+                let isPerfect20 = totalWords >= 20
+                AchievementManager.shared.checkPerfectPractice(
+                    perfectCount: perfectRecords.count,
+                    isPerfect20: isPerfect20,
+                    context: context
+                )
+            }
+        }
+
+        // Check special time-based achievements
+        AchievementManager.shared.checkSpecialAchievements(context: context)
+
+        // Check points achievements
+        if let userProgress = try? context.fetch(FetchDescriptor<UserProgress>()).first {
+            AchievementManager.shared.checkPoints(totalPoints: userProgress.totalStars, context: context)
         }
     }
 }
