@@ -33,21 +33,7 @@ struct SectionDetailView: View {
                 ])
             }
 
-            // Custom back button (maintains swipe gesture)
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
-                    navigationPath.removeLast()
-                }) {
-                    HStack(spacing: 4) {
-                        Image(systemName: "chevron.left")
-                            .font(.system(size: 16, weight: .semibold))
-                        Text(getUniteName())
-                            .font(.system(size: 16))
-                    }
-                }
-            }
-
-            // Quick navigation menu
+            // Navigation menu (leading)
             ToolbarItem(placement: .navigationBarLeading) {
                 Menu {
                     Button(action: {
@@ -62,7 +48,7 @@ struct SectionDetailView: View {
                     }
                 } label: {
                     Image(systemName: "ellipsis.circle")
-                        .font(.system(size: 16))
+                        .font(.system(size: 20))
                 }
             }
 
