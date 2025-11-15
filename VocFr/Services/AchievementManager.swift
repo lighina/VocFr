@@ -83,8 +83,9 @@ class AchievementManager {
         }
 
         // Check word progress for learned words
+        // A word is considered learned if it has been reviewed at least once
         let wordProgressDescriptor = FetchDescriptor<WordProgress>(
-            predicate: #Predicate { $0.hasBeenPracticed }
+            predicate: #Predicate { $0.lastReviewed != nil }
         )
         if let wordProgresses = try? context.fetch(wordProgressDescriptor) {
             let learnedCount = wordProgresses.count
