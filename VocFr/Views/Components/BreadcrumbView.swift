@@ -16,24 +16,25 @@ struct BreadcrumbView: View {
             ForEach(Array(items.enumerated()), id: \.offset) { index, item in
                 if index > 0 {
                     Image(systemName: "chevron.right")
-                        .font(.system(size: 11, weight: .medium))
+                        .font(.caption2)
                         .foregroundColor(.secondary)
                 }
 
                 if let action = item.action {
                     Button(action: action) {
                         Text(item.title)
-                            .font(.system(size: 14, weight: index == items.count - 1 ? .semibold : .regular))
+                            .font(.subheadline)
+                            .fontWeight(index == items.count - 1 ? .semibold : .regular)
                             .foregroundColor(index == items.count - 1 ? .primary : .secondary)
                     }
                 } else {
                     Text(item.title)
-                        .font(.system(size: 14, weight: index == items.count - 1 ? .semibold : .regular))
+                        .font(.subheadline)
+                        .fontWeight(index == items.count - 1 ? .semibold : .regular)
                         .foregroundColor(index == items.count - 1 ? .primary : .secondary)
                 }
             }
         }
-        .frame(height: 32)
     }
 }
 

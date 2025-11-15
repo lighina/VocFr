@@ -22,11 +22,8 @@ struct SectionDetailView: View {
                 }
             }
         }
-        .listStyle(.plain)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .toolbarBackground(.visible, for: .navigationBar)
-        .toolbarRole(.editor)
         .toolbar {
             // Breadcrumb navigation in leading position (replaces title)
             ToolbarItem(placement: .principal) {

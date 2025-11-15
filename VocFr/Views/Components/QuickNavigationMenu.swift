@@ -20,9 +20,7 @@ struct QuickNavigationMenu: View {
             }
         } label: {
             Image(systemName: "line.3.horizontal")
-                .font(.system(size: 18, weight: .medium))
-                .foregroundColor(.primary)
-                .frame(width: 32, height: 32)
+                .imageScale(.large)
         }
     }
 }
