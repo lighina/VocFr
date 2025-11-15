@@ -136,13 +136,9 @@ struct WordDetailView: View {
                 .padding(.horizontal, 20)
                 .background(Color(.systemBackground))
                 .navigationBarTitleDisplayMode(.inline)
+                .navigationBarBackButtonHidden(true)
                 .toolbar {
-                    // Breadcrumb navigation
-                    ToolbarItem(placement: .principal) {
-                        BreadcrumbView(items: getBreadcrumbItems())
-                    }
-
-                    // Custom back button (maintains swipe gesture)
+                    // Custom back button (leading)
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button(action: {
                             navigationPath.removeLast()
@@ -156,7 +152,7 @@ struct WordDetailView: View {
                         }
                     }
 
-                    // Quick navigation menu
+                    // Navigation menu
                     ToolbarItem(placement: .navigationBarLeading) {
                         Menu {
                             Button(action: {

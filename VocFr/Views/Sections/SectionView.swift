@@ -23,17 +23,9 @@ struct SectionDetailView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .toolbar {
-            // Breadcrumb navigation in leading position (replaces title)
-            ToolbarItem(placement: .principal) {
-                BreadcrumbView(items: [
-                    BreadcrumbItem(title: "🏠"),
-                    BreadcrumbItem(title: getUniteName()),
-                    BreadcrumbItem(title: section.name.capitalized)
-                ])
-            }
-
-            // Custom back button (maintains swipe gesture)
+            // Custom back button (leading)
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
                     navigationPath.removeLast()
@@ -47,7 +39,7 @@ struct SectionDetailView: View {
                 }
             }
 
-            // Quick navigation menu
+            // Navigation menu
             ToolbarItem(placement: .navigationBarLeading) {
                 Menu {
                     Button(action: {
