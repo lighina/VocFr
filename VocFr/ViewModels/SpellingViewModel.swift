@@ -14,7 +14,8 @@ import SwiftData
 enum SpellingResult: Equatable {
     case correct
     case correctWithCase // Correct but wrong case
-    case missingAccents // Correct without accents
+    case missingAccents // Missing accent marks
+    case wrongAccents // Has accents but wrong ones
     case closeMatch(Int) // Close with N character differences
     case incorrect
 }
@@ -176,11 +177,26 @@ class SpellingViewModel {
             return .correctWithCase
         }
 
-        // 3. Missing accents
+        // 3. Check for accent issues
         let inputNormalized = input.folding(options: .diacriticInsensitive, locale: .current)
         let correctNormalized = correct.folding(options: .diacriticInsensitive, locale: .current)
+
         if inputNormalized == correctNormalized {
-            return .missingAccents
+            // Base characters match, so it's an accent issue
+            // Check if correct word has accents
+            let correctHasAccents = correct != correctNormalized
+            let inputHasAccents = input != inputNormalized
+
+            if correctHasAccents && !inputHasAccents {
+                // Correct word has accents, user didn't add them
+                return .missingAccents
+            } else if !correctHasAccents && inputHasAccents {
+                // Correct word has no accents, user added them
+                return .wrongAccents
+            } else {
+                // Both have accents but different ones
+                return .wrongAccents
+            }
         }
 
         // 4. Close match (Levenshtein distance)
@@ -208,8 +224,11 @@ class SpellingViewModel {
             correctCount += 1
             awardPoints()
         } else if case .missingAccents = lastResult {
-            // Partial credit
+            // Partial credit for missing accents
             awardPoints(multiplier: 0.5)
+        } else if case .wrongAccents = lastResult {
+            // No credit for wrong accents (more serious error)
+            // Don't count as correct
         }
 
         print("📝 Spelling check: \(userInput) vs \(word.canonical) - Result: \(lastResult!)")

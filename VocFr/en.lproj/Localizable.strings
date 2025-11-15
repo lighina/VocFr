@@ -100,8 +100,10 @@
 "spelling.correct.answer" = "Correct answer:";
 "spelling.result.correct" = "Perfect! ✨";
 "spelling.result.case" = "Correct! (Watch capitalization)";
-"spelling.result.accents" = "Almost! Missing accents";
-"spelling.result.accents.detail" = "Don't forget the accent marks";
+"spelling.result.missing.accents" = "Almost! Missing accents";
+"spelling.result.missing.accents.detail" = "Don't forget the accent marks";
+"spelling.result.wrong.accents" = "Wrong accents";
+"spelling.result.wrong.accents.detail" = "Check the accent marks carefully";
 "spelling.result.close" = "Close!";
 "spelling.result.close.detail" = "%d character(s) off";
 "spelling.result.incorrect" = "Try again next time";

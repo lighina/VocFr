@@ -42,37 +42,36 @@ struct SpellingPracticeView: View {
     // MARK: - Practice View
 
     private var practiceView: some View {
-        VStack(spacing: 20) {
-            // Progress
-            progressHeader
+        ScrollView {
+            VStack(spacing: 20) {
+                // Progress
+                progressHeader
 
-            // Image and Audio
-            if let word = viewModel.currentWord {
-                imageSection(word: word)
+                // Image and Audio
+                if let word = viewModel.currentWord {
+                    imageSection(word: word)
+                }
+
+                // Hint display
+                if viewModel.hintLevel > 0 {
+                    hintSection
+                }
+
+                // Input section
+                inputSection
+
+                // French character toolbar
+                frenchCharacterToolbar
+
+                // Hint and Submit buttons
+                actionButtons
+
+                // Result feedback
+                if viewModel.hasSubmitted, let result = viewModel.lastResult {
+                    resultFeedback(result: result)
+                }
             }
-
-            // Hint display
-            if viewModel.hintLevel > 0 {
-                hintSection
-            }
-
-            Spacer()
-
-            // Input section
-            inputSection
-
-            // French character toolbar
-            frenchCharacterToolbar
-
-            // Hint and Submit buttons
-            actionButtons
-
-            // Result feedback
-            if viewModel.hasSubmitted, let result = viewModel.lastResult {
-                resultFeedback(result: result)
-            }
-
-            Spacer()
+            .padding(.bottom, 20)
         }
     }
 
@@ -113,39 +112,58 @@ struct SpellingPracticeView: View {
     // MARK: - Image Section
 
     private func imageSection(word: Word) -> some View {
-        VStack(spacing: 16) {
-            // Image
+        HStack(spacing: 16) {
+            // Image - more compact when keyboard is open
             if let image = UIImage(named: word.imageName) {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
-                    .frame(maxWidth: 250, maxHeight: 200)
+                    .frame(width: viewModel.hasSubmitted ? 120 : 180, height: viewModel.hasSubmitted ? 100 : 150)
                     .background(Color.white)
-                    .cornerRadius(16)
-                    .shadow(radius: 4)
+                    .cornerRadius(12)
+                    .shadow(radius: 3)
+                    .animation(.easeInOut(duration: 0.3), value: viewModel.hasSubmitted)
             } else {
                 Image(systemName: "photo")
-                    .font(.system(size: 80))
+                    .font(.system(size: 50))
                     .foregroundColor(.gray.opacity(0.5))
-                    .frame(width: 250, height: 200)
+                    .frame(width: 180, height: 150)
             }
 
-            // Audio button
-            Button(action: {
-                playAudio(for: word)
-            }) {
-                HStack(spacing: 8) {
-                    Image(systemName: "speaker.wave.2.fill")
-                    Text("spelling.play.audio".localized)
+            VStack(spacing: 12) {
+                // Audio button - compact design
+                Button(action: {
+                    playAudio(for: word)
+                }) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "speaker.wave.2.fill")
+                            .font(.title3)
+                        if !viewModel.hasSubmitted {
+                            Text("spelling.play.audio".localized)
+                                .font(.subheadline)
+                        }
+                    }
+                    .foregroundColor(.white)
+                    .padding(.horizontal, viewModel.hasSubmitted ? 12 : 20)
+                    .padding(.vertical, 10)
+                    .background(Color.blue)
+                    .cornerRadius(20)
                 }
-                .font(.headline)
-                .foregroundColor(.white)
-                .padding(.horizontal, 24)
-                .padding(.vertical, 12)
-                .background(Color.blue)
-                .cornerRadius(25)
+
+                if viewModel.hasSubmitted {
+                    // Show word info when submitted
+                    VStack(spacing: 4) {
+                        Text(word.canonical)
+                            .font(.headline)
+                        Text(word.chinese)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                }
             }
         }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 8)
     }
 
     // MARK: - Hint Section
@@ -188,17 +206,16 @@ struct SpellingPracticeView: View {
                 .disableAutocorrection(true)
                 .focused($isInputFocused)
                 .disabled(viewModel.hasSubmitted)
+                .submitLabel(.done)
+                .onSubmit {
+                    // Dismiss keyboard when user presses Done
+                    isInputFocused = false
+                }
                 .padding()
                 .background(
                     RoundedRectangle(cornerRadius: 12)
                         .fill(Color(.systemGray6))
                 )
-                .onAppear {
-                    // Auto-focus on appear
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        isInputFocused = true
-                    }
-                }
         }
     }
 
@@ -270,10 +287,6 @@ struct SpellingPracticeView: View {
                 Button(action: {
                     withAnimation {
                         viewModel.nextWord()
-                    }
-                    // Re-focus input for next word
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        isInputFocused = true
                     }
                 }) {
                     HStack {
@@ -354,6 +367,9 @@ struct SpellingPracticeView: View {
             case .missingAccents:
                 Image(systemName: "exclamationmark.triangle.fill")
                     .foregroundColor(.orange)
+            case .wrongAccents:
+                Image(systemName: "exclamationmark.circle.fill")
+                    .foregroundColor(.red)
             case .closeMatch:
                 Image(systemName: "xmark.circle")
                     .foregroundColor(.orange)
@@ -377,10 +393,17 @@ struct SpellingPracticeView: View {
                     .font(.headline)
                     .foregroundColor(.green)
             case .missingAccents:
-                Text("spelling.result.accents".localized)
+                Text("spelling.result.missing.accents".localized)
                     .font(.headline)
                     .foregroundColor(.orange)
-                Text("spelling.result.accents.detail".localized)
+                Text("spelling.result.missing.accents.detail".localized)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            case .wrongAccents:
+                Text("spelling.result.wrong.accents".localized)
+                    .font(.headline)
+                    .foregroundColor(.red)
+                Text("spelling.result.wrong.accents.detail".localized)
                     .font(.caption)
                     .foregroundColor(.secondary)
             case .closeMatch(let distance):
@@ -404,7 +427,7 @@ struct SpellingPracticeView: View {
             return .green
         case .missingAccents, .closeMatch:
             return .orange
-        case .incorrect:
+        case .wrongAccents, .incorrect:
             return .red
         }
     }

@@ -100,8 +100,10 @@
 "spelling.correct.answer" = "正确答案:";
 "spelling.result.correct" = "完全正确！✨";
 "spelling.result.case" = "正确！（注意大小写）";
-"spelling.result.accents" = "几乎正确！缺少重音符号";
-"spelling.result.accents.detail" = "别忘了重音符号";
+"spelling.result.missing.accents" = "几乎正确！缺少重音符号";
+"spelling.result.missing.accents.detail" = "别忘了重音符号";
+"spelling.result.wrong.accents" = "重音符号错误";
+"spelling.result.wrong.accents.detail" = "请仔细检查重音符号的位置";
 "spelling.result.close" = "接近了！";
 "spelling.result.close.detail" = "还差%d个字符";
 "spelling.result.incorrect" = "下次再试";
