@@ -281,8 +281,9 @@ struct FlashcardView: View {
 // MARK: - Preview
 
 #Preview {
-    let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try! ModelContainer(for: Section.self, Word.self, FlashcardProgress.self, configurations: config)
+    let schema = Schema([Section.self, Word.self, FlashcardProgress.self])
+    let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: schema, configurations: [config])
 
     return NavigationView {
         FlashcardView(section: Section(id: "test", name: "Test Section", orderIndex: 1))
