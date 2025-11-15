@@ -13,9 +13,10 @@ struct UnitsView: View {
     @Query private var unites: [Unite]
     @State private var viewModel = UnitsViewModel()
     @State private var showImportAlert = false
+    @State private var navigationPath = NavigationPath()
 
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $navigationPath) {
             List {
                 // Stars progress section (Part B.1)
                 StarsProgressView()
@@ -24,9 +25,7 @@ struct UnitsView: View {
 
                 // Units list
                 ForEach(unites.sorted(by: { $0.number < $1.number })) { unite in
-                    NavigationLink {
-                        UniteDetailView(unite: unite)
-                    } label: {
+                    NavigationLink(value: unite) {
                         UniteRowView(unite: unite)
                     }
                     .disabled(!unite.isUnlocked)
@@ -34,6 +33,15 @@ struct UnitsView: View {
                 }
             }
             .navigationTitle("units.title".localized)
+            .navigationDestination(for: Unite.self) { unite in
+                UniteDetailView(unite: unite, navigationPath: $navigationPath)
+            }
+            .navigationDestination(for: Section.self) { section in
+                SectionDetailView(section: section, navigationPath: $navigationPath)
+            }
+            .navigationDestination(for: WordNavigationData.self) { data in
+                WordDetailView(section: data.section, currentWordIndex: data.wordIndex, navigationPath: $navigationPath)
+            }
             .toolbar {
                 ToolbarItem {
                     Button(action: importData) {
@@ -105,13 +113,12 @@ struct UniteRowView: View {
 
 struct UniteDetailView: View {
     let unite: Unite
+    @Binding var navigationPath: NavigationPath
 
     var body: some View {
         List {
             ForEach(unite.sections.sorted(by: { $0.orderIndex < $1.orderIndex })) { section in
-                NavigationLink {
-                    SectionDetailView(section: section)
-                } label: {
+                NavigationLink(value: section) {
                     SectionRowView(section: section)
                 }
             }

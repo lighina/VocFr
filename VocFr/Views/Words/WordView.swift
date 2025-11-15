@@ -3,6 +3,7 @@
 //  VocFr
 //
 //  Created by Junfeng Wang on 22/09/2025.
+//  Refactored with NavigationStack on 15/11/2025
 //
 
 import SwiftUI
@@ -12,13 +13,14 @@ import AVFoundation
 // Clean minimalist WordDetailView with swipe navigation
 struct WordDetailView: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.presentationMode) private var presentationMode
     @ObservedObject private var audioManager = AudioPlayerManager.shared
     @State private var viewModel: WordDetailViewModel
+    @Binding var navigationPath: NavigationPath
 
-    init(section: Section, currentWordIndex: Int) {
+    init(section: Section, currentWordIndex: Int, navigationPath: Binding<NavigationPath>) {
         // Initialize ViewModel
         self._viewModel = State(initialValue: WordDetailViewModel(section: section, currentWordIndex: currentWordIndex))
+        self._navigationPath = navigationPath
     }
 
     // Computed property to get current word (delegate to ViewModel)
@@ -145,13 +147,13 @@ struct WordDetailView: View {
                     ToolbarItem(placement: .navigationBarLeading) {
                         QuickNavigationMenu(items: [
                             QuickNavItem(title: "Home", icon: "house") {
-                                dismissToRoot()
+                                navigationPath = NavigationPath()  // Clear all to go to root
                             },
                             QuickNavItem(title: getUniteName(), icon: "book.closed") {
-                                dismissToUnitList()
+                                navigationPath.removeLast(2)  // Remove 2 levels: Word -> Section -> Unite
                             },
                             QuickNavItem(title: viewModel.section.name.capitalized, icon: "list.dash") {
-                                dismiss()
+                                navigationPath.removeLast()  // Remove 1 level: Word -> Section
                             }
                         ])
                     }
@@ -277,57 +279,6 @@ struct WordDetailView: View {
             return "nom" // fallback, should be handled above
         }
     }
-    
-    // Build articles block inside the card
-    @ViewBuilder
-    private func articleBlock(for word: Word) -> some View {
-        let gender = determineGender(for: word)
-        let base = getBaseWord(for: word)
-        VStack(alignment: .leading, spacing: 8) {
-            // Definite
-            VStack(alignment: .leading, spacing: 4) {
-                Text("Défini:")
-                    .font(.caption)
-                    .foregroundStyle(.tertiary)
-                Text(definiteSingular(for: base, gender: gender))
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(.secondary)
-                Text("les \(pluralized(base))")
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(.secondary)
-            }
-            // Indefinite
-            VStack(alignment: .leading, spacing: 4) {
-                Text("Indéfini:")
-                    .font(.caption)
-                    .foregroundStyle(.tertiary)
-                Text(indefiniteSingular(for: base, gender: gender))
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(.secondary)
-                Text("des \(pluralized(base))")
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(.secondary)
-            }
-        }
-    }
-
-    // Elision helpers
-    private func beginsWithVowelOrH(_ word: String) -> Bool {
-        let lower = word.lowercased()
-        let vowels = ["a","e","i","o","u","y","à","â","ä","é","è","ê","ë","î","ï","ô","ö","ù","û","ü","h"]
-        return vowels.contains { lower.hasPrefix($0) }
-    }
-
-    private func definiteSingular(for base: String, gender: Gender) -> String {
-        if beginsWithVowelOrH(base) { return "l'\(base)" }
-        return (gender == .masculine ? "le " : "la ") + base
-    }
-
-    private func indefiniteSingular(for base: String, gender: Gender) -> String {
-        return (gender == .masculine ? "un " : "une ") + base
-    }
-
-    private func pluralized(_ base: String) -> String { return base + "s" }
     
     // Helper function to determine gender
     private func determineGender(for word: Word) -> Gender {
@@ -514,28 +465,6 @@ struct WordDetailView: View {
         }
         return "Unit"
     }
-
-    private func dismissToRoot() {
-        // Dismiss to root (back to Units view - 3 levels up)
-        // WordDetailView → SectionDetailView → UniteDetailView → UnitsView
-        recursiveDismiss(count: 3)
-    }
-
-    private func dismissToUnitList() {
-        // Dismiss to Section List (2 levels up)
-        // WordDetailView → SectionDetailView → UniteDetailView (Section List)
-        recursiveDismiss(count: 2)
-    }
-
-    private func recursiveDismiss(count: Int) {
-        guard count > 0 else { return }
-        presentationMode.wrappedValue.dismiss()
-        if count > 1 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
-                recursiveDismiss(count: count - 1)
-            }
-        }
-    }
 }
 
 struct WordDetailPreview: View {
@@ -545,25 +474,27 @@ struct WordDetailPreview: View {
                                            AudioFile.self, AudioSegment.self, UserProgress.self,
                                            WordProgress.self, PracticeRecord.self, SectionWord.self,
                                            configurations: config)
-        
+
         let context = container.mainContext
-        
+
         // Create sample data for preview using the correct initializers
         let section = Section(id: "sample-section", name: "Sample Section", orderIndex: 0)
         let word = Word(id: "sample-word", canonical: "bonjour", chinese: "你好", imageName: "", partOfSpeech: .noun, category: "greetings")
         let sectionWord = SectionWord(orderIndex: 0)
-        
+
         // Set up relationships
         sectionWord.section = section
         sectionWord.word = word
         section.sectionWords.append(sectionWord)
         word.sectionWords.append(sectionWord)
-        
+
         context.insert(section)
         context.insert(word)
         context.insert(sectionWord)
         
-        return WordDetailView(section: section, currentWordIndex: 0)
+        @State var path = NavigationPath()
+
+        return WordDetailView(section: section, currentWordIndex: 0, navigationPath: $path)
             .modelContainer(container)
     }
 }

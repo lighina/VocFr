@@ -9,15 +9,14 @@ import SwiftUI
 import SwiftData
 
 struct SectionDetailView: View {
-    @Environment(\.dismiss) private var dismiss
-    @Environment(\.presentationMode) private var presentationMode
     let section: Section
+    @Binding var navigationPath: NavigationPath
 
     var body: some View {
         List {
             ForEach(Array(section.sectionWords.sorted(by: { $0.orderIndex < $1.orderIndex }).enumerated()), id: \.element.id) { index, sectionWord in
                 if let word = sectionWord.word {
-                    NavigationLink(destination: WordDetailView(section: section, currentWordIndex: index)) {
+                    NavigationLink(value: WordNavigationData(section: section, wordIndex: index)) {
                         WordRowView(word: word)
                     }
                 }
@@ -39,10 +38,10 @@ struct SectionDetailView: View {
             ToolbarItem(placement: .navigationBarLeading) {
                 QuickNavigationMenu(items: [
                     QuickNavItem(title: "Home", icon: "house") {
-                        dismissToRoot()
+                        navigationPath = NavigationPath()  // Clear path to go to root
                     },
                     QuickNavItem(title: getUniteName(), icon: "book.closed") {
-                        dismiss()
+                        navigationPath.removeLast()  // Go back one level
                     }
                 ])
             }
@@ -79,22 +78,6 @@ struct SectionDetailView: View {
         }
         return "Unit"
     }
-
-    private func dismissToRoot() {
-        // Dismiss to root (back to Units view - 2 levels up)
-        // SectionDetailView → UniteDetailView → UnitsView
-        recursiveDismiss(count: 2)
-    }
-
-    private func recursiveDismiss(count: Int) {
-        guard count > 0 else { return }
-        presentationMode.wrappedValue.dismiss()
-        if count > 1 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
-                recursiveDismiss(count: count - 1)
-            }
-        }
-    }
 }
 
 #Preview("Section View") {
@@ -103,10 +86,12 @@ struct SectionDetailView: View {
                                        AudioFile.self, AudioSegment.self, UserProgress.self,
                                        WordProgress.self, PracticeRecord.self, SectionWord.self,
                                        configurations: config)
-    
+
     let section = Section(id: "preview-section", name: "preview section", orderIndex: 0)
     container.mainContext.insert(section)
     
-    return SectionDetailView(section: section)
+    @State var path = NavigationPath()
+
+    return SectionDetailView(section: section, navigationPath: $path)
         .modelContainer(container)
 }
