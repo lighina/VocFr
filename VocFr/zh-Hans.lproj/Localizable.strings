@@ -89,6 +89,7 @@
 "settings.data.description" = "导入、导出、重置";
 "settings.data.reimport" = "重新导入数据";
 "settings.data.export" = "导出学习报告";
+"settings.data.reset.stars" = "重置所有星星";
 "settings.about.title" = "关于";
 "settings.about.version" = "版本";
 

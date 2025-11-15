@@ -197,4 +197,32 @@ class PointsManager {
 
         return (nextLockedUnite.number, nextLockedUnite.requiredStars)
     }
+
+    // MARK: - Reset Methods
+
+    /// Reset all stars and progress
+    func resetAllStars(modelContext: ModelContext) {
+        guard let userProgress = getUserProgress(from: modelContext) else { return }
+
+        // Reset stars and streak
+        userProgress.totalStars = 0
+        userProgress.currentStreak = 0
+        userProgress.lastStudyDate = nil
+
+        // Lock all units except Unite 1
+        let descriptor = FetchDescriptor<Unite>(sortBy: [SortDescriptor(\.number)])
+        guard let unites = try? modelContext.fetch(descriptor) else { return }
+
+        for unite in unites {
+            if unite.number == 1 {
+                unite.isUnlocked = true
+            } else {
+                unite.isUnlocked = false
+            }
+        }
+
+        print("🔄 All stars and progress reset")
+
+        try? modelContext.save()
+    }
 }

@@ -38,6 +38,10 @@ struct SettingsView: View {
                     Button("settings.data.export".localized) {
                         exportReport()
                     }
+
+                    Button("settings.data.reset.stars".localized, role: .destructive) {
+                        resetStars()
+                    }
                 }
 
                 // About section
@@ -79,6 +83,11 @@ struct SettingsView: View {
         let report = FrenchVocabularySeeder.generateDataReport(from: modelContext)
         print(report)
         // TODO: Share report via share sheet
+    }
+
+    private func resetStars() {
+        PointsManager.shared.resetAllStars(modelContext: modelContext)
+        print("✅ Stars reset completed")
     }
 }
 

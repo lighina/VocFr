@@ -61,7 +61,7 @@
 "main.select.mode" = "Select Learning Mode";
 "main.select.mode.subtitle" = "Choose your learning style";
 "main.study.title" = "Study";
-"main.study.description" = "Systematic French vocabulary learning";
+"main.study.description" = "Learn French vocabulary";
 "main.test.title" = "Test";
 "main.test.description" = "Test your French proficiency";
 "main.game.title" = "Game";
@@ -89,6 +89,7 @@
 "settings.data.description" = "Import, Export, Reset";
 "settings.data.reimport" = "Reimport Data";
 "settings.data.export" = "Export Learning Report";
+"settings.data.reset.stars" = "Reset All Stars";
 "settings.about.title" = "About";
 "settings.about.version" = "Version";
 
