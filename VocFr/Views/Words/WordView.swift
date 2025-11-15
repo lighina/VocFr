@@ -532,9 +532,13 @@ struct WordDetailView: View {
     }
 
     private func dismissToUnitList() {
-        // Dismiss to unit detail view (2 levels up)
+        // Dismiss to unit detail view (2 levels up - back to Section List)
+        // Need to dismiss twice: WordView -> Word List -> Section List
         dismiss()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.dismiss()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             self.dismiss()
         }
     }
