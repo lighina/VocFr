@@ -23,7 +23,6 @@ struct SectionDetailView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
         .toolbar {
             // Breadcrumb navigation in leading position (replaces title)
             ToolbarItem(placement: .principal) {
@@ -34,16 +33,37 @@ struct SectionDetailView: View {
                 ])
             }
 
-            // Quick navigation menu (replaces back button)
+            // Custom back button (maintains swipe gesture)
             ToolbarItem(placement: .navigationBarLeading) {
-                QuickNavigationMenu(items: [
-                    QuickNavItem(title: "Home", icon: "house") {
-                        navigationPath = NavigationPath()  // Clear path to go to root
-                    },
-                    QuickNavItem(title: getUniteName(), icon: "book.closed") {
-                        navigationPath.removeLast()  // Go back one level
+                Button(action: {
+                    navigationPath.removeLast()
+                }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: 16, weight: .semibold))
+                        Text(getUniteName())
+                            .font(.system(size: 16))
                     }
-                ])
+                }
+            }
+
+            // Quick navigation menu
+            ToolbarItem(placement: .navigationBarLeading) {
+                Menu {
+                    Button(action: {
+                        navigationPath = NavigationPath()  // Clear path to go to root
+                    }) {
+                        Label("Home", systemImage: "house")
+                    }
+                    Button(action: {
+                        navigationPath.removeLast()  // Go back one level
+                    }) {
+                        Label(getUniteName(), systemImage: "book.closed")
+                    }
+                } label: {
+                    Image(systemName: "ellipsis.circle")
+                        .font(.system(size: 16))
+                }
             }
 
             #if os(iOS)

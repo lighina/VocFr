@@ -136,26 +136,48 @@ struct WordDetailView: View {
                 .padding(.horizontal, 20)
                 .background(Color(.systemBackground))
                 .navigationBarTitleDisplayMode(.inline)
-                .navigationBarBackButtonHidden(true)
                 .toolbar {
                     // Breadcrumb navigation
                     ToolbarItem(placement: .principal) {
                         BreadcrumbView(items: getBreadcrumbItems())
                     }
 
+                    // Custom back button (maintains swipe gesture)
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(action: {
+                            navigationPath.removeLast()
+                        }) {
+                            HStack(spacing: 4) {
+                                Image(systemName: "chevron.left")
+                                    .font(.system(size: 16, weight: .semibold))
+                                Text(viewModel.section.name.capitalized)
+                                    .font(.system(size: 16))
+                            }
+                        }
+                    }
+
                     // Quick navigation menu
                     ToolbarItem(placement: .navigationBarLeading) {
-                        QuickNavigationMenu(items: [
-                            QuickNavItem(title: "Home", icon: "house") {
+                        Menu {
+                            Button(action: {
                                 navigationPath = NavigationPath()  // Clear all to go to root
-                            },
-                            QuickNavItem(title: getUniteName(), icon: "book.closed") {
-                                navigationPath.removeLast(2)  // Remove 2 levels: Word -> Section -> Unite
-                            },
-                            QuickNavItem(title: viewModel.section.name.capitalized, icon: "list.dash") {
-                                navigationPath.removeLast()  // Remove 1 level: Word -> Section
+                            }) {
+                                Label("Home", systemImage: "house")
                             }
-                        ])
+                            Button(action: {
+                                navigationPath.removeLast(2)  // Remove 2 levels: Word -> Section -> Unite
+                            }) {
+                                Label(getUniteName(), systemImage: "book.closed")
+                            }
+                            Button(action: {
+                                navigationPath.removeLast()  // Remove 1 level: Word -> Section
+                            }) {
+                                Label(viewModel.section.name.capitalized, systemImage: "list.dash")
+                            }
+                        } label: {
+                            Image(systemName: "ellipsis.circle")
+                                .font(.system(size: 16))
+                        }
                     }
 
                     ToolbarItem(placement: .navigationBarTrailing) {

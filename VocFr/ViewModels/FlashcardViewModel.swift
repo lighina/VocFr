@@ -196,8 +196,18 @@ class FlashcardViewModel {
         knownCount = 0
         isCompleted = false
         isFaceUp = false
+
         // Restore original queue instead of reloading from database
         reviewQueue = originalReviewQueue
+
+        // If original queue is empty (all cards were already reviewed/not due),
+        // load all cards for practice
+        if reviewQueue.isEmpty, let modelContext = modelContext {
+            reviewQueue = FlashcardManager.shared.getAllCards(section: section, context: modelContext)
+            originalReviewQueue = reviewQueue
+            print("🔄 No due cards, loading all \(reviewQueue.count) cards for practice")
+        }
+
         loadStatistics()
         print("🔄 Restarting review with \(reviewQueue.count) cards")
     }

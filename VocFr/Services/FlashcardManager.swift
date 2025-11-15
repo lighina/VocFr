@@ -41,6 +41,13 @@ class FlashcardManager {
         return dueWords
     }
 
+    /// Get all cards from a section (regardless of due date) for practice
+    func getAllCards(section: Section, context: ModelContext) -> [Word] {
+        return section.sectionWords
+            .sorted(by: { $0.orderIndex < $1.orderIndex })
+            .compactMap { $0.word }
+    }
+
     /// Get all cards in a specific Leitner box
     func getCardsInBox(_ boxNumber: Int, section: Section, context: ModelContext) -> [Word] {
         let sectionWords = section.sectionWords
