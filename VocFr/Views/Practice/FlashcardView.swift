@@ -47,7 +47,7 @@ struct FlashcardView: View {
 
             // Statistics
             if let stats = viewModel.statistics {
-                statisticsView(stats)
+                statisticsView(for: stats)
             }
 
             // Flashcard
@@ -93,7 +93,7 @@ struct FlashcardView: View {
 
     // MARK: - Statistics View
 
-    private func statisticsView(_ stats: FlashcardStatistics) -> some View {
+    private func statisticsView(for stats: FlashcardStatistics) -> some View {
         HStack(spacing: 16) {
             // Due cards
             statItem(
