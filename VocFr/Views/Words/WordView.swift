@@ -141,37 +141,45 @@ struct WordDetailView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarBackButtonHidden(true)
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button(action: { dismiss() }) {
-                            Image(systemName: "chevron.left")
-                                .font(.title2)
-                                .foregroundColor(.primary)
-                        }
+                    // Breadcrumb navigation
+                    ToolbarItem(placement: .principal) {
+                        BreadcrumbView(items: getBreadcrumbItems())
                     }
-                    
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        HStack(spacing: 12) {
-                            // Word card toggle
-                            Button(action: { viewModel.toggleWordCard() }) {
-                                Image(systemName: viewModel.showWordCard ? "eye.fill" : "eye")
-                                    .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(viewModel.showWordCard ? .blue : .secondary)
-                                    .frame(width: 44, height: 32)
-                                    .background(viewModel.showWordCard ? Color.blue.opacity(0.1) : Color.clear)
-                                    .clipShape(RoundedRectangle(cornerRadius: 8))
+
+                    // Quick navigation menu
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        QuickNavigationMenu(items: [
+                            QuickNavItem(title: "Home", icon: "house") {
+                                dismissToRoot()
+                            },
+                            QuickNavItem(title: "Unit List", icon: "list.bullet") {
+                                dismissToUnitList()
+                            },
+                            QuickNavItem(title: viewModel.section.name.capitalized, icon: "list.dash") {
+                                dismiss()
                             }
-                            .animation(.easeInOut(duration: 0.2), value: viewModel.showWordCard)
+                        ])
+                    }
+
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        HStack(spacing: 8) {
+                            // Word card toggle
+                            ToolbarIconButton(
+                                icon: viewModel.showWordCard ? "eye.fill" : "eye",
+                                isActive: viewModel.showWordCard,
+                                activeColor: .blue
+                            ) {
+                                viewModel.toggleWordCard()
+                            }
 
                             // Shuffle toggle
-                            Button(action: { toggleShuffle() }) {
-                                Image(systemName: viewModel.isShuffled ? "shuffle" : "shuffle")
-                                    .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(viewModel.isShuffled ? .green : .secondary)
-                                    .frame(width: 44, height: 32)
-                                    .background(viewModel.isShuffled ? Color.green.opacity(0.1) : Color.clear)
-                                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                            ToolbarIconButton(
+                                icon: "shuffle",
+                                isActive: viewModel.isShuffled,
+                                activeColor: .green
+                            ) {
+                                toggleShuffle()
                             }
-                            .animation(.easeInOut(duration: 0.2), value: viewModel.isShuffled)
                         }
                     }
                 }
@@ -465,10 +473,10 @@ struct WordDetailView: View {
     private func playFallbackAudio(for word: Word) {
         // Main audio file with all pronunciations
         let mainAudioFileName = "alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z"
-        
+
         print("🔊 播放完整音频文件 (备用方案): \(mainAudioFileName)")
         print("⚠️ 注意：这将播放完整音频，而不是单个单词")
-        
+
         let extensions = ["wav", "mp3", "m4a", "aac"]
         for ext in extensions {
             if Bundle.main.url(forResource: mainAudioFileName, withExtension: ext) != nil {
@@ -482,9 +490,46 @@ struct WordDetailView: View {
                 return
             }
         }
-        
+
         print("❌ 未找到音频文件: \(mainAudioFileName)")
         print("💡 请检查音频文件是否已添加到项目中")
+    }
+
+    // MARK: - Navigation Helpers
+
+    private func getBreadcrumbItems() -> [BreadcrumbItem] {
+        var items: [BreadcrumbItem] = [BreadcrumbItem(title: "🏠")]
+
+        if let unite = viewModel.section.unite {
+            items.append(BreadcrumbItem(title: "Unité \(unite.number)"))
+        }
+
+        items.append(BreadcrumbItem(title: viewModel.section.name.capitalized))
+
+        if let word = currentWord {
+            items.append(BreadcrumbItem(title: getBaseWord(for: word)))
+        }
+
+        return items
+    }
+
+    private func dismissToRoot() {
+        // Dismiss to root (3 levels up)
+        dismiss()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.dismiss()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.dismiss()
+        }
+    }
+
+    private func dismissToUnitList() {
+        // Dismiss to unit list (2 levels up)
+        dismiss()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.dismiss()
+        }
     }
 }
 
