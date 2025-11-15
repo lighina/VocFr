@@ -137,6 +137,7 @@ struct WordDetailView: View {
                 .background(Color(.systemBackground))
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarBackButtonHidden(true)
+                .toolbarBackground(.visible, for: .navigationBar)
                 .toolbar {
                     // Breadcrumb navigation
                     ToolbarItem(placement: .principal) {

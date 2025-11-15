@@ -124,6 +124,7 @@ struct UniteDetailView: View {
             }
         }
         .navigationTitle(unite.title)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

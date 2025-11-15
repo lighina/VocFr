@@ -24,6 +24,7 @@ struct SectionDetailView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
+        .toolbarBackground(.visible, for: .navigationBar)
         .toolbar {
             // Breadcrumb navigation in leading position (replaces title)
             ToolbarItem(placement: .principal) {
