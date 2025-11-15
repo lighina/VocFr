@@ -57,13 +57,19 @@ class AchievementManager {
 
                 try context.save()
                 print("✅ Initialized \(definitions.count) achievements")
-
-                // Sync existing user progress to achievements
-                syncExistingProgress(context: context)
             }
+
+            // Always sync progress on every app launch
+            // This ensures existing progress (like 218 stars) is reflected
+            syncExistingProgress(context: context)
         } catch {
             print("❌ Failed to initialize achievements: \(error)")
         }
+    }
+
+    /// Public method to manually sync progress to achievements
+    func syncProgress(context: ModelContext) {
+        syncExistingProgress(context: context)
     }
 
     /// Sync existing user progress to newly created achievements

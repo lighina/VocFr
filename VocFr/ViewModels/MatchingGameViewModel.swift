@@ -49,7 +49,7 @@ class MatchingGameViewModel {
     // MARK: - State
 
     /// All cards in the game (6 words × 2 cards = 12 cards)
-    private(set) var cards: [MatchingCard] = []
+    var cards: [MatchingCard] = []
 
     /// Currently selected cards (max 2)
     private(set) var selectedCards: [MatchingCard] = []
@@ -161,26 +161,40 @@ class MatchingGameViewModel {
 
     /// Select a card
     func selectCard(_ card: MatchingCard) {
+        print("🎮 Card tapped: \(card.word.canonical) (\(card.type))")
+
         // Start timer on first card click
         if !hasStarted {
             hasStarted = true
             startTimer()
+            print("⏱️ Timer started")
         }
 
         // Find card index
-        guard let index = cards.firstIndex(where: { $0.id == card.id }) else { return }
+        guard let index = cards.firstIndex(where: { $0.id == card.id }) else {
+            print("❌ Card not found in array")
+            return
+        }
 
         // Ignore if card is already face up or matched
-        guard !cards[index].isFaceUp && !cards[index].isMatched else { return }
+        guard !cards[index].isFaceUp && !cards[index].isMatched else {
+            print("⚠️ Card already face up or matched")
+            return
+        }
 
         // Ignore if already selected 2 cards
-        guard selectedCards.count < 2 else { return }
+        guard selectedCards.count < 2 else {
+            print("⚠️ Already have 2 cards selected")
+            return
+        }
+
+        print("✅ Flipping card at index \(index)")
 
         // Flip card face up - trigger view update by creating new array
-        var updatedCards = cards
-        updatedCards[index].isFaceUp = true
-        cards = updatedCards
+        cards[index].isFaceUp = true
         selectedCards.append(cards[index])
+
+        print("📊 Selected cards: \(selectedCards.count)")
 
         // Check for match if 2 cards are selected
         if selectedCards.count == 2 {
@@ -223,26 +237,24 @@ class MatchingGameViewModel {
 
     /// Mark cards as matched
     private func markCardsAsMatched(_ card1: MatchingCard, _ card2: MatchingCard) {
-        var updatedCards = cards
-        if let index1 = updatedCards.firstIndex(where: { $0.id == card1.id }) {
-            updatedCards[index1].isMatched = true
+        if let index1 = cards.firstIndex(where: { $0.id == card1.id }) {
+            cards[index1].isMatched = true
         }
-        if let index2 = updatedCards.firstIndex(where: { $0.id == card2.id }) {
-            updatedCards[index2].isMatched = true
+        if let index2 = cards.firstIndex(where: { $0.id == card2.id }) {
+            cards[index2].isMatched = true
         }
-        cards = updatedCards
+        print("✨ Marked cards as matched")
     }
 
     /// Flip cards back face down
     private func flipCardsBack(_ card1: MatchingCard, _ card2: MatchingCard) {
-        var updatedCards = cards
-        if let index1 = updatedCards.firstIndex(where: { $0.id == card1.id }) {
-            updatedCards[index1].isFaceUp = false
+        if let index1 = cards.firstIndex(where: { $0.id == card1.id }) {
+            cards[index1].isFaceUp = false
         }
-        if let index2 = updatedCards.firstIndex(where: { $0.id == card2.id }) {
-            updatedCards[index2].isFaceUp = false
+        if let index2 = cards.firstIndex(where: { $0.id == card2.id }) {
+            cards[index2].isFaceUp = false
         }
-        cards = updatedCards
+        print("🔄 Flipped cards back")
     }
 
     /// Calculate points for a successful match based on attempts

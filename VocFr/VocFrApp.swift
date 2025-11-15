@@ -71,20 +71,17 @@ struct VocFrApp: App {
         
         do {
             let container = try ModelContainer(for: schema, configurations: [configuration])
-            
+
             // Check if data needs to be seeded
             let context = container.mainContext
             let descriptor = FetchDescriptor<Unite>()
-            
+
             let existingUnites = try context.fetch(descriptor)
             if existingUnites.isEmpty {
                 // First launch, seed data
                 print("首次启动，开始导入数据...")
                 try FrenchVocabularySeeder.seedAllData(to: context)
                 FrenchVocabularySeeder.addAudioTimestamps(to: context)
-
-                // Initialize achievements
-                AchievementManager.shared.initializeAchievements(in: context)
 
                 print("数据导入完成")
                 print(FrenchVocabularySeeder.generateDataReport(from: context))
@@ -122,7 +119,10 @@ struct VocFrApp: App {
                     }
                 }
             }
-            
+
+            // Initialize and sync achievements on every app launch
+            AchievementManager.shared.initializeAchievements(in: context)
+
             return container
         } catch {
             fatalError("模型容器创建失败: \(error)")
