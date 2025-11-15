@@ -226,10 +226,7 @@ class AchievementManager {
     /// Fetch all achievements
     func fetchAllAchievements(context: ModelContext) -> [Achievement] {
         let descriptor = FetchDescriptor<Achievement>(
-            sortBy: [
-                SortDescriptor(\Achievement.category),
-                SortDescriptor(\Achievement.orderIndex)
-            ]
+            sortBy: [SortDescriptor(\Achievement.orderIndex)]
         )
 
         do {
