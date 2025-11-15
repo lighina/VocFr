@@ -176,8 +176,10 @@ class MatchingGameViewModel {
         // Ignore if already selected 2 cards
         guard selectedCards.count < 2 else { return }
 
-        // Flip card face up
-        cards[index].isFaceUp = true
+        // Flip card face up - trigger view update by creating new array
+        var updatedCards = cards
+        updatedCards[index].isFaceUp = true
+        cards = updatedCards
         selectedCards.append(cards[index])
 
         // Check for match if 2 cards are selected
@@ -221,22 +223,26 @@ class MatchingGameViewModel {
 
     /// Mark cards as matched
     private func markCardsAsMatched(_ card1: MatchingCard, _ card2: MatchingCard) {
-        if let index1 = cards.firstIndex(where: { $0.id == card1.id }) {
-            cards[index1].isMatched = true
+        var updatedCards = cards
+        if let index1 = updatedCards.firstIndex(where: { $0.id == card1.id }) {
+            updatedCards[index1].isMatched = true
         }
-        if let index2 = cards.firstIndex(where: { $0.id == card2.id }) {
-            cards[index2].isMatched = true
+        if let index2 = updatedCards.firstIndex(where: { $0.id == card2.id }) {
+            updatedCards[index2].isMatched = true
         }
+        cards = updatedCards
     }
 
     /// Flip cards back face down
     private func flipCardsBack(_ card1: MatchingCard, _ card2: MatchingCard) {
-        if let index1 = cards.firstIndex(where: { $0.id == card1.id }) {
-            cards[index1].isFaceUp = false
+        var updatedCards = cards
+        if let index1 = updatedCards.firstIndex(where: { $0.id == card1.id }) {
+            updatedCards[index1].isFaceUp = false
         }
-        if let index2 = cards.firstIndex(where: { $0.id == card2.id }) {
-            cards[index2].isFaceUp = false
+        if let index2 = updatedCards.firstIndex(where: { $0.id == card2.id }) {
+            updatedCards[index2].isFaceUp = false
         }
+        cards = updatedCards
     }
 
     /// Calculate points for a successful match based on attempts

@@ -115,14 +115,18 @@ struct ListeningPracticeView: View {
             }
             .padding(.vertical, 20)
 
-            // Answer options (4 buttons)
-            VStack(spacing: 12) {
+            // Answer options (4 buttons in 2×2 grid)
+            LazyVGrid(columns: [
+                GridItem(.flexible(), spacing: 12),
+                GridItem(.flexible(), spacing: 12)
+            ], spacing: 12) {
                 ForEach(Array(viewModel.currentOptions.enumerated()), id: \.element.id) { index, option in
                     answerButton(
                         text: option.canonical,
                         index: index,
                         isCorrect: option.id == word.id
                     )
+                    .aspectRatio(0.85, contentMode: .fit)
                 }
             }
             .padding(.horizontal)

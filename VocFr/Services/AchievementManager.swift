@@ -57,10 +57,59 @@ class AchievementManager {
 
                 try context.save()
                 print("✅ Initialized \(definitions.count) achievements")
+
+                // Sync existing user progress to achievements
+                syncExistingProgress(context: context)
             }
         } catch {
             print("❌ Failed to initialize achievements: \(error)")
         }
+    }
+
+    /// Sync existing user progress to newly created achievements
+    private func syncExistingProgress(context: ModelContext) {
+        print("🔄 Syncing existing user progress to achievements...")
+
+        // Check user progress for stars
+        if let userProgress = try? context.fetch(FetchDescriptor<UserProgress>()).first {
+            let totalStars = userProgress.totalStars
+            print("  📊 Total stars: \(totalStars)")
+            checkPoints(totalPoints: totalStars, context: context)
+
+            // Check current streak
+            let currentStreak = userProgress.currentStreak
+            print("  🔥 Current streak: \(currentStreak)")
+            checkStreak(currentStreak: currentStreak, context: context)
+        }
+
+        // Check word progress for learned words
+        let wordProgressDescriptor = FetchDescriptor<WordProgress>(
+            predicate: #Predicate { $0.hasBeenPracticed }
+        )
+        if let wordProgresses = try? context.fetch(wordProgressDescriptor) {
+            let learnedCount = wordProgresses.count
+            print("  📚 Words learned: \(learnedCount)")
+            checkLearningMilestones(wordCount: learnedCount, context: context)
+        }
+
+        // Check practice records
+        let practiceDescriptor = FetchDescriptor<PracticeRecord>()
+        if let practices = try? context.fetch(practiceDescriptor) {
+            let practiceCount = practices.count
+            print("  🏃 Practice sessions: \(practiceCount)")
+            checkPracticeCount(practiceCount: practiceCount, context: context)
+
+            // Check perfect practices
+            let perfectPractices = practices.filter { $0.accuracy >= 1.0 }
+            let perfectCount = perfectPractices.count
+            print("  ⭐ Perfect practices: \(perfectCount)")
+
+            // Check if any perfect practice had 20+ words
+            let hasPerfect20 = perfectPractices.contains { $0.wordsStudied >= 20 }
+            checkPerfectPractice(perfectCount: perfectCount, isPerfect20: hasPerfect20, context: context)
+        }
+
+        print("✅ Progress sync completed")
     }
 
     // MARK: - Achievement Tracking
