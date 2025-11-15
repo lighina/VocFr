@@ -71,9 +71,18 @@ struct FlashcardView: View {
     private var progressHeader: some View {
         VStack(spacing: 8) {
             // Progress bar
-            ProgressView(value: viewModel.progressPercentage)
-                .tint(.blue)
-                .scaleEffect(x: 1, y: 2, anchor: .center)
+            GeometryReader { geometry in
+                ZStack(alignment: .leading) {
+                    Rectangle()
+                        .fill(Color.gray.opacity(0.3))
+                        .frame(height: 4)
+
+                    Rectangle()
+                        .fill(Color.blue)
+                        .frame(width: geometry.size.width * viewModel.progressPercentage, height: 4)
+                }
+            }
+            .frame(height: 4)
 
             // Progress text
             HStack {
