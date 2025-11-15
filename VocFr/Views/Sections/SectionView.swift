@@ -22,13 +22,10 @@ struct SectionDetailView: View {
                 }
             }
         }
-        .navigationTitle(section.name.capitalized)
-        #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        #endif
         .toolbar {
-            // Breadcrumb navigation in title
+            // Breadcrumb navigation in leading position (replaces title)
             ToolbarItem(placement: .principal) {
                 BreadcrumbView(items: [
                     BreadcrumbItem(title: "🏠"),
@@ -37,13 +34,13 @@ struct SectionDetailView: View {
                 ])
             }
 
-            // Quick navigation menu
+            // Quick navigation menu (replaces back button)
             ToolbarItem(placement: .navigationBarLeading) {
                 QuickNavigationMenu(items: [
                     QuickNavItem(title: "Home", icon: "house") {
                         dismissToRoot()
                     },
-                    QuickNavItem(title: "Unit List", icon: "list.bullet") {
+                    QuickNavItem(title: getUniteName(), icon: "book.closed") {
                         dismiss()
                     }
                 ])
@@ -83,11 +80,16 @@ struct SectionDetailView: View {
     }
 
     private func dismissToRoot() {
-        // Dismiss multiple times to get to root
-        // This is a simple approach; more sophisticated navigation state management could be used
+        // Dismiss to root (back to Units view)
         dismiss()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            dismiss()
+            self.dismiss()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.dismiss()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.dismiss()
         }
     }
 }

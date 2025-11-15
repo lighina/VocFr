@@ -146,7 +146,7 @@ struct WordDetailView: View {
                             QuickNavItem(title: "Home", icon: "house") {
                                 dismissToRoot()
                             },
-                            QuickNavItem(title: "Unit List", icon: "list.bullet") {
+                            QuickNavItem(title: getUniteName(), icon: "book.closed") {
                                 dismissToUnitList()
                             },
                             QuickNavItem(title: viewModel.section.name.capitalized, icon: "list.dash") {
@@ -507,8 +507,15 @@ struct WordDetailView: View {
         return items
     }
 
+    private func getUniteName() -> String {
+        if let unite = viewModel.section.unite {
+            return "Unité \(unite.number)"
+        }
+        return "Unit"
+    }
+
     private func dismissToRoot() {
-        // Dismiss to root (3 levels up)
+        // Dismiss to root (back to Units view - 3 levels)
         dismiss()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.dismiss()
@@ -516,10 +523,16 @@ struct WordDetailView: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.dismiss()
         }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.dismiss()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            self.dismiss()
+        }
     }
 
     private func dismissToUnitList() {
-        // Dismiss to unit list (2 levels up)
+        // Dismiss to unit detail view (2 levels up)
         dismiss()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.dismiss()
