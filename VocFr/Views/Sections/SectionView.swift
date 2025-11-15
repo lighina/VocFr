@@ -80,15 +80,10 @@ struct SectionDetailView: View {
     }
 
     private func dismissToRoot() {
-        // Dismiss to root (back to Units view)
+        // Dismiss to root (back to Units view - 2 levels up)
+        // SectionDetailView → UniteDetailView → UnitsView
         dismiss()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.dismiss()
-        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            self.dismiss()
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.dismiss()
         }
     }
