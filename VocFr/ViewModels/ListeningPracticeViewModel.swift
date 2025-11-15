@@ -250,7 +250,7 @@ class ListeningPracticeViewModel {
 
             // Award points for completing practice
             if let modelContext = modelContext, pointsEarned > 0 {
-                PointsManager.shared.awardStars(points: pointsEarned, modelContext: modelContext)
+                PointsManager.shared.awardStars(points: pointsEarned, modelContext: modelContext, reason: "Listening practice completed")
             }
 
         } catch {

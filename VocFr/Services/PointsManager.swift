@@ -85,6 +85,11 @@ class PointsManager {
         try? modelContext.save()
     }
 
+    /// Award specific amount of stars (for games and special activities)
+    func awardStars(points: Int, modelContext: ModelContext, reason: String = "Game completed") {
+        addPoints(points, to: modelContext, reason: reason)
+    }
+
     // MARK: - Helper Methods
 
     /// Calculate points based on practice accuracy

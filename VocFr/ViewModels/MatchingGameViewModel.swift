@@ -292,7 +292,7 @@ class MatchingGameViewModel {
             sessionType: "Matching Game",
             wordsStudied: pairCount,
             accuracy: accuracy,
-            timeSpent: Int(elapsedTime)
+            timeSpent: elapsedTime
         )
 
         modelContext.insert(record)
@@ -303,7 +303,7 @@ class MatchingGameViewModel {
 
             // Award points
             if score > 0 {
-                PointsManager.shared.awardStars(points: score, modelContext: modelContext)
+                PointsManager.shared.awardStars(points: score, modelContext: modelContext, reason: "Matching game completed")
             }
 
         } catch {
