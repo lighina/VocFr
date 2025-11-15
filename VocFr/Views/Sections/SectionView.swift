@@ -101,6 +101,8 @@ struct SectionDetailView: View {
 }
 
 #Preview("Section View") {
+    @Previewable @State var path = NavigationPath()
+
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Unite.self, Section.self, Word.self, WordForm.self,
                                        AudioFile.self, AudioSegment.self, UserProgress.self,
@@ -109,8 +111,6 @@ struct SectionDetailView: View {
 
     let section = Section(id: "preview-section", name: "preview section", orderIndex: 0)
     container.mainContext.insert(section)
-
-    @Previewable @State var path = NavigationPath()
 
     return SectionDetailView(section: section, navigationPath: $path)
         .modelContainer(container)
