@@ -142,7 +142,21 @@ struct WordDetailView: View {
                         BreadcrumbView(items: getBreadcrumbItems())
                     }
 
-                    // Navigation menu (leading)
+                    // Custom back button (maintains swipe gesture)
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(action: {
+                            navigationPath.removeLast()
+                        }) {
+                            HStack(spacing: 4) {
+                                Image(systemName: "chevron.left")
+                                    .font(.system(size: 16, weight: .semibold))
+                                Text(viewModel.section.name.capitalized)
+                                    .font(.system(size: 16))
+                            }
+                        }
+                    }
+
+                    // Quick navigation menu
                     ToolbarItem(placement: .navigationBarLeading) {
                         Menu {
                             Button(action: {
@@ -162,7 +176,7 @@ struct WordDetailView: View {
                             }
                         } label: {
                             Image(systemName: "ellipsis.circle")
-                                .font(.system(size: 20))
+                                .font(.system(size: 16))
                         }
                     }
 
