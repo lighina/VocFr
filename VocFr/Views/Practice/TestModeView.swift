@@ -26,6 +26,7 @@ struct TestModeView: View {
         #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         #endif
+        .navigationBarBackButtonHidden(true)
     }
 }
 

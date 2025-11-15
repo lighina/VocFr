@@ -32,6 +32,7 @@ struct FlashcardView: View {
         .padding()
         .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .onAppear {
             // Set modelContext after view appears
             viewModel.setModelContext(modelContext)

@@ -34,6 +34,7 @@ struct SpellingPracticeView: View {
         .padding()
         .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .onAppear {
             viewModel.setModelContext(modelContext)
         }

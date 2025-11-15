@@ -33,6 +33,7 @@ struct ListeningPracticeView: View {
         .padding()
         .navigationTitle("listening.practice.title".localized(viewModel.sectionName))
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .onAppear {
             // Set modelContext after view appears
             viewModel = ListeningPracticeViewModel(section: viewModel.section, modelContext: modelContext)

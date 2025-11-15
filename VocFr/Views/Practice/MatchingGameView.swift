@@ -35,6 +35,7 @@ struct MatchingGameView: View {
         .padding()
         .navigationTitle("matching.game.title".localized(viewModel.sectionName))
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .onAppear {
             // Set modelContext after view appears
             viewModel = MatchingGameViewModel(section: viewModel.section, modelContext: modelContext)

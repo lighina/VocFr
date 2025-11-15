@@ -26,6 +26,7 @@ struct PracticeView: View {
         #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         #endif
+        .navigationBarBackButtonHidden(true)
         .onAppear {
             // Set modelContext after view appears
             viewModel = PracticeViewModel(section: viewModel.section, modelContext: modelContext)
