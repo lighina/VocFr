@@ -174,10 +174,10 @@ class AchievementManager {
 
     /// Fetch achievement by ID
     private func fetchAchievement(id: String, context: ModelContext) -> Achievement? {
-        var descriptor = FetchDescriptor<Achievement>(
-            predicate: #Predicate { $0.id == id }
+        let descriptor = FetchDescriptor<Achievement>(
+            predicate: #Predicate { $0.id == id },
+            fetchLimit: 1
         )
-        descriptor.fetchLimit = 1
 
         do {
             let achievements = try context.fetch(descriptor)
@@ -242,7 +242,7 @@ class AchievementManager {
 
     /// Fetch achievements by category
     func fetchAchievements(category: AchievementCategory, context: ModelContext) -> [Achievement] {
-        var descriptor = FetchDescriptor<Achievement>(
+        let descriptor = FetchDescriptor<Achievement>(
             predicate: #Predicate { $0.category == category },
             sortBy: [SortDescriptor(\Achievement.orderIndex)]
         )
