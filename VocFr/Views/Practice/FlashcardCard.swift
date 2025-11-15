@@ -11,9 +11,11 @@ import SwiftUI
 /// A flashcard that can be flipped to reveal the answer
 struct FlashcardCard: View {
     let word: Word
+    let section: Section
     @Binding var isFaceUp: Bool
 
     @State private var rotation: Double = 0
+    @StateObject private var audioManager = AudioPlayerManager.shared
 
     var body: some View {
         ZStack {
@@ -110,12 +112,10 @@ struct FlashcardCard: View {
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
 
-                    // Gender if applicable
-                    if let gender = word.gender {
-                        Text("(\(gender.abbreviation))")
-                            .font(.title3)
-                            .foregroundColor(.white.opacity(0.9))
-                    }
+                    // Part of speech
+                    Text("(\(word.partOfSpeech.abbreviation))")
+                        .font(.title3)
+                        .foregroundColor(.white.opacity(0.9))
 
                     Divider()
                         .background(Color.white.opacity(0.5))
@@ -142,7 +142,7 @@ struct FlashcardCard: View {
                         .padding(.horizontal, 40)
 
                     // Translation
-                    Text(word.translation)
+                    Text(word.chinese)
                         .font(.title2)
                         .foregroundColor(.white.opacity(0.95))
                         .multilineTextAlignment(.center)
@@ -174,12 +174,35 @@ struct FlashcardCard: View {
     }
 
     private func playAudio() {
-        // Find first audio segment for this word
-        if let audioSegment = word.audioSegments.first {
-            AudioPlayerManager.shared.playAudio(segment: audioSegment)
-            print("🔊 Playing audio for: \(word.canonical)")
-        } else {
-            print("⚠️ No audio available for: \(word.canonical)")
+        audioManager.playWordAudio(for: word, in: section) { success in
+            if success {
+                print("🔊 Playing audio for: \(word.canonical)")
+            } else {
+                print("⚠️ No audio available for: \(word.canonical)")
+            }
+        }
+    }
+}
+
+// MARK: - PartOfSpeech Extension
+
+extension PartOfSpeech {
+    var abbreviation: String {
+        switch self {
+        case .noun:
+            return "n."
+        case .verb:
+            return "v."
+        case .adjective:
+            return "adj."
+        case .number:
+            return "num."
+        case .pronoun:
+            return "pron."
+        case .preposition:
+            return "prep."
+        case .other:
+            return ""
         }
     }
 }
@@ -192,11 +215,12 @@ struct FlashcardCard: View {
             word: Word(
                 id: "test",
                 canonical: "la pomme",
-                translation: "苹果",
+                chinese: "苹果",
                 imageName: "apple",
-                orderIndex: 1,
-                gender: .feminine
+                partOfSpeech: .noun,
+                category: "食物"
             ),
+            section: Section(id: "test", name: "Test", orderIndex: 0),
             isFaceUp: .constant(false)
         )
         .padding()

@@ -50,7 +50,7 @@ struct FlashcardView: View {
 
             // Flashcard
             if let word = viewModel.currentWord {
-                FlashcardCard(word: word, isFaceUp: $viewModel.isFaceUp)
+                FlashcardCard(word: word, section: viewModel.section, isFaceUp: $viewModel.isFaceUp)
                     .padding(.horizontal)
             }
 
