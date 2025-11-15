@@ -11,6 +11,7 @@ import SwiftData
 
 struct SpellingPracticeView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
     @State private var viewModel: SpellingViewModel
     @FocusState private var isInputFocused: Bool
     @StateObject private var audioManager = AudioPlayerManager.shared
@@ -34,6 +35,21 @@ struct SpellingPracticeView: View {
         .padding()
         .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    dismiss()
+                }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: 16, weight: .semibold))
+                        Text(viewModel.sectionName.capitalized)
+                            .font(.system(size: 16))
+                    }
+                }
+            }
+        }
         .onAppear {
             viewModel.setModelContext(modelContext)
         }

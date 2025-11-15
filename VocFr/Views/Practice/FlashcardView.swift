@@ -11,6 +11,7 @@ import SwiftData
 
 struct FlashcardView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
     @State private var viewModel: FlashcardViewModel
 
     init(section: Section) {
@@ -32,6 +33,21 @@ struct FlashcardView: View {
         .padding()
         .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    dismiss()
+                }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: 16, weight: .semibold))
+                        Text(viewModel.sectionName.capitalized)
+                            .font(.system(size: 16))
+                    }
+                }
+            }
+        }
         .onAppear {
             // Set modelContext after view appears
             viewModel.setModelContext(modelContext)
