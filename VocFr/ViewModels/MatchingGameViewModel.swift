@@ -190,11 +190,17 @@ class MatchingGameViewModel {
 
         print("✅ Flipping card at index \(index)")
 
-        // Flip card face up - trigger view update by creating new array
+        // Flip card face up
         cards[index].isFaceUp = true
+
+        // Force SwiftUI to detect the change
+        let tempCards = cards
+        cards = tempCards
+
         selectedCards.append(cards[index])
 
         print("📊 Selected cards: \(selectedCards.count)")
+        print("📋 Card state after flip - isFaceUp: \(cards[index].isFaceUp)")
 
         // Check for match if 2 cards are selected
         if selectedCards.count == 2 {
@@ -243,7 +249,12 @@ class MatchingGameViewModel {
         if let index2 = cards.firstIndex(where: { $0.id == card2.id }) {
             cards[index2].isMatched = true
         }
-        print("✨ Marked cards as matched")
+
+        // Force SwiftUI to detect the change
+        let tempCards = cards
+        cards = tempCards
+
+        print("✨ Marked cards as matched - UI should update now")
     }
 
     /// Flip cards back face down
@@ -254,7 +265,12 @@ class MatchingGameViewModel {
         if let index2 = cards.firstIndex(where: { $0.id == card2.id }) {
             cards[index2].isFaceUp = false
         }
-        print("🔄 Flipped cards back")
+
+        // Force SwiftUI to detect the change by triggering a new value
+        let tempCards = cards
+        cards = tempCards
+
+        print("🔄 Flipped cards back - UI should update now")
     }
 
     /// Calculate points for a successful match based on attempts
