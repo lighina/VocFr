@@ -6,6 +6,15 @@ class FrenchVocabularySeeder {
     private static var globalWordCache: [String: Word] = [:]
 
     static func seedAllData(to modelContext: ModelContext) throws {
+        // Check if data already exists to prevent duplicates
+        let existingUnitesDescriptor = FetchDescriptor<Unite>()
+        let existingUnites = try modelContext.fetch(existingUnitesDescriptor)
+
+        if !existingUnites.isEmpty {
+            print("⚠️ Data already imported. Found \(existingUnites.count) existing unités. Skipping import to prevent duplicates.")
+            return
+        }
+
         // 开始一次完整播种前清空全局缓存
         Self.globalWordCache.removeAll()
 
@@ -18,9 +27,13 @@ class FrenchVocabularySeeder {
             modelContext.insert(unite)
         }
 
-        // 创建初始用户进度
-        let userProgress = UserProgress()
-        modelContext.insert(userProgress)
+        // 创建初始用户进度 (only if it doesn't exist)
+        let userProgressDescriptor = FetchDescriptor<UserProgress>()
+        let existingProgress = try modelContext.fetch(userProgressDescriptor)
+        if existingProgress.isEmpty {
+            let userProgress = UserProgress()
+            modelContext.insert(userProgress)
+        }
 
         try modelContext.save()
         print("✅ 成功导入 \(unites.count) 个单元的数据到 SwiftData")
