@@ -68,12 +68,31 @@
 "matching.game.attempts" = "尝试次数:";
 "matching.game.total.score" = "总得分: %d 星";
 
+// MARK: - Flashcard Mode
+
+"flashcard.title" = "闪卡复习: %@";
+"flashcard.tap.to.flip" = "点击翻转";
+"flashcard.play.audio" = "播放音频";
+"flashcard.progress" = "进度:";
+"flashcard.due" = "待复习";
+"flashcard.new" = "新卡片";
+"flashcard.mastered" = "已掌握";
+"flashcard.know" = "认识";
+"flashcard.dont.know" = "不认识";
+"flashcard.completed.title" = "复习完成！";
+"flashcard.cards.reviewed" = "已复习卡片:";
+"flashcard.success.rate" = "正确率:";
+"flashcard.restart" = "再次复习";
+"flashcard.all.done" = "全部完成！";
+"flashcard.all.done.message" = "今天没有需要复习的卡片了，明天再来吧！";
+
 // MARK: - Section View
 
 "section.button.practice" = "练习";
 "section.practice.visual" = "看图练习";
 "section.practice.listening" = "听力练习";
 "section.practice.matching" = "配对游戏";
+"section.practice.flashcard" = "闪卡复习";
 
 // MARK: - Main App View
 

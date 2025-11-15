@@ -55,6 +55,9 @@ struct SectionDetailView: View {
                     NavigationLink(destination: ListeningPracticeView(section: section)) {
                         Label("section.practice.listening".localized, systemImage: "speaker.wave.3")
                     }
+                    NavigationLink(destination: FlashcardView(section: section)) {
+                        Label("section.practice.flashcard".localized, systemImage: "rectangle.stack")
+                    }
                     NavigationLink(destination: MatchingGameView(section: section)) {
                         Label("section.practice.matching".localized, systemImage: "rectangle.on.rectangle")
                     }
@@ -75,6 +78,9 @@ struct SectionDetailView: View {
                     }
                     NavigationLink(destination: ListeningPracticeView(section: section)) {
                         Label("section.practice.listening".localized, systemImage: "speaker.wave.3")
+                    }
+                    NavigationLink(destination: FlashcardView(section: section)) {
+                        Label("section.practice.flashcard".localized, systemImage: "rectangle.stack")
                     }
                     NavigationLink(destination: MatchingGameView(section: section)) {
                         Label("section.practice.matching".localized, systemImage: "rectangle.on.rectangle")
@@ -107,7 +113,7 @@ struct SectionDetailView: View {
     let container = try! ModelContainer(for: Unite.self, Section.self, Word.self, WordForm.self,
                                        AudioFile.self, AudioSegment.self, UserProgress.self,
                                        WordProgress.self, PracticeRecord.self, SectionWord.self,
-                                       configurations: config)
+                                       FlashcardProgress.self, configurations: config)
 
     let section = Section(id: "preview-section", name: "preview section", orderIndex: 0)
     container.mainContext.insert(section)

@@ -61,6 +61,7 @@ struct VocFrApp: App {
             WordProgress.self,
             PracticeRecord.self,
             Achievement.self,
+            FlashcardProgress.self,
             Item.self // Keep for compatibility
         ])
         

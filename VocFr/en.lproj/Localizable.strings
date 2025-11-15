@@ -68,12 +68,31 @@
 "matching.game.attempts" = "Attempts:";
 "matching.game.total.score" = "Total Score: %d stars";
 
+// MARK: - Flashcard Mode
+
+"flashcard.title" = "Flashcards: %@";
+"flashcard.tap.to.flip" = "Tap to flip";
+"flashcard.play.audio" = "Play Audio";
+"flashcard.progress" = "Progress:";
+"flashcard.due" = "Due";
+"flashcard.new" = "New";
+"flashcard.mastered" = "Mastered";
+"flashcard.know" = "I Know";
+"flashcard.dont.know" = "Don't Know";
+"flashcard.completed.title" = "Review Complete!";
+"flashcard.cards.reviewed" = "Cards Reviewed:";
+"flashcard.success.rate" = "Success Rate:";
+"flashcard.restart" = "Review Again";
+"flashcard.all.done" = "All Done!";
+"flashcard.all.done.message" = "No cards due for review today. Come back tomorrow!";
+
 // MARK: - Section View
 
 "section.button.practice" = "Practice";
 "section.practice.visual" = "Visual Practice";
 "section.practice.listening" = "Listening Practice";
 "section.practice.matching" = "Matching Game";
+"section.practice.flashcard" = "Flashcards";
 
 // MARK: - Main App View
 
