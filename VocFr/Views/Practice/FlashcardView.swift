@@ -239,10 +239,12 @@ struct FlashcardView: View {
             )
 
             // Restart button
-            Button("flashcard.restart".localized) {
+            Button(action: {
                 withAnimation {
                     viewModel.restartReview()
                 }
+            }) {
+                Text("flashcard.restart".localized)
             }
             .buttonStyle(.borderedProminent)
 
