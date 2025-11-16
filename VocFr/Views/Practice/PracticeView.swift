@@ -3,6 +3,7 @@ import SwiftData
 
 struct PracticeView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
     @State private var viewModel: PracticeViewModel
 
     init(section: Section) {
@@ -27,6 +28,20 @@ struct PracticeView: View {
         .navigationBarTitleDisplayMode(.inline)
         #endif
         .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    dismiss()
+                }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: 16, weight: .semibold))
+                        Text(viewModel.sectionName.capitalized)
+                            .font(.system(size: 16))
+                    }
+                }
+            }
+        }
         .onAppear {
             // Set modelContext after view appears
             viewModel = PracticeViewModel(section: viewModel.section, modelContext: modelContext)

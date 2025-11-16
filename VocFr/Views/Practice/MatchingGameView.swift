@@ -11,6 +11,7 @@ import SwiftData
 
 struct MatchingGameView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
     @State private var viewModel: MatchingGameViewModel
 
     // Grid layout
@@ -36,6 +37,20 @@ struct MatchingGameView: View {
         .navigationTitle("matching.game.title".localized(viewModel.sectionName))
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    dismiss()
+                }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: 16, weight: .semibold))
+                        Text(viewModel.sectionName.capitalized)
+                            .font(.system(size: 16))
+                    }
+                }
+            }
+        }
         .onAppear {
             // Set modelContext after view appears
             viewModel = MatchingGameViewModel(section: viewModel.section, modelContext: modelContext)
