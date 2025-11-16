@@ -16,7 +16,7 @@ class HangmanViewModel {
 
     // MARK: - Dependencies
 
-    let section: Section
+    let unite: Unite
     private let modelContext: ModelContext?
 
     // MARK: - Game State
@@ -57,11 +57,16 @@ class HangmanViewModel {
 
     // MARK: - Computed Properties
 
-    /// All words in the section
+    /// All words in the unite (from all sections)
     var words: [Word] {
-        section.sectionWords
-            .sorted(by: { $0.orderIndex < $1.orderIndex })
-            .compactMap { $0.word }
+        var allWords: [Word] = []
+        for section in unite.sections.sorted(by: { $0.orderIndex < $1.orderIndex }) {
+            let sectionWords = section.sectionWords
+                .sorted(by: { $0.orderIndex < $1.orderIndex })
+                .compactMap { $0.word }
+            allWords.append(contentsOf: sectionWords)
+        }
+        return allWords
     }
 
     /// Total number of words
@@ -120,8 +125,8 @@ class HangmanViewModel {
 
     // MARK: - Initialization
 
-    init(section: Section, modelContext: ModelContext? = nil) {
-        self.section = section
+    init(unite: Unite, modelContext: ModelContext? = nil) {
+        self.unite = unite
         self.modelContext = modelContext
         startNewWord()
     }
