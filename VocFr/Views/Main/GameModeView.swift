@@ -45,8 +45,8 @@ struct GameModeView: View {
                     NavigationLink(destination: AllWordsMatchingGameView(unites: unites.filter { $0.isUnlocked })) {
                         GameCard(
                             icon: "square.grid.2x2.fill",
-                            title: "game.mode.matching.title".localized,
-                            description: "game.mode.matching.description".localized,
+                            title: "Matching",
+                            description: "",
                             color: .orange
                         )
                     }
@@ -61,8 +61,8 @@ struct GameModeView: View {
                         }) {
                             GameCard(
                                 icon: "figure.stand",
-                                title: "game.mode.hangman.section".localized,
-                                description: "",
+                                title: "Hangman",
+                                description: "game.mode.hangman.subtitle".localized,
                                 color: .purple,
                                 isExpandable: true,
                                 isExpanded: isHangmanExpanded
@@ -197,19 +197,22 @@ struct UniteGameRow: View {
                 .frame(width: 40)
 
             VStack(alignment: .leading, spacing: 4) {
-                Text(title)
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.primary)
-
+                // First line: Title : Subtitle (if subtitle exists)
                 if !subtitle.isEmpty {
-                    Text(subtitle)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+                    Text("\(title) : \(subtitle)")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.primary)
+                } else {
+                    Text(title)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.primary)
                 }
 
+                // Second line: word count
                 Text(String(format: "game.mode.words.count".localized, wordCount))
-                    .font(.caption2)
+                    .font(.caption)
                     .foregroundColor(.secondary)
             }
 

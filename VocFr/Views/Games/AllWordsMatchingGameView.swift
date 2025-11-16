@@ -23,7 +23,7 @@ struct AllWordsMatchingGameView: View {
     @State private var isCompleted: Bool = false
     @State private var startTime: Date = Date()
 
-    private let totalPairs = 10
+    private let totalPairs = 6
     private let columns = [
         GridItem(.flexible(), spacing: 12),
         GridItem(.flexible(), spacing: 12),
