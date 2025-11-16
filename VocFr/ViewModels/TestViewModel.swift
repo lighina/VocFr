@@ -397,10 +397,13 @@ class TestViewModel {
         guard let modelContext = modelContext else { return }
 
         // Check if this word already has a wrong answer record
+        let wordId = question.word.id
+        let questionTypeValue = question.type.rawValue
+
         let descriptor = FetchDescriptor<WrongAnswerRecord>(
             predicate: #Predicate { record in
-                record.wordId == question.word.id &&
-                record.questionType == question.type.rawValue
+                record.wordId == wordId &&
+                record.questionType == questionTypeValue
             }
         )
 
