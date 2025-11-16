@@ -103,6 +103,7 @@ struct UniteDetailView: View {
     let unite: Unite
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var navigationCoordinator: NavigationCoordinator
+    @State private var dragOffset: CGFloat = 0
 
     var body: some View {
         List {
@@ -112,6 +113,22 @@ struct UniteDetailView: View {
                 }
             }
         }
+        .gesture(
+            DragGesture()
+                .onChanged { value in
+                    // Only track horizontal swipes from left edge
+                    if value.startLocation.x < 50 && value.translation.width > 0 {
+                        dragOffset = value.translation.width
+                    }
+                }
+                .onEnded { value in
+                    // Swipe right to go back (threshold: 100 points)
+                    if value.startLocation.x < 50 && value.translation.width > 100 {
+                        dismiss()
+                    }
+                    dragOffset = 0
+                }
+        )
         .navigationTitle(unite.title)
         .navigationBarTitleDisplayMode(.inline)
         .onChange(of: navigationCoordinator.popToRootTrigger) { _, _ in

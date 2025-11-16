@@ -13,6 +13,7 @@ struct SectionDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var navigationCoordinator: NavigationCoordinator
     @State private var shouldDismiss = false
+    @State private var dragOffset: CGFloat = 0
 
     var body: some View {
         List {
@@ -24,6 +25,22 @@ struct SectionDetailView: View {
                 }
             }
         }
+        .gesture(
+            DragGesture()
+                .onChanged { value in
+                    // Only track horizontal swipes from left edge
+                    if value.startLocation.x < 50 && value.translation.width > 0 {
+                        dragOffset = value.translation.width
+                    }
+                }
+                .onEnded { value in
+                    // Swipe right to go back (threshold: 100 points)
+                    if value.startLocation.x < 50 && value.translation.width > 100 {
+                        dismiss()
+                    }
+                    dragOffset = 0
+                }
+        )
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
