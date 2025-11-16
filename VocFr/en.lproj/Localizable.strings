@@ -319,3 +319,35 @@
 "matching.game.play.again" = "Play Again";
 "game.mode.hangman.subtitle" = "Tap to select a unit";
 "game.mode.matching.subtitle" = "6 pairs of learned vocabulary";
+
+// MARK: - Test Mode
+
+"test.select.unite" = "Select a unit to test";
+"test.comprehensive" = "Comprehensive Test";
+"test.all.units" = "All learned units";
+"test.best.score" = "Best: %d";
+"test.question.imageToWord" = "Choose the correct French word";
+"test.question.audioToWord" = "Listen and choose the correct word";
+"test.question.spelling" = "Type the correct spelling";
+"test.question.genderGuess" = "Choose the gender of this noun";
+"test.gender.masculine" = "Masculine (le)";
+"test.gender.feminine" = "Feminine (la)";
+"test.button.previous" = "Previous";
+"test.button.next" = "Next";
+"test.button.finish" = "Finish Test";
+"test.button.listen" = "Listen";
+"test.result.title" = "Test Result";
+"test.result.score" = "Score";
+"test.result.correct" = "Correct";
+"test.result.time" = "Time";
+"test.result.imageToWord" = "Image Recognition";
+"test.result.audioToWord" = "Listening";
+"test.result.spelling" = "Spelling";
+"test.result.genderGuess" = "Gender";
+"test.rating.excellent" = "Excellent!";
+"test.rating.good" = "Good!";
+"test.rating.pass" = "Pass";
+"test.rating.needsReview" = "Needs Review";
+"test.button.retry" = "Retry Test";
+"test.button.viewWrong" = "Review Mistakes";
+"test.button.back" = "Back";

@@ -319,3 +319,35 @@
 "matching.game.play.again" = "再玩一次";
 "game.mode.hangman.subtitle" = "点击选择单元";
 "game.mode.matching.subtitle" = "6对已学词汇";
+
+// MARK: - Test Mode
+
+"test.select.unite" = "选择要测试的单元";
+"test.comprehensive" = "综合测试";
+"test.all.units" = "所有已学单元";
+"test.best.score" = "最高分：%d";
+"test.question.imageToWord" = "选择正确的法语单词";
+"test.question.audioToWord" = "听音选择正确的单词";
+"test.question.spelling" = "输入正确的拼写";
+"test.question.genderGuess" = "选择这个名词的性别";
+"test.gender.masculine" = "阳性 (le)";
+"test.gender.feminine" = "阴性 (la)";
+"test.button.previous" = "上一题";
+"test.button.next" = "下一题";
+"test.button.finish" = "完成测试";
+"test.button.listen" = "播放";
+"test.result.title" = "测试结果";
+"test.result.score" = "得分";
+"test.result.correct" = "正确";
+"test.result.time" = "用时";
+"test.result.imageToWord" = "看图选词";
+"test.result.audioToWord" = "听音辨词";
+"test.result.spelling" = "拼写";
+"test.result.genderGuess" = "词性";
+"test.rating.excellent" = "优秀！";
+"test.rating.good" = "良好！";
+"test.rating.pass" = "及格";
+"test.rating.needsReview" = "需要复习";
+"test.button.retry" = "重新测试";
+"test.button.viewWrong" = "查看错题";
+"test.button.back" = "返回";

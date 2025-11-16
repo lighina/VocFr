@@ -319,3 +319,35 @@
 "matching.game.play.again" = "[TODO] Play Again";
 "game.mode.hangman.subtitle" = "[TODO] Tap to select a unit";
 "game.mode.matching.subtitle" = "[TODO] 6 pairs of learned vocabulary";
+
+// MARK: - Test Mode
+
+"test.select.unite" = "[TODO] Select a unit to test";
+"test.comprehensive" = "[TODO] Comprehensive Test";
+"test.all.units" = "[TODO] All learned units";
+"test.best.score" = "[TODO] Best: %d";
+"test.question.imageToWord" = "[TODO] Choose the correct French word";
+"test.question.audioToWord" = "[TODO] Listen and choose the correct word";
+"test.question.spelling" = "[TODO] Type the correct spelling";
+"test.question.genderGuess" = "[TODO] Choose the gender of this noun";
+"test.gender.masculine" = "[TODO] Masculine (le)";
+"test.gender.feminine" = "[TODO] Feminine (la)";
+"test.button.previous" = "[TODO] Previous";
+"test.button.next" = "[TODO] Next";
+"test.button.finish" = "[TODO] Finish Test";
+"test.button.listen" = "[TODO] Listen";
+"test.result.title" = "[TODO] Test Result";
+"test.result.score" = "[TODO] Score";
+"test.result.correct" = "[TODO] Correct";
+"test.result.time" = "[TODO] Time";
+"test.result.imageToWord" = "[TODO] Image Recognition";
+"test.result.audioToWord" = "[TODO] Listening";
+"test.result.spelling" = "[TODO] Spelling";
+"test.result.genderGuess" = "[TODO] Gender";
+"test.rating.excellent" = "[TODO] Excellent!";
+"test.rating.good" = "[TODO] Good!";
+"test.rating.pass" = "[TODO] Pass";
+"test.rating.needsReview" = "[TODO] Needs Review";
+"test.button.retry" = "[TODO] Retry Test";
+"test.button.viewWrong" = "[TODO] Review Mistakes";
+"test.button.back" = "[TODO] Back";
