@@ -110,7 +110,7 @@ struct TestSessionView: View {
                 .foregroundColor(viewModel.elapsedTime > 540 ? .red : .primary)
             }
 
-            ProgressView(value: viewModel.progress)
+            ProgressView()
                 .tint(.blue)
         }
         .padding()
