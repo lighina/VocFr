@@ -53,7 +53,7 @@ struct WrongAnswerBookView: View {
 
     private var listView: some View {
         List {
-            Section {
+            SwiftUI.Section {
                 Text("共 \(wrongAnswers.count) 道错题")
                     .font(.subheadline)
                     .foregroundColor(.secondary)

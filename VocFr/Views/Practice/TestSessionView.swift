@@ -110,7 +110,7 @@ struct TestSessionView: View {
                 .foregroundColor(viewModel.elapsedTime > 540 ? .red : .primary)
             }
 
-            ProgressView(value: viewModel.progress)
+            ProgressView(value: viewModel.progress, total: 1.0)
                 .tint(.blue)
         }
         .padding()
@@ -167,7 +167,7 @@ struct TestSessionView: View {
                 .foregroundColor(.blue)
 
             Button(action: {
-                SpeechManager.shared.speak(word.canonical)
+                AudioPlayerManager.shared.playWordAudio(for: word) { _ in }
             }) {
                 HStack {
                     Image(systemName: "play.circle.fill")
@@ -194,7 +194,7 @@ struct TestSessionView: View {
             }
 
             Button(action: {
-                SpeechManager.shared.speak(word.canonical)
+                AudioPlayerManager.shared.playWordAudio(for: word) { _ in }
             }) {
                 HStack {
                     Image(systemName: "speaker.wave.2")
