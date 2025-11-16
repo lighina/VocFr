@@ -17,11 +17,11 @@ struct HangmanGameView: View {
     @FocusState private var isInputFocused: Bool
     @State private var hasInitializedContext = false
 
-    let section: Section
+    let unite: Unite
 
-    init(section: Section) {
-        self.section = section
-        let vm = HangmanViewModel(section: section, modelContext: nil)
+    init(unite: Unite) {
+        self.unite = unite
+        let vm = HangmanViewModel(unite: unite, modelContext: nil)
         self._viewModel = State(initialValue: vm)
     }
 
@@ -33,7 +33,7 @@ struct HangmanGameView: View {
                 gameView
             }
         }
-        .navigationTitle("Hangman: \(viewModel.section.name.capitalized)")
+        .navigationTitle("Hangman: Unité \(unite.number)")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -41,7 +41,7 @@ struct HangmanGameView: View {
                 Button(action: { dismiss() }) {
                     HStack(spacing: 4) {
                         Image(systemName: "chevron.left")
-                        Text(viewModel.section.name.capitalized)
+                        Text("Unité \(unite.number)")
                     }
                 }
             }
@@ -49,7 +49,7 @@ struct HangmanGameView: View {
         .onAppear {
             // Inject model context after view appears
             if !hasInitializedContext {
-                viewModel = HangmanViewModel(section: section, modelContext: modelContext)
+                viewModel = HangmanViewModel(unite: unite, modelContext: modelContext)
                 hasInitializedContext = true
             }
         }
@@ -115,10 +115,8 @@ struct HangmanGameView: View {
     // MARK: - Hangman Figure
 
     private var hangmanFigure: some View {
-        Text(getHangmanAscii())
-            .font(.system(size: 14, weight: .regular, design: .monospaced))
-            .foregroundColor(.primary)
-            .padding()
+        HangmanCanvas(incorrectGuesses: viewModel.incorrectGuesses)
+            .frame(width: 280, height: 280)  // 固定尺寸，防止宽度变化
             .background(Color(.systemGray6))
             .cornerRadius(12)
     }
@@ -449,7 +447,11 @@ struct HangmanGameView: View {
     let container = try! ModelContainer(for: Unite.self, Section.self, Word.self, configurations: config)
     let context = container.mainContext
 
+    let unite = Unite(id: "u1", number: 1, title: "Sample Unite", isUnlocked: true, requiredStars: 0)
     let section = Section(id: "sample", name: "Sample", orderIndex: 0)
+    section.unite = unite
+    unite.sections.append(section)
+
     let word = Word(id: "w1", canonical: "bonjour", chinese: "你好", imageName: "", partOfSpeech: .noun, category: "greetings")
     let sectionWord = SectionWord(orderIndex: 0)
     sectionWord.section = section
@@ -457,12 +459,125 @@ struct HangmanGameView: View {
     section.sectionWords.append(sectionWord)
     word.sectionWords.append(sectionWord)
 
+    context.insert(unite)
     context.insert(section)
     context.insert(word)
     context.insert(sectionWord)
 
     return NavigationStack {
-        HangmanGameView(section: section)
+        HangmanGameView(unite: unite)
             .modelContainer(container)
+    }
+}
+
+// MARK: - Hangman Canvas
+
+struct HangmanCanvas: View {
+    let incorrectGuesses: Int
+
+    var body: some View {
+        Canvas { context, size in
+            let lineWidth: CGFloat = 3
+            let baseY = size.height * 0.9
+            let poleX = size.width * 0.3
+            let beamY = size.height * 0.15
+            let ropeX = size.width * 0.7
+
+            // Draw based on number of incorrect guesses
+            if incorrectGuesses >= 1 {
+                // Base
+                var basePath = Path()
+                basePath.move(to: CGPoint(x: poleX - 40, y: baseY))
+                basePath.addLine(to: CGPoint(x: poleX + 40, y: baseY))
+                context.stroke(basePath, with: .color(.primary), lineWidth: lineWidth)
+            }
+
+            if incorrectGuesses >= 2 {
+                // Pole
+                var polePath = Path()
+                polePath.move(to: CGPoint(x: poleX, y: baseY))
+                polePath.addLine(to: CGPoint(x: poleX, y: beamY))
+                context.stroke(polePath, with: .color(.primary), lineWidth: lineWidth)
+            }
+
+            if incorrectGuesses >= 3 {
+                // Top beam
+                var beamPath = Path()
+                beamPath.move(to: CGPoint(x: poleX, y: beamY))
+                beamPath.addLine(to: CGPoint(x: ropeX, y: beamY))
+                context.stroke(beamPath, with: .color(.primary), lineWidth: lineWidth)
+            }
+
+            if incorrectGuesses >= 4 {
+                // Rope
+                var ropePath = Path()
+                ropePath.move(to: CGPoint(x: ropeX, y: beamY))
+                ropePath.addLine(to: CGPoint(x: ropeX, y: beamY + 30))
+                context.stroke(ropePath, with: .color(.primary), lineWidth: lineWidth)
+            }
+
+            let headY = beamY + 50
+            let headRadius: CGFloat = 20
+
+            if incorrectGuesses >= 5 {
+                // Head
+                let headRect = CGRect(
+                    x: ropeX - headRadius,
+                    y: headY - headRadius,
+                    width: headRadius * 2,
+                    height: headRadius * 2
+                )
+                context.stroke(
+                    Circle().path(in: headRect),
+                    with: .color(.primary),
+                    lineWidth: lineWidth
+                )
+            }
+
+            let bodyTop = headY + headRadius
+            let bodyBottom = bodyTop + 50
+
+            if incorrectGuesses >= 6 {
+                // Body
+                var bodyPath = Path()
+                bodyPath.move(to: CGPoint(x: ropeX, y: bodyTop))
+                bodyPath.addLine(to: CGPoint(x: ropeX, y: bodyBottom))
+                context.stroke(bodyPath, with: .color(.primary), lineWidth: lineWidth)
+            }
+
+            let armY = bodyTop + 15
+
+            if incorrectGuesses >= 7 {
+                // Left arm
+                var leftArmPath = Path()
+                leftArmPath.move(to: CGPoint(x: ropeX, y: armY))
+                leftArmPath.addLine(to: CGPoint(x: ropeX - 25, y: armY + 20))
+                context.stroke(leftArmPath, with: .color(.primary), lineWidth: lineWidth)
+            }
+
+            if incorrectGuesses >= 8 {
+                // Right arm
+                var rightArmPath = Path()
+                rightArmPath.move(to: CGPoint(x: ropeX, y: armY))
+                rightArmPath.addLine(to: CGPoint(x: ropeX + 25, y: armY + 20))
+                context.stroke(rightArmPath, with: .color(.primary), lineWidth: lineWidth)
+            }
+
+            if incorrectGuesses >= 9 {
+                // Left leg
+                var leftLegPath = Path()
+                leftLegPath.move(to: CGPoint(x: ropeX, y: bodyBottom))
+                leftLegPath.addLine(to: CGPoint(x: ropeX - 20, y: bodyBottom + 30))
+                context.stroke(leftLegPath, with: .color(.primary), lineWidth: lineWidth)
+            }
+
+            if incorrectGuesses >= 10 {
+                // Right leg
+                var rightLegPath = Path()
+                rightLegPath.move(to: CGPoint(x: ropeX, y: bodyBottom))
+                rightLegPath.addLine(to: CGPoint(x: ropeX + 20, y: bodyBottom + 30))
+                context.stroke(rightLegPath, with: .color(.primary), lineWidth: lineWidth)
+            }
+        }
     }
 }

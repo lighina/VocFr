@@ -33,9 +33,26 @@ struct GameModeView: View {
                 }
                 .padding(.top)
 
-                // Available sections for games
+                // Matching Game - All Learned Words
+                VStack(spacing: 12) {
+                    Text("游戏列表")
+                        .font(.headline)
+                        .padding(.horizontal)
+
+                    NavigationLink(destination: AllWordsMatchingGameView(unites: unites.filter { $0.isUnlocked })) {
+                        GameCard(
+                            icon: "square.grid.2x2.fill",
+                            title: "配对游戏",
+                            description: "从所有学过的词汇中配对 (10对)",
+                            color: .orange
+                        )
+                    }
+                }
+                .padding(.horizontal)
+
+                // Hangman Game by Unite
                 VStack(alignment: .leading, spacing: 12) {
-                    Text("game.select.section".localized)
+                    Text("吊人游戏 - 按单元选择")
                         .font(.headline)
                         .padding(.horizontal)
 
@@ -53,73 +70,100 @@ struct GameModeView: View {
     }
 }
 
-// Section for each Unite's games
+// Unite game card - directly link to Hangman with all words from the Unite
 struct UniteGameSection: View {
     let unite: Unite
-    @State private var isExpanded: Bool = false
+
+    // Count total words in this unite
+    private var totalWords: Int {
+        var count = 0
+        for section in unite.sections {
+            count += section.sectionWords.count
+        }
+        return count
+    }
 
     var body: some View {
-        VStack(spacing: 0) {
-            // Unite header
-            Button(action: {
-                withAnimation {
-                    isExpanded.toggle()
-                }
-            }) {
-                HStack {
+        NavigationLink(destination: HangmanGameView(unite: unite)) {
+            HStack {
+                // Icon
+                Image(systemName: "figure.stand")
+                    .font(.system(size: 30))
+                    .foregroundColor(.purple)
+                    .frame(width: 50)
+
+                // Content
+                VStack(alignment: .leading, spacing: 4) {
                     Text("Unité \(unite.number)")
                         .font(.headline)
+                        .foregroundColor(.primary)
 
                     Text(unite.title)
                         .font(.subheadline)
                         .foregroundColor(.secondary)
 
-                    Spacer()
-
-                    Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
+                    Text("\(totalWords) mots")
+                        .font(.caption)
                         .foregroundColor(.secondary)
                 }
-                .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(12)
+
+                Spacer()
+
+                Image(systemName: "chevron.right")
+                    .foregroundColor(.secondary)
             }
-            .buttonStyle(.plain)
-
-            // Sections list
-            if isExpanded {
-                VStack(spacing: 8) {
-                    ForEach(unite.sections.sorted(by: { $0.orderIndex < $1.orderIndex })) { section in
-                        NavigationLink(destination: HangmanGameView(section: section)) {
-                            HStack {
-                                Image(systemName: "gamecontroller")
-                                    .foregroundColor(.purple)
-
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(section.name.capitalized)
-                                        .font(.body)
-                                        .foregroundColor(.primary)
-
-                                    Text("game.hangman".localized)
-                                        .font(.caption)
-                                        .foregroundColor(.secondary)
-                                }
-
-                                Spacer()
-
-                                Image(systemName: "chevron.right")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
-                            .padding()
-                            .background(Color(.systemBackground))
-                            .cornerRadius(8)
-                        }
-                    }
-                }
-                .padding(.top, 8)
-            }
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.purple.opacity(0.1))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.purple.opacity(0.3), lineWidth: 1)
+                    )
+            )
         }
         .padding(.horizontal)
+    }
+}
+
+// Game Card Component
+struct GameCard: View {
+    let icon: String
+    let title: String
+    let description: String
+    let color: Color
+
+    var body: some View {
+        HStack {
+            Image(systemName: icon)
+                .font(.system(size: 30))
+                .foregroundColor(color)
+                .frame(width: 50)
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.headline)
+                    .foregroundColor(.primary)
+
+                Text(description)
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
+
+            Spacer()
+
+            Image(systemName: "chevron.right")
+                .foregroundColor(.secondary)
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(color.opacity(0.1))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(color.opacity(0.3), lineWidth: 1)
+                )
+        )
     }
 }
 
