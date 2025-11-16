@@ -123,6 +123,7 @@
 "section.practice.matching" = "配对游戏";
 "section.practice.flashcard" = "闪卡复习";
 "section.practice.spelling" = "拼写练习";
+"section.practice.hangman" = "猜词游戏";
 
 // MARK: - Main App View
 
@@ -274,3 +275,20 @@
 // MARK: - Word Detail View
 
 "word.detail.tap.hint" = "点击图片显示单词卡";
+
+// MARK: - Hangman Game
+
+"hangman.tap.letter" = "点击字母进行猜测";
+"hangman.guess.whole.word" = "或猜整个单词：";
+"hangman.type.word" = "输入单词...";
+"hangman.won.title" = "你赢了！";
+"hangman.lost.title" = "游戏结束";
+"hangman.correct.answer" = "正确答案是：";
+"hangman.retry" = "重试";
+"hangman.next" = "下一个单词";
+"hangman.session.complete" = "本轮完成！";
+"hangman.words.completed" = "完成单词数：";
+"hangman.words.won" = "猜对单词数：";
+"hangman.win.rate" = "胜率：";
+"hangman.total.points" = "总分：";
+"hangman.play.again" = "再玩一次";

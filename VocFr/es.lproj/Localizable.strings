@@ -123,6 +123,7 @@
 "section.practice.matching" = "Juego de emparejamiento";
 "section.practice.flashcard" = "Tarjetas de memoria";
 "section.practice.spelling" = "Práctica de ortografía";
+"section.practice.hangman" = "Juego del ahorcado";
 
 // MARK: - Main App View
 
@@ -274,3 +275,20 @@
 // MARK: - Word Detail View
 
 "word.detail.tap.hint" = "Toca la imagen para mostrar la tarjeta de palabra";
+
+// MARK: - Hangman Game
+
+"hangman.tap.letter" = "Toca una letra para adivinar";
+"hangman.guess.whole.word" = "O adivina la palabra completa:";
+"hangman.type.word" = "Escribe la palabra...";
+"hangman.won.title" = "¡Ganaste!";
+"hangman.lost.title" = "Juego terminado";
+"hangman.correct.answer" = "La respuesta correcta era:";
+"hangman.retry" = "Reintentar";
+"hangman.next" = "Siguiente palabra";
+"hangman.session.complete" = "¡Sesión completada!";
+"hangman.words.completed" = "Palabras completadas:";
+"hangman.words.won" = "Palabras ganadas:";
+"hangman.win.rate" = "Tasa de aciertos:";
+"hangman.total.points" = "Puntos totales:";
+"hangman.play.again" = "Jugar de nuevo";

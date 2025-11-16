@@ -123,6 +123,7 @@
 "section.practice.matching" = "Gioco di abbinamento";
 "section.practice.flashcard" = "Schede di memoria";
 "section.practice.spelling" = "Pratica di ortografia";
+"section.practice.hangman" = "Gioco dell'impiccato";
 
 // MARK: - Main App View
 
@@ -274,3 +275,20 @@
 // MARK: - Word Detail View
 
 "word.detail.tap.hint" = "Tocca l'immagine per mostrare la scheda della parola";
+
+// MARK: - Hangman Game
+
+"hangman.tap.letter" = "Tocca una lettera per indovinare";
+"hangman.guess.whole.word" = "Oppure indovina la parola intera:";
+"hangman.type.word" = "Digita la parola...";
+"hangman.won.title" = "Hai vinto!";
+"hangman.lost.title" = "Gioco terminato";
+"hangman.correct.answer" = "La risposta corretta era:";
+"hangman.retry" = "Riprova";
+"hangman.next" = "Parola successiva";
+"hangman.session.complete" = "Sessione completata!";
+"hangman.words.completed" = "Parole completate:";
+"hangman.words.won" = "Parole vinte:";
+"hangman.win.rate" = "Tasso di vittoria:";
+"hangman.total.points" = "Punti totali:";
+"hangman.play.again" = "Gioca di nuovo";

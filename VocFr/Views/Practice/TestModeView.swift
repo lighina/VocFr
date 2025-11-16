@@ -44,10 +44,10 @@ struct TestModeView: View {
             }
         }
         .gesture(
-            DragGesture()
+            DragGesture(minimumDistance: 20)
                 .onEnded { value in
-                    // Swipe right to go back
-                    if value.translation.width > 100 {
+                    // Swipe right from left edge to go back
+                    if value.startLocation.x < 50 && value.translation.width > 100 {
                         dismiss()
                     }
                 }

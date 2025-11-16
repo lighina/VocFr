@@ -123,6 +123,7 @@
 "section.practice.matching" = "Matching Game";
 "section.practice.flashcard" = "Flashcards";
 "section.practice.spelling" = "Spelling Practice";
+"section.practice.hangman" = "Hangman Game";
 
 // MARK: - Main App View
 
@@ -274,3 +275,20 @@
 // MARK: - Word Detail View
 
 "word.detail.tap.hint" = "Tap the image to show the word card";
+
+// MARK: - Hangman Game
+
+"hangman.tap.letter" = "Tap a letter to guess";
+"hangman.guess.whole.word" = "Or guess the whole word:";
+"hangman.type.word" = "Type the word...";
+"hangman.won.title" = "You Won!";
+"hangman.lost.title" = "Game Over";
+"hangman.correct.answer" = "The correct answer was:";
+"hangman.retry" = "Retry";
+"hangman.next" = "Next Word";
+"hangman.session.complete" = "Session Complete!";
+"hangman.words.completed" = "Words Completed:";
+"hangman.words.won" = "Words Won:";
+"hangman.win.rate" = "Win Rate:";
+"hangman.total.points" = "Total Points:";
+"hangman.play.again" = "Play Again";

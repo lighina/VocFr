@@ -123,6 +123,7 @@
 "section.practice.matching" = "Zuordnungsspiel";
 "section.practice.flashcard" = "Karteikarten";
 "section.practice.spelling" = "Rechtschreibübung";
+"section.practice.hangman" = "Galgenmännchen-Spiel";
 
 // MARK: - Main App View
 
@@ -274,3 +275,20 @@
 // MARK: - Word Detail View
 
 "word.detail.tap.hint" = "Tippen Sie auf das Bild, um die Wortkarte anzuzeigen";
+
+// MARK: - Hangman Game
+
+"hangman.tap.letter" = "Tippen Sie auf einen Buchstaben zum Raten";
+"hangman.guess.whole.word" = "Oder raten Sie das ganze Wort:";
+"hangman.type.word" = "Geben Sie das Wort ein...";
+"hangman.won.title" = "Sie haben gewonnen!";
+"hangman.lost.title" = "Spiel vorbei";
+"hangman.correct.answer" = "Die richtige Antwort war:";
+"hangman.retry" = "Wiederholen";
+"hangman.next" = "Nächstes Wort";
+"hangman.session.complete" = "Sitzung abgeschlossen!";
+"hangman.words.completed" = "Abgeschlossene Wörter:";
+"hangman.words.won" = "Gewonnene Wörter:";
+"hangman.win.rate" = "Gewinnrate:";
+"hangman.total.points" = "Gesamtpunkte:";
+"hangman.play.again" = "Nochmal spielen";

@@ -123,6 +123,7 @@
 "section.practice.matching" = "Jeu d'association";
 "section.practice.flashcard" = "Cartes mémoire";
 "section.practice.spelling" = "Pratique d'orthographe";
+"section.practice.hangman" = "Jeu du pendu";
 
 // MARK: - Main App View
 
@@ -274,3 +275,20 @@
 // MARK: - Word Detail View
 
 "word.detail.tap.hint" = "Touchez l'image pour afficher la carte du mot";
+
+// MARK: - Hangman Game
+
+"hangman.tap.letter" = "Touchez une lettre pour deviner";
+"hangman.guess.whole.word" = "Ou devinez le mot entier :";
+"hangman.type.word" = "Tapez le mot...";
+"hangman.won.title" = "Vous avez gagné !";
+"hangman.lost.title" = "Partie terminée";
+"hangman.correct.answer" = "La bonne réponse était :";
+"hangman.retry" = "Réessayer";
+"hangman.next" = "Mot suivant";
+"hangman.session.complete" = "Session terminée !";
+"hangman.words.completed" = "Mots complétés :";
+"hangman.words.won" = "Mots gagnés :";
+"hangman.win.rate" = "Taux de réussite :";
+"hangman.total.points" = "Points totaux :";
+"hangman.play.again" = "Rejouer";

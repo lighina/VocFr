@@ -137,17 +137,6 @@ struct FlashcardCard: View {
                         .cornerRadius(25)
                     }
 
-                    Divider()
-                        .background(Color.white.opacity(0.5))
-                        .padding(.horizontal, 40)
-
-                    // Translation
-                    Text(word.chinese)
-                        .font(.title2)
-                        .foregroundColor(.white.opacity(0.95))
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal)
-
                     Spacer()
 
                     // Hint text
