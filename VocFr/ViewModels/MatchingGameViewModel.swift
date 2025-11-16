@@ -78,14 +78,17 @@ class MatchingGameViewModel {
     /// Whether the game has started (first card clicked)
     private var hasStarted: Bool = false
 
-    /// Number of pairs to match
-    private let pairCount: Int = 6
+    /// Number of pairs to match (will be set based on available words)
+    private var pairCount: Int = 6
+
+    /// Actual number of pairs in this game (may be less than pairCount if section has fewer words)
+    private var actualPairCount: Int = 0
 
     // MARK: - Computed Properties
 
-    /// Total number of pairs
+    /// Total number of pairs (actual pairs in this game)
     var totalPairs: Int {
-        pairCount
+        actualPairCount
     }
 
     /// Progress text (e.g., "2/6 pairs")
@@ -130,6 +133,9 @@ class MatchingGameViewModel {
         // Take first 6 words (or all if less than 6)
         let selectedWords = Array(words.prefix(pairCount))
 
+        // Set actual pair count based on selected words
+        actualPairCount = selectedWords.count
+
         // Create pairs of cards (image + text) for each word
         var newCards: [MatchingCard] = []
         for word in selectedWords {
@@ -143,6 +149,8 @@ class MatchingGameViewModel {
         cards = newCards
 
         // Don't start timer yet - wait for first card click
+
+        print("🎮 Game setup: \(actualPairCount) pairs to match")
     }
 
     // MARK: - Timer Management
@@ -334,7 +342,7 @@ class MatchingGameViewModel {
         let record = PracticeRecord(
             sessionDate: Date(),
             sessionType: "Matching Game",
-            wordsStudied: pairCount,
+            wordsStudied: actualPairCount,
             accuracy: accuracy,
             timeSpent: elapsedTime
         )
@@ -372,7 +380,7 @@ class MatchingGameViewModel {
                 predicate: #Predicate { $0.accuracy >= 1.0 }
             )
             if let perfectRecords = try? context.fetch(perfectDescriptor) {
-                let isPerfect20 = pairCount >= 20
+                let isPerfect20 = actualPairCount >= 20
                 AchievementManager.shared.checkPerfectPractice(
                     perfectCount: perfectRecords.count,
                     isPerfect20: isPerfect20,

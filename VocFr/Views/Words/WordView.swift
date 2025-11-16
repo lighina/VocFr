@@ -13,6 +13,7 @@ import AVFoundation
 // Clean minimalist WordDetailView with swipe navigation
 struct WordDetailView: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var navigationCoordinator: NavigationCoordinator
     @ObservedObject private var audioManager = AudioPlayerManager.shared
     @State private var viewModel: WordDetailViewModel
 
@@ -154,12 +155,16 @@ struct WordDetailView: View {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Menu {
                             Button(action: {
-                                dismiss() // Return to section
+                                navigationCoordinator.popToRoot()
                             }) {
                                 Label("Home", systemImage: "house")
                             }
                             Button(action: {
-                                dismiss() // Return to section
+                                // Pop 2 levels: Word -> Section -> Unite
+                                dismiss()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                    dismiss()
+                                }
                             }) {
                                 Label(getUniteName(), systemImage: "book.closed")
                             }
@@ -215,6 +220,10 @@ struct WordDetailView: View {
                 }
                 .navigationTitle("单词")
             }
+        }
+        .onChange(of: navigationCoordinator.popToRootTrigger) { _, _ in
+            // Dismiss when popToRoot is triggered
+            dismiss()
         }
     }
     
@@ -511,6 +520,7 @@ struct WordDetailPreview: View {
         return NavigationStack {
             WordDetailView(section: section, currentWordIndex: 0)
         }
+        .environmentObject(NavigationCoordinator())
         .modelContainer(container)
     }
 }

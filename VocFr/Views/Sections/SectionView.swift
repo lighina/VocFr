@@ -11,6 +11,8 @@ import SwiftData
 struct SectionDetailView: View {
     let section: Section
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var navigationCoordinator: NavigationCoordinator
+    @State private var shouldDismiss = false
 
     var body: some View {
         List {
@@ -43,8 +45,7 @@ struct SectionDetailView: View {
             ToolbarItem(placement: .navigationBarLeading) {
                 Menu {
                     Button(action: {
-                        // Navigate to home - dismiss will handle this
-                        dismiss()
+                        navigationCoordinator.popToRoot()
                     }) {
                         Label("Home", systemImage: "house")
                     }
@@ -115,6 +116,10 @@ struct SectionDetailView: View {
             }
             #endif
         }
+        .onChange(of: navigationCoordinator.popToRootTrigger) { _, _ in
+            // Dismiss when popToRoot is triggered
+            dismiss()
+        }
     }
 
     private func getUniteName() -> String {
@@ -138,5 +143,6 @@ struct SectionDetailView: View {
     return NavigationStack {
         SectionDetailView(section: section)
     }
+    .environmentObject(NavigationCoordinator())
     .modelContainer(container)
 }

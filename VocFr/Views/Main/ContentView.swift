@@ -10,11 +10,17 @@ import SwiftData
 
 struct ContentView: View {
     @State private var showMainApp = false
+    @StateObject private var navigationCoordinator = NavigationCoordinator()
 
     var body: some View {
         if showMainApp {
             NavigationStack {
                 MainAppView()
+            }
+            .environmentObject(navigationCoordinator)
+            .onChange(of: navigationCoordinator.popToRootTrigger) { _, newValue in
+                // When popToRoot is triggered, dismiss all presented views
+                // This is handled by individual views listening to the coordinator
             }
         } else {
             WelcomeView(showMainApp: $showMainApp)
