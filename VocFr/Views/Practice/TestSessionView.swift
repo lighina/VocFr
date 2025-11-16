@@ -94,24 +94,19 @@ struct TestSessionView: View {
     // MARK: - Progress Header
 
     private var progressHeader: some View {
-        VStack(spacing: 8) {
-            HStack {
-                Text(viewModel.progressText)
-                    .font(.headline)
+        HStack {
+            Text(viewModel.progressText)
+                .font(.headline)
 
-                Spacer()
+            Spacer()
 
-                HStack(spacing: 4) {
-                    Image(systemName: "clock")
-                        .font(.caption)
-                    Text(viewModel.formattedTime)
-                        .font(.system(.headline, design: .monospaced))
-                }
-                .foregroundColor(viewModel.elapsedTime > 540 ? .red : .primary)
+            HStack(spacing: 4) {
+                Image(systemName: "clock")
+                    .font(.caption)
+                Text(viewModel.formattedTime)
+                    .font(.system(.headline, design: .monospaced))
             }
-
-            ProgressView()
-                .tint(.blue)
+            .foregroundColor(viewModel.elapsedTime > 540 ? .red : .primary)
         }
         .padding()
         .background(Color(.systemGray6))

@@ -233,16 +233,16 @@ class TestViewModel {
     }
 
     private func generateGenderQuestion(word: Word) -> TestQuestion {
-        // For nouns, determine gender from article
+        // Get gender from WordForm
         let correctGender: String
-        if word.canonical.lowercased().hasPrefix("le ") {
-            correctGender = "masculine"
-        } else if word.canonical.lowercased().hasPrefix("la ") {
-            correctGender = "feminine"
-        } else if word.canonical.lowercased().hasPrefix("l'") {
-            // Default to masculine for l' words (could be improved)
-            correctGender = "masculine"
+        if let mainForm = word.forms.first(where: { $0.isMainForm }),
+           let gender = mainForm.gender {
+            correctGender = gender == .masculine ? "masculine" : "feminine"
+        } else if let firstForm = word.forms.first,
+                  let gender = firstForm.gender {
+            correctGender = gender == .masculine ? "masculine" : "feminine"
         } else {
+            // Fallback: default to masculine
             correctGender = "masculine"
         }
 
@@ -374,6 +374,24 @@ class TestViewModel {
         )
 
         modelContext.insert(record)
+
+        // Create PracticeRecord for Progress page
+        let sessionTypeName: String
+        if let unite = unite {
+            sessionTypeName = "Test - Unité \(unite.number)"
+        } else {
+            sessionTypeName = "Test - Comprehensive"
+        }
+
+        let practiceRecord = PracticeRecord(
+            sessionDate: Date(),
+            sessionType: sessionTypeName,
+            wordsStudied: result.totalQuestions,
+            accuracy: Double(result.correctAnswers) / Double(result.totalQuestions),
+            timeSpent: result.timeSpent
+        )
+
+        modelContext.insert(practiceRecord)
 
         do {
             try modelContext.save()
