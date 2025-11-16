@@ -313,7 +313,7 @@ class HangmanViewModel {
             print("✅ Hangman record saved: \(wordsWon)/\(wordsCompleted) won")
 
             // Award points
-            PointsManager.shared.addPoints(totalPoints, context: modelContext)
+            PointsManager.shared.awardStars(points: totalPoints, modelContext: modelContext, reason: "Hangman game session")
         } catch {
             print("❌ Failed to save Hangman record: \(error)")
         }
