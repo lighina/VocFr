@@ -1,0 +1,49 @@
+//
+//  BreadcrumbView.swift
+//  VocFr
+//
+//  Created by Claude on 15/11/2025.
+//
+
+import SwiftUI
+
+/// Breadcrumb navigation component
+struct BreadcrumbView: View {
+    let items: [BreadcrumbItem]
+
+    var body: some View {
+        HStack(spacing: 4) {
+            ForEach(Array(items.enumerated()), id: \.offset) { index, item in
+                if index > 0 {
+                    Image(systemName: "chevron.right")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                }
+
+                if let action = item.action {
+                    Button(action: action) {
+                        Text(item.title)
+                            .font(.subheadline)
+                            .fontWeight(index == items.count - 1 ? .semibold : .regular)
+                            .foregroundColor(index == items.count - 1 ? .primary : .secondary)
+                    }
+                } else {
+                    Text(item.title)
+                        .font(.subheadline)
+                        .fontWeight(index == items.count - 1 ? .semibold : .regular)
+                        .foregroundColor(index == items.count - 1 ? .primary : .secondary)
+                }
+            }
+        }
+    }
+}
+
+struct BreadcrumbItem {
+    let title: String
+    let action: (() -> Void)?
+
+    init(title: String, action: (() -> Void)? = nil) {
+        self.title = title
+        self.action = action
+    }
+}

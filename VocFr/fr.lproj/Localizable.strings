@@ -1,0 +1,301 @@
+/*
+  Localizable.strings (French)
+  VocFr
+
+  Created by Claude on 16/11/2025.
+  Part D: Multi-Language Support - Western European Languages
+*/
+
+// MARK: - Welcome View
+
+"welcome.title" = "Apprentissage du français";
+"welcome.subtitle" = "Commencez votre voyage d'apprentissage du français";
+"welcome.feature.courses.title" = "Cours riches";
+"welcome.feature.courses.description" = "Contenu d'apprentissage du français systématique";
+"welcome.feature.audio.title" = "Pratique audio";
+"welcome.feature.audio.description" = "Guide de prononciation française standard";
+"welcome.feature.progress.title" = "Progression d'apprentissage";
+"welcome.feature.progress.description" = "Suivez vos réalisations d'apprentissage";
+"welcome.button.start" = "Commencer l'apprentissage";
+
+// MARK: - Units View
+
+"units.title" = "Apprentissage du français";
+"units.import.button" = "Importer des données";
+"units.import.alert.title" = "Importation de données";
+"units.import.alert.ok" = "OK";
+"units.import.success" = "Données importées avec succès !";
+"units.import.failed" = "Échec de l'importation : %@";
+"units.unite.title" = "Unité %d : %@";
+"units.sections.count" = "%d sections";
+"units.unlock.required" = "%d étoiles nécessaires";
+
+// MARK: - Stars Progress View
+
+"stars.label" = "étoiles";
+"stars.streak.days" = "%d jours";
+"stars.next.unlock" = "Prochain déverrouillage : Unité %d";
+"stars.need.more" = "Encore %d étoiles nécessaires";
+"stars.all.unlocked" = "🎉 Toutes les unités sont déverrouillées !";
+
+// MARK: - Practice View
+
+"practice.title" = "Pratique : %@";
+"practice.no.words" = "Aucun mot à pratiquer";
+"practice.question" = "Quel est le mot ?";
+"practice.correct.count" = "Correct : %d";
+"practice.progress" = "%d / %d";
+"practice.completed.title" = "Pratique terminée !";
+"practice.accuracy" = "Précision : %d%%";
+"practice.results" = "Correct : %d / %d mots";
+"practice.points.earned" = "+%d étoiles";
+"practice.button.retry" = "Réessayer";
+
+// MARK: - Listening Practice
+
+"listening.practice.title" = "Pratique d'écoute : %@";
+"listening.practice.question" = "Écoutez et choisissez le mot correct";
+"listening.practice.play.count" = "Lectures :";
+"listening.practice.instruction" = "Appuyez sur le haut-parleur pour écouter le mot";
+
+// MARK: - Matching Game
+
+"matching.game.title" = "Jeu d'association : %@";
+"matching.game.instruction" = "Associez les images avec les mots français";
+"matching.game.progress" = "Associés :";
+"matching.game.completed.title" = "Félicitations !";
+"matching.game.time" = "Temps :";
+"matching.game.attempts" = "Tentatives :";
+"matching.game.total.score" = "Score total : %d étoiles";
+
+// MARK: - Flashcard Mode
+
+"flashcard.title" = "Cartes mémoire : %@";
+"flashcard.tap.to.flip" = "Appuyez pour retourner";
+"flashcard.play.audio" = "Lire l'audio";
+"flashcard.progress" = "Progression :";
+"flashcard.due" = "À revoir";
+"flashcard.new" = "Nouveau";
+"flashcard.mastered" = "Maîtrisé";
+"flashcard.know" = "Je sais";
+"flashcard.dont.know" = "Je ne sais pas";
+"flashcard.completed.title" = "Révision terminée !";
+"flashcard.cards.reviewed" = "Cartes révisées :";
+"flashcard.success.rate" = "Taux de réussite :";
+"flashcard.restart" = "Réviser à nouveau";
+"flashcard.all.done" = "Tout est fait !";
+"flashcard.all.done.message" = "Aucune carte à réviser aujourd'hui. Revenez demain !";
+
+// MARK: - Spelling Practice
+
+"spelling.title" = "Pratique d'orthographe : %@";
+"spelling.progress" = "Progression :";
+"spelling.play.audio" = "Lire l'audio";
+"spelling.type.word" = "Tapez le mot français :";
+"spelling.special.chars" = "Caractères spéciaux :";
+"spelling.hint" = "Indice :";
+"spelling.hint.button" = "Indice";
+"spelling.check" = "Vérifier";
+"spelling.next" = "Suivant";
+"spelling.correct.answer" = "Réponse correcte :";
+"spelling.result.correct" = "Parfait ! ✨";
+"spelling.result.case" = "Correct ! (Attention aux majuscules)";
+"spelling.result.missing.accents" = "Presque ! Accents manquants";
+"spelling.result.missing.accents.detail" = "N'oubliez pas les accents";
+"spelling.result.wrong.accents" = "Mauvais accents";
+"spelling.result.wrong.accents.detail" = "Vérifiez attentivement les accents";
+"spelling.result.close" = "Proche !";
+"spelling.result.close.detail" = "%d caractère(s) de différence";
+"spelling.result.incorrect" = "Réessayez la prochaine fois";
+"spelling.completed.title" = "Pratique d'orthographe terminée !";
+"spelling.words.practiced" = "Mots pratiqués :";
+"spelling.correct.count" = "Réponses correctes :";
+"spelling.accuracy" = "Précision :";
+"spelling.restart" = "Pratiquer à nouveau";
+"spelling.empty.title" = "Aucun mot disponible";
+"spelling.empty.message" = "Cette section n'a pas de mots pour la pratique d'orthographe.";
+
+// MARK: - Section View
+
+"section.button.practice" = "Pratiquer";
+"section.practice.visual" = "Pratique visuelle";
+"section.practice.listening" = "Pratique d'écoute";
+"section.practice.matching" = "Jeu d'association";
+"section.practice.flashcard" = "Cartes mémoire";
+"section.practice.spelling" = "Pratique d'orthographe";
+"section.practice.hangman" = "Jeu du pendu";
+
+// MARK: - Main App View
+
+"main.title" = "Apprentissage du français";
+"main.select.mode" = "Sélectionnez le mode d'apprentissage";
+"main.select.mode.subtitle" = "Choisissez votre style d'apprentissage";
+"main.study.title" = "Étudier";
+"main.study.description" = "Apprendre le vocabulaire français";
+"main.test.title" = "Test";
+"main.test.description" = "Testez votre maîtrise du français";
+"main.game.title" = "Jeu";
+"main.game.description" = "Jouez à des jeux de devinettes";
+
+// MARK: - Game Mode
+
+"game.mode.title" = "Mode Jeu";
+"game.mode.subtitle" = "Choisissez une section pour jouer au pendu";
+"game.select.section" = "Sélectionnez une section";
+"game.hangman" = "Pendu";
+
+// MARK: - Menu View
+
+"menu.title" = "Menu";
+"menu.button.close" = "Fermer";
+"menu.achievements.title" = "Réalisations";
+"menu.achievements.description" = "Voir vos réalisations";
+"menu.progress.title" = "Progression";
+"menu.progress.description" = "Voir la progression d'apprentissage";
+"menu.settings.title" = "Paramètres";
+"menu.settings.description" = "Paramètres de l'application et gestion des données";
+"menu.about.title" = "À propos";
+"menu.about.description" = "Informations sur la version";
+"menu.help.title" = "Aide";
+"menu.help.description" = "Aide d'utilisation";
+
+// MARK: - Settings View
+
+"settings.title" = "Paramètres";
+"settings.language.title" = "Langue";
+"settings.language.description" = "Langue de l'interface de l'application";
+"settings.data.title" = "Gestion des données";
+"settings.data.description" = "Importer, exporter, réinitialiser";
+"settings.data.reimport" = "Réimporter les données";
+"settings.data.export" = "Exporter le rapport d'apprentissage";
+"settings.data.reset.stars" = "Réinitialiser toutes les étoiles";
+"settings.about.title" = "À propos";
+"settings.about.version" = "Version";
+
+// MARK: - Progress View
+
+"progress.title" = "Progression";
+"progress.no.data" = "Aucune progression d'apprentissage pour le moment";
+"progress.total.stars" = "Étoiles totales";
+"progress.current.streak" = "Série actuelle";
+"progress.last.study" = "Dernière étude : %@";
+"progress.recent.activity" = "Activité récente";
+"progress.no.records" = "Aucun enregistrement de pratique pour le moment";
+"progress.words.count" = "%d mots";
+"progress.accuracy.label" = "%d%% de précision";
+"progress.practice.sessions" = "Sessions de pratique";
+"progress.words.learned" = "Mots appris";
+
+// MARK: - Test Mode View
+
+"test.title" = "Test";
+"test.mode.title" = "Mode test";
+"test.coming.soon" = "La fonctionnalité de test est en cours de développement";
+
+// MARK: - Section Detail View
+
+"section.words.count" = "%d mots";
+
+// MARK: - Common
+
+"common.loading" = "Chargement...";
+"common.error" = "Erreur";
+"common.cancel" = "Annuler";
+"common.done" = "Terminé";
+"common.save" = "Enregistrer";
+"common.delete" = "Supprimer";
+
+// MARK: - Achievements
+
+"achievement.title" = "Réalisations";
+"achievement.unlocked" = "Réalisation déverrouillée !";
+"achievement.unlocked.count" = "Réalisations déverrouillées";
+"achievement.empty" = "Aucune réalisation trouvée";
+"achievement.category.all" = "Tout";
+
+// Achievement Categories
+"Learning Milestones" = "Jalons d'apprentissage";
+"Practice Master" = "Maître de la pratique";
+"Consistency" = "Constance";
+"Star Collector" = "Collectionneur d'étoiles";
+"Explorer" = "Explorateur";
+"Special" = "Spécial";
+
+// Learning Milestone Achievements
+"achievement.words.10.title" = "Premiers pas";
+"achievement.words.10.description" = "Apprendre 10 mots";
+"achievement.words.50.title" = "Rat de bibliothèque";
+"achievement.words.50.description" = "Apprendre 50 mots";
+"achievement.words.100.title" = "Maître des mots";
+"achievement.words.100.description" = "Apprendre 100 mots";
+"achievement.words.200.title" = "Expert en vocabulaire";
+"achievement.words.200.description" = "Apprendre 200 mots";
+"achievement.words.500.title" = "Érudit français";
+"achievement.words.500.description" = "Apprendre 500 mots";
+
+// Practice Achievements
+"achievement.practice.5.title" = "Débutant en pratique";
+"achievement.practice.5.description" = "Terminer 5 sessions de pratique";
+"achievement.practice.20.title" = "Champion de pratique";
+"achievement.practice.20.description" = "Terminer 20 sessions de pratique";
+"achievement.perfect.10.title" = "Perfectionniste";
+"achievement.perfect.10.description" = "Obtenir un score parfait 10 fois";
+"achievement.perfect.single.title" = "Victoire impeccable";
+"achievement.perfect.single.description" = "Obtenir 20/20 dans une seule pratique";
+
+// Streak Achievements
+"achievement.streak.3.title" = "Bon départ";
+"achievement.streak.3.description" = "Pratiquer pendant 3 jours d'affilée";
+"achievement.streak.7.title" = "Guerrier de la semaine";
+"achievement.streak.7.description" = "Pratiquer pendant 7 jours d'affilée";
+"achievement.streak.30.title" = "Maître du mois";
+"achievement.streak.30.description" = "Pratiquer pendant 30 jours d'affilée";
+"achievement.streak.100.title" = "Légende du dévouement";
+"achievement.streak.100.description" = "Pratiquer pendant 100 jours d'affilée";
+
+// Points Achievements
+"achievement.stars.100.title" = "Débutant étoilé";
+"achievement.stars.100.description" = "Gagner 100 étoiles";
+"achievement.stars.500.title" = "Collectionneur d'étoiles";
+"achievement.stars.500.description" = "Gagner 500 étoiles";
+"achievement.stars.1000.title" = "Maître des étoiles";
+"achievement.stars.1000.description" = "Gagner 1000 étoiles";
+
+// Exploration Achievements
+"achievement.unlock.unit.title" = "Explorateur";
+"achievement.unlock.unit.description" = "Déverrouiller une nouvelle unité";
+"achievement.complete.section.10.title" = "Maître de section";
+"achievement.complete.section.10.description" = "Terminer 10 sections";
+"achievement.complete.unit.title" = "Champion d'unité";
+"achievement.complete.unit.description" = "Terminer une unité entière";
+
+// Special Achievements
+"achievement.early.bird.title" = "Lève-tôt";
+"achievement.early.bird.description" = "Pratiquer entre 5h et 8h du matin";
+"achievement.night.owl.title" = "Oiseau de nuit";
+"achievement.night.owl.description" = "Pratiquer entre 22h et 2h du matin";
+"achievement.speed.run.title" = "Coureur de vitesse";
+"achievement.speed.run.description" = "Score parfait en moins de 60 secondes";
+"achievement.birthday.title" = "Anniversaire";
+"achievement.birthday.description" = "Pratiquer le jour de l'anniversaire de votre compte";
+
+// MARK: - Word Detail View
+
+"word.detail.tap.hint" = "Touchez l'image pour afficher la carte du mot";
+
+// MARK: - Hangman Game
+
+"hangman.tap.letter" = "Touchez une lettre pour deviner";
+"hangman.guess.whole.word" = "Ou devinez le mot entier :";
+"hangman.type.word" = "Tapez le mot...";
+"hangman.won.title" = "Vous avez gagné !";
+"hangman.lost.title" = "Partie terminée";
+"hangman.correct.answer" = "La bonne réponse était :";
+"hangman.retry" = "Réessayer";
+"hangman.next" = "Mot suivant";
+"hangman.session.complete" = "Session terminée !";
+"hangman.words.completed" = "Mots complétés :";
+"hangman.words.won" = "Mots gagnés :";
+"hangman.win.rate" = "Taux de réussite :";
+"hangman.total.points" = "Points totaux :";
+"hangman.play.again" = "Rejouer";
