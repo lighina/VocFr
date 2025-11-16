@@ -120,6 +120,10 @@ struct SectionDetailView: View {
             // Dismiss when popToRoot is triggered
             dismiss()
         }
+        .onChange(of: navigationCoordinator.popToUniteDetailTrigger) { _, _ in
+            // Dismiss when popToUniteDetail is triggered
+            dismiss()
+        }
     }
 
     private func getUniteName() -> String {

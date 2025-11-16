@@ -160,16 +160,12 @@ struct WordDetailView: View {
                                 Label("Home", systemImage: "house")
                             }
                             Button(action: {
-                                // Pop 2 levels: Word -> Section -> Unite
-                                dismiss()
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                    dismiss()
-                                }
+                                navigationCoordinator.popToUniteDetail()
                             }) {
                                 Label(getUniteName(), systemImage: "book.closed")
                             }
                             Button(action: {
-                                dismiss()  // Return to section
+                                navigationCoordinator.popToSectionDetail()
                             }) {
                                 Label(viewModel.section.name.capitalized, systemImage: "list.dash")
                             }
@@ -223,6 +219,14 @@ struct WordDetailView: View {
         }
         .onChange(of: navigationCoordinator.popToRootTrigger) { _, _ in
             // Dismiss when popToRoot is triggered
+            dismiss()
+        }
+        .onChange(of: navigationCoordinator.popToUniteDetailTrigger) { _, _ in
+            // Dismiss when popToUniteDetail is triggered
+            dismiss()
+        }
+        .onChange(of: navigationCoordinator.popToSectionDetailTrigger) { _, _ in
+            // Dismiss when popToSectionDetail is triggered
             dismiss()
         }
     }

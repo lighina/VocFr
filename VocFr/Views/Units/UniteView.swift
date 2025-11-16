@@ -101,6 +101,8 @@ struct UniteRowView: View {
 
 struct UniteDetailView: View {
     let unite: Unite
+    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var navigationCoordinator: NavigationCoordinator
 
     var body: some View {
         List {
@@ -112,6 +114,10 @@ struct UniteDetailView: View {
         }
         .navigationTitle(unite.title)
         .navigationBarTitleDisplayMode(.inline)
+        .onChange(of: navigationCoordinator.popToRootTrigger) { _, _ in
+            // Dismiss when popToRoot is triggered
+            dismiss()
+        }
     }
 }
 
