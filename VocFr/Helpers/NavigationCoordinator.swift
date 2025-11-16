@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 /// Simple coordinator to signal navigation resets
 class NavigationCoordinator: ObservableObject {
