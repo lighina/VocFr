@@ -15,9 +15,9 @@ struct AllWordsMatchingGameView: View {
 
     let unites: [Unite]
 
-    @State private var cards: [AllWordsCard] = []
-    @State private var selectedCards: [AllWordsCard] = []
-    @State private var matchedPairIds: Set<String> = []
+    @State private var cards: [MatchingCard] = []
+    @State private var refreshTrigger: UUID = UUID()
+    @State private var selectedCards: [MatchingCard] = []
     @State private var attempts: Int = 0
     @State private var matchedPairs: Int = 0
     @State private var isCompleted: Bool = false
@@ -25,7 +25,6 @@ struct AllWordsMatchingGameView: View {
 
     private let totalPairs = 10
     private let columns = [
-        GridItem(.flexible(), spacing: 12),
         GridItem(.flexible(), spacing: 12),
         GridItem(.flexible(), spacing: 12),
         GridItem(.flexible(), spacing: 12)
@@ -40,7 +39,7 @@ struct AllWordsMatchingGameView: View {
             }
         }
         .padding()
-        .navigationTitle("配对游戏")
+        .navigationTitle("matching.game.all.words.title".localized)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -48,7 +47,7 @@ struct AllWordsMatchingGameView: View {
                 Button(action: { dismiss() }) {
                     HStack(spacing: 4) {
                         Image(systemName: "chevron.left")
-                        Text("游戏")
+                        Text("game.mode.back.to.games".localized)
                     }
                 }
             }
@@ -67,7 +66,7 @@ struct AllWordsMatchingGameView: View {
 
             // Instructions
             if matchedPairs == 0 && attempts == 0 {
-                Text("找出10对法语单词与中文翻译的配对")
+                Text("matching.game.instruction.all".localized)
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -77,16 +76,13 @@ struct AllWordsMatchingGameView: View {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 12) {
                     ForEach(cards) { card in
-                        CardView(
-                            card: card,
-                            isSelected: selectedCards.contains(where: { $0.id == card.id }),
-                            isMatched: matchedPairIds.contains(card.pairId)
-                        ) {
+                        MatchingCardView(card: card) {
                             selectCard(card)
                         }
-                        .aspectRatio(0.7, contentMode: .fit)
+                        .aspectRatio(1.0, contentMode: .fit)
                     }
                 }
+                .id(refreshTrigger)
             }
 
             Spacer()
@@ -99,7 +95,7 @@ struct AllWordsMatchingGameView: View {
         VStack(spacing: 12) {
             HStack {
                 VStack(alignment: .leading) {
-                    Text("已配对")
+                    Text("matching.game.matched.pairs".localized)
                         .font(.caption)
                         .foregroundColor(.secondary)
                     Text("\(matchedPairs) / \(totalPairs)")
@@ -111,7 +107,7 @@ struct AllWordsMatchingGameView: View {
                 Spacer()
 
                 VStack(alignment: .trailing) {
-                    Text("尝试次数")
+                    Text("matching.game.attempts.count".localized)
                         .font(.caption)
                         .foregroundColor(.secondary)
                     Text("\(attempts)")
@@ -135,27 +131,27 @@ struct AllWordsMatchingGameView: View {
                 .font(.system(size: 80))
                 .foregroundColor(.green)
 
-            Text("太棒了！")
+            Text("matching.game.excellent".localized)
                 .font(.title)
                 .fontWeight(.bold)
 
             VStack(spacing: 12) {
                 HStack {
-                    Text("配对数")
+                    Text("matching.game.pairs.count".localized)
                     Spacer()
                     Text("\(matchedPairs)")
                         .fontWeight(.bold)
                 }
 
                 HStack {
-                    Text("尝试次数")
+                    Text("matching.game.attempts.count".localized)
                     Spacer()
                     Text("\(attempts)")
                         .fontWeight(.bold)
                 }
 
                 HStack {
-                    Text("准确率")
+                    Text("matching.game.accuracy.rate".localized)
                     Spacer()
                     Text("\(calculateAccuracy())%")
                         .fontWeight(.bold)
@@ -171,7 +167,7 @@ struct AllWordsMatchingGameView: View {
             }) {
                 HStack {
                     Image(systemName: "arrow.clockwise")
-                    Text("再玩一次")
+                    Text("matching.game.play.again".localized)
                 }
                 .font(.headline)
                 .foregroundColor(.white)
@@ -204,54 +200,51 @@ struct AllWordsMatchingGameView: View {
         // Shuffle and take first 10 words
         let selectedWords = Array(allWords.shuffled().prefix(totalPairs))
 
-        // Create cards (2 per word: French and Chinese)
-        var newCards: [AllWordsCard] = []
-        for (index, word) in selectedWords.enumerated() {
-            let pairId = "pair_\(index)"
+        // Create cards (2 per word: image and French text)
+        var newCards: [MatchingCard] = []
+        for word in selectedWords {
+            // Image card
+            newCards.append(MatchingCard(word: word, type: .image))
 
-            // French card
-            newCards.append(AllWordsCard(
-                id: UUID().uuidString,
-                pairId: pairId,
-                text: word.canonical,
-                isFrench: true
-            ))
-
-            // Chinese card
-            newCards.append(AllWordsCard(
-                id: UUID().uuidString,
-                pairId: pairId,
-                text: word.chinese,
-                isFrench: false
-            ))
+            // French text card
+            newCards.append(MatchingCard(word: word, type: .text))
         }
 
         // Shuffle cards
         cards = newCards.shuffled()
+        refreshTrigger = UUID()
         startTime = Date()
     }
 
-    private func selectCard(_ card: AllWordsCard) {
-        // Ignore if card already matched
-        guard !matchedPairIds.contains(card.pairId) else { return }
+    private func selectCard(_ card: MatchingCard) {
+        // Find card index
+        guard let index = cards.firstIndex(where: { $0.id == card.id }) else { return }
 
-        // Ignore if already selected
-        guard !selectedCards.contains(where: { $0.id == card.id }) else { return }
+        // Ignore if card is already face up or matched
+        guard !cards[index].isFaceUp && !cards[index].isMatched else { return }
 
-        // Add to selection
-        selectedCards.append(card)
+        // Ignore if already selected 2 cards
+        guard selectedCards.count < 2 else { return }
 
-        // Check if we have 2 cards selected
+        // Flip card face up
+        var newCards = cards
+        newCards[index].isFaceUp = true
+        cards = newCards
+        refreshTrigger = UUID()
+
+        selectedCards.append(cards[index])
+
+        // Check for match if 2 cards are selected
         if selectedCards.count == 2 {
             attempts += 1
 
             let first = selectedCards[0]
             let second = selectedCards[1]
 
-            // Check if they match
-            if first.pairId == second.pairId {
+            // Check if they match (different types, same word)
+            if first.matches(second) {
                 // Match!
-                matchedPairIds.insert(first.pairId)
+                markCardsAsMatched(first, second)
                 matchedPairs += 1
                 selectedCards.removeAll()
 
@@ -262,14 +255,39 @@ struct AllWordsMatchingGameView: View {
                     completeGame()
                 }
             } else {
-                // No match - deselect after delay
+                // No match - flip cards back after delay
                 SoundEffectManager.shared.playIncorrectSound()
 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    selectedCards.removeAll()
+                    self.flipCardsBack(first, second)
+                    self.selectedCards.removeAll()
                 }
             }
         }
+    }
+
+    private func markCardsAsMatched(_ card1: MatchingCard, _ card2: MatchingCard) {
+        var newCards = cards
+        if let index1 = newCards.firstIndex(where: { $0.id == card1.id }) {
+            newCards[index1].isMatched = true
+        }
+        if let index2 = newCards.firstIndex(where: { $0.id == card2.id }) {
+            newCards[index2].isMatched = true
+        }
+        cards = newCards
+        refreshTrigger = UUID()
+    }
+
+    private func flipCardsBack(_ card1: MatchingCard, _ card2: MatchingCard) {
+        var newCards = cards
+        if let index1 = newCards.firstIndex(where: { $0.id == card1.id }) {
+            newCards[index1].isFaceUp = false
+        }
+        if let index2 = newCards.firstIndex(where: { $0.id == card2.id }) {
+            newCards[index2].isFaceUp = false
+        }
+        cards = newCards
+        refreshTrigger = UUID()
     }
 
     private func completeGame() {
@@ -279,7 +297,6 @@ struct AllWordsMatchingGameView: View {
 
     private func resetGame() {
         selectedCards.removeAll()
-        matchedPairIds.removeAll()
         attempts = 0
         matchedPairs = 0
         isCompleted = false
@@ -311,82 +328,6 @@ struct AllWordsMatchingGameView: View {
             PointsManager.shared.awardStars(points: points, modelContext: modelContext, reason: "Matching game completed")
         } catch {
             print("❌ Failed to save matching game record: \(error)")
-        }
-    }
-}
-
-// MARK: - All Words Card Model
-
-struct AllWordsCard: Identifiable {
-    let id: String
-    let pairId: String
-    let text: String
-    let isFrench: Bool
-}
-
-// MARK: - Card View
-
-struct CardView: View {
-    let card: AllWordsCard
-    let isSelected: Bool
-    let isMatched: Bool
-    let onTap: () -> Void
-
-    var body: some View {
-        Button(action: onTap) {
-            VStack {
-                Text(card.text)
-                    .font(.system(size: 14))
-                    .fontWeight(.medium)
-                    .foregroundColor(cardTextColor)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(3)
-                    .minimumScaleFactor(0.7)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .padding(8)
-            .background(cardBackground)
-            .cornerRadius(8)
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(borderColor, lineWidth: isSelected ? 3 : 1)
-            )
-            .opacity(isMatched ? 0.3 : 1.0)
-        }
-        .disabled(isMatched)
-        .animation(.easeInOut(duration: 0.2), value: isSelected)
-        .animation(.easeInOut(duration: 0.2), value: isMatched)
-    }
-
-    private var cardBackground: Color {
-        if isMatched {
-            return .green.opacity(0.2)
-        } else if isSelected {
-            return .blue.opacity(0.3)
-        } else if card.isFrench {
-            return Color(.systemGray6)
-        } else {
-            return .blue.opacity(0.1)
-        }
-    }
-
-    private var cardTextColor: Color {
-        if isMatched {
-            return .green
-        } else if isSelected {
-            return .blue
-        } else {
-            return .primary
-        }
-    }
-
-    private var borderColor: Color {
-        if isMatched {
-            return .green
-        } else if isSelected {
-            return .blue
-        } else {
-            return Color(.systemGray4)
         }
     }
 }

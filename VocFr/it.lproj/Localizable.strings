@@ -299,3 +299,21 @@
 "hangman.win.rate" = "Tasso di vittoria:";
 "hangman.total.points" = "Punti totali:";
 "hangman.play.again" = "Gioca di nuovo";
+
+// MARK: - Game Mode View
+
+"game.mode.games.list" = "[TODO] Games List";
+"game.mode.matching.title" = "[TODO] Matching Game";
+"game.mode.matching.description" = "[TODO] Match from all learned vocabulary (10 pairs)";
+"game.mode.hangman.section" = "[TODO] Hangman - Select by Unite";
+"game.mode.hangman.all.words" = "[TODO] All Learned Vocabulary";
+"game.mode.words.count" = "[TODO] %d words";
+"game.mode.back.to.games" = "[TODO] Games";
+"matching.game.all.words.title" = "[TODO] Matching Game";
+"matching.game.instruction.all" = "[TODO] Find 10 pairs of French words and their images";
+"matching.game.matched.pairs" = "[TODO] Matched";
+"matching.game.attempts.count" = "[TODO] Attempts";
+"matching.game.excellent" = "[TODO] Excellent!";
+"matching.game.pairs.count" = "[TODO] Pairs";
+"matching.game.accuracy.rate" = "[TODO] Accuracy";
+"matching.game.play.again" = "[TODO] Play Again";

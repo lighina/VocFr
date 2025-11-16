@@ -12,6 +12,7 @@ import SwiftData
 struct GameModeView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var unites: [Unite]
+    @State private var isHangmanExpanded: Bool = false
 
     var body: some View {
         ScrollView {
@@ -33,32 +34,74 @@ struct GameModeView: View {
                 }
                 .padding(.top)
 
-                // Matching Game - All Learned Words
+                // Games List
                 VStack(spacing: 12) {
-                    Text("游戏列表")
+                    Text("game.mode.games.list".localized)
                         .font(.headline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
 
+                    // Matching Game
                     NavigationLink(destination: AllWordsMatchingGameView(unites: unites.filter { $0.isUnlocked })) {
                         GameCard(
                             icon: "square.grid.2x2.fill",
-                            title: "配对游戏",
-                            description: "从所有学过的词汇中配对 (10对)",
+                            title: "game.mode.matching.title".localized,
+                            description: "game.mode.matching.description".localized,
                             color: .orange
                         )
                     }
-                }
-                .padding(.horizontal)
+                    .padding(.horizontal)
 
-                // Hangman Game by Unite
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("吊人游戏 - 按单元选择")
-                        .font(.headline)
+                    // Hangman Game (Expandable)
+                    VStack(spacing: 12) {
+                        Button(action: {
+                            withAnimation {
+                                isHangmanExpanded.toggle()
+                            }
+                        }) {
+                            GameCard(
+                                icon: "figure.stand",
+                                title: "game.mode.hangman.section".localized,
+                                description: "",
+                                color: .purple,
+                                isExpandable: true,
+                                isExpanded: isHangmanExpanded
+                            )
+                        }
                         .padding(.horizontal)
 
-                    ForEach(unites.sorted(by: { $0.number < $1.number })) { unite in
-                        if unite.isUnlocked {
-                            UniteGameSection(unite: unite)
+                        // Expandable Unite List
+                        if isHangmanExpanded {
+                            VStack(spacing: 8) {
+                                // All Learned Words Option
+                                NavigationLink(destination: HangmanAllWordsView(unites: unites.filter { $0.isUnlocked })) {
+                                    UniteGameRow(
+                                        icon: "books.vertical.fill",
+                                        title: "game.mode.hangman.all.words".localized,
+                                        subtitle: "",
+                                        wordCount: totalWordsCount(),
+                                        color: .blue
+                                    )
+                                }
+                                .padding(.horizontal)
+
+                                // Unite List
+                                ForEach(unites.sorted(by: { $0.number < $1.number })) { unite in
+                                    if unite.isUnlocked {
+                                        NavigationLink(destination: HangmanGameView(unite: unite)) {
+                                            UniteGameRow(
+                                                icon: "book.fill",
+                                                title: "Unité \(unite.number)",
+                                                subtitle: unite.title,
+                                                wordCount: countWordsInUnite(unite),
+                                                color: .purple
+                                            )
+                                        }
+                                        .padding(.horizontal)
+                                    }
+                                }
+                            }
+                            .transition(.opacity.combined(with: .move(edge: .top)))
                         }
                     }
                 }
@@ -68,61 +111,23 @@ struct GameModeView: View {
         .navigationTitle("main.game.title".localized)
         .navigationBarTitleDisplayMode(.inline)
     }
-}
 
-// Unite game card - directly link to Hangman with all words from the Unite
-struct UniteGameSection: View {
-    let unite: Unite
+    private func totalWordsCount() -> Int {
+        var count = 0
+        for unite in unites where unite.isUnlocked {
+            for section in unite.sections {
+                count += section.sectionWords.count
+            }
+        }
+        return count
+    }
 
-    // Count total words in this unite
-    private var totalWords: Int {
+    private func countWordsInUnite(_ unite: Unite) -> Int {
         var count = 0
         for section in unite.sections {
             count += section.sectionWords.count
         }
         return count
-    }
-
-    var body: some View {
-        NavigationLink(destination: HangmanGameView(unite: unite)) {
-            HStack {
-                // Icon
-                Image(systemName: "figure.stand")
-                    .font(.system(size: 30))
-                    .foregroundColor(.purple)
-                    .frame(width: 50)
-
-                // Content
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Unité \(unite.number)")
-                        .font(.headline)
-                        .foregroundColor(.primary)
-
-                    Text(unite.title)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-
-                    Text("\(totalWords) mots")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
-
-                Spacer()
-
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.secondary)
-            }
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.purple.opacity(0.1))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.purple.opacity(0.3), lineWidth: 1)
-                    )
-            )
-        }
-        .padding(.horizontal)
     }
 }
 
@@ -132,6 +137,8 @@ struct GameCard: View {
     let title: String
     let description: String
     let color: Color
+    var isExpandable: Bool = false
+    var isExpanded: Bool = false
 
     var body: some View {
         HStack {
@@ -145,15 +152,22 @@ struct GameCard: View {
                     .font(.headline)
                     .foregroundColor(.primary)
 
-                Text(description)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
+                if !description.isEmpty {
+                    Text(description)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                }
             }
 
             Spacer()
 
-            Image(systemName: "chevron.right")
-                .foregroundColor(.secondary)
+            if isExpandable {
+                Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
+                    .foregroundColor(.secondary)
+            } else {
+                Image(systemName: "chevron.right")
+                    .foregroundColor(.secondary)
+            }
         }
         .padding()
         .background(
@@ -162,6 +176,56 @@ struct GameCard: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(color.opacity(0.3), lineWidth: 1)
+                )
+        )
+    }
+}
+
+// Unite Game Row Component
+struct UniteGameRow: View {
+    let icon: String
+    let title: String
+    let subtitle: String
+    let wordCount: Int
+    let color: Color
+
+    var body: some View {
+        HStack {
+            Image(systemName: icon)
+                .font(.system(size: 24))
+                .foregroundColor(color)
+                .frame(width: 40)
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.primary)
+
+                if !subtitle.isEmpty {
+                    Text(subtitle)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+
+                Text(String(format: "game.mode.words.count".localized, wordCount))
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+            }
+
+            Spacer()
+
+            Image(systemName: "chevron.right")
+                .font(.caption)
+                .foregroundColor(.secondary)
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(color.opacity(0.08))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(color.opacity(0.2), lineWidth: 1)
                 )
         )
     }

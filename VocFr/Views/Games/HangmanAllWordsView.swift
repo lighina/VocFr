@@ -1,27 +1,27 @@
 //
-//  HangmanGameView.swift
+//  HangmanAllWordsView.swift
 //  VocFr
 //
 //  Created by Claude on 16/11/2025.
-//  Hangman word guessing game UI
+//  Hangman game with all learned words
 //
 
 import SwiftUI
 import SwiftData
 
-struct HangmanGameView: View {
+struct HangmanAllWordsView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
-    @State private var viewModel: HangmanViewModel
+    @State private var viewModel: HangmanAllWordsViewModel
     @State private var wordGuess: String = ""
     @FocusState private var isInputFocused: Bool
     @State private var hasInitializedContext = false
 
-    let unite: Unite
+    let unites: [Unite]
 
-    init(unite: Unite) {
-        self.unite = unite
-        let vm = HangmanViewModel(unite: unite, modelContext: nil)
+    init(unites: [Unite]) {
+        self.unites = unites
+        let vm = HangmanAllWordsViewModel(unites: unites, modelContext: nil)
         self._viewModel = State(initialValue: vm)
     }
 
@@ -33,7 +33,7 @@ struct HangmanGameView: View {
                 gameView
             }
         }
-        .navigationTitle("Hangman: Unité \(unite.number)")
+        .navigationTitle("game.mode.hangman.all.words".localized)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -41,15 +41,14 @@ struct HangmanGameView: View {
                 Button(action: { dismiss() }) {
                     HStack(spacing: 4) {
                         Image(systemName: "chevron.left")
-                        Text("Unité \(unite.number)")
+                        Text("game.mode.back.to.games".localized)
                     }
                 }
             }
         }
         .onAppear {
-            // Inject model context after view appears
             if !hasInitializedContext {
-                viewModel = HangmanViewModel(unite: unite, modelContext: modelContext)
+                viewModel = HangmanAllWordsViewModel(unites: unites, modelContext: modelContext)
                 hasInitializedContext = true
             }
         }
@@ -116,11 +115,10 @@ struct HangmanGameView: View {
 
     private var hangmanFigure: some View {
         HangmanCanvas(incorrectGuesses: viewModel.incorrectGuesses)
-            .frame(width: 200, height: 200)  // 减小尺寸以适应窗口
+            .frame(width: 200, height: 200)
             .background(Color(.systemGray6))
             .cornerRadius(12)
     }
-
 
     // MARK: - Letter Grid
 
@@ -351,142 +349,200 @@ struct HangmanGameView: View {
     }
 }
 
-#Preview {
-    let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try! ModelContainer(for: Unite.self, Section.self, Word.self, configurations: config)
-    let context = container.mainContext
+// MARK: - ViewModel for All Words Hangman
 
-    let unite = Unite(id: "u1", number: 1, title: "Sample Unite", isUnlocked: true, requiredStars: 0)
-    let section = Section(id: "sample", name: "Sample", orderIndex: 0)
-    section.unite = unite
-    unite.sections.append(section)
+@Observable
+class HangmanAllWordsViewModel {
+    // Copy of HangmanViewModel logic but for multiple unites
+    let unites: [Unite]
+    private let modelContext: ModelContext?
 
-    let word = Word(id: "w1", canonical: "bonjour", chinese: "你好", imageName: "", partOfSpeech: .noun, category: "greetings")
-    let sectionWord = SectionWord(orderIndex: 0)
-    sectionWord.section = section
-    sectionWord.word = word
-    section.sectionWords.append(sectionWord)
-    word.sectionWords.append(sectionWord)
+    // Game state
+    var gameState: HangmanGameState = .playing
+    var currentWord: Word?
+    var wordToGuess: String = ""
+    var displayString: String = ""
+    var guessedLetters: Set<Character> = []
+    var incorrectGuesses: Int = 0
+    var remainingGuesses: Int = 10
+    let maxIncorrectGuesses: Int = 10
+    var totalPoints: Int = 0
+    var wordsCompleted: Int = 0
+    var wordsWon: Int = 0
 
-    context.insert(unite)
-    context.insert(section)
-    context.insert(word)
-    context.insert(sectionWord)
+    var availableLetters: [Character] = Array("abcdefghijklmnopqrstuvwxyzàâäéèêëïîôùûüÿçœæ")
 
-    return NavigationStack {
-        HangmanGameView(unite: unite)
-            .modelContainer(container)
+    private var allWords: [Word] = []
+    private var remainingWords: [Word] = []
+
+    var isGameOver: Bool {
+        gameState == .won || gameState == .lost
     }
-}
 
-// MARK: - Hangman Canvas
+    var progressText: String {
+        "Word \(wordsCompleted + 1)"
+    }
 
-struct HangmanCanvas: View {
-    let incorrectGuesses: Int
+    var winRate: Int {
+        guard wordsCompleted > 0 else { return 0 }
+        return Int(Double(wordsWon) / Double(wordsCompleted) * 100)
+    }
 
-    var body: some View {
-        Canvas { context, size in
-            let lineWidth: CGFloat = 3
-            let baseY = size.height * 0.9
-            let poleX = size.width * 0.3
-            let beamY = size.height * 0.15
-            let ropeX = size.width * 0.7
+    init(unites: [Unite], modelContext: ModelContext?) {
+        self.unites = unites
+        self.modelContext = modelContext
 
-            // Draw based on number of incorrect guesses
-            if incorrectGuesses >= 1 {
-                // Base
-                var basePath = Path()
-                basePath.move(to: CGPoint(x: poleX - 40, y: baseY))
-                basePath.addLine(to: CGPoint(x: poleX + 40, y: baseY))
-                context.stroke(basePath, with: .color(.primary), lineWidth: lineWidth)
+        // Collect all words from all unites
+        for unite in unites {
+            for section in unite.sections {
+                for sectionWord in section.sectionWords {
+                    if let word = sectionWord.word {
+                        allWords.append(word)
+                    }
+                }
             }
+        }
 
-            if incorrectGuesses >= 2 {
-                // Pole
-                var polePath = Path()
-                polePath.move(to: CGPoint(x: poleX, y: baseY))
-                polePath.addLine(to: CGPoint(x: poleX, y: beamY))
-                context.stroke(polePath, with: .color(.primary), lineWidth: lineWidth)
+        remainingWords = allWords.shuffled()
+        loadNextWord()
+    }
+
+    func guessLetter(_ letter: Character) {
+        guard !isGameOver else { return }
+
+        let lowerLetter = Character(letter.lowercased())
+        guard !guessedLetters.contains(lowerLetter) else { return }
+
+        guessedLetters.insert(lowerLetter)
+
+        if !wordToGuess.lowercased().contains(lowerLetter) {
+            incorrectGuesses += 1
+            remainingGuesses -= 1
+
+            if remainingGuesses <= 0 {
+                gameState = .lost
             }
+        } else {
+            updateDisplayString()
 
-            if incorrectGuesses >= 3 {
-                // Top beam
-                var beamPath = Path()
-                beamPath.move(to: CGPoint(x: poleX, y: beamY))
-                beamPath.addLine(to: CGPoint(x: ropeX, y: beamY))
-                context.stroke(beamPath, with: .color(.primary), lineWidth: lineWidth)
-            }
-
-            if incorrectGuesses >= 4 {
-                // Rope
-                var ropePath = Path()
-                ropePath.move(to: CGPoint(x: ropeX, y: beamY))
-                ropePath.addLine(to: CGPoint(x: ropeX, y: beamY + 30))
-                context.stroke(ropePath, with: .color(.primary), lineWidth: lineWidth)
-            }
-
-            let headY = beamY + 50
-            let headRadius: CGFloat = 20
-
-            if incorrectGuesses >= 5 {
-                // Head
-                let headRect = CGRect(
-                    x: ropeX - headRadius,
-                    y: headY - headRadius,
-                    width: headRadius * 2,
-                    height: headRadius * 2
-                )
-                context.stroke(
-                    Circle().path(in: headRect),
-                    with: .color(.primary),
-                    lineWidth: lineWidth
-                )
-            }
-
-            let bodyTop = headY + headRadius
-            let bodyBottom = bodyTop + 50
-
-            if incorrectGuesses >= 6 {
-                // Body
-                var bodyPath = Path()
-                bodyPath.move(to: CGPoint(x: ropeX, y: bodyTop))
-                bodyPath.addLine(to: CGPoint(x: ropeX, y: bodyBottom))
-                context.stroke(bodyPath, with: .color(.primary), lineWidth: lineWidth)
-            }
-
-            let armY = bodyTop + 15
-
-            if incorrectGuesses >= 7 {
-                // Left arm
-                var leftArmPath = Path()
-                leftArmPath.move(to: CGPoint(x: ropeX, y: armY))
-                leftArmPath.addLine(to: CGPoint(x: ropeX - 25, y: armY + 20))
-                context.stroke(leftArmPath, with: .color(.primary), lineWidth: lineWidth)
-            }
-
-            if incorrectGuesses >= 8 {
-                // Right arm
-                var rightArmPath = Path()
-                rightArmPath.move(to: CGPoint(x: ropeX, y: armY))
-                rightArmPath.addLine(to: CGPoint(x: ropeX + 25, y: armY + 20))
-                context.stroke(rightArmPath, with: .color(.primary), lineWidth: lineWidth)
-            }
-
-            if incorrectGuesses >= 9 {
-                // Left leg
-                var leftLegPath = Path()
-                leftLegPath.move(to: CGPoint(x: ropeX, y: bodyBottom))
-                leftLegPath.addLine(to: CGPoint(x: ropeX - 20, y: bodyBottom + 30))
-                context.stroke(leftLegPath, with: .color(.primary), lineWidth: lineWidth)
-            }
-
-            if incorrectGuesses >= 10 {
-                // Right leg
-                var rightLegPath = Path()
-                rightLegPath.move(to: CGPoint(x: ropeX, y: bodyBottom))
-                rightLegPath.addLine(to: CGPoint(x: ropeX + 20, y: bodyBottom + 30))
-                context.stroke(rightLegPath, with: .color(.primary), lineWidth: lineWidth)
+            if !displayString.contains("_") {
+                gameState = .won
+                let points = calculatePoints()
+                totalPoints += points
+                wordsWon += 1
             }
         }
     }
+
+    func guessWord(_ word: String) {
+        guard !isGameOver else { return }
+
+        if word.lowercased() == wordToGuess.lowercased() {
+            displayString = wordToGuess
+            gameState = .won
+            let points = calculatePoints()
+            totalPoints += points
+            wordsWon += 1
+        } else {
+            incorrectGuesses += 1
+            remainingGuesses -= 1
+
+            if remainingGuesses <= 0 {
+                gameState = .lost
+            }
+        }
+    }
+
+    func nextWord() {
+        wordsCompleted += 1
+
+        if remainingWords.isEmpty {
+            gameState = .sessionCompleted
+            saveFinalRecord()
+        } else {
+            loadNextWord()
+        }
+    }
+
+    func restartWord() {
+        resetCurrentWord()
+    }
+
+    func restartSession() {
+        totalPoints = 0
+        wordsCompleted = 0
+        wordsWon = 0
+        remainingWords = allWords.shuffled()
+        loadNextWord()
+    }
+
+    private func loadNextWord() {
+        guard !remainingWords.isEmpty else {
+            gameState = .sessionCompleted
+            return
+        }
+
+        currentWord = remainingWords.removeFirst()
+        resetCurrentWord()
+    }
+
+    private func resetCurrentWord() {
+        guard let word = currentWord else { return }
+
+        wordToGuess = word.canonical
+        gameState = .playing
+        guessedLetters.removeAll()
+        incorrectGuesses = 0
+        remainingGuesses = maxIncorrectGuesses
+        updateDisplayString()
+    }
+
+    private func updateDisplayString() {
+        displayString = wordToGuess.map { char in
+            if char.isWhitespace {
+                return " "
+            } else if guessedLetters.contains(Character(char.lowercased())) {
+                return String(char)
+            } else {
+                return "_"
+            }
+        }.joined(separator: " ")
+    }
+
+    private func calculatePoints() -> Int {
+        let basePoints = 10
+        let guessBonus = max(0, 10 - incorrectGuesses)
+        return basePoints + guessBonus
+    }
+
+    private func saveFinalRecord() {
+        guard let modelContext = modelContext else { return }
+
+        let accuracy = Double(wordsWon) / Double(max(1, wordsCompleted))
+        let record = PracticeRecord(
+            sessionDate: Date(),
+            sessionType: "Hangman - All Words",
+            wordsStudied: wordsCompleted,
+            accuracy: accuracy,
+            timeSpent: 0
+        )
+
+        modelContext.insert(record)
+
+        do {
+            try modelContext.save()
+            if totalPoints > 0 {
+                PointsManager.shared.awardStars(points: totalPoints, modelContext: modelContext, reason: "Hangman game completed")
+            }
+        } catch {
+            print("❌ Failed to save hangman record: \(error)")
+        }
+    }
+}
+
+enum HangmanGameState {
+    case playing
+    case won
+    case lost
+    case sessionCompleted
 }

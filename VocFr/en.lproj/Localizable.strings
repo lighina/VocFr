@@ -299,3 +299,21 @@
 "hangman.win.rate" = "Win Rate:";
 "hangman.total.points" = "Total Points:";
 "hangman.play.again" = "Play Again";
+
+// MARK: - Game Mode View
+
+"game.mode.games.list" = "Games List";
+"game.mode.matching.title" = "Matching Game";
+"game.mode.matching.description" = "Match from all learned vocabulary (10 pairs)";
+"game.mode.hangman.section" = "Hangman - Select by Unite";
+"game.mode.hangman.all.words" = "All Learned Vocabulary";
+"game.mode.words.count" = "%d words";
+"game.mode.back.to.games" = "Games";
+"matching.game.all.words.title" = "Matching Game";
+"matching.game.instruction.all" = "Find 10 pairs of French words and their images";
+"matching.game.matched.pairs" = "Matched";
+"matching.game.attempts.count" = "Attempts";
+"matching.game.excellent" = "Excellent!";
+"matching.game.pairs.count" = "Pairs";
+"matching.game.accuracy.rate" = "Accuracy";
+"matching.game.play.again" = "Play Again";

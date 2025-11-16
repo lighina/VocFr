@@ -299,3 +299,21 @@
 "hangman.win.rate" = "胜率：";
 "hangman.total.points" = "总分：";
 "hangman.play.again" = "再玩一次";
+
+// MARK: - Game Mode View
+
+"game.mode.games.list" = "[TODO] Games List";
+"game.mode.matching.title" = "配对游戏";
+"game.mode.matching.description" = "从所有学过的词汇中配对 (10对)";
+"game.mode.hangman.section" = "吊人游戏 - 按单元选择";
+"game.mode.hangman.all.words" = "所有学习过单词";
+"game.mode.words.count" = "%d 个单词";
+"game.mode.back.to.games" = "游戏";
+"matching.game.all.words.title" = "配对游戏";
+"matching.game.instruction.all" = "找出10对法语单词与图片的配对";
+"matching.game.matched.pairs" = "已配对";
+"matching.game.attempts.count" = "尝试次数";
+"matching.game.excellent" = "太棒了！";
+"matching.game.pairs.count" = "配对数";
+"matching.game.accuracy.rate" = "准确率";
+"matching.game.play.again" = "再玩一次";
