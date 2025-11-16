@@ -50,13 +50,14 @@ struct MainAppView: View {
                     }
                     
                     // 游戏模式
-                    MainModeButton(
-                        icon: "gamecontroller",
-                        title: "游戏",
-                        description: "敬请期待",
-                        color: .purple,
-                        isDisabled: true
-                    )
+                    NavigationLink(destination: GamesView()) {
+                        MainModeButton(
+                            icon: "gamecontroller",
+                            title: "游戏",
+                            description: "趣味学习法语",
+                            color: .purple
+                        )
+                    }
                 }
                 .padding(.horizontal)
                 
