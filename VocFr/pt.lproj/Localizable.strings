@@ -1,0 +1,272 @@
+/*
+  Localizable.strings (Portuguese)
+  VocFr
+
+  Created by Claude on 16/11/2025.
+  Part D: Multi-Language Support - Western European Languages
+*/
+
+// MARK: - Welcome View
+
+"welcome.title" = "Aprendizado de francês";
+"welcome.subtitle" = "Comece sua jornada de aprendizado de francês";
+"welcome.feature.courses.title" = "Cursos completos";
+"welcome.feature.courses.description" = "Conteúdo sistemático de aprendizado de francês";
+"welcome.feature.audio.title" = "Prática de áudio";
+"welcome.feature.audio.description" = "Guia de pronúncia francesa padrão";
+"welcome.feature.progress.title" = "Progresso de aprendizado";
+"welcome.feature.progress.description" = "Acompanhe suas conquistas de aprendizado";
+"welcome.button.start" = "Começar aprendizado";
+
+// MARK: - Units View
+
+"units.title" = "Aprendizado de francês";
+"units.import.button" = "Importar dados";
+"units.import.alert.title" = "Importação de dados";
+"units.import.alert.ok" = "OK";
+"units.import.success" = "Dados importados com sucesso!";
+"units.import.failed" = "Falha na importação: %@";
+"units.unite.title" = "Unidade %d: %@";
+"units.sections.count" = "%d seções";
+"units.unlock.required" = "Necessárias %d estrelas";
+
+// MARK: - Stars Progress View
+
+"stars.label" = "estrelas";
+"stars.streak.days" = "%d dias";
+"stars.next.unlock" = "Próximo desbloqueio: Unidade %d";
+"stars.need.more" = "Necessárias mais %d estrelas";
+"stars.all.unlocked" = "🎉 Todas as unidades desbloqueadas!";
+
+// MARK: - Practice View
+
+"practice.title" = "Prática: %@";
+"practice.no.words" = "Nenhuma palavra para praticar";
+"practice.question" = "Qual é a palavra?";
+"practice.correct.count" = "Correto: %d";
+"practice.progress" = "%d / %d";
+"practice.completed.title" = "Prática concluída!";
+"practice.accuracy" = "Precisão: %d%%";
+"practice.results" = "Correto: %d / %d palavras";
+"practice.points.earned" = "+%d estrelas";
+"practice.button.retry" = "Tentar novamente";
+
+// MARK: - Listening Practice
+
+"listening.practice.title" = "Prática de audição: %@";
+"listening.practice.question" = "Ouça e escolha a palavra correta";
+"listening.practice.play.count" = "Reproduções:";
+"listening.practice.instruction" = "Toque no alto-falante para ouvir a palavra";
+
+// MARK: - Matching Game
+
+"matching.game.title" = "Jogo de correspondência: %@";
+"matching.game.instruction" = "Combine imagens com palavras francesas";
+"matching.game.progress" = "Combinados:";
+"matching.game.completed.title" = "Parabéns!";
+"matching.game.time" = "Tempo:";
+"matching.game.attempts" = "Tentativas:";
+"matching.game.total.score" = "Pontuação total: %d estrelas";
+
+// MARK: - Flashcard Mode
+
+"flashcard.title" = "Cartões de memória: %@";
+"flashcard.tap.to.flip" = "Toque para virar";
+"flashcard.play.audio" = "Reproduzir áudio";
+"flashcard.progress" = "Progresso:";
+"flashcard.due" = "Pendente";
+"flashcard.new" = "Novo";
+"flashcard.mastered" = "Dominado";
+"flashcard.know" = "Eu sei";
+"flashcard.dont.know" = "Não sei";
+"flashcard.completed.title" = "Revisão concluída!";
+"flashcard.cards.reviewed" = "Cartões revisados:";
+"flashcard.success.rate" = "Taxa de sucesso:";
+"flashcard.restart" = "Revisar novamente";
+"flashcard.all.done" = "Tudo pronto!";
+"flashcard.all.done.message" = "Nenhum cartão para revisar hoje. Volte amanhã!";
+
+// MARK: - Spelling Practice
+
+"spelling.title" = "Prática de ortografia: %@";
+"spelling.progress" = "Progresso:";
+"spelling.play.audio" = "Reproduzir áudio";
+"spelling.type.word" = "Digite a palavra francesa:";
+"spelling.special.chars" = "Caracteres especiais:";
+"spelling.hint" = "Dica:";
+"spelling.hint.button" = "Dica";
+"spelling.check" = "Verificar";
+"spelling.next" = "Próximo";
+"spelling.correct.answer" = "Resposta correta:";
+"spelling.result.correct" = "Perfeito! ✨";
+"spelling.result.case" = "Correto! (Atenção às maiúsculas)";
+"spelling.result.missing.accents" = "Quase! Faltam acentos";
+"spelling.result.missing.accents.detail" = "Não esqueça os acentos";
+"spelling.result.wrong.accents" = "Acentos errados";
+"spelling.result.wrong.accents.detail" = "Verifique os acentos cuidadosamente";
+"spelling.result.close" = "Perto!";
+"spelling.result.close.detail" = "%d caractere(s) de diferença";
+"spelling.result.incorrect" = "Tente novamente da próxima vez";
+"spelling.completed.title" = "Prática de ortografia concluída!";
+"spelling.words.practiced" = "Palavras praticadas:";
+"spelling.correct.count" = "Respostas corretas:";
+"spelling.accuracy" = "Precisão:";
+"spelling.restart" = "Praticar novamente";
+"spelling.empty.title" = "Nenhuma palavra disponível";
+"spelling.empty.message" = "Esta seção não tem palavras para prática de ortografia.";
+
+// MARK: - Section View
+
+"section.button.practice" = "Praticar";
+"section.practice.visual" = "Prática visual";
+"section.practice.listening" = "Prática de audição";
+"section.practice.matching" = "Jogo de correspondência";
+"section.practice.flashcard" = "Cartões de memória";
+"section.practice.spelling" = "Prática de ortografia";
+
+// MARK: - Main App View
+
+"main.title" = "Aprendizado de francês";
+"main.select.mode" = "Selecione o modo de aprendizado";
+"main.select.mode.subtitle" = "Escolha seu estilo de aprendizado";
+"main.study.title" = "Estudar";
+"main.study.description" = "Aprender vocabulário francês";
+"main.test.title" = "Teste";
+"main.test.description" = "Teste seu domínio do francês";
+"main.game.title" = "Jogo";
+"main.game.description" = "Em breve";
+
+// MARK: - Menu View
+
+"menu.title" = "Menu";
+"menu.button.close" = "Fechar";
+"menu.achievements.title" = "Conquistas";
+"menu.achievements.description" = "Ver suas conquistas";
+"menu.progress.title" = "Progresso";
+"menu.progress.description" = "Ver progresso de aprendizado";
+"menu.settings.title" = "Configurações";
+"menu.settings.description" = "Configurações do aplicativo e gerenciamento de dados";
+"menu.about.title" = "Sobre";
+"menu.about.description" = "Informações da versão";
+"menu.help.title" = "Ajuda";
+"menu.help.description" = "Ajuda de uso";
+
+// MARK: - Settings View
+
+"settings.title" = "Configurações";
+"settings.language.title" = "Idioma";
+"settings.language.description" = "Idioma da interface do aplicativo";
+"settings.data.title" = "Gerenciamento de dados";
+"settings.data.description" = "Importar, exportar, redefinir";
+"settings.data.reimport" = "Reimportar dados";
+"settings.data.export" = "Exportar relatório de aprendizado";
+"settings.data.reset.stars" = "Redefinir todas as estrelas";
+"settings.about.title" = "Sobre";
+"settings.about.version" = "Versão";
+
+// MARK: - Progress View
+
+"progress.title" = "Progresso";
+"progress.no.data" = "Ainda não há progresso de aprendizado";
+"progress.total.stars" = "Estrelas totais";
+"progress.current.streak" = "Sequência atual";
+"progress.last.study" = "Último estudo: %@";
+"progress.recent.activity" = "Atividade recente";
+"progress.no.records" = "Ainda não há registros de prática";
+"progress.words.count" = "%d palavras";
+"progress.accuracy.label" = "%d%% de precisão";
+"progress.practice.sessions" = "Sessões de prática";
+"progress.words.learned" = "Palavras aprendidas";
+
+// MARK: - Test Mode View
+
+"test.title" = "Teste";
+"test.mode.title" = "Modo de teste";
+"test.coming.soon" = "O recurso de teste está em desenvolvimento";
+
+// MARK: - Section Detail View
+
+"section.words.count" = "%d palavras";
+
+// MARK: - Common
+
+"common.loading" = "Carregando...";
+"common.error" = "Erro";
+"common.cancel" = "Cancelar";
+"common.done" = "Pronto";
+"common.save" = "Salvar";
+"common.delete" = "Excluir";
+
+// MARK: - Achievements
+
+"achievement.title" = "Conquistas";
+"achievement.unlocked" = "Conquista desbloqueada!";
+"achievement.unlocked.count" = "Conquistas desbloqueadas";
+"achievement.empty" = "Nenhuma conquista encontrada";
+"achievement.category.all" = "Todas";
+
+// Achievement Categories
+"Learning Milestones" = "Marcos de aprendizado";
+"Practice Master" = "Mestre da prática";
+"Consistency" = "Consistência";
+"Star Collector" = "Colecionador de estrelas";
+"Explorer" = "Explorador";
+"Special" = "Especial";
+
+// Learning Milestone Achievements
+"achievement.words.10.title" = "Primeiros passos";
+"achievement.words.10.description" = "Aprender 10 palavras";
+"achievement.words.50.title" = "Rato de biblioteca";
+"achievement.words.50.description" = "Aprender 50 palavras";
+"achievement.words.100.title" = "Mestre das palavras";
+"achievement.words.100.description" = "Aprender 100 palavras";
+"achievement.words.200.title" = "Especialista em vocabulário";
+"achievement.words.200.description" = "Aprender 200 palavras";
+"achievement.words.500.title" = "Estudioso de francês";
+"achievement.words.500.description" = "Aprender 500 palavras";
+
+// Practice Achievements
+"achievement.practice.5.title" = "Iniciante em prática";
+"achievement.practice.5.description" = "Completar 5 sessões de prática";
+"achievement.practice.20.title" = "Campeão de prática";
+"achievement.practice.20.description" = "Completar 20 sessões de prática";
+"achievement.perfect.10.title" = "Perfeccionista";
+"achievement.perfect.10.description" = "Obter pontuação perfeita 10 vezes";
+"achievement.perfect.single.title" = "Vitória impecável";
+"achievement.perfect.single.description" = "Obter 20/20 em uma única prática";
+
+// Streak Achievements
+"achievement.streak.3.title" = "Bom começo";
+"achievement.streak.3.description" = "Praticar por 3 dias seguidos";
+"achievement.streak.7.title" = "Guerreiro da semana";
+"achievement.streak.7.description" = "Praticar por 7 dias seguidos";
+"achievement.streak.30.title" = "Mestre do mês";
+"achievement.streak.30.description" = "Praticar por 30 dias seguidos";
+"achievement.streak.100.title" = "Lenda da dedicação";
+"achievement.streak.100.description" = "Praticar por 100 dias seguidos";
+
+// Points Achievements
+"achievement.stars.100.title" = "Iniciante estelar";
+"achievement.stars.100.description" = "Ganhar 100 estrelas";
+"achievement.stars.500.title" = "Colecionador de estrelas";
+"achievement.stars.500.description" = "Ganhar 500 estrelas";
+"achievement.stars.1000.title" = "Mestre das estrelas";
+"achievement.stars.1000.description" = "Ganhar 1000 estrelas";
+
+// Exploration Achievements
+"achievement.unlock.unit.title" = "Explorador";
+"achievement.unlock.unit.description" = "Desbloquear uma nova unidade";
+"achievement.complete.section.10.title" = "Mestre de seção";
+"achievement.complete.section.10.description" = "Completar 10 seções";
+"achievement.complete.unit.title" = "Campeão de unidade";
+"achievement.complete.unit.description" = "Completar uma unidade inteira";
+
+// Special Achievements
+"achievement.early.bird.title" = "Madrugador";
+"achievement.early.bird.description" = "Praticar entre 5h e 8h da manhã";
+"achievement.night.owl.title" = "Coruja noturna";
+"achievement.night.owl.description" = "Praticar entre 22h e 2h da manhã";
+"achievement.speed.run.title" = "Corredor veloz";
+"achievement.speed.run.description" = "Pontuação perfeita em menos de 60 segundos";
+"achievement.birthday.title" = "Aniversário";
+"achievement.birthday.description" = "Praticar no dia do aniversário da sua conta";

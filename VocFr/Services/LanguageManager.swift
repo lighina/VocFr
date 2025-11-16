@@ -13,6 +13,11 @@ import SwiftUI
 enum AppLanguage: String, CaseIterable, Identifiable {
     case english = "en"
     case chinese = "zh-Hans"
+    case french = "fr"
+    case spanish = "es"
+    case german = "de"
+    case italian = "it"
+    case portuguese = "pt"
 
     var id: String { rawValue }
 
@@ -23,6 +28,36 @@ enum AppLanguage: String, CaseIterable, Identifiable {
             return "English"
         case .chinese:
             return "中文"
+        case .french:
+            return "Français"
+        case .spanish:
+            return "Español"
+        case .german:
+            return "Deutsch"
+        case .italian:
+            return "Italiano"
+        case .portuguese:
+            return "Português"
+        }
+    }
+
+    /// Flag emoji for the language
+    var flag: String {
+        switch self {
+        case .english:
+            return "🇬🇧"
+        case .chinese:
+            return "🇨🇳"
+        case .french:
+            return "🇫🇷"
+        case .spanish:
+            return "🇪🇸"
+        case .german:
+            return "🇩🇪"
+        case .italian:
+            return "🇮🇹"
+        case .portuguese:
+            return "🇵🇹"
         }
     }
 
@@ -65,12 +100,23 @@ class LanguageManager {
            let language = AppLanguage(rawValue: savedLanguage) {
             self.currentLanguage = language
         } else {
-            // Default language is English
-            // Only use Chinese if system language is Chinese
+            // Auto-detect system language and match to supported languages
             let systemLanguage = Locale.current.language.languageCode?.identifier ?? "en"
-            if systemLanguage.hasPrefix("zh") {
+
+            switch systemLanguage {
+            case "zh":
                 self.currentLanguage = .chinese
-            } else {
+            case "fr":
+                self.currentLanguage = .french
+            case "es":
+                self.currentLanguage = .spanish
+            case "de":
+                self.currentLanguage = .german
+            case "it":
+                self.currentLanguage = .italian
+            case "pt":
+                self.currentLanguage = .portuguese
+            default:
                 // Default to English for all other languages
                 self.currentLanguage = .english
             }
