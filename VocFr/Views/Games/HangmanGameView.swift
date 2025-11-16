@@ -58,8 +58,8 @@ struct HangmanGameView: View {
     // MARK: - Game View
 
     private var gameView: some View {
-        VStack(spacing: 20) {
-            // Progress
+        VStack(spacing: 0) {
+            // Progress header
             HStack {
                 Text(viewModel.progressText)
                     .font(.headline)
@@ -68,14 +68,14 @@ struct HangmanGameView: View {
                     .font(.headline)
                     .foregroundColor(.blue)
             }
-            .padding(.horizontal)
-            .padding(.top)
+            .padding()
+            .background(Color(.systemGray6))
 
             ScrollView {
-                VStack(spacing: 24) {
+                VStack(spacing: 20) {
                     // Hangman figure
                     hangmanFigure
-                        .padding()
+                        .padding(.top)
 
                     // Remaining guesses
                     Text("❤️ \(viewModel.remainingGuesses) / \(viewModel.maxIncorrectGuesses)")
@@ -83,20 +83,9 @@ struct HangmanGameView: View {
                         .fontWeight(.bold)
                         .foregroundColor(viewModel.remainingGuesses <= 3 ? .red : .primary)
 
-                    if let word = viewModel.currentWord {
-                        // Word image
-                        if let image = UIImage(named: word.imageName) {
-                            Image(uiImage: image)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 120)
-                                .cornerRadius(12)
-                        }
-                    }
-
                     // Display word with blanks
                     Text(viewModel.displayString)
-                        .font(.system(size: 28, weight: .bold, design: .monospaced))
+                        .font(.system(size: 24, weight: .bold, design: .monospaced))
                         .tracking(2)
                         .foregroundColor(.primary)
                         .padding()
@@ -106,9 +95,11 @@ struct HangmanGameView: View {
                     if viewModel.gameState == .playing {
                         // Letter grid
                         letterGrid
+                            .padding(.horizontal)
 
                         // Word guess input
                         wordGuessSection
+                            .padding(.horizontal)
                     } else {
                         // Game over section
                         gameOverSection
@@ -116,7 +107,7 @@ struct HangmanGameView: View {
 
                     Spacer(minLength: 20)
                 }
-                .padding()
+                .padding(.horizontal)
             }
         }
     }
@@ -134,7 +125,31 @@ struct HangmanGameView: View {
 
     private func getHangmanAscii() -> String {
         let stages = [
-            // 0 incorrect
+            // 0 incorrect - empty
+            """
+
+
+
+
+
+            """,
+            // 1 incorrect - base
+            """
+
+
+
+
+            ─────
+            """,
+            // 2 incorrect - pole
+            """
+
+              │
+              │
+              │
+            ─────
+            """,
+            // 3 incorrect - top beam
             """
               ┌─┐
               │
@@ -142,7 +157,15 @@ struct HangmanGameView: View {
               │
             ─────
             """,
-            // 1 incorrect
+            // 4 incorrect - rope
+            """
+              ┌─┐
+              │ |
+              │
+              │
+            ─────
+            """,
+            // 5 incorrect - head
             """
               ┌─┐
               │ O
@@ -150,7 +173,7 @@ struct HangmanGameView: View {
               │
             ─────
             """,
-            // 2 incorrect
+            // 6 incorrect - body
             """
               ┌─┐
               │ O
@@ -158,15 +181,15 @@ struct HangmanGameView: View {
               │
             ─────
             """,
-            // 3 incorrect
+            // 7 incorrect - left arm
             """
               ┌─┐
               │ O
-              │ |\\
+              │/|
               │
             ─────
             """,
-            // 4 incorrect
+            // 8 incorrect - right arm
             """
               ┌─┐
               │ O
@@ -174,45 +197,21 @@ struct HangmanGameView: View {
               │
             ─────
             """,
-            // 5 incorrect
-            """
-              ┌─┐
-              │ O
-              │/|\\
-              │ |
-            ─────
-            """,
-            // 6 incorrect
-            """
-              ┌─┐
-              │ O
-              │/|\\
-              │ |
-            ───|─
-            """,
-            // 7 incorrect
-            """
-              ┌─┐
-              │ O
-              │/|\\
-              │ |
-            ───|───
-            """,
-            // 8 incorrect
+            // 9 incorrect - left leg
             """
               ┌─┐
               │ O
               │/|\\
               │/
-            ───|───
+            ─────
             """,
-            // 9 incorrect (game over)
+            // 10 incorrect - right leg (game over)
             """
               ┌─┐
               │ O
               │/|\\
               │/ \\
-            ───────
+            ─────
             """
         ]
 

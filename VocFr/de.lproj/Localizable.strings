@@ -135,7 +135,14 @@
 "main.test.title" = "Test";
 "main.test.description" = "Testen Sie Ihre Französischkenntnisse";
 "main.game.title" = "Spiel";
-"main.game.description" = "Demnächst verfügbar";
+"main.game.description" = "Spielen Sie Wörter-Ratespiele";
+
+// MARK: - Game Mode
+
+"game.mode.title" = "Spielmodus";
+"game.mode.subtitle" = "Wählen Sie einen Abschnitt für Galgenmännchen";
+"game.select.section" = "Wählen Sie einen Abschnitt";
+"game.hangman" = "Galgenmännchen";
 
 // MARK: - Menu View
 

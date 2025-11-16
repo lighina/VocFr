@@ -95,9 +95,6 @@ struct SectionDetailView: View {
                     NavigationLink(destination: MatchingGameView(section: section)) {
                         Label("section.practice.matching".localized, systemImage: "rectangle.on.rectangle")
                     }
-                    NavigationLink(destination: HangmanGameView(section: section)) {
-                        Label("section.practice.hangman".localized, systemImage: "gamecontroller")
-                    }
                 } label: {
                     HStack(spacing: 4) {
                         Image(systemName: "play.circle.fill")
@@ -124,9 +121,6 @@ struct SectionDetailView: View {
                     }
                     NavigationLink(destination: MatchingGameView(section: section)) {
                         Label("section.practice.matching".localized, systemImage: "rectangle.on.rectangle")
-                    }
-                    NavigationLink(destination: HangmanGameView(section: section)) {
-                        Label("section.practice.hangman".localized, systemImage: "gamecontroller")
                     }
                 } label: {
                     HStack(spacing: 4) {

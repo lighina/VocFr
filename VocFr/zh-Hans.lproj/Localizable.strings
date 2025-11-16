@@ -135,7 +135,14 @@
 "main.test.title" = "答题";
 "main.test.description" = "测试您的法语水平";
 "main.game.title" = "游戏";
-"main.game.description" = "敬请期待";
+"main.game.description" = "玩猜词游戏";
+
+// MARK: - Game Mode
+
+"game.mode.title" = "游戏模式";
+"game.mode.subtitle" = "选择一个章节来玩Hangman";
+"game.select.section" = "选择章节";
+"game.hangman" = "猜词游戏";
 
 // MARK: - Menu View
 

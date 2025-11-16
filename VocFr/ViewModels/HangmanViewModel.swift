@@ -31,7 +31,7 @@ class HangmanViewModel {
     private(set) var incorrectGuesses: Int = 0
 
     /// Maximum allowed incorrect guesses
-    let maxIncorrectGuesses: Int = 9
+    let maxIncorrectGuesses: Int = 10
 
     /// Current word index in the section
     private(set) var currentWordIndex: Int = 0

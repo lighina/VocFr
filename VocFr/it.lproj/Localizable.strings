@@ -135,7 +135,14 @@
 "main.test.title" = "Test";
 "main.test.description" = "Testa la tua padronanza del francese";
 "main.game.title" = "Gioco";
-"main.game.description" = "Prossimamente";
+"main.game.description" = "Gioca a giochi di indovinelli";
+
+// MARK: - Game Mode
+
+"game.mode.title" = "Modalità Gioco";
+"game.mode.subtitle" = "Scegli una sezione per giocare all'impiccato";
+"game.select.section" = "Seleziona una sezione";
+"game.hangman" = "Impiccato";
 
 // MARK: - Menu View
 

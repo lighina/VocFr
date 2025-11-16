@@ -49,13 +49,14 @@ struct MainAppView: View {
                 }
 
                 // 游戏模式
-                MainModeButton(
-                    icon: "gamecontroller",
-                    title: "main.game.title".localized,
-                    description: "main.game.description".localized,
-                    color: .purple,
-                    isDisabled: true
-                )
+                NavigationLink(destination: GameModeView()) {
+                    MainModeButton(
+                        icon: "gamecontroller",
+                        title: "main.game.title".localized,
+                        description: "main.game.description".localized,
+                        color: .purple
+                    )
+                }
             }
             .padding(.horizontal)
 

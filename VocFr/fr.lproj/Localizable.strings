@@ -135,7 +135,14 @@
 "main.test.title" = "Test";
 "main.test.description" = "Testez votre maîtrise du français";
 "main.game.title" = "Jeu";
-"main.game.description" = "Bientôt disponible";
+"main.game.description" = "Jouez à des jeux de devinettes";
+
+// MARK: - Game Mode
+
+"game.mode.title" = "Mode Jeu";
+"game.mode.subtitle" = "Choisissez une section pour jouer au pendu";
+"game.select.section" = "Sélectionnez une section";
+"game.hangman" = "Pendu";
 
 // MARK: - Menu View
 

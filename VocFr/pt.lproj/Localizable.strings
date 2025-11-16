@@ -135,7 +135,14 @@
 "main.test.title" = "Teste";
 "main.test.description" = "Teste seu domínio do francês";
 "main.game.title" = "Jogo";
-"main.game.description" = "Em breve";
+"main.game.description" = "Jogue jogos de adivinhação";
+
+// MARK: - Game Mode
+
+"game.mode.title" = "Modo Jogo";
+"game.mode.subtitle" = "Escolha uma seção para jogar à forca";
+"game.select.section" = "Selecione uma seção";
+"game.hangman" = "Forca";
 
 // MARK: - Menu View
 

@@ -135,7 +135,14 @@
 "main.test.title" = "Test";
 "main.test.description" = "Test your French proficiency";
 "main.game.title" = "Game";
-"main.game.description" = "Coming soon";
+"main.game.description" = "Play word guessing games";
+
+// MARK: - Game Mode
+
+"game.mode.title" = "Game Mode";
+"game.mode.subtitle" = "Choose a section to play Hangman";
+"game.select.section" = "Select a Section";
+"game.hangman" = "Hangman";
 
 // MARK: - Menu View
 

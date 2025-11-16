@@ -135,7 +135,14 @@
 "main.test.title" = "Prueba";
 "main.test.description" = "Evalúa tu dominio del francés";
 "main.game.title" = "Juego";
-"main.game.description" = "Próximamente";
+"main.game.description" = "Juega a juegos de adivinanzas";
+
+// MARK: - Game Mode
+
+"game.mode.title" = "Modo Juego";
+"game.mode.subtitle" = "Elige una sección para jugar al ahorcado";
+"game.select.section" = "Selecciona una sección";
+"game.hangman" = "Ahorcado";
 
 // MARK: - Menu View
 
