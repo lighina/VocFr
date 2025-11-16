@@ -15,8 +15,12 @@ struct HangmanGameView: View {
     @State private var viewModel: HangmanViewModel
     @State private var wordGuess: String = ""
     @FocusState private var isInputFocused: Bool
+    @State private var hasInitializedContext = false
+
+    let section: Section
 
     init(section: Section) {
+        self.section = section
         let vm = HangmanViewModel(section: section, modelContext: nil)
         self._viewModel = State(initialValue: vm)
     }
@@ -44,8 +48,9 @@ struct HangmanGameView: View {
         }
         .onAppear {
             // Inject model context after view appears
-            if viewModel.modelContext == nil {
-                viewModel = HangmanViewModel(section: viewModel.section, modelContext: modelContext)
+            if !hasInitializedContext {
+                viewModel = HangmanViewModel(section: section, modelContext: modelContext)
+                hasInitializedContext = true
             }
         }
     }
