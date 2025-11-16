@@ -15,8 +15,8 @@ struct AllWordsMatchingGameView: View {
 
     let unites: [Unite]
 
-    @State private var cards: [MatchingCard] = []
-    @State private var selectedCards: [MatchingCard] = []
+    @State private var cards: [AllWordsCard] = []
+    @State private var selectedCards: [AllWordsCard] = []
     @State private var matchedPairIds: Set<String> = []
     @State private var attempts: Int = 0
     @State private var matchedPairs: Int = 0
@@ -205,12 +205,12 @@ struct AllWordsMatchingGameView: View {
         let selectedWords = Array(allWords.shuffled().prefix(totalPairs))
 
         // Create cards (2 per word: French and Chinese)
-        var newCards: [MatchingCard] = []
+        var newCards: [AllWordsCard] = []
         for (index, word) in selectedWords.enumerated() {
             let pairId = "pair_\(index)"
 
             // French card
-            newCards.append(MatchingCard(
+            newCards.append(AllWordsCard(
                 id: UUID().uuidString,
                 pairId: pairId,
                 text: word.canonical,
@@ -218,7 +218,7 @@ struct AllWordsMatchingGameView: View {
             ))
 
             // Chinese card
-            newCards.append(MatchingCard(
+            newCards.append(AllWordsCard(
                 id: UUID().uuidString,
                 pairId: pairId,
                 text: word.chinese,
@@ -231,7 +231,7 @@ struct AllWordsMatchingGameView: View {
         startTime = Date()
     }
 
-    private func selectCard(_ card: MatchingCard) {
+    private func selectCard(_ card: AllWordsCard) {
         // Ignore if card already matched
         guard !matchedPairIds.contains(card.pairId) else { return }
 
@@ -315,9 +315,9 @@ struct AllWordsMatchingGameView: View {
     }
 }
 
-// MARK: - Matching Card Model
+// MARK: - All Words Card Model
 
-struct MatchingCard: Identifiable {
+struct AllWordsCard: Identifiable {
     let id: String
     let pairId: String
     let text: String
@@ -327,7 +327,7 @@ struct MatchingCard: Identifiable {
 // MARK: - Card View
 
 struct CardView: View {
-    let card: MatchingCard
+    let card: AllWordsCard
     let isSelected: Bool
     let isMatched: Bool
     let onTap: () -> Void
