@@ -106,6 +106,11 @@ class PracticeViewModel {
 
         if isAnswerCorrect {
             correctCount += 1
+            // Play correct answer sound
+            SoundEffectManager.shared.playCorrectSound()
+        } else {
+            // Play incorrect answer sound
+            SoundEffectManager.shared.playIncorrectSound()
         }
 
         // Auto advance after a short delay

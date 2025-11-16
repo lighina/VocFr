@@ -145,6 +145,11 @@ class ListeningPracticeViewModel {
             // Award points based on play count
             let points = calculatePointsForAttempt()
             pointsEarned += points
+            // Play correct answer sound
+            SoundEffectManager.shared.playCorrectSound()
+        } else {
+            // Play incorrect answer sound
+            SoundEffectManager.shared.playIncorrectSound()
         }
 
         // Auto advance after a short delay

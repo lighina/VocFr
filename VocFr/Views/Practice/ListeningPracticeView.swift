@@ -178,42 +178,40 @@ struct ListeningPracticeView: View {
                 viewModel.selectAnswer(at: index)
             }
         }) {
-            VStack(spacing: 8) {
-                // Word image
+            VStack(spacing: 12) {
+                // Word image (larger for image-only mode)
                 if let image = UIImage(named: word.imageName) {
                     Image(uiImage: image)
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 80)
+                        .frame(height: 100)
                         .cornerRadius(8)
                 } else {
                     // Fallback if image not found
                     ZStack {
                         RoundedRectangle(cornerRadius: 8)
                             .fill(Color(.systemGray5))
-                            .frame(height: 80)
+                            .frame(height: 100)
                         Image(systemName: "photo")
                             .font(.largeTitle)
                             .foregroundColor(.gray)
                     }
                 }
 
-                // Word text (smaller, below image)
-                Text(text)
-                    .font(.caption)
-                    .fontWeight(.medium)
-                    .foregroundColor(buttonForegroundColor(index: index, isCorrect: isCorrect))
-
                 // Show checkmark or X after selection
                 if viewModel.selectedAnswerIndex == index {
                     Image(systemName: viewModel.isAnswerCorrect ? "checkmark.circle.fill" : "xmark.circle.fill")
                         .foregroundColor(viewModel.isAnswerCorrect ? .green : .red)
-                        .font(.title3)
+                        .font(.title2)
                 } else if viewModel.selectedAnswerIndex != nil && isCorrect {
                     // Show correct answer if user selected wrong
                     Image(systemName: "checkmark.circle.fill")
                         .foregroundColor(.green)
-                        .font(.title3)
+                        .font(.title2)
+                } else {
+                    // Spacer to maintain consistent height
+                    Color.clear
+                        .frame(height: 28)
                 }
             }
             .padding()

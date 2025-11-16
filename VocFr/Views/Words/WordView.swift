@@ -87,7 +87,7 @@ struct WordDetailView: View {
 
                         // Hint when card is hidden
                         if !viewModel.showWordCard {
-                            Text("Touchez l'image pour afficher la carte du mot")
+                            Text("word.detail.tap.hint".localized)
                                 .font(.footnote)
                                 .foregroundStyle(.secondary)
                         }

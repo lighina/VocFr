@@ -235,6 +235,9 @@ class MatchingGameViewModel {
             let points = calculatePointsForMatch()
             score += points
 
+            // Play correct match sound
+            SoundEffectManager.shared.playCorrectSound()
+
             // Clear selection immediately
             selectedCards.removeAll()
 
@@ -244,6 +247,9 @@ class MatchingGameViewModel {
             }
         } else {
             // No match - flip cards back after delay
+            // Play incorrect match sound
+            SoundEffectManager.shared.playIncorrectSound()
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 self.flipCardsBack(card1, card2)
                 self.selectedCards.removeAll()

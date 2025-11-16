@@ -270,3 +270,7 @@
 "achievement.speed.run.description" = "60秒内获得满分";
 "achievement.birthday.title" = "周年纪念";
 "achievement.birthday.description" = "在账户周年纪念日练习";
+
+// MARK: - Word Detail View
+
+"word.detail.tap.hint" = "点击图片显示单词卡";

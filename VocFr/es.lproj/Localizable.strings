@@ -270,3 +270,7 @@
 "achievement.speed.run.description" = "Puntuación perfecta en menos de 60 segundos";
 "achievement.birthday.title" = "Aniversario";
 "achievement.birthday.description" = "Practicar en el día del aniversario de tu cuenta";
+
+// MARK: - Word Detail View
+
+"word.detail.tap.hint" = "Toca la imagen para mostrar la tarjeta de palabra";

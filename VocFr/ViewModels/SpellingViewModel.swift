@@ -216,6 +216,18 @@ class SpellingViewModel {
         lastResult = checkSpelling()
         totalPracticed += 1
 
+        // Play sound based on result
+        switch lastResult {
+        case .correct, .correctWithCase:
+            SoundEffectManager.shared.playCorrectSound()
+        case .missingAccents:
+            SoundEffectManager.shared.playNeutralSound()
+        case .wrongAccents, .closeMatch, .incorrect:
+            SoundEffectManager.shared.playIncorrectSound()
+        case .none:
+            break
+        }
+
         // Award points based on hint level and result
         if case .correct = lastResult {
             correctCount += 1
