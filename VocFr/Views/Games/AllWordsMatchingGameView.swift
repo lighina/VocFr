@@ -292,7 +292,7 @@ struct AllWordsMatchingGameView: View {
     }
 
     private func savePracticeRecord() {
-        let timeSpent = Int(Date().timeIntervalSince(startTime))
+        let timeSpent = Date().timeIntervalSince(startTime)
         let accuracy = Double(totalPairs) / Double(max(1, attempts))
 
         let record = PracticeRecord(
