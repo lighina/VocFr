@@ -13,6 +13,8 @@ struct TestModeView: View {
 
     var body: some View {
         VStack(spacing: 20) {
+            Spacer()
+
             Image(systemName: "questionmark.circle")
                 .font(.system(size: 80))
                 .foregroundColor(.green)
@@ -23,7 +25,11 @@ struct TestModeView: View {
 
             Text("test.coming.soon".localized)
                 .foregroundColor(.secondary)
+
+            Spacer()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .contentShape(Rectangle())
         .navigationTitle("test.title".localized)
         #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)

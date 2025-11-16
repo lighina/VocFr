@@ -187,17 +187,23 @@ struct AllWordsMatchingGameView: View {
     private func setupGame() {
         // Collect all words from all unlocked unites
         var allWords: [Word] = []
+        var seenWordIds = Set<String>()
+
         for unite in unites {
             for section in unite.sections {
                 for sectionWord in section.sectionWords {
                     if let word = sectionWord.word {
-                        allWords.append(word)
+                        // Filter: no duplicates and no 'other' partOfSpeech
+                        if !seenWordIds.contains(word.id) && word.partOfSpeech != .other {
+                            allWords.append(word)
+                            seenWordIds.insert(word.id)
+                        }
                     }
                 }
             }
         }
 
-        // Shuffle and take first 10 words
+        // Shuffle and take first 6 words
         let selectedWords = Array(allWords.shuffled().prefix(totalPairs))
 
         // Create cards (2 per word: image and French text)
