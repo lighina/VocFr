@@ -9,6 +9,7 @@
 import Foundation
 import AVFoundation
 import AudioToolbox
+import UIKit
 
 /// Manager for playing sound effects during practice sessions
 class SoundEffectManager {
