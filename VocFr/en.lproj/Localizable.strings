@@ -318,3 +318,4 @@
 "matching.game.accuracy.rate" = "Accuracy";
 "matching.game.play.again" = "Play Again";
 "game.mode.hangman.subtitle" = "Tap to select a unit";
+"game.mode.matching.subtitle" = "6 pairs of learned vocabulary";

@@ -318,3 +318,4 @@
 "matching.game.accuracy.rate" = "准确率";
 "matching.game.play.again" = "再玩一次";
 "game.mode.hangman.subtitle" = "点击选择单元";
+"game.mode.matching.subtitle" = "6对已学词汇";

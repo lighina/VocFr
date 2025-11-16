@@ -46,7 +46,7 @@ struct GameModeView: View {
                         GameCard(
                             icon: "square.grid.2x2.fill",
                             title: "Matching",
-                            description: "",
+                            description: "game.mode.matching.subtitle".localized,
                             color: .orange
                         )
                     }
