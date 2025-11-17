@@ -2,7 +2,7 @@
   "id": "unite2",
   "number": 2,
   "title": "C'est la fête",
-  "isUnlocked": true,
+  "isUnlocked": false,
   "requiredStars": 1000,
   "sections": [
     {

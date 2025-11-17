@@ -2,7 +2,7 @@
   "id": "unite3",
   "number": 3,
   "title": "Mon chez-moi",
-  "isUnlocked": true,
+  "isUnlocked": false,
   "requiredStars": 2000,
   "sections": [
     {
