@@ -69,15 +69,39 @@ struct VocFrApp: App {
             StoryPage.self,        // Gems system: Storybook pages
             Item.self              // Keep for compatibility
         ])
-        
+
         let configuration = ModelConfiguration(
             schema: schema,
             isStoredInMemoryOnly: false
         )
-        
-        do {
-            let container = try ModelContainer(for: schema, configurations: [configuration])
 
+        var container: ModelContainer
+
+        do {
+            container = try ModelContainer(for: schema, configurations: [configuration])
+        } catch {
+            // If container creation fails due to schema mismatch, delete old database and retry
+            print("⚠️ Model container creation failed, attempting to reset database...")
+            print("Error: \(error)")
+
+            // Delete old database files
+            let fileManager = FileManager.default
+            if let appSupport = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
+                let storeURL = appSupport.appendingPathComponent("default.store")
+                try? fileManager.removeItem(at: storeURL)
+                print("🗑️ Deleted old database at: \(storeURL.path)")
+            }
+
+            // Try again
+            do {
+                container = try ModelContainer(for: schema, configurations: [configuration])
+                print("✅ Successfully created new model container")
+            } catch {
+                fatalError("模型容器创建失败: \(error)")
+            }
+        }
+
+        do {
             // Check if data needs to be seeded
             let context = container.mainContext
             let descriptor = FetchDescriptor<Unite>()
@@ -133,10 +157,10 @@ struct VocFrApp: App {
 
             // Initialize and sync achievements on every app launch
             AchievementManager.shared.initializeAchievements(in: context)
-
-            return container
         } catch {
-            fatalError("模型容器创建失败: \(error)")
+            print("❌ Failed to seed data: \(error)")
         }
+
+        return container
     }
 }
