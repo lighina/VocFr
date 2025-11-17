@@ -85,12 +85,26 @@ struct UniteRowView: View {
                     Image(systemName: "checkmark.circle.fill")
                         .foregroundColor(.green)
                 } else {
-                    VStack {
+                    VStack(alignment: .trailing, spacing: 4) {
                         Image(systemName: "lock")
                             .foregroundColor(.orange)
-                        Text("units.unlock.required".localized(unite.requiredStars))
-                            .font(.caption2)
-                            .foregroundColor(.orange)
+
+                        // Stars or Gems unlock option
+                        HStack(spacing: 4) {
+                            Text("⭐ \(unite.requiredStars)")
+                                .font(.caption2)
+                                .foregroundColor(.orange)
+
+                            if unite.requiredGems > 0 {
+                                Text("or")
+                                    .font(.caption2)
+                                    .foregroundColor(.secondary)
+
+                                Text("💎 \(unite.requiredGems)")
+                                    .font(.caption2)
+                                    .foregroundColor(.cyan)
+                            }
+                        }
                     }
                 }
             }

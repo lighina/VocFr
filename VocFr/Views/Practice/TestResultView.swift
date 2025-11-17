@@ -58,7 +58,7 @@ struct TestResultView: View {
                         // Earned Stars
                         StatRow(
                             icon: "star.fill",
-                            label: "test.result.earnedStars".localized,
+                            label: "Earned Stars",
                             value: "+\(result.score) ⭐",
                             color: .yellow
                         )
@@ -66,7 +66,7 @@ struct TestResultView: View {
                         // Earned Gems
                         StatRow(
                             icon: "gem.fill",
-                            label: "test.result.earnedGems".localized,
+                            label: "Earned Gems",
                             value: "+\(result.score / 10) 💎",
                             color: .cyan
                         )

@@ -29,7 +29,7 @@ struct ProgressView: View {
     
     private func progressOverview(_ progress: UserProgress) -> some View {
         VStack(spacing: 15) {
-            // Stars and streak
+            // Stars, gems, and streak
             HStack(spacing: 30) {
                 VStack {
                     Image(systemName: "star.fill")
@@ -39,6 +39,18 @@ struct ProgressView: View {
                         .font(.title2)
                         .fontWeight(.bold)
                     Text("progress.total.stars".localized)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+
+                VStack {
+                    Image(systemName: "gem.fill")
+                        .font(.system(size: 40))
+                        .foregroundColor(.cyan)
+                    Text("\(progress.totalGems)")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                    Text("progress.total.gems".localized)
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
