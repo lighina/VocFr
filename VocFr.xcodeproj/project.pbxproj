@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E6D8271C2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav in Resources */ = {isa = PBXBuildFile; fileRef = E6D8271B2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav */; };
 		E6D8271D2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav in Resources */ = {isa = PBXBuildFile; fileRef = E6D8271B2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav */; };
 		E6D8271E2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav in Resources */ = {isa = PBXBuildFile; fileRef = E6D8271B2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav */; };
 /* End PBXBuildFile section */
@@ -200,6 +199,12 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
+				pt,
+				fr,
+				es,
+				de,
+				it,
 			);
 			mainGroup = E60AC56B2E80DB8D00FB6BD1;
 			minimizedProjectReferenceProxies = 1;
@@ -220,7 +225,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6D8271C2E889A810097E590 /* alloy_gpt-4o-mini-tts_0-75x_2025-09-23T22_28_54-859Z.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,13 +430,14 @@
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				XROS_DEPLOYMENT_TARGET = 26.0;
 			};
 			name = Debug;
@@ -469,13 +474,14 @@
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				XROS_DEPLOYMENT_TARGET = 26.0;
 			};
 			name = Release;

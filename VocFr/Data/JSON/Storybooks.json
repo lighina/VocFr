@@ -1,0 +1,122 @@
+[
+  {
+    "id": "storybook_unite1",
+    "title": "À l'école - Mon premier jour",
+    "titleInChinese": "在学校 - 我的第一天",
+    "uniteId": "unite1",
+    "isUnlocked": false,
+    "requiredGems": 10,
+    "orderIndex": 1,
+    "coverImageName": "storybook_unite1_cover",
+    "pages": [
+      {
+        "pageNumber": 1,
+        "contentFrench": "C'est mon premier jour à l'école.",
+        "contentChinese": "这是我在学校的第一天。",
+        "imageName": "storybook_unite1_page1",
+        "audioFileName": "storybook_unite1_page1.mp3"
+      },
+      {
+        "pageNumber": 2,
+        "contentFrench": "Je vois un bureau, une chaise et un tableau.",
+        "contentChinese": "我看到一张课桌、一把椅子和一块黑板。",
+        "imageName": "storybook_unite1_page2",
+        "audioFileName": "storybook_unite1_page2.mp3"
+      },
+      {
+        "pageNumber": 3,
+        "contentFrench": "Le professeur dit: \"Bonjour les enfants!\"",
+        "contentChinese": "老师说："孩子们，你们好！"",
+        "imageName": "storybook_unite1_page3",
+        "audioFileName": "storybook_unite1_page3.mp3"
+      },
+      {
+        "pageNumber": 4,
+        "contentFrench": "J'aime mon école!",
+        "contentChinese": "我喜欢我的学校！",
+        "imageName": "storybook_unite1_page4",
+        "audioFileName": "storybook_unite1_page4.mp3"
+      }
+    ]
+  },
+  {
+    "id": "storybook_unite2",
+    "title": "C'est la fête - L'anniversaire de Marie",
+    "titleInChinese": "庆祝 - 玛丽的生日",
+    "uniteId": "unite2",
+    "isUnlocked": false,
+    "requiredGems": 10,
+    "orderIndex": 2,
+    "coverImageName": "storybook_unite2_cover",
+    "pages": [
+      {
+        "pageNumber": 1,
+        "contentFrench": "Aujourd'hui, c'est l'anniversaire de Marie.",
+        "contentChinese": "今天是玛丽的生日。",
+        "imageName": "storybook_unite2_page1",
+        "audioFileName": "storybook_unite2_page1.mp3"
+      },
+      {
+        "pageNumber": 2,
+        "contentFrench": "Sa famille est là: papa, maman, et son frère.",
+        "contentChinese": "她的家人都在：爸爸、妈妈和她的哥哥。",
+        "imageName": "storybook_unite2_page2",
+        "audioFileName": "storybook_unite2_page2.mp3"
+      },
+      {
+        "pageNumber": 3,
+        "contentFrench": "Il y a un gâteau avec des bougies!",
+        "contentChinese": "有一个带蜡烛的蛋糕！",
+        "imageName": "storybook_unite2_page3",
+        "audioFileName": "storybook_unite2_page3.mp3"
+      },
+      {
+        "pageNumber": 4,
+        "contentFrench": "Joyeux anniversaire Marie!",
+        "contentChinese": "玛丽，生日快乐！",
+        "imageName": "storybook_unite2_page4",
+        "audioFileName": "storybook_unite2_page4.mp3"
+      }
+    ]
+  },
+  {
+    "id": "storybook_unite3",
+    "title": "Mon chez-moi - La maison de Lucas",
+    "titleInChinese": "我的家 - 卢卡斯的房子",
+    "uniteId": "unite3",
+    "isUnlocked": false,
+    "requiredGems": 10,
+    "orderIndex": 3,
+    "coverImageName": "storybook_unite3_cover",
+    "pages": [
+      {
+        "pageNumber": 1,
+        "contentFrench": "Voici ma maison!",
+        "contentChinese": "这是我的房子！",
+        "imageName": "storybook_unite3_page1",
+        "audioFileName": "storybook_unite3_page1.mp3"
+      },
+      {
+        "pageNumber": 2,
+        "contentFrench": "Dans la cuisine, il y a une table et des chaises.",
+        "contentChinese": "厨房里有一张桌子和几把椅子。",
+        "imageName": "storybook_unite3_page2",
+        "audioFileName": "storybook_unite3_page2.mp3"
+      },
+      {
+        "pageNumber": 3,
+        "contentFrench": "Ma chambre est au premier étage.",
+        "contentChinese": "我的房间在二楼。",
+        "imageName": "storybook_unite3_page3",
+        "audioFileName": "storybook_unite3_page3.mp3"
+      },
+      {
+        "pageNumber": 4,
+        "contentFrench": "J'adore ma maison!",
+        "contentChinese": "我喜欢我的房子！",
+        "imageName": "storybook_unite3_page4",
+        "audioFileName": "storybook_unite3_page4.mp3"
+      }
+    ]
+  }
+]

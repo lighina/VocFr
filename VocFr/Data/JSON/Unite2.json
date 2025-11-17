@@ -1,0 +1,749 @@
+{
+  "id": "unite2",
+  "number": 2,
+  "title": "C'est la fête",
+  "isUnlocked": false,
+  "requiredStars": 1000,
+  "requiredGems": 100,
+  "sections": [
+    {
+      "id": "section2_1",
+      "name": "la famille",
+      "orderIndex": 1,
+      "words": [
+        {
+          "canonical": "famille",
+          "chinese": "家庭",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "family",
+          "elision": false
+        },
+        {
+          "canonical": "père",
+          "chinese": "父亲",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "family",
+          "elision": false
+        },
+        {
+          "canonical": "mère",
+          "chinese": "母亲",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "family",
+          "elision": false
+        },
+        {
+          "canonical": "parents",
+          "chinese": "父母",
+          "partOfSpeech": "noun",
+          "genderOrPos": "plural",
+          "category": "family",
+          "elision": false
+        },
+        {
+          "canonical": "papa",
+          "chinese": "爸爸",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "family",
+          "elision": false
+        },
+        {
+          "canonical": "maman",
+          "chinese": "妈妈",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "family",
+          "elision": false
+        },
+        {
+          "canonical": "grand-père",
+          "chinese": "爷爷/外公",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "family",
+          "elision": false
+        },
+        {
+          "canonical": "grand-mère",
+          "chinese": "奶奶/外婆",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "family",
+          "elision": false
+        },
+        {
+          "canonical": "grands-parents",
+          "chinese": "祖父母/外祖父母",
+          "partOfSpeech": "noun",
+          "genderOrPos": "plural",
+          "category": "family",
+          "elision": false
+        },
+        {
+          "canonical": "papy",
+          "chinese": "爷爷",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "family",
+          "elision": false
+        },
+        {
+          "canonical": "mamie",
+          "chinese": "奶奶",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "family",
+          "elision": false
+        },
+        {
+          "canonical": "frère",
+          "chinese": "兄弟",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "family",
+          "elision": false
+        },
+        {
+          "canonical": "soeur",
+          "chinese": "姐妹",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "family",
+          "elision": false
+        },
+        {
+          "canonical": "oncle",
+          "chinese": "叔叔/舅舅",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "family",
+          "elision": true
+        },
+        {
+          "canonical": "tante",
+          "chinese": "阿姨/姑姑",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "family",
+          "elision": false
+        }
+      ]
+    },
+    {
+      "id": "section2_2",
+      "name": "les aliments",
+      "orderIndex": 2,
+      "words": [
+        {
+          "canonical": "gâteau",
+          "chinese": "蛋糕",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "tarte",
+          "chinese": "馅饼",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "glace",
+          "chinese": "冰淇淋",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "bonbon",
+          "chinese": "糖果",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "chocolat",
+          "chinese": "巧克力",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "pain",
+          "chinese": "面包",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "baguette",
+          "chinese": "法式长棍面包",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "fruits",
+          "chinese": "水果",
+          "partOfSpeech": "noun",
+          "genderOrPos": "plural",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "citron",
+          "chinese": "柠檬",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "banane",
+          "chinese": "香蕉",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "pomme",
+          "chinese": "苹果",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "poire",
+          "chinese": "梨",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "fraise",
+          "chinese": "草莓",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "orange",
+          "chinese": "橙子",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": true
+        },
+        {
+          "canonical": "melon",
+          "chinese": "甜瓜",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "ananas",
+          "chinese": "菠萝",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": true
+        },
+        {
+          "canonical": "salade de fruits",
+          "chinese": "水果沙拉",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "légumes",
+          "chinese": "蔬菜",
+          "partOfSpeech": "noun",
+          "genderOrPos": "plural",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "poivron",
+          "chinese": "甜椒",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "salade",
+          "chinese": "沙拉",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "carotte",
+          "chinese": "胡萝卜",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "tomate",
+          "chinese": "西红柿",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "concombre",
+          "chinese": "黄瓜",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "champignon",
+          "chinese": "蘑菇",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "pomme de terre",
+          "chinese": "土豆",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "fromage",
+          "chinese": "奶酪",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "saucisse",
+          "chinese": "香肠",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "poisson",
+          "chinese": "鱼",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "viande",
+          "chinese": "肉",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "boissons",
+          "chinese": "饮料",
+          "partOfSpeech": "noun",
+          "genderOrPos": "plural",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "eau",
+          "chinese": "水",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": true
+        },
+        {
+          "canonical": "limonade",
+          "chinese": "柠檬汽水",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "jus",
+          "chinese": "果汁",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "jus d'orange",
+          "chinese": "橙汁",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "lait",
+          "chinese": "牛奶",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "café",
+          "chinese": "咖啡",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "thé",
+          "chinese": "茶",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "sucre",
+          "chinese": "糖",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "poivre",
+          "chinese": "胡椒",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false
+        },
+        {
+          "canonical": "sel",
+          "chinese": "盐",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false
+        }
+      ]
+    },
+    {
+      "id": "section2_3",
+      "name": "autres vocables",
+      "orderIndex": 3,
+      "words": [
+        {
+          "canonical": "fête",
+          "chinese": "聚会",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "other",
+          "elision": false
+        },
+        {
+          "canonical": "invitation",
+          "chinese": "邀请",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "other",
+          "elision": true
+        },
+        {
+          "canonical": "musique",
+          "chinese": "音乐",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "other",
+          "elision": false
+        },
+        {
+          "canonical": "il est",
+          "chinese": "他是",
+          "partOfSpeech": "other",
+          "genderOrPos": "other",
+          "category": "other",
+          "elision": false
+        },
+        {
+          "canonical": "et",
+          "chinese": "和",
+          "partOfSpeech": "other",
+          "genderOrPos": "other",
+          "category": "other",
+          "elision": false
+        }
+      ]
+    },
+    {
+      "id": "section2_4",
+      "name": "les verbes",
+      "orderIndex": 4,
+      "words": [
+        {
+          "canonical": "avoir",
+          "chinese": "有",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false
+        },
+        {
+          "canonical": "aimer",
+          "chinese": "爱/喜欢",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false
+        },
+        {
+          "canonical": "manger",
+          "chinese": "吃",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false
+        },
+        {
+          "canonical": "couper",
+          "chinese": "切",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false
+        },
+        {
+          "canonical": "éplucher",
+          "chinese": "削皮",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false
+        },
+        {
+          "canonical": "prendre",
+          "chinese": "拿/取",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false
+        },
+        {
+          "canonical": "mettre",
+          "chinese": "放/穿",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false
+        }
+      ]
+    },
+    {
+      "id": "section2_5",
+      "name": "les nombres jusqu'à 20",
+      "orderIndex": 5,
+      "words": [
+        {
+          "canonical": "zéro",
+          "chinese": "零",
+          "partOfSpeech": "number",
+          "genderOrPos": "number",
+          "category": "numbers",
+          "elision": false
+        },
+        {
+          "canonical": "un",
+          "chinese": "一",
+          "partOfSpeech": "number",
+          "genderOrPos": "number",
+          "category": "numbers",
+          "elision": false
+        },
+        {
+          "canonical": "deux",
+          "chinese": "二",
+          "partOfSpeech": "number",
+          "genderOrPos": "number",
+          "category": "numbers",
+          "elision": false
+        },
+        {
+          "canonical": "trois",
+          "chinese": "三",
+          "partOfSpeech": "number",
+          "genderOrPos": "number",
+          "category": "numbers",
+          "elision": false
+        },
+        {
+          "canonical": "quatre",
+          "chinese": "四",
+          "partOfSpeech": "number",
+          "genderOrPos": "number",
+          "category": "numbers",
+          "elision": false
+        },
+        {
+          "canonical": "cinq",
+          "chinese": "五",
+          "partOfSpeech": "number",
+          "genderOrPos": "number",
+          "category": "numbers",
+          "elision": false
+        },
+        {
+          "canonical": "six",
+          "chinese": "六",
+          "partOfSpeech": "number",
+          "genderOrPos": "number",
+          "category": "numbers",
+          "elision": false
+        },
+        {
+          "canonical": "sept",
+          "chinese": "七",
+          "partOfSpeech": "number",
+          "genderOrPos": "number",
+          "category": "numbers",
+          "elision": false
+        },
+        {
+          "canonical": "huit",
+          "chinese": "八",
+          "partOfSpeech": "number",
+          "genderOrPos": "number",
+          "category": "numbers",
+          "elision": false
+        },
+        {
+          "canonical": "neuf",
+          "chinese": "九",
+          "partOfSpeech": "number",
+          "genderOrPos": "number",
+          "category": "numbers",
+          "elision": false
+        },
+        {
+          "canonical": "dix",
+          "chinese": "十",
+          "partOfSpeech": "number",
+          "genderOrPos": "number",
+          "category": "numbers",
+          "elision": false
+        },
+        {
+          "canonical": "onze",
+          "chinese": "十一",
+          "partOfSpeech": "number",
+          "genderOrPos": "number",
+          "category": "numbers",
+          "elision": false
+        },
+        {
+          "canonical": "douze",
+          "chinese": "十二",
+          "partOfSpeech": "number",
+          "genderOrPos": "number",
+          "category": "numbers",
+          "elision": false
+        },
+        {
+          "canonical": "treize",
+          "chinese": "十三",
+          "partOfSpeech": "number",
+          "genderOrPos": "number",
+          "category": "numbers",
+          "elision": false
+        },
+        {
+          "canonical": "quatorze",
+          "chinese": "十四",
+          "partOfSpeech": "number",
+          "genderOrPos": "number",
+          "category": "numbers",
+          "elision": false
+        },
+        {
+          "canonical": "quinze",
+          "chinese": "十五",
+          "partOfSpeech": "number",
+          "genderOrPos": "number",
+          "category": "numbers",
+          "elision": false
+        },
+        {
+          "canonical": "seize",
+          "chinese": "十六",
+          "partOfSpeech": "number",
+          "genderOrPos": "number",
+          "category": "numbers",
+          "elision": false
+        },
+        {
+          "canonical": "dix-sept",
+          "chinese": "十七",
+          "partOfSpeech": "number",
+          "genderOrPos": "number",
+          "category": "numbers",
+          "elision": false
+        },
+        {
+          "canonical": "dix-huit",
+          "chinese": "十八",
+          "partOfSpeech": "number",
+          "genderOrPos": "number",
+          "category": "numbers",
+          "elision": false
+        },
+        {
+          "canonical": "dix-neuf",
+          "chinese": "十九",
+          "partOfSpeech": "number",
+          "genderOrPos": "number",
+          "category": "numbers",
+          "elision": false
+        },
+        {
+          "canonical": "vingt",
+          "chinese": "二十",
+          "partOfSpeech": "number",
+          "genderOrPos": "number",
+          "category": "numbers",
+          "elision": false
+        }
+      ]
+    }
+  ]
+}

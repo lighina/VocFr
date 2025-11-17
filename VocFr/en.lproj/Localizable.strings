@@ -1,0 +1,405 @@
+/*
+  Localizable.strings (English)
+  VocFr
+
+  Created by Claude on 14/11/2025.
+  Part B.2: Basic Internationalization
+*/
+
+// MARK: - Welcome View
+
+"welcome.title" = "French Learning";
+"welcome.subtitle" = "Start Your French Learning Journey";
+"welcome.feature.courses.title" = "Rich Courses";
+"welcome.feature.courses.description" = "Systematic French Learning Content";
+"welcome.feature.audio.title" = "Audio Practice";
+"welcome.feature.audio.description" = "Standard French Pronunciation Guide";
+"welcome.feature.progress.title" = "Learning Progress";
+"welcome.feature.progress.description" = "Track Your Learning Achievements";
+"welcome.button.start" = "Start Learning";
+
+// MARK: - Units View
+
+"units.title" = "French Learning";
+"units.import.button" = "Import Data";
+"units.import.alert.title" = "Data Import";
+"units.import.alert.ok" = "OK";
+"units.import.success" = "Data imported successfully!";
+"units.import.failed" = "Import failed: %@";
+"units.unite.title" = "Unité %d: %@";
+"units.sections.count" = "%d sections";
+"units.unlock.required" = "Need %d stars";
+
+// MARK: - Stars Progress View
+
+"stars.label" = "stars";
+"stars.streak.days" = "%d days";
+"stars.next.unlock" = "Next Unlock: Unité %d";
+"stars.need.more" = "Need %d more stars";
+"stars.all.unlocked" = "🎉 All units unlocked!";
+
+// MARK: - Practice View
+
+"practice.title" = "Practice: %@";
+"practice.no.words" = "No words to practice";
+"practice.question" = "Quel est le mot?";
+"practice.correct.count" = "Correct: %d";
+"practice.progress" = "%d / %d";
+"practice.completed.title" = "Practice Complete!";
+"practice.accuracy" = "Accuracy: %d%%";
+"practice.results" = "Correct: %d / %d words";
+"practice.points.earned" = "+%d stars";
+"practice.button.retry" = "Retry";
+
+// MARK: - Listening Practice
+
+"listening.practice.title" = "Listening Practice: %@";
+"listening.practice.question" = "Listen and choose the correct word";
+"listening.practice.play.count" = "Plays:";
+"listening.practice.instruction" = "Tap the speaker to hear the word";
+
+// MARK: - Matching Game
+
+"matching.game.title" = "Matching Game: %@";
+"matching.game.instruction" = "Match images with French words";
+"matching.game.progress" = "Matched:";
+"matching.game.completed.title" = "Congratulations!";
+"matching.game.time" = "Time:";
+"matching.game.attempts" = "Attempts:";
+"matching.game.total.score" = "Total Score: %d stars";
+
+// MARK: - Flashcard Mode
+
+"flashcard.title" = "Flashcards: %@";
+"flashcard.tap.to.flip" = "Tap to flip";
+"flashcard.play.audio" = "Play Audio";
+"flashcard.progress" = "Progress:";
+"flashcard.due" = "Due";
+"flashcard.new" = "New";
+"flashcard.mastered" = "Mastered";
+"flashcard.know" = "I Know";
+"flashcard.dont.know" = "Don't Know";
+"flashcard.completed.title" = "Review Complete!";
+"flashcard.cards.reviewed" = "Cards Reviewed:";
+"flashcard.success.rate" = "Success Rate:";
+"flashcard.restart" = "Review Again";
+"flashcard.all.done" = "All Done!";
+"flashcard.all.done.message" = "No cards due for review today. Come back tomorrow!";
+
+// MARK: - Spelling Practice
+
+"spelling.title" = "Spelling Practice: %@";
+"spelling.progress" = "Progress:";
+"spelling.play.audio" = "Play Audio";
+"spelling.type.word" = "Type the French word:";
+"spelling.special.chars" = "Special Characters:";
+"spelling.hint" = "Hint:";
+"spelling.hint.button" = "Hint";
+"spelling.check" = "Check";
+"spelling.next" = "Next";
+"spelling.correct.answer" = "Correct answer:";
+"spelling.result.correct" = "Perfect! ✨";
+"spelling.result.case" = "Correct! (Watch capitalization)";
+"spelling.result.missing.accents" = "Almost! Missing accents";
+"spelling.result.missing.accents.detail" = "Don't forget the accent marks";
+"spelling.result.wrong.accents" = "Wrong accents";
+"spelling.result.wrong.accents.detail" = "Check the accent marks carefully";
+"spelling.result.close" = "Close!";
+"spelling.result.close.detail" = "%d character(s) off";
+"spelling.result.incorrect" = "Try again next time";
+"spelling.completed.title" = "Spelling Practice Complete!";
+"spelling.words.practiced" = "Words Practiced:";
+"spelling.correct.count" = "Correct Answers:";
+"spelling.accuracy" = "Accuracy:";
+"spelling.restart" = "Practice Again";
+"spelling.empty.title" = "No Words Available";
+"spelling.empty.message" = "This section has no words for spelling practice.";
+
+// MARK: - Section View
+
+"section.button.practice" = "Practice";
+"section.practice.visual" = "Visual Practice";
+"section.practice.listening" = "Listening Practice";
+"section.practice.matching" = "Matching Game";
+"section.practice.flashcard" = "Flashcards";
+"section.practice.spelling" = "Spelling Practice";
+"section.practice.hangman" = "Hangman Game";
+
+// MARK: - Main App View
+
+"main.title" = "French Learning";
+"main.select.mode" = "Select Learning Mode";
+"main.select.mode.subtitle" = "Choose your learning style";
+"main.study.title" = "Study";
+"main.study.description" = "Learn French vocabulary";
+"main.test.title" = "Test";
+"main.test.description" = "Test your French proficiency";
+"main.game.title" = "Game";
+"main.game.description" = "Play word guessing games";
+"main.storybooks.title" = "Storybooks";
+"main.storybooks.description" = "Read French stories with learned vocabulary";
+
+// MARK: - Game Mode
+
+"game.mode.title" = "Game Mode";
+"game.mode.subtitle" = "Choose a section to play Hangman";
+"game.select.section" = "Select a Section";
+"game.hangman" = "Hangman";
+
+// MARK: - Menu View
+
+"menu.title" = "Menu";
+"menu.button.close" = "Close";
+"menu.achievements.title" = "Achievements";
+"menu.achievements.description" = "View Your Achievements";
+"menu.progress.title" = "Progress";
+"menu.progress.description" = "View Learning Progress";
+"menu.settings.title" = "Settings";
+"menu.settings.description" = "App Settings and Data Management";
+"menu.section.entertainment" = "Entertainment";
+"menu.games.title" = "Games";
+"menu.games.description" = "Play Fun Learning Games";
+"menu.storybooks.title" = "Storybooks";
+"menu.storybooks.description" = "Read French Stories";
+"menu.about.title" = "About";
+"menu.about.description" = "Version Information";
+"menu.help.title" = "Help";
+"menu.help.description" = "Usage Help";
+
+// MARK: - Settings View
+
+"settings.title" = "Settings";
+"settings.language.title" = "Language";
+"settings.language.description" = "App Interface Language";
+"settings.data.title" = "Data Management";
+"settings.data.description" = "Import, Export, Reset";
+"settings.data.reimport" = "Reimport Data";
+"settings.data.export" = "Export Learning Report";
+"settings.data.reset.stars" = "Reset All Stars";
+"settings.about.title" = "About";
+"settings.about.version" = "Version";
+
+// MARK: - Progress View
+
+"progress.title" = "Progress";
+"progress.no.data" = "No learning progress yet";
+"progress.total.stars" = "Total Stars";
+"progress.current.streak" = "Current Streak";
+"progress.last.study" = "Last Study: %@";
+"progress.recent.activity" = "Recent Activity";
+"progress.no.records" = "No practice records yet";
+"progress.words.count" = "%d words";
+"progress.accuracy.label" = "%d%% accuracy";
+"progress.practice.sessions" = "Practice Sessions";
+"progress.words.learned" = "Words Learned";
+
+// MARK: - Test Mode View
+
+"test.title" = "Test";
+"test.mode.title" = "Test Mode";
+"test.coming.soon" = "Test feature is under development";
+
+// MARK: - Section Detail View
+
+"section.words.count" = "%d words";
+
+// MARK: - Common
+
+"common.loading" = "Loading...";
+"common.error" = "Error";
+"common.cancel" = "Cancel";
+"common.done" = "Done";
+"common.save" = "Save";
+"common.delete" = "Delete";
+
+// MARK: - Achievements
+
+"achievement.title" = "Achievements";
+"achievement.unlocked" = "Achievement Unlocked!";
+"achievement.unlocked.count" = "Achievements Unlocked";
+"achievement.empty" = "No achievements found";
+"achievement.category.all" = "All";
+
+// Achievement Categories
+"Learning Milestones" = "Learning Milestones";
+"Practice Master" = "Practice Master";
+"Consistency" = "Consistency";
+"Star Collector" = "Star Collector";
+"Explorer" = "Explorer";
+"Special" = "Special";
+
+// Learning Milestone Achievements
+"achievement.words.10.title" = "First Steps";
+"achievement.words.10.description" = "Learn 10 words";
+"achievement.words.50.title" = "Bookworm";
+"achievement.words.50.description" = "Learn 50 words";
+"achievement.words.100.title" = "Word Master";
+"achievement.words.100.description" = "Learn 100 words";
+"achievement.words.200.title" = "Vocabulary Expert";
+"achievement.words.200.description" = "Learn 200 words";
+"achievement.words.500.title" = "French Scholar";
+"achievement.words.500.description" = "Learn 500 words";
+
+// Practice Achievements
+"achievement.practice.5.title" = "Practice Beginner";
+"achievement.practice.5.description" = "Complete 5 practice sessions";
+"achievement.practice.20.title" = "Practice Champion";
+"achievement.practice.20.description" = "Complete 20 practice sessions";
+"achievement.perfect.10.title" = "Perfectionist";
+"achievement.perfect.10.description" = "Get perfect score 10 times";
+"achievement.perfect.single.title" = "Flawless Victory";
+"achievement.perfect.single.description" = "Get 20/20 in a single practice";
+
+// Streak Achievements
+"achievement.streak.3.title" = "Getting Started";
+"achievement.streak.3.description" = "Practice for 3 days in a row";
+"achievement.streak.7.title" = "Week Warrior";
+"achievement.streak.7.description" = "Practice for 7 days in a row";
+"achievement.streak.30.title" = "Month Master";
+"achievement.streak.30.description" = "Practice for 30 days in a row";
+"achievement.streak.100.title" = "Dedication Legend";
+"achievement.streak.100.description" = "Practice for 100 days in a row";
+
+// Points Achievements
+"achievement.stars.100.title" = "Star Beginner";
+"achievement.stars.100.description" = "Earn 100 stars";
+"achievement.stars.500.title" = "Star Collector";
+"achievement.stars.500.description" = "Earn 500 stars";
+"achievement.stars.1000.title" = "Star Master";
+"achievement.stars.1000.description" = "Earn 1000 stars";
+
+// Exploration Achievements
+"achievement.unlock.unit.title" = "Explorer";
+"achievement.unlock.unit.description" = "Unlock a new unit";
+"achievement.complete.section.10.title" = "Section Master";
+"achievement.complete.section.10.description" = "Complete 10 sections";
+"achievement.complete.unit.title" = "Unit Champion";
+"achievement.complete.unit.description" = "Complete an entire unit";
+
+// Special Achievements
+"achievement.early.bird.title" = "Early Bird";
+"achievement.early.bird.description" = "Practice between 5 AM - 8 AM";
+"achievement.night.owl.title" = "Night Owl";
+"achievement.night.owl.description" = "Practice between 10 PM - 2 AM";
+"achievement.speed.run.title" = "Speed Runner";
+"achievement.speed.run.description" = "Perfect score in under 60 seconds";
+"achievement.birthday.title" = "Anniversary";
+"achievement.birthday.description" = "Practice on your account anniversary";
+
+// MARK: - Word Detail View
+
+"word.detail.tap.hint" = "Tap the image to show the word card";
+
+// MARK: - Hangman Game
+
+"hangman.tap.letter" = "Tap a letter to guess";
+"hangman.guess.whole.word" = "Or guess the whole word:";
+"hangman.type.word" = "Type the word...";
+"hangman.won.title" = "You Won!";
+"hangman.lost.title" = "Game Over";
+"hangman.correct.answer" = "The correct answer was:";
+"hangman.retry" = "Retry";
+"hangman.next" = "Next Word";
+"hangman.session.complete" = "Session Complete!";
+"hangman.words.completed" = "Words Completed:";
+"hangman.words.won" = "Words Won:";
+"hangman.win.rate" = "Win Rate:";
+"hangman.total.points" = "Total Points:";
+"hangman.play.again" = "Play Again";
+
+// MARK: - Game Mode View
+
+"game.mode.games.list" = "Games List";
+"game.mode.matching.title" = "Matching Game";
+"game.mode.matching.description" = "Match from all learned vocabulary (6 pairs)";
+"game.mode.hangman.section" = "Hangman - Select by Unite";
+"game.mode.hangman.all.words" = "All Learned Vocabulary";
+"game.mode.words.count" = "%d words";
+"game.mode.back.to.games" = "Games";
+"matching.game.all.words.title" = "Matching Game";
+"matching.game.instruction.all" = "Find 6 pairs of French words and their images";
+"matching.game.matched.pairs" = "Matched";
+"matching.game.attempts.count" = "Attempts";
+"matching.game.excellent" = "Excellent!";
+"matching.game.pairs.count" = "Pairs";
+"matching.game.accuracy.rate" = "Accuracy";
+"matching.game.play.again" = "Play Again";
+"game.mode.hangman.subtitle" = "Tap to select a unit";
+"game.mode.matching.subtitle" = "6 pairs of learned vocabulary";
+
+// MARK: - Test Mode
+
+"test.select.unite" = "Select a unit to test";
+"test.comprehensive" = "Comprehensive Test";
+"test.all.units" = "All learned units";
+"test.best.score" = "Best: %d";
+"test.question.imageToWord" = "Choose the correct French word";
+"test.question.audioToWord" = "Listen and choose the correct word";
+"test.question.spelling" = "Type the correct spelling";
+"test.question.genderGuess" = "Choose the gender of this noun";
+"test.gender.masculine" = "Masculine (le)";
+"test.gender.feminine" = "Feminine (la)";
+"test.button.previous" = "Previous";
+"test.button.next" = "Next";
+"test.button.finish" = "Finish Test";
+"test.button.listen" = "Listen";
+"test.result.title" = "Test Result";
+"test.result.score" = "Score";
+"test.result.correct" = "Correct";
+"test.result.time" = "Time";
+"test.result.imageToWord" = "Image Recognition";
+"test.result.audioToWord" = "Listening";
+"test.result.spelling" = "Spelling";
+"test.result.genderGuess" = "Gender";
+"test.rating.excellent" = "Excellent!";
+"test.rating.good" = "Good!";
+"test.rating.pass" = "Pass";
+"test.rating.needsReview" = "Needs Review";
+"test.button.retry" = "Retry Test";
+"test.button.viewWrong" = "Review Mistakes";
+"test.button.back" = "Back";
+
+// MARK: - Wrong Answer Book
+
+"wrong.answer.book.title" = "Review Book";
+"wrong.answer.empty.title" = "Excellent!";
+"wrong.answer.empty.subtitle" = "No mistakes yet";
+"wrong.answer.count" = "%d mistakes in total";
+"wrong.answer.your.answer" = "Your answer: %@";
+"wrong.answer.correct.answer" = "Correct answer: %@";
+"wrong.answer.wrong.count" = "Incorrect %d times";
+"wrong.answer.type.imageToWord" = "Image to Word";
+"wrong.answer.type.audioToWord" = "Audio to Word";
+"wrong.answer.type.spelling" = "Spelling";
+"wrong.answer.type.genderGuess" = "Gender";
+
+// MARK: - Games List
+
+"games.title" = "Fun Games";
+"games.subtitle" = "Play games and practice French vocabulary!";
+"games.navigation.title" = "Games";
+"games.status.unlocked" = "Unlocked";
+"games.unlock.title" = "Unlock Game";
+"games.unlock.message" = "Unlock \"%@\" for %d gems?";
+"games.unlock.confirm" = "Unlock";
+"games.unlock.cancel" = "Cancel";
+
+// MARK: - Storybooks
+
+"storybooks.title" = "French Stories";
+"storybooks.subtitle" = "Read engaging French stories with learned vocabulary";
+"storybooks.navigation.title" = "Storybooks";
+"storybooks.status.unlocked" = "Unlocked";
+"storybooks.to.unlock" = "to unlock";
+"storybooks.unlock.title" = "Unlock Storybook";
+"storybooks.unlock.message" = "Unlock \"%@\" for %d gems?";
+"storybooks.unlock.confirm" = "Unlock";
+"storybooks.unlock.cancel" = "Cancel";
+
+// MARK: - Storybook Reader
+
+"storybook.previous" = "Previous";
+"storybook.next" = "Next";
+"storybook.finish" = "Finish";
+"storybook.french" = "French";
+"storybook.chinese" = "Chinese";

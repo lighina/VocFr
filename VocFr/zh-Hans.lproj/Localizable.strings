@@ -1,0 +1,405 @@
+/*
+  Localizable.strings (Simplified Chinese)
+  VocFr
+
+  Created by Claude on 14/11/2025.
+  Part B.2: Basic Internationalization
+*/
+
+// MARK: - Welcome View
+
+"welcome.title" = "法语学习";
+"welcome.subtitle" = "开始您的法语学习之旅";
+"welcome.feature.courses.title" = "丰富课程";
+"welcome.feature.courses.description" = "系统化的法语学习内容";
+"welcome.feature.audio.title" = "音频练习";
+"welcome.feature.audio.description" = "标准法语发音指导";
+"welcome.feature.progress.title" = "学习进度";
+"welcome.feature.progress.description" = "追踪您的学习成就";
+"welcome.button.start" = "开始学习";
+
+// MARK: - Units View
+
+"units.title" = "法语学习";
+"units.import.button" = "导入数据";
+"units.import.alert.title" = "数据导入";
+"units.import.alert.ok" = "确定";
+"units.import.success" = "数据导入成功！";
+"units.import.failed" = "导入失败：%@";
+"units.unite.title" = "Unité %d: %@";
+"units.sections.count" = "%d 个章节";
+"units.unlock.required" = "需要 %d 星";
+
+// MARK: - Stars Progress View
+
+"stars.label" = "星";
+"stars.streak.days" = "%d天";
+"stars.next.unlock" = "下一解锁：Unité %d";
+"stars.need.more" = "还需 %d 星";
+"stars.all.unlocked" = "🎉 所有单元已解锁！";
+
+// MARK: - Practice View
+
+"practice.title" = "练习: %@";
+"practice.no.words" = "没有单词可以练习";
+"practice.question" = "Quel est le mot?";
+"practice.correct.count" = "正确: %d";
+"practice.progress" = "%d / %d";
+"practice.completed.title" = "练习完成！";
+"practice.accuracy" = "正确率: %d%%";
+"practice.results" = "答对 %d / %d 个单词";
+"practice.points.earned" = "+%d 星";
+"practice.button.retry" = "重新练习";
+
+// MARK: - Listening Practice
+
+"listening.practice.title" = "听力练习: %@";
+"listening.practice.question" = "听音频，选择正确的单词";
+"listening.practice.play.count" = "播放次数:";
+"listening.practice.instruction" = "点击喇叭播放单词";
+
+// MARK: - Matching Game
+
+"matching.game.title" = "配对游戏: %@";
+"matching.game.instruction" = "将图片与法语单词配对";
+"matching.game.progress" = "已配对:";
+"matching.game.completed.title" = "恭喜完成！";
+"matching.game.time" = "用时:";
+"matching.game.attempts" = "尝试次数:";
+"matching.game.total.score" = "总得分: %d 星";
+
+// MARK: - Flashcard Mode
+
+"flashcard.title" = "闪卡复习: %@";
+"flashcard.tap.to.flip" = "点击翻转";
+"flashcard.play.audio" = "播放音频";
+"flashcard.progress" = "进度:";
+"flashcard.due" = "待复习";
+"flashcard.new" = "新卡片";
+"flashcard.mastered" = "已掌握";
+"flashcard.know" = "认识";
+"flashcard.dont.know" = "不认识";
+"flashcard.completed.title" = "复习完成！";
+"flashcard.cards.reviewed" = "已复习卡片:";
+"flashcard.success.rate" = "正确率:";
+"flashcard.restart" = "再次复习";
+"flashcard.all.done" = "全部完成！";
+"flashcard.all.done.message" = "今天没有需要复习的卡片了，明天再来吧！";
+
+// MARK: - Spelling Practice
+
+"spelling.title" = "拼写练习: %@";
+"spelling.progress" = "进度:";
+"spelling.play.audio" = "播放音频";
+"spelling.type.word" = "输入法语单词:";
+"spelling.special.chars" = "特殊字符:";
+"spelling.hint" = "提示:";
+"spelling.hint.button" = "提示";
+"spelling.check" = "检查";
+"spelling.next" = "下一个";
+"spelling.correct.answer" = "正确答案:";
+"spelling.result.correct" = "完全正确！✨";
+"spelling.result.case" = "正确！（注意大小写）";
+"spelling.result.missing.accents" = "几乎正确！缺少重音符号";
+"spelling.result.missing.accents.detail" = "别忘了重音符号";
+"spelling.result.wrong.accents" = "重音符号错误";
+"spelling.result.wrong.accents.detail" = "请仔细检查重音符号的位置";
+"spelling.result.close" = "接近了！";
+"spelling.result.close.detail" = "还差%d个字符";
+"spelling.result.incorrect" = "下次再试";
+"spelling.completed.title" = "拼写练习完成！";
+"spelling.words.practiced" = "练习单词数:";
+"spelling.correct.count" = "正确答案数:";
+"spelling.accuracy" = "正确率:";
+"spelling.restart" = "再次练习";
+"spelling.empty.title" = "没有可用单词";
+"spelling.empty.message" = "该课程暂无可练习的单词。";
+
+// MARK: - Section View
+
+"section.button.practice" = "练习";
+"section.practice.visual" = "看图练习";
+"section.practice.listening" = "听力练习";
+"section.practice.matching" = "配对游戏";
+"section.practice.flashcard" = "闪卡复习";
+"section.practice.spelling" = "拼写练习";
+"section.practice.hangman" = "猜词游戏";
+
+// MARK: - Main App View
+
+"main.title" = "法语学习";
+"main.select.mode" = "选择学习模式";
+"main.select.mode.subtitle" = "选择适合您的学习方式";
+"main.study.title" = "学习";
+"main.study.description" = "系统化学习法语词汇";
+"main.test.title" = "答题";
+"main.test.description" = "测试您的法语水平";
+"main.game.title" = "游戏";
+"main.game.description" = "玩猜词游戏";
+"main.storybooks.title" = "故事书";
+"main.storybooks.description" = "阅读基于已学词汇的法语故事";
+
+// MARK: - Game Mode
+
+"game.mode.title" = "游戏模式";
+"game.mode.subtitle" = "选择一个章节来玩Hangman";
+"game.select.section" = "选择章节";
+"game.hangman" = "猜词游戏";
+
+// MARK: - Menu View
+
+"menu.title" = "菜单";
+"menu.button.close" = "关闭";
+"menu.achievements.title" = "成就";
+"menu.achievements.description" = "查看您的成就";
+"menu.progress.title" = "进度";
+"menu.progress.description" = "查看学习进度";
+"menu.settings.title" = "设置";
+"menu.settings.description" = "应用设置和数据管理";
+"menu.section.entertainment" = "娱乐";
+"menu.games.title" = "游戏";
+"menu.games.description" = "玩趣味学习游戏";
+"menu.storybooks.title" = "故事书";
+"menu.storybooks.description" = "阅读法语故事";
+"menu.about.title" = "关于";
+"menu.about.description" = "版本信息";
+"menu.help.title" = "帮助";
+"menu.help.description" = "使用帮助";
+
+// MARK: - Settings View
+
+"settings.title" = "设置";
+"settings.language.title" = "语言";
+"settings.language.description" = "应用界面语言";
+"settings.data.title" = "数据管理";
+"settings.data.description" = "导入、导出、重置";
+"settings.data.reimport" = "重新导入数据";
+"settings.data.export" = "导出学习报告";
+"settings.data.reset.stars" = "重置所有星星";
+"settings.about.title" = "关于";
+"settings.about.version" = "版本";
+
+// MARK: - Progress View
+
+"progress.title" = "进度";
+"progress.no.data" = "暂无学习进度";
+"progress.total.stars" = "总星数";
+"progress.current.streak" = "连续天数";
+"progress.last.study" = "上次学习: %@";
+"progress.recent.activity" = "最近活动";
+"progress.no.records" = "暂无练习记录";
+"progress.words.count" = "%d 个单词";
+"progress.accuracy.label" = "%d%% 正确率";
+"progress.practice.sessions" = "练习次数";
+"progress.words.learned" = "已学单词";
+
+// MARK: - Test Mode View
+
+"test.title" = "答题";
+"test.mode.title" = "答题模式";
+"test.coming.soon" = "测试功能正在开发中";
+
+// MARK: - Section Detail View
+
+"section.words.count" = "%d 个单词";
+
+// MARK: - Common
+
+"common.loading" = "加载中...";
+"common.error" = "错误";
+"common.cancel" = "取消";
+"common.done" = "完成";
+"common.save" = "保存";
+"common.delete" = "删除";
+
+// MARK: - Achievements
+
+"achievement.title" = "成就";
+"achievement.unlocked" = "成就解锁！";
+"achievement.unlocked.count" = "已解锁成就";
+"achievement.empty" = "未找到成就";
+"achievement.category.all" = "全部";
+
+// Achievement Categories
+"Learning Milestones" = "学习里程碑";
+"Practice Master" = "练习大师";
+"Consistency" = "持之以恒";
+"Star Collector" = "星星收集者";
+"Explorer" = "探索者";
+"Special" = "特殊成就";
+
+// Learning Milestone Achievements
+"achievement.words.10.title" = "初入门径";
+"achievement.words.10.description" = "学习 10 个单词";
+"achievement.words.50.title" = "勤学善思";
+"achievement.words.50.description" = "学习 50 个单词";
+"achievement.words.100.title" = "词汇达人";
+"achievement.words.100.description" = "学习 100 个单词";
+"achievement.words.200.title" = "词汇专家";
+"achievement.words.200.description" = "学习 200 个单词";
+"achievement.words.500.title" = "法语学者";
+"achievement.words.500.description" = "学习 500 个单词";
+
+// Practice Achievements
+"achievement.practice.5.title" = "练习新手";
+"achievement.practice.5.description" = "完成 5 次练习";
+"achievement.practice.20.title" = "练习冠军";
+"achievement.practice.20.description" = "完成 20 次练习";
+"achievement.perfect.10.title" = "完美主义";
+"achievement.perfect.10.description" = "获得 10 次满分";
+"achievement.perfect.single.title" = "完美胜利";
+"achievement.perfect.single.description" = "单次练习获得 20/20 满分";
+
+// Streak Achievements
+"achievement.streak.3.title" = "初露锋芒";
+"achievement.streak.3.description" = "连续练习 3 天";
+"achievement.streak.7.title" = "一周战士";
+"achievement.streak.7.description" = "连续练习 7 天";
+"achievement.streak.30.title" = "月度大师";
+"achievement.streak.30.description" = "连续练习 30 天";
+"achievement.streak.100.title" = "坚持传奇";
+"achievement.streak.100.description" = "连续练习 100 天";
+
+// Points Achievements
+"achievement.stars.100.title" = "星星新手";
+"achievement.stars.100.description" = "获得 100 颗星";
+"achievement.stars.500.title" = "星星收集者";
+"achievement.stars.500.description" = "获得 500 颗星";
+"achievement.stars.1000.title" = "星星大师";
+"achievement.stars.1000.description" = "获得 1000 颗星";
+
+// Exploration Achievements
+"achievement.unlock.unit.title" = "探索者";
+"achievement.unlock.unit.description" = "解锁新单元";
+"achievement.complete.section.10.title" = "章节大师";
+"achievement.complete.section.10.description" = "完成 10 个章节";
+"achievement.complete.unit.title" = "单元冠军";
+"achievement.complete.unit.description" = "完成整个单元";
+
+// Special Achievements
+"achievement.early.bird.title" = "早起的鸟儿";
+"achievement.early.bird.description" = "在早上 5-8 点练习";
+"achievement.night.owl.title" = "夜猫子";
+"achievement.night.owl.description" = "在晚上 10 点至凌晨 2 点练习";
+"achievement.speed.run.title" = "速度挑战";
+"achievement.speed.run.description" = "60秒内获得满分";
+"achievement.birthday.title" = "周年纪念";
+"achievement.birthday.description" = "在账户周年纪念日练习";
+
+// MARK: - Word Detail View
+
+"word.detail.tap.hint" = "点击图片显示单词卡";
+
+// MARK: - Hangman Game
+
+"hangman.tap.letter" = "点击字母进行猜测";
+"hangman.guess.whole.word" = "或猜整个单词：";
+"hangman.type.word" = "输入单词...";
+"hangman.won.title" = "你赢了！";
+"hangman.lost.title" = "游戏结束";
+"hangman.correct.answer" = "正确答案是：";
+"hangman.retry" = "重试";
+"hangman.next" = "下一个单词";
+"hangman.session.complete" = "本轮完成！";
+"hangman.words.completed" = "完成单词数：";
+"hangman.words.won" = "猜对单词数：";
+"hangman.win.rate" = "胜率：";
+"hangman.total.points" = "总分：";
+"hangman.play.again" = "再玩一次";
+
+// MARK: - Game Mode View
+
+"game.mode.games.list" = "[TODO] Games List";
+"game.mode.matching.title" = "配对游戏";
+"game.mode.matching.description" = "从所有学过的词汇中配对 (6对)";
+"game.mode.hangman.section" = "吊人游戏 - 按单元选择";
+"game.mode.hangman.all.words" = "所有学习过单词";
+"game.mode.words.count" = "%d 个单词";
+"game.mode.back.to.games" = "游戏";
+"matching.game.all.words.title" = "配对游戏";
+"matching.game.instruction.all" = "找出6对法语单词与图片的配对";
+"matching.game.matched.pairs" = "已配对";
+"matching.game.attempts.count" = "尝试次数";
+"matching.game.excellent" = "太棒了！";
+"matching.game.pairs.count" = "配对数";
+"matching.game.accuracy.rate" = "准确率";
+"matching.game.play.again" = "再玩一次";
+"game.mode.hangman.subtitle" = "点击选择单元";
+"game.mode.matching.subtitle" = "6对已学词汇";
+
+// MARK: - Test Mode
+
+"test.select.unite" = "选择要测试的单元";
+"test.comprehensive" = "综合测试";
+"test.all.units" = "所有已学单元";
+"test.best.score" = "最高分：%d";
+"test.question.imageToWord" = "选择正确的法语单词";
+"test.question.audioToWord" = "听音选择正确的单词";
+"test.question.spelling" = "输入正确的拼写";
+"test.question.genderGuess" = "选择这个名词的性别";
+"test.gender.masculine" = "阳性 (le)";
+"test.gender.feminine" = "阴性 (la)";
+"test.button.previous" = "上一题";
+"test.button.next" = "下一题";
+"test.button.finish" = "完成测试";
+"test.button.listen" = "播放";
+"test.result.title" = "测试结果";
+"test.result.score" = "得分";
+"test.result.correct" = "正确";
+"test.result.time" = "用时";
+"test.result.imageToWord" = "看图选词";
+"test.result.audioToWord" = "听音辨词";
+"test.result.spelling" = "拼写";
+"test.result.genderGuess" = "词性";
+"test.rating.excellent" = "优秀！";
+"test.rating.good" = "良好！";
+"test.rating.pass" = "及格";
+"test.rating.needsReview" = "需要复习";
+"test.button.retry" = "重新测试";
+"test.button.viewWrong" = "查看错题";
+"test.button.back" = "返回";
+
+// MARK: - Wrong Answer Book
+
+"wrong.answer.book.title" = "错题本";
+"wrong.answer.empty.title" = "太棒了！";
+"wrong.answer.empty.subtitle" = "暂时没有错题";
+"wrong.answer.count" = "共 %d 道错题";
+"wrong.answer.your.answer" = "你的答案: %@";
+"wrong.answer.correct.answer" = "正确答案: %@";
+"wrong.answer.wrong.count" = "错误 %d 次";
+"wrong.answer.type.imageToWord" = "看图选词";
+"wrong.answer.type.audioToWord" = "听音辨词";
+"wrong.answer.type.spelling" = "拼写";
+"wrong.answer.type.genderGuess" = "词性";
+
+// MARK: - Games List
+
+"games.title" = "趣味游戏";
+"games.subtitle" = "玩游戏，练习法语词汇！";
+"games.navigation.title" = "游戏";
+"games.status.unlocked" = "已解锁";
+"games.unlock.title" = "解锁游戏";
+"games.unlock.message" = "花费 %2$d 💎 解锁「%1$@」？";
+"games.unlock.confirm" = "解锁";
+"games.unlock.cancel" = "取消";
+
+// MARK: - Storybooks
+
+"storybooks.title" = "法语故事";
+"storybooks.subtitle" = "阅读基于已学词汇的法语故事";
+"storybooks.navigation.title" = "故事书";
+"storybooks.status.unlocked" = "已解锁";
+"storybooks.to.unlock" = "解锁";
+"storybooks.unlock.title" = "解锁故事书";
+"storybooks.unlock.message" = "花费 %2$d 💎 解锁「%1$@」？";
+"storybooks.unlock.confirm" = "解锁";
+"storybooks.unlock.cancel" = "取消";
+
+// MARK: - Storybook Reader
+
+"storybook.previous" = "上一页";
+"storybook.next" = "下一页";
+"storybook.finish" = "完成";
+"storybook.french" = "法语";
+"storybook.chinese" = "中文";

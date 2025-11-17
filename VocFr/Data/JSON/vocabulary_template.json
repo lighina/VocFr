@@ -1,0 +1,31 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2025-11-11",
+  "description": "VocFr Vocabulary Data - French Learning App",
+  "unites": [
+    {
+      "id": "unite1",
+      "number": 1,
+      "title": "À l'école",
+      "isUnlocked": true,
+      "requiredStars": 0,
+      "sections": [
+        {
+          "id": "section1_1",
+          "name": "à l'école",
+          "orderIndex": 1,
+          "words": [
+            {
+              "canonical": "bureau",
+              "chinese": "课桌",
+              "partOfSpeech": "noun",
+              "genderOrPos": "masculine",
+              "category": "school_objects",
+              "elision": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
