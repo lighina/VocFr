@@ -48,6 +48,9 @@ class HangmanViewModel {
     /// Total points earned
     private(set) var totalPoints: Int = 0
 
+    /// Track if any word was completed perfectly (0 incorrect guesses)
+    private(set) var hasPerfectWord: Bool = false
+
     enum GameState {
         case playing
         case won
@@ -57,17 +60,16 @@ class HangmanViewModel {
 
     // MARK: - Computed Properties
 
-    /// All words in the unite (from all sections)
-    var words: [Word] {
+    /// Randomized words for Hangman game
+    /// Words are shuffled on first access to ensure random order each game
+    private lazy var words: [Word] = {
         var allWords: [Word] = []
-        for section in unite.sections.sorted(by: { $0.orderIndex < $1.orderIndex }) {
-            let sectionWords = section.sectionWords
-                .sorted(by: { $0.orderIndex < $1.orderIndex })
-                .compactMap { $0.word }
+        for section in unite.sections {
+            let sectionWords = section.sectionWords.compactMap { $0.word }
             allWords.append(contentsOf: sectionWords)
         }
-        return allWords
-    }
+        return allWords.shuffled()
+    }()
 
     /// Total number of words
     var totalWords: Int {
@@ -208,6 +210,7 @@ class HangmanViewModel {
         wordsCompleted = 0
         wordsWon = 0
         totalPoints = 0
+        hasPerfectWord = false
         startNewWord()
     }
 
@@ -228,6 +231,11 @@ class HangmanViewModel {
         gameState = .won
         wordsCompleted += 1
         wordsWon += 1
+
+        // Track if this word was completed perfectly
+        if incorrectGuesses == 0 {
+            hasPerfectWord = true
+        }
 
         // Award points based on incorrect guesses
         let points = calculatePoints()
@@ -394,6 +402,11 @@ class HangmanViewModel {
                     context: context
                 )
             }
+        }
+
+        // Check for perfect Hangman game (no wrong guesses for at least one word)
+        if hasPerfectWord {
+            AchievementManager.shared.checkHangmanPerfect(context: context)
         }
 
         // Check special time-based achievements

@@ -297,6 +297,10 @@ class PointsManager {
             gameMode.isUnlocked = true
             print("🎉 \(gameMode.name) unlocked with \(gameMode.requiredGems)💎!")
             try? modelContext.save()
+
+            // Check achievement for first game unlock
+            AchievementManager.shared.checkGameUnlocked(context: modelContext)
+
             return true
         }
 

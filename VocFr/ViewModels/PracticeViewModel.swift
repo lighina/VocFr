@@ -45,12 +45,12 @@ class PracticeViewModel {
 
     // MARK: - Computed Properties
 
-    /// Sorted words for this practice session
-    var words: [Word] {
-        section.sectionWords
-            .sorted(by: { $0.orderIndex < $1.orderIndex })
-            .compactMap { $0.word }
-    }
+    /// Randomized words for this practice session
+    /// Words are shuffled on first access to ensure random order each practice
+    private lazy var words: [Word] = {
+        let allWords = section.sectionWords.compactMap { $0.word }
+        return allWords.shuffled()
+    }()
 
     /// Current word being practiced
     var currentWord: Word? {
