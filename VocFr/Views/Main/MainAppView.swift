@@ -61,7 +61,7 @@ struct MainAppView: View {
                 // 故事书模式
                 NavigationLink(destination: StorybooksListView()) {
                     MainModeButton(
-                        icon: "book.vertical",
+                        icon: "books.vertical",
                         title: "main.storybooks.title".localized,
                         description: "main.storybooks.description".localized,
                         color: .orange

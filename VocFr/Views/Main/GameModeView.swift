@@ -33,11 +33,6 @@ struct GameModeView: View {
                     Image(systemName: "gamecontroller.fill")
                         .font(.system(size: 60))
                         .foregroundColor(.purple)
-
-                    Text("game.mode.subtitle".localized)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
                 }
                 .padding(.top)
 

@@ -22,7 +22,7 @@ struct StorybooksListView: View {
             VStack(spacing: 20) {
                 // Header
                 VStack(spacing: 8) {
-                    Image(systemName: "book.vertical.fill")
+                    Image(systemName: "books.vertical.fill")
                         .font(.system(size: 60))
                         .foregroundColor(.orange)
 
