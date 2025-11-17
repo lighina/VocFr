@@ -3,7 +3,7 @@
   "number": 2,
   "title": "C'est la fête",
   "isUnlocked": true,
-  "requiredStars": 50,
+  "requiredStars": 1000,
   "sections": [
     {
       "id": "section2_1",

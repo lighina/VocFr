@@ -3,7 +3,7 @@
   "number": 3,
   "title": "Mon chez-moi",
   "isUnlocked": true,
-  "requiredStars": 100,
+  "requiredStars": 2000,
   "sections": [
     {
       "id": "section3_1",
