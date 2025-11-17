@@ -380,7 +380,6 @@
 "games.navigation.title" = "Games";
 "games.status.unlocked" = "Unlocked";
 "games.unlock.title" = "Unlock Game";
-"games.unlock.message" = "Unlock \"%@\" for %d gems?";
 "games.unlock.confirm" = "Unlock";
 "games.unlock.cancel" = "Cancel";
 
@@ -392,7 +391,6 @@
 "storybooks.status.unlocked" = "Unlocked";
 "storybooks.to.unlock" = "to unlock";
 "storybooks.unlock.title" = "Unlock Storybook";
-"storybooks.unlock.message" = "Unlock \"%@\" for %d gems?";
 "storybooks.unlock.confirm" = "Unlock";
 "storybooks.unlock.cancel" = "Cancel";
 
@@ -403,3 +401,6 @@
 "storybook.finish" = "Finish";
 "storybook.french" = "French";
 "storybook.chinese" = "Chinese";
+"game.mode.choose.game" = "Choose a game to play";
+"games.unlock.message" = "Spend %2$d 💎 to unlock \"%1$@\"?";
+"storybooks.unlock.message" = "Spend %2$d 💎 to unlock \"%1$@\"?";

@@ -22,12 +22,9 @@ struct StorybooksListView: View {
             VStack(spacing: 20) {
                 // Header
                 VStack(spacing: 8) {
-                    Text("📚")
+                    Image(systemName: "book.vertical.fill")
                         .font(.system(size: 60))
-
-                    Text("storybooks.title".localized)
-                        .font(.title)
-                        .fontWeight(.bold)
+                        .foregroundColor(.orange)
 
                     Text("storybooks.subtitle".localized)
                         .font(.subheadline)
