@@ -320,11 +320,56 @@ class HangmanViewModel {
             // Award points
             PointsManager.shared.awardStars(points: totalPoints, modelContext: modelContext, reason: "Hangman game session")
 
+            // Update WordProgress for all played words
+            updateWordProgress(context: modelContext)
+
             // Track achievements
             trackAchievements(accuracy: accuracy, context: modelContext)
 
         } catch {
             print("❌ Failed to save Hangman record: \(error)")
+        }
+    }
+
+    /// Update WordProgress for all words played in this game session
+    private func updateWordProgress(context: ModelContext) {
+        // Get or create UserProgress
+        let userProgressDescriptor = FetchDescriptor<UserProgress>()
+        let userProgress: UserProgress
+        if let existing = try? context.fetch(userProgressDescriptor).first {
+            userProgress = existing
+        } else {
+            userProgress = UserProgress()
+            context.insert(userProgress)
+        }
+
+        // Update progress for all words played (0 to currentWordIndex)
+        let playedWords = Array(words.prefix(currentWordIndex))
+
+        for word in playedWords {
+            // Try to find existing WordProgress - fetch all and filter in Swift
+            let allProgressDescriptor = FetchDescriptor<WordProgress>()
+            let allProgress = (try? context.fetch(allProgressDescriptor)) ?? []
+            let existingProgress = allProgress.first { $0.word?.id == word.id }
+
+            if let existingProgress = existingProgress {
+                // Update existing progress
+                existingProgress.lastReviewed = Date()
+            } else {
+                // Create new WordProgress
+                let newProgress = WordProgress()
+                newProgress.word = word
+                newProgress.userProgress = userProgress
+                newProgress.lastReviewed = Date()
+                context.insert(newProgress)
+            }
+        }
+
+        do {
+            try context.save()
+            print("✅ Updated WordProgress for \(playedWords.count) words")
+        } catch {
+            print("❌ Failed to update WordProgress: \(error)")
         }
     }
 

@@ -407,11 +407,54 @@ class TestViewModel {
                 )
             }
 
+            // Update WordProgress for all tested words
+            updateWordProgress(context: modelContext)
+
             // Track achievements
             trackAchievements(accuracy: Double(result.correctAnswers) / Double(result.totalQuestions), context: modelContext)
 
         } catch {
             print("❌ Failed to save test record: \(error)")
+        }
+    }
+
+    /// Update WordProgress for all words in this test session
+    private func updateWordProgress(context: ModelContext) {
+        // Get or create UserProgress
+        let userProgressDescriptor = FetchDescriptor<UserProgress>()
+        let userProgress: UserProgress
+        if let existing = try? context.fetch(userProgressDescriptor).first {
+            userProgress = existing
+        } else {
+            userProgress = UserProgress()
+            context.insert(userProgress)
+        }
+
+        for question in questions {
+            let word = question.word
+            // Try to find existing WordProgress - fetch all and filter in Swift
+            let allProgressDescriptor = FetchDescriptor<WordProgress>()
+            let allProgress = (try? context.fetch(allProgressDescriptor)) ?? []
+            let existingProgress = allProgress.first { $0.word?.id == word.id }
+
+            if let existingProgress = existingProgress {
+                // Update existing progress
+                existingProgress.lastReviewed = Date()
+            } else {
+                // Create new WordProgress
+                let newProgress = WordProgress()
+                newProgress.word = word
+                newProgress.userProgress = userProgress
+                newProgress.lastReviewed = Date()
+                context.insert(newProgress)
+            }
+        }
+
+        do {
+            try context.save()
+            print("✅ Updated WordProgress for \(questions.count) words")
+        } catch {
+            print("❌ Failed to update WordProgress: \(error)")
         }
     }
 

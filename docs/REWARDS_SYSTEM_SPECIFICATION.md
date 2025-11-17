@@ -69,11 +69,11 @@ struct RewardPoints {
 }
 
 struct UnlockRequirements {
-    static let unite2 = 50      // 解锁Unite 2需要50星
-    static let unite3 = 120     // 解锁Unite 3需要120星
-    static let unite4 = 200     // 解锁Unite 4需要200星
-    static let unite5 = 300     // 解锁Unite 5需要300星
-    static let unite6 = 420     // 解锁Unite 6需要420星
+    static let unite2 = 1000    // 解锁Unite 2需要1000星
+    static let unite3 = 2000    // 解锁Unite 3需要2000星
+    static let unite4 = 3000    // 解锁Unite 4需要3000星
+    static let unite5 = 4000    // 解锁Unite 5需要4000星
+    static let unite6 = 5000    // 解锁Unite 6需要5000星
 }
 ```
 
@@ -944,10 +944,10 @@ AchievementManager.shared.checkPracticeCount(practiceCount: allPractices.count, 
 // → 可能解锁"完成5次练习"成就 → 额外5⭐
 
 // 5. 检查单元解锁
-// → 如果总星星达到120，自动解锁Unite 3
+// → 如果总星星达到2000，自动解锁Unite 3
 
 // 6. 显示反馈
-print("⭐ +15 stars! Total: 125")
+print("⭐ +15 stars! Total: 2015")
 print("🎉 Unite 3 unlocked!")
 ```
 

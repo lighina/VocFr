@@ -364,11 +364,62 @@ class MatchingGameViewModel {
                 PointsManager.shared.awardStars(points: score, modelContext: modelContext, reason: "Matching game completed")
             }
 
+            // Update WordProgress for all matched words
+            updateWordProgress(context: modelContext)
+
             // Track achievements
             trackAchievements(accuracy: accuracy, context: modelContext)
 
         } catch {
             print("❌ Failed to save matching game record: \(error)")
+        }
+    }
+
+    /// Update WordProgress for all words in this game session
+    private func updateWordProgress(context: ModelContext) {
+        // Get or create UserProgress
+        let userProgressDescriptor = FetchDescriptor<UserProgress>()
+        let userProgress: UserProgress
+        if let existing = try? context.fetch(userProgressDescriptor).first {
+            userProgress = existing
+        } else {
+            userProgress = UserProgress()
+            context.insert(userProgress)
+        }
+
+        // Get unique words from all cards
+        let uniqueWords = Set(cards.map { $0.word.id })
+        let words = cards.compactMap { $0.word }.filter { word in
+            uniqueWords.contains(word.id)
+        }
+        let uniqueWordsArray = Array(Set(words.map { $0.id })).compactMap { wordId in
+            words.first { $0.id == wordId }
+        }
+
+        for word in uniqueWordsArray {
+            // Try to find existing WordProgress - fetch all and filter in Swift
+            let allProgressDescriptor = FetchDescriptor<WordProgress>()
+            let allProgress = (try? context.fetch(allProgressDescriptor)) ?? []
+            let existingProgress = allProgress.first { $0.word?.id == word.id }
+
+            if let existingProgress = existingProgress {
+                // Update existing progress
+                existingProgress.lastReviewed = Date()
+            } else {
+                // Create new WordProgress
+                let newProgress = WordProgress()
+                newProgress.word = word
+                newProgress.userProgress = userProgress
+                newProgress.lastReviewed = Date()
+                context.insert(newProgress)
+            }
+        }
+
+        do {
+            try context.save()
+            print("✅ Updated WordProgress for \(uniqueWordsArray.count) words")
+        } catch {
+            print("❌ Failed to update WordProgress: \(error)")
         }
     }
 
