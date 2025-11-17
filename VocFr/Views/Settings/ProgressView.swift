@@ -44,9 +44,8 @@ struct ProgressView: View {
                 }
 
                 VStack {
-                    Image(systemName: "gem.fill")
+                    Text("💎")
                         .font(.system(size: 40))
-                        .foregroundColor(.cyan)
                     Text("\(progress.totalGems)")
                         .font(.title2)
                         .fontWeight(.bold)

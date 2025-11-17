@@ -64,12 +64,20 @@ struct TestResultView: View {
                         )
 
                         // Earned Gems
-                        StatRow(
-                            icon: "gem.fill",
-                            label: "💎 Earned Gems",
-                            value: "+\(result.score / 10)",
-                            color: .cyan
-                        )
+                        HStack {
+                            Text("💎")
+                                .font(.title3)
+                                .frame(width: 24)
+
+                            Text("Earned Gems")
+                                .foregroundColor(.secondary)
+
+                            Spacer()
+
+                            Text("+\(result.score / 10)")
+                                .fontWeight(.semibold)
+                                .foregroundColor(.cyan)
+                        }
                     }
 
                     Divider()

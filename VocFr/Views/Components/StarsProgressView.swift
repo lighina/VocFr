@@ -54,9 +54,8 @@ struct StarsProgressView: View {
 
                 // Gems
                 HStack(spacing: 4) {
-                    Image(systemName: "gem.fill")
-                        .foregroundColor(.cyan)
-                        .font(.title2)
+                    Text("💎")
+                        .font(.system(size: 28))
 
                     Text("\(totalGems)")
                         .font(.system(size: 32, weight: .bold, design: .rounded))
