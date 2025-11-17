@@ -39,31 +39,39 @@ struct StarsProgressView: View {
 
     var body: some View {
         VStack(spacing: 12) {
-            // Current stars and gems
-            HStack(spacing: 16) {
-                // Stars
+            // Current stars, gems, and streak - all with badge style
+            HStack(spacing: 12) {
+                // Stars badge
                 HStack(spacing: 4) {
                     Text("⭐")
-                        .font(.system(size: 28))
-
+                        .font(.system(size: 20))
                     Text("\(totalStars)")
-                        .font(.system(size: 32, weight: .bold, design: .rounded))
+                        .font(.headline)
+                        .fontWeight(.semibold)
                         .foregroundColor(.yellow)
                 }
+                .padding(.horizontal, 10)
+                .padding(.vertical, 6)
+                .background(Color.yellow.opacity(0.2))
+                .cornerRadius(8)
 
-                // Gems
+                // Gems badge
                 HStack(spacing: 4) {
                     Text("💎")
-                        .font(.system(size: 28))
-
+                        .font(.system(size: 20))
                     Text("\(totalGems)")
-                        .font(.system(size: 32, weight: .bold, design: .rounded))
+                        .font(.headline)
+                        .fontWeight(.semibold)
                         .foregroundColor(.cyan)
                 }
+                .padding(.horizontal, 10)
+                .padding(.vertical, 6)
+                .background(Color.cyan.opacity(0.2))
+                .cornerRadius(8)
 
                 Spacer()
 
-                // Streak badge (always show)
+                // Streak badge
                 HStack(spacing: 4) {
                     Text("🔥")
                         .font(.system(size: 20))
