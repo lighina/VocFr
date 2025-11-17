@@ -237,6 +237,7 @@ class HangmanViewModel {
         // Track if this word was completed perfectly
         if incorrectGuesses == 0 {
             hasPerfectWord = true
+            print("🎯 Hangman: Perfect word completed! hasPerfectWord = true")
         }
 
         // Award points based on incorrect guesses
@@ -408,7 +409,10 @@ class HangmanViewModel {
 
         // Check for perfect Hangman game (no wrong guesses for at least one word)
         if hasPerfectWord {
+            print("🎯 Hangman: Checking Hangman Perfect achievement (hasPerfectWord = true)")
             AchievementManager.shared.checkHangmanPerfect(context: context)
+        } else {
+            print("⚠️ Hangman: hasPerfectWord = false, not checking achievement")
         }
 
         // Check special time-based achievements

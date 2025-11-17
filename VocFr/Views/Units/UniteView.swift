@@ -13,6 +13,9 @@ struct UnitsView: View {
     @Query private var unites: [Unite]
     @State private var viewModel = UnitsViewModel()
     @State private var showImportAlert = false
+    @State private var selectedUnite: Unite?
+    @State private var showUnlockDialog = false
+    @State private var insufficientGems = false
 
     var body: some View {
         List {
@@ -23,11 +26,20 @@ struct UnitsView: View {
 
             // Units list
             ForEach(unites.sorted(by: { $0.number < $1.number })) { unite in
-                NavigationLink(destination: UniteDetailView(unite: unite)) {
-                    UniteRowView(unite: unite)
+                if unite.isUnlocked {
+                    NavigationLink(destination: UniteDetailView(unite: unite)) {
+                        UniteRowView(unite: unite)
+                    }
+                } else {
+                    Button(action: {
+                        selectedUnite = unite
+                        showUnlockDialog = true
+                    }) {
+                        UniteRowView(unite: unite)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .opacity(0.6)
                 }
-                .disabled(!unite.isUnlocked)
-                .opacity(unite.isUnlocked ? 1.0 : 0.6)
             }
         }
         .navigationTitle("units.title".localized)
@@ -57,11 +69,60 @@ struct UnitsView: View {
                 Text("units.import.failed".localized(errorMessage))
             }
         }
+        .alert("Unlock Unit", isPresented: $showUnlockDialog) {
+            if let unite = selectedUnite {
+                Button("Unlock with \(unite.requiredGems) 💎") {
+                    unlockWithGems(unite)
+                }
+                Button("Cancel", role: .cancel) {}
+            }
+        } message: {
+            if let unite = selectedUnite {
+                Text("Unlock \(unite.title) with \(unite.requiredGems) gems?")
+            }
+        }
+        .alert("Insufficient Gems", isPresented: $insufficientGems) {
+            Button("OK") {}
+        } message: {
+            Text("You don't have enough gems to unlock this unit.")
+        }
     }
 
     private func importData() {
         viewModel.importData()
         showImportAlert = true
+    }
+
+    private func unlockWithGems(_ unite: Unite) {
+        // Get user progress
+        let descriptor = FetchDescriptor<UserProgress>()
+        guard let userProgress = try? modelContext.fetch(descriptor).first else {
+            print("⚠️ UserProgress not found")
+            return
+        }
+
+        // Check if user has enough gems
+        if userProgress.totalGems >= unite.requiredGems {
+            // Deduct gems
+            userProgress.totalGems -= unite.requiredGems
+
+            // Unlock unit
+            unite.isUnlocked = true
+
+            // Save changes
+            do {
+                try modelContext.save()
+                print("✅ Unit unlocked with gems: \(unite.title)")
+
+                // Check achievement for unit unlocks
+                let unlockedCount = unites.filter { $0.isUnlocked }.count
+                AchievementManager.shared.checkUnitUnlocked(unlockedCount: unlockedCount, context: modelContext)
+            } catch {
+                print("❌ Failed to save unit unlock: \(error)")
+            }
+        } else {
+            insufficientGems = true
+        }
     }
 }
 

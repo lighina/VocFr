@@ -214,6 +214,7 @@ class AchievementManager {
 
     /// Check if hangman completed without any wrong tries
     func checkHangmanPerfect(context: ModelContext) {
+        print("🎯 AchievementManager: checkHangmanPerfect called")
         checkProgressAchievements(ids: ["hangman_perfect"], currentValue: 1, context: context)
     }
 
@@ -229,13 +230,21 @@ class AchievementManager {
     /// Generic method to check and update progress-based achievements
     private func checkProgressAchievements(ids: [String], currentValue: Int, context: ModelContext) {
         for id in ids {
-            guard let achievement = fetchAchievement(id: id, context: context) else { continue }
+            guard let achievement = fetchAchievement(id: id, context: context) else {
+                print("⚠️ Achievement not found: \(id)")
+                continue
+            }
+
+            print("🎯 Checking achievement \(id): currentProgress=\(achievement.currentProgress), targetValue=\(achievement.targetValue), isUnlocked=\(achievement.isUnlocked)")
 
             // Update progress
             let wasUnlocked = achievement.updateProgress(currentValue)
 
             if wasUnlocked {
+                print("🏆 Achievement unlocked: \(id)")
                 handleAchievementUnlock(achievement, context: context)
+            } else {
+                print("📊 Achievement progress updated: \(id) -> \(achievement.currentProgress)/\(achievement.targetValue)")
             }
         }
 
