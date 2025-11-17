@@ -64,7 +64,10 @@ struct VocFrApp: App {
             FlashcardProgress.self,
             TestRecord.self,
             WrongAnswerRecord.self,
-            Item.self // Keep for compatibility
+            GameMode.self,         // Gems system: Game unlock
+            Storybook.self,        // Gems system: Storybook
+            StoryPage.self,        // Gems system: Storybook pages
+            Item.self              // Keep for compatibility
         ])
         
         let configuration = ModelConfiguration(
