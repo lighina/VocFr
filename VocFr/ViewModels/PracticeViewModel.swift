@@ -225,14 +225,12 @@ class PracticeViewModel {
         }
 
         for word in words {
-            // Try to find existing WordProgress
-            let descriptor = FetchDescriptor<WordProgress>(
-                predicate: #Predicate { progress in
-                    progress.word?.id == word.id
-                }
-            )
+            // Try to find existing WordProgress - fetch all and filter in Swift
+            let allProgressDescriptor = FetchDescriptor<WordProgress>()
+            let allProgress = (try? context.fetch(allProgressDescriptor)) ?? []
+            let existingProgress = allProgress.first { $0.word?.id == word.id }
 
-            if let existingProgress = try? context.fetch(descriptor).first {
+            if let existingProgress = existingProgress {
                 // Update existing progress
                 existingProgress.lastReviewed = Date()
             } else {
