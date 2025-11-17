@@ -22,6 +22,7 @@ struct AllWordsMatchingGameView: View {
     @State private var matchedPairs: Int = 0
     @State private var isCompleted: Bool = false
     @State private var startTime: Date = Date()
+    @State private var completionTime: TimeInterval = 0
 
     private let totalPairs = 6
     private let columns = [
@@ -137,9 +138,9 @@ struct AllWordsMatchingGameView: View {
 
             VStack(spacing: 12) {
                 HStack {
-                    Text("matching.game.pairs.count".localized)
+                    Text("matching.game.time".localized)
                     Spacer()
-                    Text("\(matchedPairs)")
+                    Text(formatTime(completionTime))
                         .fontWeight(.bold)
                 }
 
@@ -297,8 +298,12 @@ struct AllWordsMatchingGameView: View {
     }
 
     private func completeGame() {
+        completionTime = Date().timeIntervalSince(startTime)
         isCompleted = true
         savePracticeRecord()
+
+        // Check for speed achievement (12 seconds or less)
+        AchievementManager.shared.checkMatchingSpeed(timeSpent: completionTime, context: modelContext)
     }
 
     private func resetGame() {
@@ -306,12 +311,19 @@ struct AllWordsMatchingGameView: View {
         attempts = 0
         matchedPairs = 0
         isCompleted = false
+        completionTime = 0
         setupGame()
     }
 
     private func calculateAccuracy() -> Int {
         guard attempts > 0 else { return 100 }
         return Int(Double(totalPairs) / Double(attempts) * 100)
+    }
+
+    private func formatTime(_ timeInterval: TimeInterval) -> String {
+        let minutes = Int(timeInterval) / 60
+        let seconds = Int(timeInterval) % 60
+        return String(format: "%02d:%02d", minutes, seconds)
     }
 
     private func savePracticeRecord() {
