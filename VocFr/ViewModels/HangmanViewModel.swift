@@ -61,15 +61,8 @@ class HangmanViewModel {
     // MARK: - Computed Properties
 
     /// Randomized words for Hangman game
-    /// Words are shuffled on first access to ensure random order each game
-    private lazy var words: [Word] = {
-        var allWords: [Word] = []
-        for section in unite.sections {
-            let sectionWords = section.sectionWords.compactMap { $0.word }
-            allWords.append(contentsOf: sectionWords)
-        }
-        return allWords.shuffled()
-    }()
+    /// Words are shuffled on initialization to ensure random order each game
+    private var words: [Word] = []
 
     /// Total number of words
     var totalWords: Int {
@@ -130,6 +123,15 @@ class HangmanViewModel {
     init(unite: Unite, modelContext: ModelContext? = nil) {
         self.unite = unite
         self.modelContext = modelContext
+
+        // Initialize and shuffle words
+        var allWords: [Word] = []
+        for section in unite.sections {
+            let sectionWords = section.sectionWords.compactMap { $0.word }
+            allWords.append(contentsOf: sectionWords)
+        }
+        self.words = allWords.shuffled()
+
         startNewWord()
     }
 

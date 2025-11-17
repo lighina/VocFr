@@ -55,11 +55,8 @@ class ListeningPracticeViewModel {
     // MARK: - Computed Properties
 
     /// Randomized words for this practice session
-    /// Words are shuffled on first access to ensure random order each practice
-    private lazy var words: [Word] = {
-        let allWords = section.sectionWords.compactMap { $0.word }
-        return allWords.shuffled()
-    }()
+    /// Words are shuffled on initialization to ensure random order each practice
+    private var words: [Word] = []
 
     /// Current word being practiced
     var currentWord: Word? {
@@ -108,6 +105,11 @@ class ListeningPracticeViewModel {
     init(section: Section, modelContext: ModelContext? = nil) {
         self.section = section
         self.modelContext = modelContext
+
+        // Initialize and shuffle words
+        let allWords = section.sectionWords.compactMap { $0.word }
+        self.words = allWords.shuffled()
+
         generateOptions()
     }
 
