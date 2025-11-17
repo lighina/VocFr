@@ -129,7 +129,7 @@ class AchievementManager {
 
     /// Check and update practice count achievements
     func checkPracticeCount(practiceCount: Int, context: ModelContext) {
-        let practiceIds = ["practice_5", "practice_20"]
+        let practiceIds = ["practice_5", "practice_20", "practice_50"]
         checkProgressAchievements(ids: practiceIds, currentValue: practiceCount, context: context)
     }
 
@@ -152,13 +152,13 @@ class AchievementManager {
 
     /// Check and update points achievements
     func checkPoints(totalPoints: Int, context: ModelContext) {
-        let pointsIds = ["stars_100", "stars_500", "stars_1000"]
+        let pointsIds = ["stars_100", "stars_500", "stars_1000", "stars_2500", "stars_5000"]
         checkProgressAchievements(ids: pointsIds, currentValue: totalPoints, context: context)
     }
 
     /// Check exploration achievements
     func checkUnitUnlocked(unlockedCount: Int, context: ModelContext) {
-        checkProgressAchievements(ids: ["unlock_unit_1"], currentValue: unlockedCount, context: context)
+        checkProgressAchievements(ids: ["unlock_unit_1", "unlock_unit_5"], currentValue: unlockedCount, context: context)
     }
 
     func checkSectionCompleted(completedCount: Int, context: ModelContext) {
@@ -205,6 +205,25 @@ class AchievementManager {
         }
     }
 
+    // MARK: - Game Player Achievements
+
+    /// Check if first game unlocked
+    func checkGameUnlocked(context: ModelContext) {
+        checkProgressAchievements(ids: ["unlock_game_1"], currentValue: 1, context: context)
+    }
+
+    /// Check if hangman completed without any wrong tries
+    func checkHangmanPerfect(context: ModelContext) {
+        checkProgressAchievements(ids: ["hangman_perfect"], currentValue: 1, context: context)
+    }
+
+    /// Check if matching completed in 12 seconds or less
+    func checkMatchingSpeed(timeSpent: TimeInterval, context: ModelContext) {
+        if timeSpent <= 12 {
+            checkProgressAchievements(ids: ["matching_speed"], currentValue: 1, context: context)
+        }
+    }
+
     // MARK: - Helper Methods
 
     /// Generic method to check and update progress-based achievements
@@ -248,10 +267,19 @@ class AchievementManager {
     private func handleAchievementUnlock(_ achievement: Achievement, context: ModelContext) {
         print("🏆 Achievement unlocked: \(achievement.titleKey)")
 
-        // Award points
+        // Award stars
         if achievement.pointsReward > 0 {
             PointsManager.shared.awardStars(
                 points: achievement.pointsReward,
+                modelContext: context,
+                reason: "Achievement unlocked: \(achievement.titleKey)"
+            )
+        }
+
+        // Award gems
+        if achievement.gemsReward > 0 {
+            PointsManager.shared.awardGems(
+                achievement.gemsReward,
                 modelContext: context,
                 reason: "Achievement unlocked: \(achievement.titleKey)"
             )

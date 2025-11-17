@@ -16,6 +16,7 @@ enum AchievementCategory: String, Codable {
     case streak = "Consistency"
     case points = "Star Collector"
     case exploration = "Explorer"
+    case gameplayer = "Game Player"
     case special = "Special"
 }
 
@@ -64,8 +65,11 @@ final class Achievement {
     /// Date when achievement was unlocked (nil if not unlocked)
     var unlockedDate: Date?
 
-    /// Points awarded when unlocked
+    /// Points (stars) awarded when unlocked
     var pointsReward: Int
+
+    /// Gems awarded when unlocked
+    var gemsReward: Int
 
     /// Display order within category
     var orderIndex: Int
@@ -95,6 +99,7 @@ final class Achievement {
         targetValue: Int,
         currentProgress: Int = 0,
         pointsReward: Int = 0,
+        gemsReward: Int = 0,
         orderIndex: Int = 0
     ) {
         self.id = id
@@ -108,6 +113,7 @@ final class Achievement {
         self.isUnlocked = false
         self.unlockedDate = nil
         self.pointsReward = pointsReward
+        self.gemsReward = gemsReward
         self.orderIndex = orderIndex
     }
 
@@ -235,6 +241,17 @@ struct AchievementDefinitions {
                 orderIndex: 1
             ),
             Achievement(
+                id: "practice_50",
+                titleKey: "achievement.practice.50.title",
+                descriptionKey: "achievement.practice.50.description",
+                category: .practice,
+                tier: .gold,
+                iconName: "figure.walk.motion",
+                targetValue: 50,
+                pointsReward: 50,
+                orderIndex: 2
+            ),
+            Achievement(
                 id: "perfect_10",
                 titleKey: "achievement.perfect.10.title",
                 descriptionKey: "achievement.perfect.10.description",
@@ -243,7 +260,7 @@ struct AchievementDefinitions {
                 iconName: "star.circle.fill",
                 targetValue: 10,
                 pointsReward: 25,
-                orderIndex: 2
+                orderIndex: 3
             ),
             Achievement(
                 id: "perfect_single_20",
@@ -254,7 +271,7 @@ struct AchievementDefinitions {
                 iconName: "medal.fill",
                 targetValue: 1,
                 pointsReward: 30,
-                orderIndex: 3
+                orderIndex: 4
             )
         ]
 
@@ -316,7 +333,7 @@ struct AchievementDefinitions {
                 tier: .bronze,
                 iconName: "star.fill",
                 targetValue: 100,
-                pointsReward: 10,
+                gemsReward: 2,
                 orderIndex: 0
             ),
             Achievement(
@@ -327,7 +344,7 @@ struct AchievementDefinitions {
                 tier: .silver,
                 iconName: "sparkles",
                 targetValue: 500,
-                pointsReward: 25,
+                gemsReward: 5,
                 orderIndex: 1
             ),
             Achievement(
@@ -338,8 +355,30 @@ struct AchievementDefinitions {
                 tier: .gold,
                 iconName: "sparkle",
                 targetValue: 1000,
-                pointsReward: 50,
+                gemsReward: 10,
                 orderIndex: 2
+            ),
+            Achievement(
+                id: "stars_2500",
+                titleKey: "achievement.stars.2500.title",
+                descriptionKey: "achievement.stars.2500.description",
+                category: .points,
+                tier: .platinum,
+                iconName: "star.circle.fill",
+                targetValue: 2500,
+                gemsReward: 20,
+                orderIndex: 3
+            ),
+            Achievement(
+                id: "stars_5000",
+                titleKey: "achievement.stars.5000.title",
+                descriptionKey: "achievement.stars.5000.description",
+                category: .points,
+                tier: .diamond,
+                iconName: "crown.fill",
+                targetValue: 5000,
+                gemsReward: 50,
+                orderIndex: 4
             )
         ]
 
@@ -376,6 +415,54 @@ struct AchievementDefinitions {
                 iconName: "checkmark.seal.fill",
                 targetValue: 1,
                 pointsReward: 50,
+                orderIndex: 2
+            ),
+            Achievement(
+                id: "unlock_unit_5",
+                titleKey: "achievement.unlock.unit.5.title",
+                descriptionKey: "achievement.unlock.unit.5.description",
+                category: .exploration,
+                tier: .platinum,
+                iconName: "star.square.fill",
+                targetValue: 5,
+                gemsReward: 50,
+                orderIndex: 3
+            )
+        ]
+
+        // MARK: - Game Player Achievements
+        achievements += [
+            Achievement(
+                id: "unlock_game_1",
+                titleKey: "achievement.unlock.game.title",
+                descriptionKey: "achievement.unlock.game.description",
+                category: .gameplayer,
+                tier: .bronze,
+                iconName: "lock.open.trianglebadge.exclamationmark.fill",
+                targetValue: 1,
+                pointsReward: 5,
+                orderIndex: 0
+            ),
+            Achievement(
+                id: "hangman_perfect",
+                titleKey: "achievement.hangman.perfect.title",
+                descriptionKey: "achievement.hangman.perfect.description",
+                category: .gameplayer,
+                tier: .gold,
+                iconName: "figure.stand",
+                targetValue: 1,
+                gemsReward: 5,
+                orderIndex: 1
+            ),
+            Achievement(
+                id: "matching_speed",
+                titleKey: "achievement.matching.speed.title",
+                descriptionKey: "achievement.matching.speed.description",
+                category: .gameplayer,
+                tier: .platinum,
+                iconName: "bolt.square.fill",
+                targetValue: 1,
+                gemsReward: 15,
                 orderIndex: 2
             )
         ]

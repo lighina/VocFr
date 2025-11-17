@@ -237,6 +237,8 @@
 "achievement.practice.5.description" = "Terminer 5 sessions de pratique";
 "achievement.practice.20.title" = "Champion de pratique";
 "achievement.practice.20.description" = "Terminer 20 sessions de pratique";
+"achievement.practice.50.title" = "Maître de la pratique";
+"achievement.practice.50.description" = "Complétez 50 sessions de pratique";
 "achievement.perfect.10.title" = "Perfectionniste";
 "achievement.perfect.10.description" = "Obtenir un score parfait 10 fois";
 "achievement.perfect.single.title" = "Victoire impeccable";
@@ -259,6 +261,10 @@
 "achievement.stars.500.description" = "Gagner 500 étoiles";
 "achievement.stars.1000.title" = "Maître des étoiles";
 "achievement.stars.1000.description" = "Gagner 1000 étoiles";
+"achievement.stars.2500.title" = "Champion des étoiles";
+"achievement.stars.2500.description" = "Gagnez 2500 étoiles";
+"achievement.stars.5000.title" = "Légende des étoiles";
+"achievement.stars.5000.description" = "Gagnez 5000 étoiles";
 
 // Exploration Achievements
 "achievement.unlock.unit.title" = "Explorateur";
@@ -267,6 +273,16 @@
 "achievement.complete.section.10.description" = "Terminer 10 sections";
 "achievement.complete.unit.title" = "Champion d'unité";
 "achievement.complete.unit.description" = "Terminer une unité entière";
+"achievement.unlock.unit.5.title" = "Champion explorateur";
+"achievement.unlock.unit.5.description" = "Débloquez 5 unités";
+
+// Game Player Achievements
+"achievement.unlock.game.title" = "Débloqueur";
+"achievement.unlock.game.description" = "Débloquez votre premier jeu";
+"achievement.hangman.perfect.title" = "Sauveur du pendu";
+"achievement.hangman.perfect.description" = "Complétez le pendu sans aucune erreur";
+"achievement.matching.speed.title" = "Vitesse de la lumière";
+"achievement.matching.speed.description" = "Complétez l'appariement en 12 secondes";
 
 // Special Achievements
 "achievement.early.bird.title" = "Lève-tôt";

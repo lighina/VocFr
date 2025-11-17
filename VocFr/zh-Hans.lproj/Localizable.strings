@@ -244,6 +244,8 @@
 "achievement.practice.5.description" = "完成 5 次练习";
 "achievement.practice.20.title" = "练习冠军";
 "achievement.practice.20.description" = "完成 20 次练习";
+"achievement.practice.50.title" = "练习大师";
+"achievement.practice.50.description" = "完成50次练习";
 "achievement.perfect.10.title" = "完美主义";
 "achievement.perfect.10.description" = "获得 10 次满分";
 "achievement.perfect.single.title" = "完美胜利";
@@ -266,6 +268,10 @@
 "achievement.stars.500.description" = "获得 500 颗星";
 "achievement.stars.1000.title" = "星星大师";
 "achievement.stars.1000.description" = "获得 1000 颗星";
+"achievement.stars.2500.title" = "星星冠军";
+"achievement.stars.2500.description" = "获得2500颗星星";
+"achievement.stars.5000.title" = "星星传奇";
+"achievement.stars.5000.description" = "获得5000颗星星";
 
 // Exploration Achievements
 "achievement.unlock.unit.title" = "探索者";
@@ -274,6 +280,16 @@
 "achievement.complete.section.10.description" = "完成 10 个章节";
 "achievement.complete.unit.title" = "单元冠军";
 "achievement.complete.unit.description" = "完成整个单元";
+"achievement.unlock.unit.5.title" = "探索冠军";
+"achievement.unlock.unit.5.description" = "解锁5个单元";
+
+// Game Player Achievements
+"achievement.unlock.game.title" = "解锁者";
+"achievement.unlock.game.description" = "解锁你的第一个游戏";
+"achievement.hangman.perfect.title" = "拯救者";
+"achievement.hangman.perfect.description" = "完成Hangman游戏且没有任何错误尝试";
+"achievement.matching.speed.title" = "光速";
+"achievement.matching.speed.description" = "在12秒内完成配对游戏";
 
 // Special Achievements
 "achievement.early.bird.title" = "早起的鸟儿";

@@ -237,6 +237,8 @@
 "achievement.practice.5.description" = "5 Übungssitzungen abschließen";
 "achievement.practice.20.title" = "Übungsmeister";
 "achievement.practice.20.description" = "20 Übungssitzungen abschließen";
+"achievement.practice.50.title" = "Übungsmeister";
+"achievement.practice.50.description" = "Schließe 50 Übungssitzungen ab";
 "achievement.perfect.10.title" = "Perfektionist";
 "achievement.perfect.10.description" = "10-mal perfekte Punktzahl erreichen";
 "achievement.perfect.single.title" = "Makelloser Sieg";
@@ -259,6 +261,10 @@
 "achievement.stars.500.description" = "500 Sterne verdienen";
 "achievement.stars.1000.title" = "Sternenmeister";
 "achievement.stars.1000.description" = "1000 Sterne verdienen";
+"achievement.stars.2500.title" = "Sternen-Champion";
+"achievement.stars.2500.description" = "Verdiene 2500 Sterne";
+"achievement.stars.5000.title" = "Sternen-Legende";
+"achievement.stars.5000.description" = "Verdiene 5000 Sterne";
 
 // Exploration Achievements
 "achievement.unlock.unit.title" = "Entdecker";
@@ -267,6 +273,16 @@
 "achievement.complete.section.10.description" = "10 Abschnitte abschließen";
 "achievement.complete.unit.title" = "Einheitschampion";
 "achievement.complete.unit.description" = "Eine ganze Einheit abschließen";
+"achievement.unlock.unit.5.title" = "Entdecker-Champion";
+"achievement.unlock.unit.5.description" = "Schalte 5 Einheiten frei";
+
+// Game Player Achievements
+"achievement.unlock.game.title" = "Freischalter";
+"achievement.unlock.game.description" = "Schalte dein erstes Spiel frei";
+"achievement.hangman.perfect.title" = "Galgenmännchen-Retter";
+"achievement.hangman.perfect.description" = "Schließe Galgenmännchen ohne Fehler ab";
+"achievement.matching.speed.title" = "Lichtgeschwindigkeit";
+"achievement.matching.speed.description" = "Schließe das Matching in 12 Sekunden ab";
 
 // Special Achievements
 "achievement.early.bird.title" = "Frühaufsteher";

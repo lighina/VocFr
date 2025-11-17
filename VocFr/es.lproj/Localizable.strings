@@ -237,6 +237,8 @@
 "achievement.practice.5.description" = "Completar 5 sesiones de práctica";
 "achievement.practice.20.title" = "Campeón de práctica";
 "achievement.practice.20.description" = "Completar 20 sesiones de práctica";
+"achievement.practice.50.title" = "Maestro de práctica";
+"achievement.practice.50.description" = "Completa 50 sesiones de práctica";
 "achievement.perfect.10.title" = "Perfeccionista";
 "achievement.perfect.10.description" = "Obtener puntuación perfecta 10 veces";
 "achievement.perfect.single.title" = "Victoria impecable";
@@ -259,6 +261,10 @@
 "achievement.stars.500.description" = "Ganar 500 estrellas";
 "achievement.stars.1000.title" = "Maestro de las estrellas";
 "achievement.stars.1000.description" = "Ganar 1000 estrellas";
+"achievement.stars.2500.title" = "Campeón de estrellas";
+"achievement.stars.2500.description" = "Gana 2500 estrellas";
+"achievement.stars.5000.title" = "Leyenda de estrellas";
+"achievement.stars.5000.description" = "Gana 5000 estrellas";
 
 // Exploration Achievements
 "achievement.unlock.unit.title" = "Explorador";
@@ -267,6 +273,16 @@
 "achievement.complete.section.10.description" = "Completar 10 secciones";
 "achievement.complete.unit.title" = "Campeón de unidad";
 "achievement.complete.unit.description" = "Completar una unidad entera";
+"achievement.unlock.unit.5.title" = "Campeón explorador";
+"achievement.unlock.unit.5.description" = "Desbloquea 5 unidades";
+
+// Game Player Achievements
+"achievement.unlock.game.title" = "Desbloqueador";
+"achievement.unlock.game.description" = "Desbloquea tu primer juego";
+"achievement.hangman.perfect.title" = "Salvador del ahorcado";
+"achievement.hangman.perfect.description" = "Completa el ahorcado sin ningún intento incorrecto";
+"achievement.matching.speed.title" = "Velocidad de la luz";
+"achievement.matching.speed.description" = "Completa el emparejamiento en 12 segundos";
 
 // Special Achievements
 "achievement.early.bird.title" = "Madrugador";
