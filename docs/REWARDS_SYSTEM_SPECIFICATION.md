@@ -1,6 +1,6 @@
 # Rewards & Achievement System - 星星奖励与成就系统详细说明
 
-> **版本**: 2.0
+> **版本**: 3.0
 > **创建日期**: 2025-11-16
 > **最后更新**: 2025-11-17
 
@@ -44,8 +44,9 @@ VocFr的奖励系统由**三大核心**组成：
     ├── 学习里程碑
     ├── 练习成就
     ├── 连续学习
-    ├── 积分成就
+    ├── 积分成就（奖励宝石💎）
     ├── 探索成就
+    ├── 游戏玩家成就 🆕
     └── 特殊成就
 ```
 
@@ -735,6 +736,7 @@ enum AchievementCategory: String, Codable {
     case streak = "Consistency"              // 连续学习
     case points = "Star Collector"           // 积分成就
     case exploration = "Explorer"            // 探索成就
+    case gameplayer = "Game Player"          // 游戏玩家成就 🆕
     case special = "Special"                 // 特殊成就
 }
 
@@ -793,13 +795,14 @@ func checkLearningMilestones(wordCount: Int, context: ModelContext) {
 |--------|------|------|------|------|------|
 | practice_5 | 新手射手 | 完成5次练习 | 5 | 🥉Bronze | 5⭐ |
 | practice_20 | 熟练射手 | 完成20次练习 | 20 | 🥈Silver | 15⭐ |
+| practice_50 | Practice Master | 完成50次练习 | 50 | 🥇Gold | 50⭐ |
 | perfect_10 | 神射手 | 10次练习100%正确率 | 10 | 🥇Gold | 25⭐ |
 | perfect_single_20 | 完美主义者 | 单次练习20题全对 | 1 | 🏆Platinum | 30⭐ |
 
 ```swift
 // 触发检测
 func checkPracticeCount(practiceCount: Int, context: ModelContext) {
-    let practiceIds = ["practice_5", "practice_20"]
+    let practiceIds = ["practice_5", "practice_20", "practice_50"]
     checkProgressAchievements(ids: practiceIds, currentValue: practiceCount, context: context)
 }
 
@@ -841,14 +844,18 @@ func checkStreak(currentStreak: Int, context: ModelContext) {
 
 | 成就ID | 名称 | 描述 | 目标 | 等级 | 奖励 |
 |--------|------|------|------|------|------|
-| stars_100 | 星星收集者 | 获得100星 | 100 | 🥉Bronze | 10⭐ |
-| stars_500 | 星辰大海 | 获得500星 | 500 | 🥈Silver | 25⭐ |
-| stars_1000 | 星光璀璨 | 获得1000星 | 1000 | 🥇Gold | 50⭐ |
+| stars_100 | Star Beginner | 获得100星 | 100 | 🥉Bronze | 2💎 |
+| stars_500 | Star Collector | 获得500星 | 500 | 🥈Silver | 5💎 |
+| stars_1000 | Star Master | 获得1000星 | 1000 | 🥇Gold | 10💎 |
+| stars_2500 | Star Champion | 获得2500星 | 2500 | 🏆Platinum | 20💎 |
+| stars_5000 | Star Legend | 获得5000星 | 5000 | 💎Diamond | 50💎 |
+
+**重要变更**: Star Collector 系列成就现在奖励**宝石**而不是星星，因为这些成就代表了长期的学习投入，应该获得更有价值的奖励。
 
 ```swift
 // 触发检测
 func checkPoints(totalPoints: Int, context: ModelContext) {
-    let pointsIds = ["stars_100", "stars_500", "stars_1000"]
+    let pointsIds = ["stars_100", "stars_500", "stars_1000", "stars_2500", "stars_5000"]
     checkProgressAchievements(ids: pointsIds, currentValue: totalPoints, context: context)
 }
 
@@ -862,19 +869,60 @@ func checkPoints(totalPoints: Int, context: ModelContext) {
 | 成就ID | 名称 | 描述 | 目标 | 等级 | 奖励 |
 |--------|------|------|------|------|------|
 | unlock_unit_1 | 探索者 | 解锁第一个新单元 | 1 | 🥉Bronze | 10⭐ |
-| complete_section_10 | 冒险家 | 完成10个Section练习 | 10 | 🥈Silver | 20⭐ |
+| unlock_unit_3 | 冒险家 | 解锁3个单元 | 3 | 🥈Silver | 20⭐ |
+| unlock_unit_5 | Explorer Champion | 解锁5个单元 | 5 | 🏆Platinum | 50💎 |
+| complete_section_10 | 勤奋学者 | 完成10个Section练习 | 10 | 🥈Silver | 20⭐ |
 | complete_unit_1 | 全能学霸 | 完成1个完整Unit | 1 | 🥇Gold | 50⭐ |
 
 ```swift
 // 触发检测
-func checkUnitUnlocked(unlockedCount: Int, context: ModelContext)
+func checkUnitUnlocked(unlockedCount: Int, context: ModelContext) {
+    let unitIds = ["unlock_unit_1", "unlock_unit_3", "unlock_unit_5"]
+    checkProgressAchievements(ids: unitIds, currentValue: unlockedCount, context: context)
+}
+
 func checkSectionCompleted(completedCount: Int, context: ModelContext)
 func checkUnitCompleted(completedCount: Int, context: ModelContext)
 ```
 
 ---
 
-### 7. 特殊成就 (Special)
+### 7. 游戏玩家成就 (Game Player) 🆕
+
+| 成就ID | 名称 | 描述 | 目标 | 等级 | 奖励 | 触发条件 |
+|--------|------|------|------|------|------|---------|
+| unlock_game_1 | Unlocker | 解锁第一个游戏 | 1 | 🥉Bronze | 5⭐ | 解锁任意游戏 |
+| hangman_perfect | Hangman Saver | 完美完成Hangman | 1 | 🥇Gold | 5💎 | 0次错误猜测 |
+| matching_speed | Speed of Light | 12秒内完成配对 | 1 | 🏆Platinum | 15💎 | 时间≤12秒 |
+
+**新类别说明**: Game Player 成就专注于游戏模式的精通，鼓励玩家尝试不同的学习游戏并追求卓越表现。
+
+```swift
+// 触发检测
+func checkGameUnlocked(context: ModelContext) {
+    checkProgressAchievements(ids: ["unlock_game_1"], currentValue: 1, context: context)
+}
+
+func checkHangmanPerfect(context: ModelContext) {
+    // 在每个完美单词（incorrectGuesses == 0）完成后立即检查
+    checkProgressAchievements(ids: ["hangman_perfect"], currentValue: 1, context: context)
+}
+
+func checkMatchingSpeed(timeSpent: TimeInterval, context: ModelContext) {
+    if timeSpent <= 12 {
+        checkProgressAchievements(ids: ["matching_speed"], currentValue: 1, context: context)
+    }
+}
+
+// 调用时机：
+// - Unlocker: PointsManager.unlockGameMode() 成功后
+// - Hangman Saver: HangmanViewModel.winWord() 中 incorrectGuesses == 0 时立即触发
+// - Speed of Light: AllWordsMatchingGameView.completeGame() 检查完成时间
+```
+
+---
+
+### 8. 特殊成就 (Special)
 
 | 成就ID | 名称 | 描述 | 目标 | 等级 | 奖励 | 触发条件 |
 |--------|------|------|------|------|------|---------|
@@ -921,17 +969,23 @@ func checkBirthday(userCreationDate: Date, context: ModelContext) {
 
 ---
 
-### 8. 成就总览表
+### 9. 成就总览表
 
-| 分类 | 成就数量 | 总奖励星星 | 最高难度 |
-|------|---------|-----------|---------|
+| 分类 | 成就数量 | 奖励 | 最高难度 |
+|------|---------|------|---------|
 | 学习里程碑 | 5 | 185⭐ | 500个单词 |
-| 练习成就 | 4 | 75⭐ | 10次完美 |
+| 练习成就 | 5 | 125⭐ | 50次练习 |
 | 连续学习 | 4 | 270⭐ | 100天 |
-| 积分成就 | 3 | 85⭐ | 1000星 |
-| 探索成就 | 3 | 80⭐ | 完成1个Unit |
+| 积分成就 | 5 | 87💎 | 5000星 |
+| 探索成就 | 5 | 150⭐ + 50💎 | 解锁5个Unit |
+| 游戏玩家 🆕 | 3 | 5⭐ + 20💎 | 12秒完成配对 |
 | 特殊成就 | 4 | 80⭐ | 速通<60s |
-| **总计** | **23** | **775⭐** | - |
+| **总计** | **31** | **815⭐ + 157💎** | - |
+
+**重要说明**：
+- 新增 8 个成就（Practice Master +1, Star Collector +2, Explorer +2, Game Player +3）
+- 积分成就（Star Collector）现在奖励宝石而非星星
+- 总宝石奖励 157💎（Star Collector 87💎 + Explorer Champion 50💎 + Game Player 20💎）
 
 ---
 
@@ -962,15 +1016,17 @@ func checkBirthday(userCreationDate: Date, context: ModelContext) {
 
 ```swift
 struct UnlockRequirements {
-    static let unite2 = 50      // Unite 2: 50星
-    static let unite3 = 120     // Unite 3: 120星
-    static let unite4 = 200     // Unite 4: 200星
-    static let unite5 = 300     // Unite 5: 300星
-    static let unite6 = 420     // Unite 6: 420星
+    static let unite2 = 50      // Unite 2: 50星 或 100💎
+    static let unite3 = 120     // Unite 3: 120星 或 200💎
+    static let unite4 = 200     // Unite 4: 200星 或 300💎
+    static let unite5 = 300     // Unite 5: 300星 或 400💎
+    static let unite6 = 420     // Unite 6: 420星 或 500💎
 }
 ```
 
 ### 2. 解锁流程
+
+#### A. 自动星星解锁
 
 ```swift
 // PointsManager.swift
@@ -989,16 +1045,54 @@ private func checkAndUnlockUnits(modelContext: ModelContext, totalStars: Int) {
 }
 ```
 
+#### B. 手动宝石解锁 🆕
+
+```swift
+// UnitsView.swift
+private func unlockWithGems(_ unite: Unite) {
+    let descriptor = FetchDescriptor<UserProgress>()
+    guard let userProgress = try? modelContext.fetch(descriptor).first else { return }
+
+    // 检查宝石余额
+    if userProgress.totalGems >= unite.requiredGems {
+        // 扣除宝石
+        userProgress.totalGems -= unite.requiredGems
+
+        // 解锁单元
+        unite.isUnlocked = true
+
+        // 保存并检查成就
+        try? modelContext.save()
+        let unlockedCount = unites.filter { $0.isUnlocked }.count
+        AchievementManager.shared.checkUnitUnlocked(unlockedCount: unlockedCount, context: modelContext)
+    } else {
+        // 宝石不足提示
+        insufficientGems = true
+    }
+}
+```
+
+**UI交互**：
+- 点击未解锁的Unite显示解锁对话框
+- 显示"Unlock with X 💎"选项
+- 检查宝石余额，不足时显示错误提示
+- 成功解锁后触发Explorer成就检查
+
 ### 3. 解锁进度示例
 
-| 星星累计 | 已解锁单元 | 下一个 | 还需 |
-|---------|-----------|--------|------|
-| 0 | Unite 1 | Unite 2 | 50 |
-| 50 | Unite 1-2 | Unite 3 | 70 |
-| 120 | Unite 1-3 | Unite 4 | 80 |
-| 200 | Unite 1-4 | Unite 5 | 100 |
-| 300 | Unite 1-5 | Unite 6 | 120 |
-| 420+ | Unite 1-6 | - | - |
+| 星星累计 | 宝石选项 | 已解锁单元 | 下一个 | 还需 |
+|---------|---------|-----------|--------|------|
+| 0 | - | Unite 1 | Unite 2 | 50⭐ 或 100💎 |
+| 50 | 100💎 | Unite 1-2 | Unite 3 | 70⭐ 或 200💎 |
+| 120 | 200💎 | Unite 1-3 | Unite 4 | 80⭐ 或 300💎 |
+| 200 | 300💎 | Unite 1-4 | Unite 5 | 100⭐ 或 400💎 |
+| 300 | 400💎 | Unite 1-5 | Unite 6 | 120⭐ 或 500💎 |
+| 420+ | 500💎 | Unite 1-6 | - | - |
+
+**设计理念**：
+- 星星路径：循序渐进，通过学习自然解锁
+- 宝石路径：快速解锁选项，适合想要跳过内容或提前学习的用户
+- 两种方式不冲突，用户可自由选择
 
 ---
 
@@ -1339,6 +1433,122 @@ PointsManager.shared.awardStars(points: 9, modelContext: modelContext,
 
 ---
 
+## 开发者调试工具 🛠️
+
+### 秘密入口 (Secret Entrance)
+
+**位置**: Achievement 页面
+
+**激活方式**: 快速连续点击奖杯图标 3 次（间隔需小于1秒）
+
+**功能**: 弹出密码输入对话框
+
+#### 秘密代码
+
+**1. "show me the money"**
+```swift
+// 设置星星和宝石为 999
+userProgress.totalStars = 999
+userProgress.totalGems = 999
+```
+- 用途：快速测试高级功能和解锁
+- 适用场景：开发测试、演示展示
+
+**2. "shaoyuan"**
+```swift
+// 解锁所有内容和成就
+- 解锁所有 Achievements
+- 解锁所有 Unites
+- 解锁所有 GameModes
+- 解锁所有 Storybooks
+```
+- 用途：完整功能测试和体验
+- 适用场景：功能验证、端到端测试
+
+#### 实现位置
+
+**VocFr/Views/Achievements/AchievementView.swift**:
+- 三连击检测：`handleTrophyTap()` (line 222-240)
+- 密码执行：`executeSecretCode()` (line 242-256)
+- Cheat函数：`showMeTheMoney()`, `shaoyuanCheat()` (line 258-304)
+
+**安全说明**：
+- 此功能仅用于开发和测试
+- 生产版本应考虑移除或添加额外保护措施
+- 不记录到用户数据或分析系统
+
+---
+
+## 总结
+
+### 星星获取途径总览
+
+```
+每日稳定收入：
+├── 每日登录: 2⭐
+├── 浏览Section: 5⭐ × N个Section
+└── 基础练习: 10-20⭐
+
+主动学习收入：
+├── 听力练习: 最高60⭐ (20题 × 3⭐)
+├── 拼写练习: 最高100⭐ (20题 × 5⭐)
+├── 闪卡练习: 每日最高15⭐ + 掌握10⭐/词
+├── Test模式: 6-10⭐
+├── 配对游戏: 最高80⭐
+└── Hangman: 最高10⭐/词
+
+里程碑收入：
+├── 7天连续: 50⭐
+└── 成就解锁: 5-200⭐
+```
+
+### 宝石获取途径总览
+
+```
+主要途径：
+├── Test模式: 6-10💎 (分数÷10)
+├── Flashcard里程碑: 每10个掌握词1💎
+└── 成就解锁: 2-50💎
+
+成就宝石奖励：
+├── Star Collector: 2+5+10+20+50 = 87💎
+├── Explorer Champion: 50💎
+└── Game Player: 5+15 = 20💎
+
+总计可获得: 157💎 (通过成就)
+```
+
+### 成就系统总览
+
+```
+31个成就，815⭐ + 157💎 总奖励
+
+分类：
+├── 学习里程碑: 5个成就，185⭐
+├── 练习成就: 5个成就，125⭐
+├── 连续学习: 4个成就，270⭐
+├── 积分成就: 5个成就，87💎
+├── 探索成就: 5个成就，150⭐ + 50💎
+├── 游戏玩家: 3个成就，5⭐ + 20💎
+└── 特殊成就: 4个成就，80⭐
+```
+
+### 版本更新日志
+
+**Version 3.0 (2025-11-17)**
+- 🆕 新增 Game Player 成就类别（3个成就）
+- 🆕 Star Collector 改为奖励宝石（5个成就，87💎）
+- 🆕 新增 Practice Master (50 sessions, 50⭐)
+- 🆕 新增 Explorer Champion (5 units, 50💎)
+- 🆕 Unite 支持宝石解锁（手动点击解锁）
+- 🆕 秘密入口调试功能
+- 🐛 修复 Hangman Perfect 成就立即触发逻辑
+- 🐛 修复 Streak 计算bug（保存旧日期）
+- 📝 成就总数：23 → 31
+- 📝 总奖励：775⭐ → 815⭐ + 157💎
+
+---
+
 **文档维护者**: Claude
 **技术栈**: SwiftUI, SwiftData
-**最后更新**: 2025-11-16
+**最后更新**: 2025-11-17
