@@ -1,0 +1,128 @@
+{
+  "achievement.stars.2500.title": {
+    "en": "Star Champion",
+    "zh-Hans": "星星冠军",
+    "fr": "Champion des étoiles",
+    "es": "Campeón de estrellas",
+    "de": "Sternen-Champion",
+    "it": "Campione delle stelle",
+    "pt": "Campeão de estrelas"
+  },
+  "achievement.stars.2500.description": {
+    "en": "Earn 2500 stars",
+    "zh-Hans": "获得2500颗星星",
+    "fr": "Gagnez 2500 étoiles",
+    "es": "Gana 2500 estrellas",
+    "de": "Verdiene 2500 Sterne",
+    "it": "Guadagna 2500 stelle",
+    "pt": "Ganhe 2500 estrelas"
+  },
+  "achievement.stars.5000.title": {
+    "en": "Star Legend",
+    "zh-Hans": "星星传奇",
+    "fr": "Légende des étoiles",
+    "es": "Leyenda de estrellas",
+    "de": "Sternen-Legende",
+    "it": "Leggenda delle stelle",
+    "pt": "Lenda de estrelas"
+  },
+  "achievement.stars.5000.description": {
+    "en": "Earn 5000 stars",
+    "zh-Hans": "获得5000颗星星",
+    "fr": "Gagnez 5000 étoiles",
+    "es": "Gana 5000 estrellas",
+    "de": "Verdiene 5000 Sterne",
+    "it": "Guadagna 5000 stelle",
+    "pt": "Ganhe 5000 estrelas"
+  },
+  "achievement.practice.50.title": {
+    "en": "Practice Master",
+    "zh-Hans": "练习大师",
+    "fr": "Maître de la pratique",
+    "es": "Maestro de práctica",
+    "de": "Übungsmeister",
+    "it": "Maestro della pratica",
+    "pt": "Mestre de prática"
+  },
+  "achievement.practice.50.description": {
+    "en": "Complete 50 practice sessions",
+    "zh-Hans": "完成50次练习",
+    "fr": "Complétez 50 sessions de pratique",
+    "es": "Completa 50 sesiones de práctica",
+    "de": "Schließe 50 Übungssitzungen ab",
+    "it": "Completa 50 sessioni di pratica",
+    "pt": "Complete 50 sessões de prática"
+  },
+  "achievement.unlock.unit.5.title": {
+    "en": "Explorer Champion",
+    "zh-Hans": "探索冠军",
+    "fr": "Champion explorateur",
+    "es": "Campeón explorador",
+    "de": "Entdecker-Champion",
+    "it": "Campione esploratore",
+    "pt": "Campeão explorador"
+  },
+  "achievement.unlock.unit.5.description": {
+    "en": "Unlock 5 units",
+    "zh-Hans": "解锁5个单元",
+    "fr": "Débloquez 5 unités",
+    "es": "Desbloquea 5 unidades",
+    "de": "Schalte 5 Einheiten frei",
+    "it": "Sblocca 5 unità",
+    "pt": "Desbloqueie 5 unidades"
+  },
+  "achievement.unlock.game.title": {
+    "en": "Unlocker",
+    "zh-Hans": "解锁者",
+    "fr": "Débloqueur",
+    "es": "Desbloqueador",
+    "de": "Freischalter",
+    "it": "Sbloccatore",
+    "pt": "Desbloqueador"
+  },
+  "achievement.unlock.game.description": {
+    "en": "Unlock your first game",
+    "zh-Hans": "解锁你的第一个游戏",
+    "fr": "Débloquez votre premier jeu",
+    "es": "Desbloquea tu primer juego",
+    "de": "Schalte dein erstes Spiel frei",
+    "it": "Sblocca il tuo primo gioco",
+    "pt": "Desbloqueie seu primeiro jogo"
+  },
+  "achievement.hangman.perfect.title": {
+    "en": "Hangman Saver",
+    "zh-Hans": "拯救者",
+    "fr": "Sauveur du pendu",
+    "es": "Salvador del ahorcado",
+    "de": "Galgenmännchen-Retter",
+    "it": "Salvatore dell'impiccato",
+    "pt": "Salvador da forca"
+  },
+  "achievement.hangman.perfect.description": {
+    "en": "Complete hangman without any wrong try",
+    "zh-Hans": "完成Hangman游戏且没有任何错误尝试",
+    "fr": "Complétez le pendu sans aucune erreur",
+    "es": "Completa el ahorcado sin ningún intento incorrecto",
+    "de": "Schließe Galgenmännchen ohne Fehler ab",
+    "it": "Completa l'impiccato senza errori",
+    "pt": "Complete a forca sem nenhuma tentativa errada"
+  },
+  "achievement.matching.speed.title": {
+    "en": "Speed of Light",
+    "zh-Hans": "光速",
+    "fr": "Vitesse de la lumière",
+    "es": "Velocidad de la luz",
+    "de": "Lichtgeschwindigkeit",
+    "it": "Velocità della luce",
+    "pt": "Velocidade da luz"
+  },
+  "achievement.matching.speed.description": {
+    "en": "Complete matching in 12 seconds",
+    "zh-Hans": "在12秒内完成配对游戏",
+    "fr": "Complétez l'appariement en 12 secondes",
+    "es": "Completa el emparejamiento en 12 segundos",
+    "de": "Schließe das Matching in 12 Sekunden ab",
+    "it": "Completa l'abbinamento in 12 secondi",
+    "pt": "Complete a correspondência em 12 segundos"
+  }
+}
