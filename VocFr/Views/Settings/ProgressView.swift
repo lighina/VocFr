@@ -38,7 +38,7 @@ struct ProgressView: View {
                     Text("\(progress.totalStars)")
                         .font(.title2)
                         .fontWeight(.bold)
-                    Text("progress.total.stars".localized)
+                    Text("Total Stars")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -50,9 +50,9 @@ struct ProgressView: View {
                     Text("\(progress.totalGems)")
                         .font(.title2)
                         .fontWeight(.bold)
-                    Text("progress.total.gems".localized)
+                    Text("Total Gems")
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(.cyan)
                 }
 
                 VStack {
@@ -62,7 +62,7 @@ struct ProgressView: View {
                     Text("\(progress.currentStreak)")
                         .font(.title2)
                         .fontWeight(.bold)
-                    Text("progress.current.streak".localized)
+                    Text("Day Streak")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }

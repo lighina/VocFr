@@ -42,28 +42,24 @@ struct StarsProgressView: View {
             // Current stars and gems
             HStack(spacing: 16) {
                 // Stars
-                HStack(spacing: 8) {
+                HStack(spacing: 4) {
                     Image(systemName: "star.fill")
                         .foregroundColor(.yellow)
-                        .font(.title)
+                        .font(.title2)
 
                     Text("\(totalStars)")
-                        .font(.system(size: 36, weight: .bold, design: .rounded))
+                        .font(.system(size: 32, weight: .bold, design: .rounded))
                         .foregroundColor(.primary)
-
-                    Text("stars.label".localized)
-                        .font(.title3)
-                        .foregroundColor(.secondary)
                 }
 
                 // Gems
-                HStack(spacing: 8) {
+                HStack(spacing: 4) {
                     Image(systemName: "gem.fill")
                         .foregroundColor(.cyan)
                         .font(.title2)
 
                     Text("\(totalGems)")
-                        .font(.system(size: 28, weight: .bold, design: .rounded))
+                        .font(.system(size: 32, weight: .bold, design: .rounded))
                         .foregroundColor(.cyan)
                 }
 
@@ -74,12 +70,12 @@ struct StarsProgressView: View {
                     HStack(spacing: 4) {
                         Image(systemName: "flame.fill")
                             .foregroundColor(.orange)
-                        Text("stars.streak.days".localized(streak))
-                            .font(.caption)
+                        Text("\(streak)")
+                            .font(.headline)
                             .fontWeight(.semibold)
                     }
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 6)
                     .background(Color.orange.opacity(0.2))
                     .cornerRadius(8)
                 }
