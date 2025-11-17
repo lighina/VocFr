@@ -136,6 +136,8 @@
 "main.test.description" = "Test your French proficiency";
 "main.game.title" = "Game";
 "main.game.description" = "Play word guessing games";
+"main.storybooks.title" = "Storybooks";
+"main.storybooks.description" = "Read French stories with learned vocabulary";
 
 // MARK: - Game Mode
 
@@ -385,7 +387,7 @@
 // MARK: - Storybooks
 
 "storybooks.title" = "French Stories";
-"storybooks.subtitle" = "Read engaging French stories with translations";
+"storybooks.subtitle" = "Read engaging French stories with learned vocabulary";
 "storybooks.navigation.title" = "Storybooks";
 "storybooks.status.unlocked" = "Unlocked";
 "storybooks.to.unlock" = "to unlock";

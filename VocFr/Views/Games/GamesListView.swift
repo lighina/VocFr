@@ -112,6 +112,11 @@ struct GameModeCard: View {
     let currentGems: Int
     let onTap: () -> Void
 
+    private var displayName: String {
+        let languageCode = Locale.current.language.languageCode?.identifier ?? "en"
+        return languageCode.hasPrefix("zh") ? game.nameInChinese : game.name
+    }
+
     var body: some View {
         Button(action: onTap) {
             VStack(spacing: 12) {
@@ -134,14 +139,9 @@ struct GameModeCard: View {
 
                 // Title
                 VStack(spacing: 4) {
-                    Text(game.name)
+                    Text(displayName)
                         .font(.headline)
                         .foregroundColor(.primary)
-                        .multilineTextAlignment(.center)
-
-                    Text(game.nameInChinese)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
                 }
 

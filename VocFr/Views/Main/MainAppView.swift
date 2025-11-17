@@ -26,7 +26,7 @@ struct MainAppView: View {
 
             Spacer()
 
-            // 三个学习选项（堆积式布局）
+            // 四个学习选项（堆积式布局）
             VStack(spacing: 20) {
                 // 学习模式
                 NavigationLink(destination: UnitsView()) {
@@ -55,6 +55,16 @@ struct MainAppView: View {
                         title: "main.game.title".localized,
                         description: "main.game.description".localized,
                         color: .purple
+                    )
+                }
+
+                // 故事书模式
+                NavigationLink(destination: StorybooksListView()) {
+                    MainModeButton(
+                        icon: "book.fill",
+                        title: "main.storybooks.title".localized,
+                        description: "main.storybooks.description".localized,
+                        color: .orange
                     )
                 }
             }
