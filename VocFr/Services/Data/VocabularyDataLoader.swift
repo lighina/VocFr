@@ -36,6 +36,7 @@ class VocabularyDataLoader {
         let title: String
         let isUnlocked: Bool
         let requiredStars: Int
+        let requiredGems: Int?  // Optional for backward compatibility
         let sections: [SectionJSON]
     }
 
@@ -152,7 +153,8 @@ class VocabularyDataLoader {
             number: json.number,
             title: json.title,
             isUnlocked: json.isUnlocked,
-            requiredStars: json.requiredStars
+            requiredStars: json.requiredStars,
+            requiredGems: json.requiredGems ?? 0  // Default to 0 if not specified
         )
 
         // Convert sections
