@@ -41,7 +41,7 @@ struct MainAppView: View {
                 // 答题模式
                 NavigationLink(destination: TestModeView()) {
                     MainModeButton(
-                        icon: "questionmark.circle",
+                        icon: "doc.text",
                         title: "main.test.title".localized,
                         description: "main.test.description".localized,
                         color: .green
@@ -61,7 +61,7 @@ struct MainAppView: View {
                 // 故事书模式
                 NavigationLink(destination: StorybooksListView()) {
                     MainModeButton(
-                        icon: "book.fill",
+                        icon: "book.vertical",
                         title: "main.storybooks.title".localized,
                         description: "main.storybooks.description".localized,
                         color: .orange

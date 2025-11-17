@@ -34,10 +34,6 @@ struct GameModeView: View {
                         .font(.system(size: 60))
                         .foregroundColor(.purple)
 
-                    Text("game.mode.title".localized)
-                        .font(.title)
-                        .fontWeight(.bold)
-
                     Text("game.mode.subtitle".localized)
                         .font(.subheadline)
                         .foregroundColor(.secondary)
@@ -47,8 +43,9 @@ struct GameModeView: View {
 
                 // Games List
                 VStack(spacing: 12) {
-                    Text("game.mode.games.list".localized)
-                        .font(.headline)
+                    Text("game.mode.choose.game".localized)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
 

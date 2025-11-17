@@ -309,7 +309,7 @@
 
 // MARK: - Game Mode View
 
-"game.mode.games.list" = "[TODO] Games List";
+"game.mode.games.list" = "游戏列表";
 "game.mode.matching.title" = "配对游戏";
 "game.mode.matching.description" = "从所有学过的词汇中配对 (6对)";
 "game.mode.hangman.section" = "吊人游戏 - 按单元选择";
@@ -403,3 +403,4 @@
 "storybook.finish" = "完成";
 "storybook.french" = "法语";
 "storybook.chinese" = "中文";
+"game.mode.choose.game" = "选择游戏开始玩";

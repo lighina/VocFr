@@ -302,55 +302,55 @@
 
 // MARK: - Game Mode View
 
-"game.mode.games.list" = "[TODO] Games List";
-"game.mode.matching.title" = "[TODO] Matching Game";
-"game.mode.matching.description" = "[TODO] Match from all learned vocabulary (6 pairs)";
-"game.mode.hangman.section" = "[TODO] Hangman - Select by Unite";
-"game.mode.hangman.all.words" = "[TODO] All Learned Vocabulary";
-"game.mode.words.count" = "[TODO] %d words";
-"game.mode.back.to.games" = "[TODO] Games";
-"matching.game.all.words.title" = "[TODO] Matching Game";
-"matching.game.instruction.all" = "[TODO] Find 6 pairs of French words and their images";
-"matching.game.matched.pairs" = "[TODO] Matched";
-"matching.game.attempts.count" = "[TODO] Attempts";
-"matching.game.excellent" = "[TODO] Excellent!";
-"matching.game.pairs.count" = "[TODO] Pairs";
-"matching.game.accuracy.rate" = "[TODO] Accuracy";
-"matching.game.play.again" = "[TODO] Play Again";
-"game.mode.hangman.subtitle" = "[TODO] Tap to select a unit";
-"game.mode.matching.subtitle" = "[TODO] 6 pairs of learned vocabulary";
+"game.mode.games.list" = "Lista de juegos";
+"game.mode.matching.title" = "Juego de emparejamiento";
+"game.mode.matching.description" = "Emparejar de todo el vocabulario aprendido (6 pares)";
+"game.mode.hangman.section" = "Ahorcado - Seleccionar por unidad";
+"game.mode.hangman.all.words" = "Todo el vocabulario aprendido";
+"game.mode.words.count" = "%d palabras";
+"game.mode.back.to.games" = "Juegos";
+"matching.game.all.words.title" = "Juego de emparejamiento";
+"matching.game.instruction.all" = "Encuentra 6 pares de palabras francesas y sus imágenes";
+"matching.game.matched.pairs" = "Emparejadas";
+"matching.game.attempts.count" = "Intentos";
+"matching.game.excellent" = "¡Excelente!";
+"matching.game.pairs.count" = "Pares";
+"matching.game.accuracy.rate" = "Precisión";
+"matching.game.play.again" = "Jugar de nuevo";
+"game.mode.hangman.subtitle" = "Toca para seleccionar una unidad";
+"game.mode.matching.subtitle" = "6 pares de vocabulario aprendido";
 
 // MARK: - Test Mode
 
-"test.select.unite" = "[TODO] Select a unit to test";
-"test.comprehensive" = "[TODO] Comprehensive Test";
-"test.all.units" = "[TODO] All learned units";
-"test.best.score" = "[TODO] Best: %d";
-"test.question.imageToWord" = "[TODO] Choose the correct French word";
-"test.question.audioToWord" = "[TODO] Listen and choose the correct word";
-"test.question.spelling" = "[TODO] Type the correct spelling";
-"test.question.genderGuess" = "[TODO] Choose the gender of this noun";
-"test.gender.masculine" = "[TODO] Masculine (le)";
-"test.gender.feminine" = "[TODO] Feminine (la)";
-"test.button.previous" = "[TODO] Previous";
-"test.button.next" = "[TODO] Next";
-"test.button.finish" = "[TODO] Finish Test";
-"test.button.listen" = "[TODO] Listen";
-"test.result.title" = "[TODO] Test Result";
-"test.result.score" = "[TODO] Score";
-"test.result.correct" = "[TODO] Correct";
-"test.result.time" = "[TODO] Time";
-"test.result.imageToWord" = "[TODO] Image Recognition";
-"test.result.audioToWord" = "[TODO] Listening";
-"test.result.spelling" = "[TODO] Spelling";
-"test.result.genderGuess" = "[TODO] Gender";
-"test.rating.excellent" = "[TODO] Excellent!";
-"test.rating.good" = "[TODO] Good!";
-"test.rating.pass" = "[TODO] Pass";
-"test.rating.needsReview" = "[TODO] Needs Review";
-"test.button.retry" = "[TODO] Retry Test";
-"test.button.viewWrong" = "[TODO] Review Mistakes";
-"test.button.back" = "[TODO] Back";
+"test.select.unite" = "Selecciona una unidad para probar";
+"test.comprehensive" = "Prueba completa";
+"test.all.units" = "Todas las unidades aprendidas";
+"test.best.score" = "Mejor: %d";
+"test.question.imageToWord" = "Elige la palabra francesa correcta";
+"test.question.audioToWord" = "Escucha y elige la palabra correcta";
+"test.question.spelling" = "Escribe la ortografía correcta";
+"test.question.genderGuess" = "Elige el género de este sustantivo";
+"test.gender.masculine" = "Masculino (le)";
+"test.gender.feminine" = "Femenino (la)";
+"test.button.previous" = "Anterior";
+"test.button.next" = "Siguiente";
+"test.button.finish" = "Finalizar prueba";
+"test.button.listen" = "Escuchar";
+"test.result.title" = "Resultado de la prueba";
+"test.result.score" = "Puntuación";
+"test.result.correct" = "Correcto";
+"test.result.time" = "Tiempo";
+"test.result.imageToWord" = "Reconocimiento de imagen";
+"test.result.audioToWord" = "Escucha";
+"test.result.spelling" = "Ortografía";
+"test.result.genderGuess" = "Género";
+"test.rating.excellent" = "¡Excelente!";
+"test.rating.good" = "¡Bien!";
+"test.rating.pass" = "Aprobado";
+"test.rating.needsReview" = "Necesita revisión";
+"test.button.retry" = "Reintentar prueba";
+"test.button.viewWrong" = "Revisar errores";
+"test.button.back" = "Volver";
 
 // MARK: - Wrong Answer Book
 
@@ -373,7 +373,6 @@
 "games.navigation.title" = "Juegos";
 "games.status.unlocked" = "Desbloqueado";
 "games.unlock.title" = "Desbloquear juego";
-"games.unlock.message" = "¿Desbloquear \"%@\" por %d gemas?";
 "games.unlock.confirm" = "Desbloquear";
 "games.unlock.cancel" = "Cancelar";
 
@@ -385,7 +384,6 @@
 "storybooks.status.unlocked" = "Desbloqueado";
 "storybooks.to.unlock" = "para desbloquear";
 "storybooks.unlock.title" = "Desbloquear libro";
-"storybooks.unlock.message" = "¿Desbloquear \"%@\" por %d gemas?";
 "storybooks.unlock.confirm" = "Desbloquear";
 "storybooks.unlock.cancel" = "Cancelar";
 
@@ -396,3 +394,13 @@
 "storybook.finish" = "Terminar";
 "storybook.french" = "Francés";
 "storybook.chinese" = "Chino";
+"game.mode.choose.game" = "Elige un juego para jugar";
+"main.storybooks.title" = "Cuentos";
+"main.storybooks.description" = "Leer historias francesas basadas en vocabulario aprendido";
+"menu.games.title" = "Juegos";
+"menu.games.description" = "Jugar juegos de aprendizaje divertidos";
+"menu.storybooks.title" = "Cuentos";
+"menu.storybooks.description" = "Leer historias francesas";
+"menu.section.entertainment" = "Entretenimiento";
+"games.unlock.message" = "¿Gastar %2$d 💎 para desbloquear \"%1$@\"?";
+"storybooks.unlock.message" = "¿Gastar %2$d 💎 para desbloquear \"%1$@\"?";

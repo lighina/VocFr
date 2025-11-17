@@ -302,55 +302,55 @@
 
 // MARK: - Game Mode View
 
-"game.mode.games.list" = "[TODO] Games List";
-"game.mode.matching.title" = "[TODO] Matching Game";
-"game.mode.matching.description" = "[TODO] Match from all learned vocabulary (6 pairs)";
-"game.mode.hangman.section" = "[TODO] Hangman - Select by Unite";
-"game.mode.hangman.all.words" = "[TODO] All Learned Vocabulary";
-"game.mode.words.count" = "[TODO] %d words";
-"game.mode.back.to.games" = "[TODO] Games";
-"matching.game.all.words.title" = "[TODO] Matching Game";
-"matching.game.instruction.all" = "[TODO] Find 6 pairs of French words and their images";
-"matching.game.matched.pairs" = "[TODO] Matched";
-"matching.game.attempts.count" = "[TODO] Attempts";
-"matching.game.excellent" = "[TODO] Excellent!";
-"matching.game.pairs.count" = "[TODO] Pairs";
-"matching.game.accuracy.rate" = "[TODO] Accuracy";
-"matching.game.play.again" = "[TODO] Play Again";
-"game.mode.hangman.subtitle" = "[TODO] Tap to select a unit";
-"game.mode.matching.subtitle" = "[TODO] 6 pairs of learned vocabulary";
+"game.mode.games.list" = "Spieleliste";
+"game.mode.matching.title" = "Zuordnungsspiel";
+"game.mode.matching.description" = "Aus allen gelernten Vokabeln zuordnen (6 Paare)";
+"game.mode.hangman.section" = "Galgenmännchen - Nach Einheit auswählen";
+"game.mode.hangman.all.words" = "Alle gelernten Vokabeln";
+"game.mode.words.count" = "%d Wörter";
+"game.mode.back.to.games" = "Spiele";
+"matching.game.all.words.title" = "Zuordnungsspiel";
+"matching.game.instruction.all" = "Finden Sie 6 Paare französischer Wörter und ihrer Bilder";
+"matching.game.matched.pairs" = "Zugeordnet";
+"matching.game.attempts.count" = "Versuche";
+"matching.game.excellent" = "Ausgezeichnet!";
+"matching.game.pairs.count" = "Paare";
+"matching.game.accuracy.rate" = "Genauigkeit";
+"matching.game.play.again" = "Nochmal spielen";
+"game.mode.hangman.subtitle" = "Tippen Sie, um eine Einheit auszuwählen";
+"game.mode.matching.subtitle" = "6 Paare gelernter Vokabeln";
 
 // MARK: - Test Mode
 
-"test.select.unite" = "[TODO] Select a unit to test";
-"test.comprehensive" = "[TODO] Comprehensive Test";
-"test.all.units" = "[TODO] All learned units";
-"test.best.score" = "[TODO] Best: %d";
-"test.question.imageToWord" = "[TODO] Choose the correct French word";
-"test.question.audioToWord" = "[TODO] Listen and choose the correct word";
-"test.question.spelling" = "[TODO] Type the correct spelling";
-"test.question.genderGuess" = "[TODO] Choose the gender of this noun";
-"test.gender.masculine" = "[TODO] Masculine (le)";
-"test.gender.feminine" = "[TODO] Feminine (la)";
-"test.button.previous" = "[TODO] Previous";
-"test.button.next" = "[TODO] Next";
-"test.button.finish" = "[TODO] Finish Test";
-"test.button.listen" = "[TODO] Listen";
-"test.result.title" = "[TODO] Test Result";
-"test.result.score" = "[TODO] Score";
-"test.result.correct" = "[TODO] Correct";
-"test.result.time" = "[TODO] Time";
-"test.result.imageToWord" = "[TODO] Image Recognition";
-"test.result.audioToWord" = "[TODO] Listening";
-"test.result.spelling" = "[TODO] Spelling";
-"test.result.genderGuess" = "[TODO] Gender";
-"test.rating.excellent" = "[TODO] Excellent!";
-"test.rating.good" = "[TODO] Good!";
-"test.rating.pass" = "[TODO] Pass";
-"test.rating.needsReview" = "[TODO] Needs Review";
-"test.button.retry" = "[TODO] Retry Test";
-"test.button.viewWrong" = "[TODO] Review Mistakes";
-"test.button.back" = "[TODO] Back";
+"test.select.unite" = "Wählen Sie eine Einheit zum Testen";
+"test.comprehensive" = "Umfassender Test";
+"test.all.units" = "Alle gelernten Einheiten";
+"test.best.score" = "Bester: %d";
+"test.question.imageToWord" = "Wählen Sie das richtige französische Wort";
+"test.question.audioToWord" = "Hören Sie und wählen Sie das richtige Wort";
+"test.question.spelling" = "Geben Sie die richtige Schreibweise ein";
+"test.question.genderGuess" = "Wählen Sie das Geschlecht dieses Substantivs";
+"test.gender.masculine" = "Maskulin (le)";
+"test.gender.feminine" = "Feminin (la)";
+"test.button.previous" = "Zurück";
+"test.button.next" = "Weiter";
+"test.button.finish" = "Test beenden";
+"test.button.listen" = "Anhören";
+"test.result.title" = "Testergebnis";
+"test.result.score" = "Punktzahl";
+"test.result.correct" = "Korrekt";
+"test.result.time" = "Zeit";
+"test.result.imageToWord" = "Bilderkennung";
+"test.result.audioToWord" = "Hörverständnis";
+"test.result.spelling" = "Rechtschreibung";
+"test.result.genderGuess" = "Geschlecht";
+"test.rating.excellent" = "Ausgezeichnet!";
+"test.rating.good" = "Gut!";
+"test.rating.pass" = "Bestanden";
+"test.rating.needsReview" = "Überprüfung erforderlich";
+"test.button.retry" = "Test wiederholen";
+"test.button.viewWrong" = "Fehler überprüfen";
+"test.button.back" = "Zurück";
 
 // MARK: - Wrong Answer Book
 
@@ -373,7 +373,6 @@
 "games.navigation.title" = "Spiele";
 "games.status.unlocked" = "Freigeschaltet";
 "games.unlock.title" = "Spiel freischalten";
-"games.unlock.message" = "\"%@\" für %d Edelsteine freischalten?";
 "games.unlock.confirm" = "Freischalten";
 "games.unlock.cancel" = "Abbrechen";
 
@@ -385,7 +384,6 @@
 "storybooks.status.unlocked" = "Freigeschaltet";
 "storybooks.to.unlock" = "zum Freischalten";
 "storybooks.unlock.title" = "Buch freischalten";
-"storybooks.unlock.message" = "\"%@\" für %d Edelsteine freischalten?";
 "storybooks.unlock.confirm" = "Freischalten";
 "storybooks.unlock.cancel" = "Abbrechen";
 
@@ -396,3 +394,13 @@
 "storybook.finish" = "Fertig";
 "storybook.french" = "Französisch";
 "storybook.chinese" = "Chinesisch";
+"game.mode.choose.game" = "Wählen Sie ein Spiel zum Spielen";
+"main.storybooks.title" = "Geschichten";
+"main.storybooks.description" = "Französische Geschichten basierend auf gelerntem Vokabular lesen";
+"menu.games.title" = "Spiele";
+"menu.games.description" = "Lustige Lernspiele spielen";
+"menu.storybooks.title" = "Geschichten";
+"menu.storybooks.description" = "Französische Geschichten lesen";
+"menu.section.entertainment" = "Unterhaltung";
+"games.unlock.message" = "%2$d 💎 ausgeben, um \"%1$@\" freizuschalten?";
+"storybooks.unlock.message" = "%2$d 💎 ausgeben, um \"%1$@\" freizuschalten?";

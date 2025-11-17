@@ -22,12 +22,9 @@ struct GamesListView: View {
             VStack(spacing: 20) {
                 // Header
                 VStack(spacing: 8) {
-                    Text("🎮")
+                    Image(systemName: "gamecontroller.fill")
                         .font(.system(size: 60))
-
-                    Text("games.title".localized)
-                        .font(.title)
-                        .fontWeight(.bold)
+                        .foregroundColor(.purple)
 
                     Text("games.subtitle".localized)
                         .font(.subheadline)
