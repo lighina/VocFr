@@ -203,6 +203,8 @@ struct AchievementView: View {
             return "star.fill"
         case .exploration:
             return "map.fill"
+        case .gameplayer:
+            return "gamecontroller.fill"
         case .special:
             return "sparkles"
         }
