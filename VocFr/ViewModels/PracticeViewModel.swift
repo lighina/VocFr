@@ -196,6 +196,9 @@ class PracticeViewModel {
             try modelContext.save()
             print("✅ Practice record saved: \(correctCount)/\(totalWords) correct")
 
+            // Update WordProgress for all practiced words
+            updateWordProgress(context: modelContext)
+
             // Award points for completing practice (Part B.1)
             let earnedPoints = calculatePoints(accuracy: accuracy)
             pointsEarned = earnedPoints
@@ -206,6 +209,47 @@ class PracticeViewModel {
 
         } catch {
             print("❌ Failed to save practice record: \(error)")
+        }
+    }
+
+    /// Update WordProgress for all words in this practice session
+    private func updateWordProgress(context: ModelContext) {
+        // Get or create UserProgress
+        let userProgressDescriptor = FetchDescriptor<UserProgress>()
+        let userProgress: UserProgress
+        if let existing = try? context.fetch(userProgressDescriptor).first {
+            userProgress = existing
+        } else {
+            userProgress = UserProgress()
+            context.insert(userProgress)
+        }
+
+        for word in words {
+            // Try to find existing WordProgress
+            let descriptor = FetchDescriptor<WordProgress>(
+                predicate: #Predicate { progress in
+                    progress.word?.id == word.id
+                }
+            )
+
+            if let existingProgress = try? context.fetch(descriptor).first {
+                // Update existing progress
+                existingProgress.lastReviewed = Date()
+            } else {
+                // Create new WordProgress
+                let newProgress = WordProgress()
+                newProgress.word = word
+                newProgress.userProgress = userProgress
+                newProgress.lastReviewed = Date()
+                context.insert(newProgress)
+            }
+        }
+
+        do {
+            try context.save()
+            print("✅ Updated WordProgress for \(words.count) words")
+        } catch {
+            print("❌ Failed to update WordProgress: \(error)")
         }
     }
 
