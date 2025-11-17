@@ -401,6 +401,17 @@ class MatchingGameViewModel {
         // Check special time-based achievements
         AchievementManager.shared.checkSpecialAchievements(context: context)
 
+        // Check learning milestones
+        let wordProgressDescriptor = FetchDescriptor<WordProgress>(
+            predicate: #Predicate { $0.lastReviewed != nil }
+        )
+        if let wordProgresses = try? context.fetch(wordProgressDescriptor) {
+            AchievementManager.shared.checkLearningMilestones(
+                wordCount: wordProgresses.count,
+                context: context
+            )
+        }
+
         // Check points achievements
         if let userProgress = try? context.fetch(FetchDescriptor<UserProgress>()).first {
             AchievementManager.shared.checkPoints(totalPoints: userProgress.totalStars, context: context)

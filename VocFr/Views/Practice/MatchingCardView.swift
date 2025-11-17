@@ -82,6 +82,10 @@ struct MatchingCardView: View {
             Image(systemName: "questionmark")
                 .font(.system(size: 32, weight: .bold))
                 .foregroundColor(.white.opacity(0.8))
+                .rotation3DEffect(
+                    .degrees(180),
+                    axis: (x: 0.0, y: 1.0, z: 0.0)
+                )
         }
     }
 

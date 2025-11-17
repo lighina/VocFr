@@ -34,11 +34,11 @@ class PointsManager {
     }
 
     struct UnlockRequirements {
-        static let unite2 = 50
-        static let unite3 = 120
-        static let unite4 = 200
-        static let unite5 = 300
-        static let unite6 = 420
+        static let unite2 = 1000
+        static let unite3 = 2000
+        static let unite4 = 3000
+        static let unite5 = 4000
+        static let unite6 = 5000
     }
 
     // MARK: - Points Award Methods
@@ -74,7 +74,7 @@ class PointsManager {
         addPoints(RewardPoints.dailyLogin, to: modelContext, reason: "Daily login")
 
         // Update streak
-        updateStreak(userProgress: userProgress, today: today, calendar: calendar)
+        updateStreak(userProgress: userProgress, today: today, calendar: calendar, modelContext: modelContext)
 
         // Check for week streak bonus
         if userProgress.currentStreak >= 7 && userProgress.currentStreak % 7 == 0 {
@@ -122,6 +122,9 @@ class PointsManager {
 
         // Check for unit unlocks
         checkAndUnlockUnits(modelContext: modelContext, totalStars: userProgress.totalStars)
+
+        // Track points achievements
+        AchievementManager.shared.checkPoints(totalPoints: userProgress.totalStars, context: modelContext)
     }
 
     /// Get or create UserProgress
@@ -143,10 +146,12 @@ class PointsManager {
     }
 
     /// Update study streak
-    private func updateStreak(userProgress: UserProgress, today: Date, calendar: Calendar) {
+    private func updateStreak(userProgress: UserProgress, today: Date, calendar: Calendar, modelContext: ModelContext) {
         guard let lastStudy = userProgress.lastStudyDate else {
             // First time studying
             userProgress.currentStreak = 1
+            // Track streak achievement
+            AchievementManager.shared.checkStreak(currentStreak: 1, context: modelContext)
             return
         }
 
@@ -160,6 +165,9 @@ class PointsManager {
             userProgress.currentStreak = 1
         }
         // If daysDifference == 0, same day, no change needed
+
+        // Track streak achievement
+        AchievementManager.shared.checkStreak(currentStreak: userProgress.currentStreak, context: modelContext)
     }
 
     /// Check and unlock units based on total stars
@@ -167,14 +175,25 @@ class PointsManager {
         let descriptor = FetchDescriptor<Unite>(sortBy: [SortDescriptor(\.number)])
         guard let unites = try? modelContext.fetch(descriptor) else { return }
 
+        var newlyUnlockedCount = 0
         for unite in unites {
             if !unite.isUnlocked && totalStars >= unite.requiredStars {
                 unite.isUnlocked = true
+                newlyUnlockedCount += 1
                 print("🎉 Unite \(unite.number) unlocked! (\(unite.title))")
             }
         }
 
         try? modelContext.save()
+
+        // Track achievement for unit unlocks
+        if newlyUnlockedCount > 0 {
+            let totalUnlocked = unites.filter { $0.isUnlocked }.count
+            AchievementManager.shared.checkUnitUnlocked(
+                unlockedCount: totalUnlocked,
+                context: modelContext
+            )
+        }
     }
 
     // MARK: - Query Methods

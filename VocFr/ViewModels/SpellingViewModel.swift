@@ -362,6 +362,20 @@ class SpellingViewModel {
                 )
             }
         }
+
+        // Check special time-based achievements
+        AchievementManager.shared.checkSpecialAchievements(context: modelContext)
+
+        // Check learning milestones
+        let wordProgressDescriptor = FetchDescriptor<WordProgress>(
+            predicate: #Predicate { $0.lastReviewed != nil }
+        )
+        if let wordProgresses = try? modelContext.fetch(wordProgressDescriptor) {
+            AchievementManager.shared.checkLearningMilestones(
+                wordCount: wordProgresses.count,
+                context: modelContext
+            )
+        }
     }
 
     // MARK: - Levenshtein Distance Algorithm

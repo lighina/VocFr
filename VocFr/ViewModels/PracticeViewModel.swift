@@ -201,8 +201,49 @@ class PracticeViewModel {
             pointsEarned = earnedPoints
             PointsManager.shared.awardPracticePoints(accuracy: accuracy, modelContext: modelContext)
 
+            // Track achievements
+            trackAchievements(accuracy: accuracy, context: modelContext)
+
         } catch {
             print("❌ Failed to save practice record: \(error)")
+        }
+    }
+
+    /// Track achievements for this practice session
+    private func trackAchievements(accuracy: Double, context: ModelContext) {
+        // Get practice count
+        let descriptor = FetchDescriptor<PracticeRecord>()
+        if let allRecords = try? context.fetch(descriptor) {
+            AchievementManager.shared.checkPracticeCount(practiceCount: allRecords.count, context: context)
+        }
+
+        // Check for perfect practice
+        if accuracy >= 1.0 {
+            let perfectDescriptor = FetchDescriptor<PracticeRecord>(
+                predicate: #Predicate { $0.accuracy >= 1.0 }
+            )
+            if let perfectRecords = try? context.fetch(perfectDescriptor) {
+                let isPerfect20 = totalWords >= 20
+                AchievementManager.shared.checkPerfectPractice(
+                    perfectCount: perfectRecords.count,
+                    isPerfect20: isPerfect20,
+                    context: context
+                )
+            }
+        }
+
+        // Check special time-based achievements
+        AchievementManager.shared.checkSpecialAchievements(context: context)
+
+        // Check learning milestones
+        let wordProgressDescriptor = FetchDescriptor<WordProgress>(
+            predicate: #Predicate { $0.lastReviewed != nil }
+        )
+        if let wordProgresses = try? context.fetch(wordProgressDescriptor) {
+            AchievementManager.shared.checkLearningMilestones(
+                wordCount: wordProgresses.count,
+                context: context
+            )
         }
     }
 
