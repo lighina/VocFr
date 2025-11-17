@@ -12,7 +12,18 @@ import SwiftData
 struct GameModeView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var unites: [Unite]
+    @Query private var gameModes: [GameMode]
+    @Query private var userProgress: [UserProgress]
     @State private var isHangmanExpanded: Bool = false
+    @State private var showUnlockAlert = false
+
+    private var hangmanGame: GameMode? {
+        gameModes.first { $0.id == "hangman_game" }
+    }
+
+    private var currentGems: Int {
+        userProgress.first?.totalGems ?? 0
+    }
 
     var body: some View {
         ScrollView {
@@ -55,23 +66,48 @@ struct GameModeView: View {
                     // Hangman Game (Expandable)
                     VStack(spacing: 12) {
                         Button(action: {
-                            withAnimation {
-                                isHangmanExpanded.toggle()
+                            if let game = hangmanGame, !game.isUnlocked {
+                                // Show unlock alert
+                                showUnlockAlert = true
+                            } else {
+                                // Expand/collapse the list
+                                withAnimation {
+                                    isHangmanExpanded.toggle()
+                                }
                             }
                         }) {
-                            GameCard(
-                                icon: "figure.stand",
-                                title: "Hangman",
-                                description: "game.mode.hangman.subtitle".localized,
-                                color: .purple,
-                                isExpandable: true,
-                                isExpanded: isHangmanExpanded
-                            )
+                            HStack {
+                                GameCard(
+                                    icon: "figure.stand",
+                                    title: "Hangman",
+                                    description: "game.mode.hangman.subtitle".localized,
+                                    color: .purple,
+                                    isExpandable: true,
+                                    isExpanded: isHangmanExpanded
+                                )
+
+                                // Lock icon and gems if locked
+                                if let game = hangmanGame, !game.isUnlocked {
+                                    VStack(spacing: 4) {
+                                        Image(systemName: "lock.fill")
+                                            .foregroundColor(.gray)
+                                        HStack(spacing: 2) {
+                                            Text("💎")
+                                                .font(.caption2)
+                                            Text("\(game.requiredGems)")
+                                                .font(.caption2)
+                                                .fontWeight(.semibold)
+                                                .foregroundColor(currentGems >= game.requiredGems ? .cyan : .red)
+                                        }
+                                    }
+                                    .padding(.trailing, 8)
+                                }
+                            }
                         }
                         .padding(.horizontal)
 
-                        // Expandable Unite List
-                        if isHangmanExpanded {
+                        // Expandable Unite List (only if unlocked)
+                        if isHangmanExpanded && (hangmanGame?.isUnlocked ?? false) {
                             VStack(spacing: 8) {
                                 // All Learned Words Option
                                 NavigationLink(destination: HangmanAllWordsView(unites: unites.filter { $0.isUnlocked })) {
@@ -110,6 +146,33 @@ struct GameModeView: View {
         }
         .navigationTitle("main.game.title".localized)
         .navigationBarTitleDisplayMode(.inline)
+        .alert("games.unlock.title".localized, isPresented: $showUnlockAlert) {
+            Button("games.unlock.cancel".localized, role: .cancel) { }
+            Button("games.unlock.confirm".localized) {
+                if let game = hangmanGame {
+                    unlockHangman(game)
+                }
+            }
+        } message: {
+            if let game = hangmanGame {
+                Text(String(format: "games.unlock.message".localized, game.name, game.requiredGems))
+            }
+        }
+    }
+
+    // MARK: - Methods
+
+    private func unlockHangman(_ game: GameMode) {
+        let success = PointsManager.shared.unlockGameMode(game, modelContext: modelContext)
+
+        if success {
+            print("🎮 Unlocked Hangman game")
+            withAnimation {
+                isHangmanExpanded = true
+            }
+        } else {
+            print("❌ Failed to unlock Hangman: Not enough gems")
+        }
     }
 
     private func totalWordsCount() -> Int {

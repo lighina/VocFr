@@ -154,6 +154,11 @@
 "menu.progress.description" = "查看学习进度";
 "menu.settings.title" = "设置";
 "menu.settings.description" = "应用设置和数据管理";
+"menu.section.entertainment" = "娱乐";
+"menu.games.title" = "游戏";
+"menu.games.description" = "玩趣味学习游戏";
+"menu.storybooks.title" = "故事书";
+"menu.storybooks.description" = "阅读法语故事";
 "menu.about.title" = "关于";
 "menu.about.description" = "版本信息";
 "menu.help.title" = "帮助";

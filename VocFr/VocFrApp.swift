@@ -89,6 +89,11 @@ struct VocFrApp: App {
                 try FrenchVocabularySeeder.seedAllData(to: context)
                 FrenchVocabularySeeder.addAudioTimestamps(to: context)
 
+                // Load game modes and storybooks
+                print("加载游戏模式和故事书...")
+                try? GameDataLoader.loadGameModesIntoContext(context)
+                try? GameDataLoader.loadStorybooksIntoContext(context)
+
                 print("数据导入完成")
                 print(FrenchVocabularySeeder.generateDataReport(from: context))
 

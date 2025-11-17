@@ -154,6 +154,11 @@
 "menu.progress.description" = "View Learning Progress";
 "menu.settings.title" = "Settings";
 "menu.settings.description" = "App Settings and Data Management";
+"menu.section.entertainment" = "Entertainment";
+"menu.games.title" = "Games";
+"menu.games.description" = "Play Fun Learning Games";
+"menu.storybooks.title" = "Storybooks";
+"menu.storybooks.description" = "Read French Stories";
 "menu.about.title" = "About";
 "menu.about.description" = "Version Information";
 "menu.help.title" = "Help";
