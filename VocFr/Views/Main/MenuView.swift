@@ -22,14 +22,12 @@ struct MenuView: View {
                     MenuRowView(icon: "chart.line.uptrend.xyaxis", title: "menu.progress.title".localized, description: "menu.progress.description".localized)
                 }
 
-                SwiftUI.Section(header: Text("menu.section.entertainment".localized)) {
-                    NavigationLink(destination: GamesListView()) {
-                        MenuRowView(icon: "gamecontroller.fill", title: "menu.games.title".localized, description: "menu.games.description".localized)
-                    }
+                NavigationLink(destination: GamesListView()) {
+                    MenuRowView(icon: "gamecontroller", title: "menu.games.title".localized, description: "menu.games.description".localized)
+                }
 
-                    NavigationLink(destination: StorybooksListView()) {
-                        MenuRowView(icon: "book.fill", title: "menu.storybooks.title".localized, description: "menu.storybooks.description".localized)
-                    }
+                NavigationLink(destination: StorybooksListView()) {
+                    MenuRowView(icon: "book.vertical", title: "menu.storybooks.title".localized, description: "menu.storybooks.description".localized)
                 }
 
                 NavigationLink(destination: SettingsView()) {
