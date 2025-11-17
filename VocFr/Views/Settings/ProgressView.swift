@@ -32,12 +32,12 @@ struct ProgressView: View {
             // Stars, gems, and streak
             HStack(spacing: 30) {
                 VStack {
-                    Image(systemName: "star.fill")
+                    Text("⭐")
                         .font(.system(size: 40))
-                        .foregroundColor(.yellow)
                     Text("\(progress.totalStars)")
                         .font(.title2)
                         .fontWeight(.bold)
+                        .foregroundColor(.yellow)
                     Text("Total Stars")
                         .font(.caption)
                         .foregroundColor(.secondary)
@@ -49,18 +49,19 @@ struct ProgressView: View {
                     Text("\(progress.totalGems)")
                         .font(.title2)
                         .fontWeight(.bold)
+                        .foregroundColor(.cyan)
                     Text("Total Gems")
                         .font(.caption)
-                        .foregroundColor(.cyan)
+                        .foregroundColor(.secondary)
                 }
 
                 VStack {
-                    Image(systemName: "flame.fill")
+                    Text("🔥")
                         .font(.system(size: 40))
-                        .foregroundColor(.orange)
                     Text("\(progress.currentStreak)")
                         .font(.title2)
                         .fontWeight(.bold)
+                        .foregroundColor(.orange)
                     Text("Day Streak")
                         .font(.caption)
                         .foregroundColor(.secondary)

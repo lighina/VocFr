@@ -56,12 +56,20 @@ struct TestResultView: View {
                         )
 
                         // Earned Stars
-                        StatRow(
-                            icon: "star.fill",
-                            label: "⭐ Earned Stars",
-                            value: "+\(result.score)",
-                            color: .yellow
-                        )
+                        HStack {
+                            Text("⭐")
+                                .font(.title3)
+                                .frame(width: 24)
+
+                            Text("Earned Stars")
+                                .foregroundColor(.secondary)
+
+                            Spacer()
+
+                            Text("+\(result.score)")
+                                .fontWeight(.semibold)
+                                .foregroundColor(.yellow)
+                        }
 
                         // Earned Gems
                         HStack {

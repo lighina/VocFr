@@ -43,13 +43,12 @@ struct StarsProgressView: View {
             HStack(spacing: 16) {
                 // Stars
                 HStack(spacing: 4) {
-                    Image(systemName: "star.fill")
-                        .foregroundColor(.yellow)
-                        .font(.title2)
+                    Text("⭐")
+                        .font(.system(size: 28))
 
                     Text("\(totalStars)")
                         .font(.system(size: 32, weight: .bold, design: .rounded))
-                        .foregroundColor(.primary)
+                        .foregroundColor(.yellow)
                 }
 
                 // Gems
@@ -67,11 +66,12 @@ struct StarsProgressView: View {
                 // Streak badge
                 if streak > 0 {
                     HStack(spacing: 4) {
-                        Image(systemName: "flame.fill")
-                            .foregroundColor(.orange)
+                        Text("🔥")
+                            .font(.system(size: 20))
                         Text("\(streak)")
                             .font(.headline)
                             .fontWeight(.semibold)
+                            .foregroundColor(.orange)
                     }
                     .padding(.horizontal, 10)
                     .padding(.vertical, 6)
