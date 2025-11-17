@@ -191,8 +191,10 @@ class HangmanViewModel {
     /// Start next word
     func nextWord() {
         currentWordIndex += 1
+        print("🎯 Hangman: nextWord() called, currentWordIndex = \(currentWordIndex), totalWords = \(totalWords)")
 
         if currentWordIndex >= totalWords {
+            print("🎯 Hangman: All words completed, calling completeSession()")
             completeSession()
         } else {
             startNewWord()
@@ -238,6 +240,14 @@ class HangmanViewModel {
         if incorrectGuesses == 0 {
             hasPerfectWord = true
             print("🎯 Hangman: Perfect word completed! hasPerfectWord = true")
+
+            // Check Hangman Perfect achievement immediately
+            if let modelContext = modelContext {
+                print("🎯 Hangman: Checking Hangman Perfect achievement immediately")
+                AchievementManager.shared.checkHangmanPerfect(context: modelContext)
+            } else {
+                print("⚠️ Hangman: ModelContext not available, cannot check achievement")
+            }
         }
 
         // Award points based on incorrect guesses
@@ -270,6 +280,7 @@ class HangmanViewModel {
     /// Complete the game session
     private func completeSession() {
         gameState = .sessionCompleted
+        print("🎯 Hangman: Session completed, calling savePracticeRecord()")
         savePracticeRecord()
     }
 
@@ -308,6 +319,8 @@ class HangmanViewModel {
 
     /// Save practice record to database
     private func savePracticeRecord() {
+        print("🎯 Hangman: savePracticeRecord() called, hasPerfectWord = \(hasPerfectWord)")
+
         guard let modelContext = modelContext else {
             print("⚠️ ModelContext not available, skipping practice record save")
             return
@@ -335,6 +348,7 @@ class HangmanViewModel {
             updateWordProgress(context: modelContext)
 
             // Track achievements
+            print("🎯 Hangman: About to call trackAchievements, hasPerfectWord = \(hasPerfectWord)")
             trackAchievements(accuracy: accuracy, context: modelContext)
 
         } catch {
@@ -386,6 +400,8 @@ class HangmanViewModel {
 
     /// Track achievements for this game session
     private func trackAchievements(accuracy: Double, context: ModelContext) {
+        print("🎯 Hangman: trackAchievements() called, hasPerfectWord = \(hasPerfectWord), accuracy = \(accuracy)")
+
         // Get practice count
         let descriptor = FetchDescriptor<PracticeRecord>()
         if let allRecords = try? context.fetch(descriptor) {
