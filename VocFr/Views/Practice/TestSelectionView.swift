@@ -22,11 +22,12 @@ struct TestSelectionView: View {
                 VStack(spacing: 8) {
                     Image(systemName: "doc.text.fill")
                         .font(.system(size: 60))
-                        .foregroundColor(.blue)
+                        .foregroundColor(.green)
 
                     Text("test.select.unite".localized)
-                        .font(.title2)
-                        .fontWeight(.bold)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
                 }
                 .padding(.top)
 
