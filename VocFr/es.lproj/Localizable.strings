@@ -351,3 +351,17 @@
 "test.button.retry" = "[TODO] Retry Test";
 "test.button.viewWrong" = "[TODO] Review Mistakes";
 "test.button.back" = "[TODO] Back";
+
+// MARK: - Wrong Answer Book
+
+"wrong.answer.book.title" = "Libro de revisión";
+"wrong.answer.empty.title" = "¡Excelente!";
+"wrong.answer.empty.subtitle" = "Aún no hay errores";
+"wrong.answer.count" = "%d errores en total";
+"wrong.answer.your.answer" = "Tu respuesta: %@";
+"wrong.answer.correct.answer" = "Respuesta correcta: %@";
+"wrong.answer.wrong.count" = "Incorrecto %d veces";
+"wrong.answer.type.imageToWord" = "Imagen a palabra";
+"wrong.answer.type.audioToWord" = "Audio a palabra";
+"wrong.answer.type.spelling" = "Ortografía";
+"wrong.answer.type.genderGuess" = "Género";

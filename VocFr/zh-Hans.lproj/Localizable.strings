@@ -351,3 +351,17 @@
 "test.button.retry" = "重新测试";
 "test.button.viewWrong" = "查看错题";
 "test.button.back" = "返回";
+
+// MARK: - Wrong Answer Book
+
+"wrong.answer.book.title" = "错题本";
+"wrong.answer.empty.title" = "太棒了！";
+"wrong.answer.empty.subtitle" = "暂时没有错题";
+"wrong.answer.count" = "共 %d 道错题";
+"wrong.answer.your.answer" = "你的答案: %@";
+"wrong.answer.correct.answer" = "正确答案: %@";
+"wrong.answer.wrong.count" = "错误 %d 次";
+"wrong.answer.type.imageToWord" = "看图选词";
+"wrong.answer.type.audioToWord" = "听音辨词";
+"wrong.answer.type.spelling" = "拼写";
+"wrong.answer.type.genderGuess" = "词性";

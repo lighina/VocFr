@@ -351,3 +351,17 @@
 "test.button.retry" = "Retry Test";
 "test.button.viewWrong" = "Review Mistakes";
 "test.button.back" = "Back";
+
+// MARK: - Wrong Answer Book
+
+"wrong.answer.book.title" = "Review Book";
+"wrong.answer.empty.title" = "Excellent!";
+"wrong.answer.empty.subtitle" = "No mistakes yet";
+"wrong.answer.count" = "%d mistakes in total";
+"wrong.answer.your.answer" = "Your answer: %@";
+"wrong.answer.correct.answer" = "Correct answer: %@";
+"wrong.answer.wrong.count" = "Incorrect %d times";
+"wrong.answer.type.imageToWord" = "Image to Word";
+"wrong.answer.type.audioToWord" = "Audio to Word";
+"wrong.answer.type.spelling" = "Spelling";
+"wrong.answer.type.genderGuess" = "Gender";

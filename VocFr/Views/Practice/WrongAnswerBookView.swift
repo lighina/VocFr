@@ -28,7 +28,7 @@ struct WrongAnswerBookView: View {
                 listView
             }
         }
-        .navigationTitle("错题本")
+        .navigationTitle("wrong.answer.book.title".localized)
         .navigationBarTitleDisplayMode(.inline)
     }
 
@@ -40,11 +40,11 @@ struct WrongAnswerBookView: View {
                 .font(.system(size: 80))
                 .foregroundColor(.green)
 
-            Text("太棒了！")
+            Text("wrong.answer.empty.title".localized)
                 .font(.title)
                 .fontWeight(.bold)
 
-            Text("暂时没有错题")
+            Text("wrong.answer.empty.subtitle".localized)
                 .foregroundColor(.secondary)
         }
     }
@@ -54,7 +54,7 @@ struct WrongAnswerBookView: View {
     private var listView: some View {
         List {
             SwiftUI.Section {
-                Text("共 \(wrongAnswers.count) 道错题")
+                Text(String(format: "wrong.answer.count".localized, wrongAnswers.count))
                     .font(.subheadline)
                     .foregroundColor(.secondary)
             }
@@ -107,15 +107,15 @@ struct WrongAnswerRow: View {
 
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("你的答案: \(record.userAnswer)")
+                    Text(String(format: "wrong.answer.your.answer".localized, record.userAnswer))
                         .font(.subheadline)
                         .foregroundColor(.red)
 
-                    Text("正确答案: \(record.correctAnswer)")
+                    Text(String(format: "wrong.answer.correct.answer".localized, record.correctAnswer))
                         .font(.subheadline)
                         .foregroundColor(.green)
 
-                    Text("错误 \(record.wrongCount) 次")
+                    Text(String(format: "wrong.answer.wrong.count".localized, record.wrongCount))
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -139,13 +139,13 @@ struct WrongAnswerRow: View {
 
         switch type {
         case .imageToWord:
-            return "看图选词"
+            return "wrong.answer.type.imageToWord".localized
         case .audioToWord:
-            return "听音辨词"
+            return "wrong.answer.type.audioToWord".localized
         case .spelling:
-            return "拼写"
+            return "wrong.answer.type.spelling".localized
         case .genderGuess:
-            return "词性"
+            return "wrong.answer.type.genderGuess".localized
         }
     }
 }
