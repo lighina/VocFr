@@ -21,6 +21,7 @@ struct AchievementView: View {
                 VStack(spacing: 24) {
                     // Header with stats
                     statsHeader
+                        .padding(.top)
 
                     // Category filter
                     categoryFilter
@@ -30,8 +31,12 @@ struct AchievementView: View {
                 }
                 .padding()
             }
-            .navigationTitle("achievement.title".localized)
-            .navigationBarTitleDisplayMode(.large)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    EmptyView()
+                }
+            }
         }
     }
 
@@ -112,6 +117,7 @@ struct AchievementView: View {
                     .streak,
                     .points,
                     .exploration,
+                    .gameplayer,
                     .special
                 ], id: \.self) { category in
                     CategoryButton(
@@ -171,7 +177,7 @@ struct AchievementView: View {
 
     private var groupedAchievements: [(category: AchievementCategory, achievements: [Achievement])] {
         let grouped = Dictionary(grouping: filteredAchievements) { $0.category }
-        let categories: [AchievementCategory] = [.learning, .practice, .streak, .points, .exploration, .special]
+        let categories: [AchievementCategory] = [.learning, .practice, .streak, .points, .exploration, .gameplayer, .special]
 
         return categories.compactMap { category in
             guard let achievements = grouped[category], !achievements.isEmpty else { return nil }
