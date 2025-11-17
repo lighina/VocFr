@@ -398,7 +398,7 @@ class TestViewModel {
             print("✅ Test record saved")
 
             // Award stars based on performance
-            let stars = result.score / 10
+            let stars = result.score
             if stars > 0 {
                 PointsManager.shared.awardStars(
                     points: stars,

@@ -227,15 +227,15 @@ func completeDailyReview(context: ModelContext) {
 
 #### F. Test模式
 
-**简单公式：星星 = 分数 ÷ 10**
+**简单公式：星星 = 分数**
 
 | 分数 | 星星数 | 星级 |
 |------|--------|------|
-| 100分 | 10⭐ | ⭐⭐⭐ |
-| 90分 | 9⭐ | ⭐⭐⭐ |
-| 85分 | 8⭐ | ⭐⭐ |
-| 75分 | 7⭐ | ⭐⭐ |
-| 60分 | 6⭐ | ⭐ |
+| 100分 | 100⭐ | ⭐⭐⭐ |
+| 90分 | 90⭐ | ⭐⭐⭐ |
+| 85分 | 85⭐ | ⭐⭐ |
+| 75分 | 75⭐ | ⭐⭐ |
+| 60分 | 60⭐ | ⭐ |
 | <60分 | 0⭐ | - |
 
 ```swift
@@ -244,7 +244,7 @@ private func saveTestRecord(result: TestResult) {
     // ... 保存记录
 
     // Award stars based on performance
-    let stars = result.score / 10
+    let stars = result.score
     if stars > 0 {
         PointsManager.shared.awardStars(
             points: stars,

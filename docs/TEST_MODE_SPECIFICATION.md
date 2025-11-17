@@ -640,15 +640,15 @@ WordForm(
 ### 奖励规则
 
 ```swift
-// 星星 = 分数 ÷ 10
-let stars = result.score / 10
+// 星星 = 分数
+let stars = result.score
 
 // 示例：
-// 100分 → 10星
-//  90分 → 9星
-//  85分 → 8星
-//  75分 → 7星
-//  60分 → 6星
+// 100分 → 100星
+//  90分 → 90星
+//  85分 → 85星
+//  75分 → 75星
+//  60分 → 60星
 ```
 
 ### 实现代码
@@ -658,7 +658,7 @@ private func saveTestRecord(result: TestResult) {
     // ... 保存TestRecord
 
     // Award stars based on performance
-    let stars = result.score / 10
+    let stars = result.score
     if stars > 0 {
         PointsManager.shared.awardStars(
             points: stars,
@@ -874,7 +874,7 @@ VocFr/
 - [x] 单元测试和综合测试
 - [x] 20题混合测试，10分钟时限
 - [x] 星级评分系统（⭐⭐⭐）
-- [x] 星星奖励（分数÷10）
+- [x] 星星奖励（分数 = 星星）
 - [x] 错题本系统
 - [x] Progress页面集成
 - [x] 7种语言本地化支持

@@ -138,6 +138,9 @@ class FlashcardViewModel {
 
         print("✅ Marked as known: \(word.canonical)")
 
+        // Reload statistics to reflect updated progress
+        loadStatistics()
+
         moveToNextCard()
     }
 
@@ -150,6 +153,9 @@ class FlashcardViewModel {
         reviewedCount += 1
 
         print("❌ Marked as unknown: \(word.canonical)")
+
+        // Reload statistics to reflect updated progress
+        loadStatistics()
 
         moveToNextCard()
     }
@@ -185,6 +191,9 @@ class FlashcardViewModel {
 
         // Save practice record
         savePracticeRecord()
+
+        // Reload statistics to reflect updated progress
+        loadStatistics()
 
         print("✨ Review session completed: \(reviewedCount) cards, \(knownCount) known")
     }
