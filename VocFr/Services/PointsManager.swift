@@ -67,14 +67,17 @@ class PointsManager {
             return // Already awarded today
         }
 
+        // Save the old last study date before updating
+        let oldLastStudyDate = userProgress.lastStudyDate
+
+        // Update streak BEFORE updating lastStudyDate
+        updateStreak(userProgress: userProgress, oldLastStudyDate: oldLastStudyDate, today: today, calendar: calendar, modelContext: modelContext)
+
         // Update last study date
         userProgress.lastStudyDate = today
 
         // Award daily login points
         addPoints(RewardPoints.dailyLogin, to: modelContext, reason: "Daily login")
-
-        // Update streak
-        updateStreak(userProgress: userProgress, today: today, calendar: calendar, modelContext: modelContext)
 
         // Check for week streak bonus
         if userProgress.currentStreak >= 7 && userProgress.currentStreak % 7 == 0 {
@@ -146,10 +149,11 @@ class PointsManager {
     }
 
     /// Update study streak
-    private func updateStreak(userProgress: UserProgress, today: Date, calendar: Calendar, modelContext: ModelContext) {
-        guard let lastStudy = userProgress.lastStudyDate else {
+    private func updateStreak(userProgress: UserProgress, oldLastStudyDate: Date?, today: Date, calendar: Calendar, modelContext: ModelContext) {
+        guard let lastStudy = oldLastStudyDate else {
             // First time studying
             userProgress.currentStreak = 1
+            print("🔥 Streak started: 1 day")
             // Track streak achievement
             AchievementManager.shared.checkStreak(currentStreak: 1, context: modelContext)
             return
@@ -160,11 +164,13 @@ class PointsManager {
         if daysDifference == 1 {
             // Consecutive day
             userProgress.currentStreak += 1
+            print("🔥 Streak continued: \(userProgress.currentStreak) days")
         } else if daysDifference > 1 {
             // Streak broken
+            print("💔 Streak broken! Was: \(userProgress.currentStreak) days, reset to 1")
             userProgress.currentStreak = 1
         }
-        // If daysDifference == 0, same day, no change needed
+        // If daysDifference == 0, same day, no change needed (should not happen)
 
         // Track streak achievement
         AchievementManager.shared.checkStreak(currentStreak: userProgress.currentStreak, context: modelContext)
