@@ -42,7 +42,7 @@ struct GamesListView: View {
                     GridItem(.flexible())
                 ], spacing: 16) {
                     ForEach(gameModes) { game in
-                        GameCard(
+                        GameModeCard(
                             game: game,
                             currentGems: currentGems,
                             onTap: {
@@ -105,9 +105,9 @@ struct GamesListView: View {
     }
 }
 
-// MARK: - Game Card
+// MARK: - Game Mode Card
 
-struct GameCard: View {
+struct GameModeCard: View {
     let game: GameMode
     let currentGems: Int
     let onTap: () -> Void
