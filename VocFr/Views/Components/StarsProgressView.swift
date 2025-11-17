@@ -63,21 +63,19 @@ struct StarsProgressView: View {
 
                 Spacer()
 
-                // Streak badge
-                if streak > 0 {
-                    HStack(spacing: 4) {
-                        Text("🔥")
-                            .font(.system(size: 20))
-                        Text("\(streak)")
-                            .font(.headline)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.orange)
-                    }
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 6)
-                    .background(Color.orange.opacity(0.2))
-                    .cornerRadius(8)
+                // Streak badge (always show)
+                HStack(spacing: 4) {
+                    Text("🔥")
+                        .font(.system(size: 20))
+                    Text("\(streak)")
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.orange)
                 }
+                .padding(.horizontal, 10)
+                .padding(.vertical, 6)
+                .background(Color.orange.opacity(0.2))
+                .cornerRadius(8)
             }
 
             // Next unlock info
