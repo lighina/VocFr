@@ -168,7 +168,6 @@
 "settings.data.description" = "Importar, exportar, restablecer";
 "settings.data.reimport" = "Reimportar datos";
 "settings.data.export" = "Exportar informe de aprendizaje";
-"settings.data.reset.stars" = "Restablecer todas las estrellas";
 "settings.about.title" = "Acerca de";
 "settings.about.version" = "Versión";
 
@@ -404,3 +403,10 @@
 "menu.section.entertainment" = "Entretenimiento";
 "games.unlock.message" = "¿Gastar %2$d 💎 para desbloquear \"%1$@\"?";
 "storybooks.unlock.message" = "¿Gastar %2$d 💎 para desbloquear \"%1$@\"?";
+
+// MARK: - Settings
+
+"settings.data.reset" = "Restablecer datos de usuario";
+"settings.data.reset.confirm.title" = "¿Restablecer todos los datos?";
+"settings.data.reset.confirm.message" = "Esto eliminará permanentemente todo tu progreso, incluidas estrellas, gemas, logros, registros de pruebas y estado de desbloqueo. Esta acción no se puede deshacer.";
+"settings.data.reset.confirm" = "Restablecer";

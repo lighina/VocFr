@@ -168,7 +168,6 @@
 "settings.data.description" = "Importer, exporter, réinitialiser";
 "settings.data.reimport" = "Réimporter les données";
 "settings.data.export" = "Exporter le rapport d'apprentissage";
-"settings.data.reset.stars" = "Réinitialiser toutes les étoiles";
 "settings.about.title" = "À propos";
 "settings.about.version" = "Version";
 
@@ -406,3 +405,10 @@
 "menu.section.entertainment" = "Divertissement";
 "games.unlock.message" = "Dépenser %2$d 💎 pour déverrouiller « %1$@ » ?";
 "storybooks.unlock.message" = "Dépenser %2$d 💎 pour déverrouiller « %1$@ » ?";
+
+// MARK: - Settings
+
+"settings.data.reset" = "Réinitialiser les données utilisateur";
+"settings.data.reset.confirm.title" = "Réinitialiser toutes les données ?";
+"settings.data.reset.confirm.message" = "Cela supprimera définitivement tous vos progrès, y compris les étoiles, les gemmes, les réalisations, les résultats des tests et le statut de déverrouillage. Cette action est irréversible.";
+"settings.data.reset.confirm" = "Réinitialiser";

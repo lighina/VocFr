@@ -11,6 +11,7 @@ import SwiftData
 struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var languageManager = LanguageManager.shared
+    @State private var showResetConfirmation = false
 
     var body: some View {
         NavigationView {
@@ -39,8 +40,8 @@ struct SettingsView: View {
                         exportReport()
                     }
 
-                    Button("settings.data.reset.stars".localized, role: .destructive) {
-                        resetStars()
+                    Button("settings.data.reset".localized, role: .destructive) {
+                        showResetConfirmation = true
                     }
                 }
 
@@ -55,6 +56,14 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("settings.title".localized)
+            .alert("settings.data.reset.confirm.title".localized, isPresented: $showResetConfirmation) {
+                Button("common.cancel".localized, role: .cancel) { }
+                Button("settings.data.reset.confirm".localized, role: .destructive) {
+                    resetUserData()
+                }
+            } message: {
+                Text("settings.data.reset.confirm.message".localized)
+            }
         }
     }
     
@@ -85,9 +94,96 @@ struct SettingsView: View {
         // TODO: Share report via share sheet
     }
 
-    private func resetStars() {
-        PointsManager.shared.resetAllStars(modelContext: modelContext)
-        print("✅ Stars reset completed")
+    private func resetUserData() {
+        do {
+            // 1. Reset user progress (stars, gems, streak)
+            let progressDescriptor = FetchDescriptor<UserProgress>()
+            let userProgresses = try modelContext.fetch(progressDescriptor)
+            for progress in userProgresses {
+                progress.totalStars = 0
+                progress.totalGems = 5  // Reset to initial value
+                progress.currentStreak = 0
+                progress.lastStudyDate = nil
+                progress.lastMasteredMilestone = 0
+            }
+
+            // 2. Delete all practice records
+            let practiceDescriptor = FetchDescriptor<PracticeRecord>()
+            let practiceRecords = try modelContext.fetch(practiceDescriptor)
+            for record in practiceRecords {
+                modelContext.delete(record)
+            }
+
+            // 3. Delete all word progress
+            let wordProgressDescriptor = FetchDescriptor<WordProgress>()
+            let wordProgresses = try modelContext.fetch(wordProgressDescriptor)
+            for wordProgress in wordProgresses {
+                modelContext.delete(wordProgress)
+            }
+
+            // 4. Delete all test records
+            let testDescriptor = FetchDescriptor<TestRecord>()
+            let testRecords = try modelContext.fetch(testDescriptor)
+            for testRecord in testRecords {
+                modelContext.delete(testRecord)
+            }
+
+            // 5. Reset all achievements
+            let achievementDescriptor = FetchDescriptor<Achievement>()
+            let achievements = try modelContext.fetch(achievementDescriptor)
+            for achievement in achievements {
+                achievement.reset()
+            }
+
+            // 6. Reset all flashcard progress
+            let flashcardDescriptor = FetchDescriptor<FlashcardProgress>()
+            let flashcardProgresses = try modelContext.fetch(flashcardDescriptor)
+            for flashcard in flashcardProgresses {
+                modelContext.delete(flashcard)
+            }
+
+            // 7. Reset unit unlock status (keep only Unite 1)
+            let uniteDescriptor = FetchDescriptor<Unite>()
+            let unites = try modelContext.fetch(uniteDescriptor)
+            for unite in unites {
+                if unite.number == 1 {
+                    unite.isUnlocked = true
+                } else {
+                    unite.isUnlocked = false
+                }
+            }
+
+            // 8. Reset all game modes to locked
+            let gameModeDescriptor = FetchDescriptor<GameMode>()
+            let gameModes = try modelContext.fetch(gameModeDescriptor)
+            for gameMode in gameModes {
+                gameMode.isUnlocked = false
+            }
+
+            // 9. Reset all storybooks to locked
+            let storybookDescriptor = FetchDescriptor<Storybook>()
+            let storybooks = try modelContext.fetch(storybookDescriptor)
+            for storybook in storybooks {
+                storybook.isUnlocked = false
+            }
+
+            try modelContext.save()
+
+            print("✅ All user data reset completed")
+            print("   - Stars: 0")
+            print("   - Gems: 5")
+            print("   - Streak: 0")
+            print("   - Practice records: deleted")
+            print("   - Word progress: deleted")
+            print("   - Test records: deleted")
+            print("   - Achievements: reset")
+            print("   - Flashcards: reset")
+            print("   - Units: only Unite 1 unlocked")
+            print("   - Games: all locked")
+            print("   - Storybooks: all locked")
+        } catch {
+            print("❌ User data reset failed: \(error)")
+        }
     }
 }
 

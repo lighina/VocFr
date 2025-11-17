@@ -168,7 +168,6 @@
 "settings.data.description" = "Importieren, exportieren, zurücksetzen";
 "settings.data.reimport" = "Daten erneut importieren";
 "settings.data.export" = "Lernbericht exportieren";
-"settings.data.reset.stars" = "Alle Sterne zurücksetzen";
 "settings.about.title" = "Über";
 "settings.about.version" = "Version";
 
@@ -404,3 +403,10 @@
 "menu.section.entertainment" = "Unterhaltung";
 "games.unlock.message" = "%2$d 💎 ausgeben, um \"%1$@\" freizuschalten?";
 "storybooks.unlock.message" = "%2$d 💎 ausgeben, um \"%1$@\" freizuschalten?";
+
+// MARK: - Settings
+
+"settings.data.reset" = "Benutzerdaten zurücksetzen";
+"settings.data.reset.confirm.title" = "Alle Daten zurücksetzen?";
+"settings.data.reset.confirm.message" = "Dies löscht dauerhaft Ihren gesamten Fortschritt, einschließlich Sterne, Edelsteine, Erfolge, Testergebnisse und Freischaltungsstatus. Diese Aktion kann nicht rückgängig gemacht werden.";
+"settings.data.reset.confirm" = "Zurücksetzen";

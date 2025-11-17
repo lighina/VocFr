@@ -175,7 +175,6 @@
 "settings.data.description" = "Import, Export, Reset";
 "settings.data.reimport" = "Reimport Data";
 "settings.data.export" = "Export Learning Report";
-"settings.data.reset.stars" = "Reset All Stars";
 "settings.about.title" = "About";
 "settings.about.version" = "Version";
 
@@ -404,3 +403,10 @@
 "game.mode.choose.game" = "Choose a game to play";
 "games.unlock.message" = "Spend %2$d 💎 to unlock \"%1$@\"?";
 "storybooks.unlock.message" = "Spend %2$d 💎 to unlock \"%1$@\"?";
+
+// MARK: - Settings
+
+"settings.data.reset" = "Reset User Data";
+"settings.data.reset.confirm.title" = "Reset All Data?";
+"settings.data.reset.confirm.message" = "This will permanently delete all your progress, including stars, gems, achievements, test records, and unlock status. This action cannot be undone.";
+"settings.data.reset.confirm" = "Reset";

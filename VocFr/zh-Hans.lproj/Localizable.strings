@@ -175,7 +175,6 @@
 "settings.data.description" = "导入、导出、重置";
 "settings.data.reimport" = "重新导入数据";
 "settings.data.export" = "导出学习报告";
-"settings.data.reset.stars" = "重置所有星星";
 "settings.about.title" = "关于";
 "settings.about.version" = "版本";
 
@@ -404,3 +403,10 @@
 "storybook.french" = "法语";
 "storybook.chinese" = "中文";
 "game.mode.choose.game" = "选择游戏开始玩";
+
+// MARK: - Settings
+
+"settings.data.reset" = "重置用户数据";
+"settings.data.reset.confirm.title" = "重置所有数据？";
+"settings.data.reset.confirm.message" = "这将永久删除你的所有进度，包括星星、宝石、成就、测试记录和解锁状态。此操作无法撤销。";
+"settings.data.reset.confirm" = "重置";
