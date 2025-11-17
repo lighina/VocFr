@@ -4,6 +4,7 @@
   "title": "Mon chez-moi",
   "isUnlocked": false,
   "requiredStars": 2000,
+  "requiredGems": 200,
   "sections": [
     {
       "id": "section3_1",

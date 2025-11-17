@@ -54,6 +54,22 @@ struct TestResultView: View {
                             value: formatTime(result.timeSpent),
                             color: .blue
                         )
+
+                        // Earned Stars
+                        StatRow(
+                            icon: "star.fill",
+                            label: "test.result.earnedStars".localized,
+                            value: "+\(result.score) ⭐",
+                            color: .yellow
+                        )
+
+                        // Earned Gems
+                        StatRow(
+                            icon: "gem.fill",
+                            label: "test.result.earnedGems".localized,
+                            value: "+\(result.score / 10) 💎",
+                            color: .cyan
+                        )
                     }
 
                     Divider()

@@ -141,6 +141,9 @@ class FlashcardManager {
                     modelContext: context,
                     reason: "Mastered flashcard"
                 )
+
+                // Check for mastered milestone gems reward
+                checkMasteredMilestone(context: context)
             } else if oldBox == 0 || progress.reviewCount == 1 {
                 // First time correct
                 PointsManager.shared.awardStars(
@@ -181,6 +184,44 @@ class FlashcardManager {
             modelContext: context,
             reason: "Completed daily flashcard review"
         )
+    }
+
+    /// Check and award gems for mastered milestones (every 10 mastered cards = 1💎)
+    private func checkMasteredMilestone(context: ModelContext) {
+        // Get total mastered cards count
+        let allProgressDescriptor = FetchDescriptor<FlashcardProgress>()
+        guard let allProgress = try? context.fetch(allProgressDescriptor) else { return }
+
+        let totalMastered = allProgress.filter { $0.isMastered }.count
+
+        // Get or create UserProgress
+        let userProgressDescriptor = FetchDescriptor<UserProgress>()
+        let userProgress: UserProgress
+        if let existing = try? context.fetch(userProgressDescriptor).first {
+            userProgress = existing
+        } else {
+            userProgress = UserProgress()
+            context.insert(userProgress)
+        }
+
+        // Check if we've crossed a new milestone (10, 20, 30, ...)
+        let currentMilestone = (totalMastered / 10) * 10  // e.g., 23 → 20, 30 → 30
+        if currentMilestone > userProgress.lastMasteredMilestone && currentMilestone >= 10 {
+            // Calculate how many milestones we've passed
+            let milestonesPassed = (currentMilestone - userProgress.lastMasteredMilestone) / 10
+            let gemsToAward = milestonesPassed
+
+            PointsManager.shared.awardGems(
+                gemsToAward,
+                modelContext: context,
+                reason: "Mastered \(currentMilestone) flashcards milestone! 🎉"
+            )
+
+            userProgress.lastMasteredMilestone = currentMilestone
+            try? context.save()
+
+            print("🎊 Mastered milestone reached: \(currentMilestone) cards, +\(gemsToAward)💎 awarded!")
+        }
     }
 }
 

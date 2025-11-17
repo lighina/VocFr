@@ -407,6 +407,16 @@ class TestViewModel {
                 )
             }
 
+            // Award gems based on performance (💎 = score ÷ 10)
+            let gems = result.score / 10
+            if gems > 0 {
+                PointsManager.shared.awardGems(
+                    gems,
+                    modelContext: modelContext,
+                    reason: "Test completed with score \(result.score)"
+                )
+            }
+
             // Update WordProgress for all tested words
             updateWordProgress(context: modelContext)
 

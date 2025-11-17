@@ -1,0 +1,22 @@
+[
+  {
+    "id": "matching_game",
+    "name": "Matching Game",
+    "nameInChinese": "配对游戏",
+    "descriptionText": "Match French words with their images or Chinese translations. Test your visual memory and vocabulary!",
+    "isUnlocked": true,
+    "requiredGems": 0,
+    "orderIndex": 1,
+    "iconName": "rectangle.grid.2x2"
+  },
+  {
+    "id": "hangman_game",
+    "name": "Hangman",
+    "nameInChinese": "猜词游戏",
+    "descriptionText": "Guess the French word letter by letter before running out of attempts. A classic word game!",
+    "isUnlocked": false,
+    "requiredGems": 10,
+    "orderIndex": 2,
+    "iconName": "questionmark.circle"
+  }
+]

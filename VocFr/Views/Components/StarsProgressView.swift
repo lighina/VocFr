@@ -21,6 +21,10 @@ struct StarsProgressView: View {
         userProgress?.totalStars ?? 0
     }
 
+    private var totalGems: Int {
+        userProgress?.totalGems ?? 5
+    }
+
     private var streak: Int {
         userProgress?.currentStreak ?? 0
     }
@@ -35,19 +39,33 @@ struct StarsProgressView: View {
 
     var body: some View {
         VStack(spacing: 12) {
-            // Current stars
-            HStack(spacing: 8) {
-                Image(systemName: "star.fill")
-                    .foregroundColor(.yellow)
-                    .font(.title)
+            // Current stars and gems
+            HStack(spacing: 16) {
+                // Stars
+                HStack(spacing: 8) {
+                    Image(systemName: "star.fill")
+                        .foregroundColor(.yellow)
+                        .font(.title)
 
-                Text("\(totalStars)")
-                    .font(.system(size: 36, weight: .bold, design: .rounded))
-                    .foregroundColor(.primary)
+                    Text("\(totalStars)")
+                        .font(.system(size: 36, weight: .bold, design: .rounded))
+                        .foregroundColor(.primary)
 
-                Text("stars.label".localized)
-                    .font(.title3)
-                    .foregroundColor(.secondary)
+                    Text("stars.label".localized)
+                        .font(.title3)
+                        .foregroundColor(.secondary)
+                }
+
+                // Gems
+                HStack(spacing: 8) {
+                    Image(systemName: "gem.fill")
+                        .foregroundColor(.cyan)
+                        .font(.title2)
+
+                    Text("\(totalGems)")
+                        .font(.system(size: 28, weight: .bold, design: .rounded))
+                        .foregroundColor(.cyan)
+                }
 
                 Spacer()
 

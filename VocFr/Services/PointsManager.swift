@@ -222,6 +222,109 @@ class PointsManager {
         return (nextLockedUnite.number, nextLockedUnite.requiredStars)
     }
 
+    // MARK: - Gems System
+
+    /// Award gems to the user
+    func awardGems(_ gems: Int, modelContext: ModelContext, reason: String = "Gems earned") {
+        guard gems > 0 else { return }
+
+        let userProgress = getUserProgressOrCreate(from: modelContext)
+        userProgress.totalGems += gems
+
+        print("💎 +\(gems) gems! Total: \(userProgress.totalGems) (\(reason))")
+
+        try? modelContext.save()
+    }
+
+    /// Spend gems (returns true if successful, false if insufficient gems)
+    func spendGems(_ gems: Int, modelContext: ModelContext, for purpose: String) -> Bool {
+        guard gems > 0 else { return false }
+
+        guard let userProgress = getUserProgress(from: modelContext) else { return false }
+
+        if userProgress.totalGems >= gems {
+            userProgress.totalGems -= gems
+            print("💎 -\(gems) gems spent for: \(purpose). Remaining: \(userProgress.totalGems)")
+            try? modelContext.save()
+            return true
+        } else {
+            print("❌ Insufficient gems! Need \(gems), have \(userProgress.totalGems)")
+            return false
+        }
+    }
+
+    /// Unlock Unite with gems (alternative to stars)
+    func unlockWithGems(unite: Unite, modelContext: ModelContext) -> Bool {
+        guard !unite.isUnlocked else {
+            print("ℹ️ Unite \(unite.number) is already unlocked")
+            return false
+        }
+
+        guard unite.requiredGems > 0 else {
+            print("❌ Unite \(unite.number) cannot be unlocked with gems")
+            return false
+        }
+
+        if spendGems(unite.requiredGems, modelContext: modelContext, for: "Unlock Unite \(unite.number)") {
+            unite.isUnlocked = true
+            print("🎉 Unite \(unite.number) unlocked with \(unite.requiredGems)💎!")
+            try? modelContext.save()
+
+            // Track achievement
+            let descriptor = FetchDescriptor<Unite>(sortBy: [SortDescriptor(\.number)])
+            if let unites = try? modelContext.fetch(descriptor) {
+                let totalUnlocked = unites.filter { $0.isUnlocked }.count
+                AchievementManager.shared.checkUnitUnlocked(
+                    unlockedCount: totalUnlocked,
+                    context: modelContext
+                )
+            }
+
+            return true
+        }
+
+        return false
+    }
+
+    /// Unlock game mode with gems
+    func unlockGameMode(_ gameMode: GameMode, modelContext: ModelContext) -> Bool {
+        guard !gameMode.isUnlocked else {
+            print("ℹ️ \(gameMode.name) is already unlocked")
+            return false
+        }
+
+        if spendGems(gameMode.requiredGems, modelContext: modelContext, for: "Unlock \(gameMode.name)") {
+            gameMode.isUnlocked = true
+            print("🎉 \(gameMode.name) unlocked with \(gameMode.requiredGems)💎!")
+            try? modelContext.save()
+            return true
+        }
+
+        return false
+    }
+
+    /// Unlock storybook with gems
+    func unlockStorybook(_ storybook: Storybook, modelContext: ModelContext) -> Bool {
+        guard !storybook.isUnlocked else {
+            print("ℹ️ \(storybook.title) is already unlocked")
+            return false
+        }
+
+        if spendGems(storybook.requiredGems, modelContext: modelContext, for: "Unlock \(storybook.title)") {
+            storybook.isUnlocked = true
+            print("🎉 \(storybook.title) unlocked with \(storybook.requiredGems)💎!")
+            try? modelContext.save()
+            return true
+        }
+
+        return false
+    }
+
+    /// Get current total gems
+    func getTotalGems(from modelContext: ModelContext) -> Int {
+        return getUserProgress(from: modelContext)?.totalGems ?? 5  // Default: 5 gems
+    }
+
     // MARK: - Reset Methods
 
     /// Reset all stars and progress

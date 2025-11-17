@@ -4,6 +4,7 @@
   "title": "C'est la fête",
   "isUnlocked": false,
   "requiredStars": 1000,
+  "requiredGems": 100,
   "sections": [
     {
       "id": "section2_1",

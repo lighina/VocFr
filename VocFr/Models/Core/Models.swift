@@ -45,16 +45,18 @@ class Unite {
     var title: String
     var isUnlocked: Bool
     var requiredStars: Int
-    
+    var requiredGems: Int  // Alternative unlock cost: 100💎 for Unite 2, 200💎 for Unite 3, etc.
+
     @Relationship(deleteRule: .cascade, inverse: \Section.unite)
     var sections: [Section] = []
-    
-    init(id: String, number: Int, title: String, isUnlocked: Bool, requiredStars: Int) {
+
+    init(id: String, number: Int, title: String, isUnlocked: Bool, requiredStars: Int, requiredGems: Int = 0) {
         self.id = id
         self.number = number
         self.title = title
         self.isUnlocked = isUnlocked
         self.requiredStars = requiredStars
+        self.requiredGems = requiredGems
     }
 }
 
@@ -181,19 +183,23 @@ class AudioSegment {
 @Model
 class UserProgress {
     var totalStars: Int
+    var totalGems: Int
     var currentStreak: Int
     var lastStudyDate: Date?
-    
+    var lastMasteredMilestone: Int  // Track mastered milestone for gems reward (0, 10, 20, 30...)
+
     @Relationship(deleteRule: .cascade, inverse: \WordProgress.userProgress)
     var wordProgresses: [WordProgress] = []
-    
+
     @Relationship(deleteRule: .cascade, inverse: \PracticeRecord.userProgress)
     var practiceRecords: [PracticeRecord] = []
-    
+
     init() {
         self.totalStars = 0
+        self.totalGems = 5  // Initial gems: 5💎
         self.currentStreak = 0
         self.lastStudyDate = nil
+        self.lastMasteredMilestone = 0
     }
 }
 
@@ -224,15 +230,87 @@ class PracticeRecord {
     var wordsStudied: Int
     var accuracy: Double
     var timeSpent: TimeInterval
-    
+
     var userProgress: UserProgress?
-    
+
     init(sessionDate: Date, sessionType: String, wordsStudied: Int, accuracy: Double, timeSpent: TimeInterval) {
         self.sessionDate = sessionDate
         self.sessionType = sessionType
         self.wordsStudied = wordsStudied
         self.accuracy = accuracy
         self.timeSpent = timeSpent
+    }
+}
+
+// MARK: - Game Mode Models
+
+@Model
+class GameMode {
+    @Attribute(.unique) var id: String
+    var name: String
+    var nameInChinese: String
+    var descriptionText: String
+    var isUnlocked: Bool
+    var requiredGems: Int
+    var orderIndex: Int
+    var iconName: String  // SF Symbol name
+
+    init(id: String, name: String, nameInChinese: String, descriptionText: String, isUnlocked: Bool, requiredGems: Int, orderIndex: Int, iconName: String) {
+        self.id = id
+        self.name = name
+        self.nameInChinese = nameInChinese
+        self.descriptionText = descriptionText
+        self.isUnlocked = isUnlocked
+        self.requiredGems = requiredGems
+        self.orderIndex = orderIndex
+        self.iconName = iconName
+    }
+}
+
+// MARK: - Storybook Models
+
+@Model
+class Storybook {
+    @Attribute(.unique) var id: String
+    var title: String
+    var titleInChinese: String
+    var uniteId: String  // Which Unite this storybook belongs to
+    var isUnlocked: Bool
+    var requiredGems: Int  // Cost to unlock (0 if unlocked by completing Unite test)
+    var orderIndex: Int
+    var coverImageName: String?
+
+    @Relationship(deleteRule: .cascade, inverse: \StoryPage.storybook)
+    var pages: [StoryPage] = []
+
+    init(id: String, title: String, titleInChinese: String, uniteId: String, isUnlocked: Bool, requiredGems: Int, orderIndex: Int, coverImageName: String? = nil) {
+        self.id = id
+        self.title = title
+        self.titleInChinese = titleInChinese
+        self.uniteId = uniteId
+        self.isUnlocked = isUnlocked
+        self.requiredGems = requiredGems
+        self.orderIndex = orderIndex
+        self.coverImageName = coverImageName
+    }
+}
+
+@Model
+class StoryPage {
+    var pageNumber: Int
+    var contentFrench: String
+    var contentChinese: String
+    var imageName: String?
+    var audioFileName: String?
+
+    var storybook: Storybook?
+
+    init(pageNumber: Int, contentFrench: String, contentChinese: String, imageName: String? = nil, audioFileName: String? = nil) {
+        self.pageNumber = pageNumber
+        self.contentFrench = contentFrench
+        self.contentChinese = contentChinese
+        self.imageName = imageName
+        self.audioFileName = audioFileName
     }
 }
 
