@@ -365,3 +365,34 @@
 "wrong.answer.type.audioToWord" = "Audio vers mot";
 "wrong.answer.type.spelling" = "Orthographe";
 "wrong.answer.type.genderGuess" = "Genre";
+
+// MARK: - Games List
+
+"games.title" = "Jeux amusants";
+"games.subtitle" = "Jouez et pratiquez le vocabulaire français !";
+"games.navigation.title" = "Jeux";
+"games.status.unlocked" = "Débloqué";
+"games.unlock.title" = "Débloquer le jeu";
+"games.unlock.message" = "Débloquer \"%@\" pour %d gemmes ?";
+"games.unlock.confirm" = "Débloquer";
+"games.unlock.cancel" = "Annuler";
+
+// MARK: - Storybooks
+
+"storybooks.title" = "Histoires françaises";
+"storybooks.subtitle" = "Lisez des histoires françaises captivantes avec traductions";
+"storybooks.navigation.title" = "Livres d'histoires";
+"storybooks.status.unlocked" = "Débloqué";
+"storybooks.to.unlock" = "pour débloquer";
+"storybooks.unlock.title" = "Débloquer le livre";
+"storybooks.unlock.message" = "Débloquer \"%@\" pour %d gemmes ?";
+"storybooks.unlock.confirm" = "Débloquer";
+"storybooks.unlock.cancel" = "Annuler";
+
+// MARK: - Storybook Reader
+
+"storybook.previous" = "Précédent";
+"storybook.next" = "Suivant";
+"storybook.finish" = "Terminer";
+"storybook.french" = "Français";
+"storybook.chinese" = "Chinois";

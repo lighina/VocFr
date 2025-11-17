@@ -365,3 +365,34 @@
 "wrong.answer.type.audioToWord" = "听音辨词";
 "wrong.answer.type.spelling" = "拼写";
 "wrong.answer.type.genderGuess" = "词性";
+
+// MARK: - Games List
+
+"games.title" = "趣味游戏";
+"games.subtitle" = "玩游戏，练习法语词汇！";
+"games.navigation.title" = "游戏";
+"games.status.unlocked" = "已解锁";
+"games.unlock.title" = "解锁游戏";
+"games.unlock.message" = "花费 %2$d 💎 解锁「%1$@」？";
+"games.unlock.confirm" = "解锁";
+"games.unlock.cancel" = "取消";
+
+// MARK: - Storybooks
+
+"storybooks.title" = "法语故事";
+"storybooks.subtitle" = "阅读生动有趣的法语故事";
+"storybooks.navigation.title" = "故事书";
+"storybooks.status.unlocked" = "已解锁";
+"storybooks.to.unlock" = "解锁";
+"storybooks.unlock.title" = "解锁故事书";
+"storybooks.unlock.message" = "花费 %2$d 💎 解锁「%1$@」？";
+"storybooks.unlock.confirm" = "解锁";
+"storybooks.unlock.cancel" = "取消";
+
+// MARK: - Storybook Reader
+
+"storybook.previous" = "上一页";
+"storybook.next" = "下一页";
+"storybook.finish" = "完成";
+"storybook.french" = "法语";
+"storybook.chinese" = "中文";
