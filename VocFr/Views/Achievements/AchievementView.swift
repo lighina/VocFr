@@ -282,8 +282,8 @@ struct AchievementView: View {
         let descriptor = FetchDescriptor<UserProgress>()
         guard let userProgress = try? modelContext.fetch(descriptor).first else { return }
 
-        userProgress.totalPoints = 999
-        userProgress.gems = 999
+        userProgress.totalStars = 999
+        userProgress.totalGems = 999
 
         try? modelContext.save()
     }
@@ -307,10 +307,11 @@ struct AchievementView: View {
         }
 
         // Unlock all game modes
-        let userProgressDescriptor = FetchDescriptor<UserProgress>()
-        if let userProgress = try? modelContext.fetch(userProgressDescriptor).first {
-            userProgress.isHangmanUnlocked = true
-            userProgress.isMatchingUnlocked = true
+        let gameModesDescriptor = FetchDescriptor<GameMode>()
+        if let gameModes = try? modelContext.fetch(gameModesDescriptor) {
+            for gameMode in gameModes {
+                gameMode.isUnlocked = true
+            }
         }
 
         // Unlock all storybooks
