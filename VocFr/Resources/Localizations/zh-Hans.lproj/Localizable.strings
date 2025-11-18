@@ -137,7 +137,7 @@
 "main.game.title" = "游戏";
 "main.game.description" = "玩猜词游戏";
 "main.storybooks.title" = "故事书";
-"main.storybooks.description" = "阅读基于已学词汇的法语故事";
+"main.storybooks.description" = "阅读法语故事";
 
 // MARK: - Game Mode
 
