@@ -40,21 +40,21 @@ struct StorybookReaderView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Progress bar
+            // Progress bar - Japanese minimalist style
             HStack(spacing: 4) {
                 if isDoublePageMode {
                     // Show progress for page pairs in double page mode
                     ForEach(stride(from: 0, to: sortedPages.count, by: 2).map { $0 }, id: \.self) { index in
                         Capsule()
-                            .fill(index <= currentPageIndex ? Color.purple : Color.gray.opacity(0.3))
-                            .frame(height: 4)
+                            .fill(index <= currentPageIndex ? Color(red: 0.83, green: 0.77, blue: 0.73) : Color.gray.opacity(0.2))
+                            .frame(height: 3)
                     }
                 } else {
                     // Show progress for individual pages
                     ForEach(0..<sortedPages.count, id: \.self) { index in
                         Capsule()
-                            .fill(index <= currentPageIndex ? Color.purple : Color.gray.opacity(0.3))
-                            .frame(height: 4)
+                            .fill(index <= currentPageIndex ? Color(red: 0.83, green: 0.77, blue: 0.73) : Color.gray.opacity(0.2))
+                            .frame(height: 3)
                     }
                 }
             }
@@ -158,7 +158,7 @@ struct StorybookReaderView: View {
                 }
             }
 
-            // Navigation controls
+            // Navigation controls - Japanese minimalist style
             HStack {
                 // Previous button
                 Button(action: previousPage) {
@@ -166,11 +166,19 @@ struct StorybookReaderView: View {
                         Image(systemName: "chevron.left")
                         Text("storybook.previous".localized)
                     }
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(currentPageIndex > 0 ? Color.purple : Color.gray)
-                    .cornerRadius(12)
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+                    .foregroundColor(currentPageIndex > 0 ? Color(red: 0.44, green: 0.44, blue: 0.44) : Color.gray.opacity(0.3))
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 10)
+                    .background(
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Color(red: 0.96, green: 0.96, blue: 0.94).opacity(0.6))
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+                    )
                 }
                 .disabled(currentPageIndex == 0)
 
@@ -180,12 +188,12 @@ struct StorybookReaderView: View {
                 if isDoublePageMode {
                     let endPage = min(currentPageIndex + 2, sortedPages.count)
                     Text("\(currentPageIndex + 1)-\(endPage) / \(sortedPages.count)")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
+                        .font(.caption)
+                        .foregroundColor(Color(red: 0.44, green: 0.44, blue: 0.44))
                 } else {
                     Text("\(currentPageIndex + 1) / \(sortedPages.count)")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
+                        .font(.caption)
+                        .foregroundColor(Color(red: 0.44, green: 0.44, blue: 0.44))
                 }
 
                 Spacer()
@@ -197,11 +205,19 @@ struct StorybookReaderView: View {
                         Text(isLastPage ? "storybook.finish".localized : "storybook.next".localized)
                         Image(systemName: isLastPage ? "checkmark" : "chevron.right")
                     }
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.purple)
-                    .cornerRadius(12)
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+                    .foregroundColor(Color(red: 0.44, green: 0.44, blue: 0.44))
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 10)
+                    .background(
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Color(red: 0.96, green: 0.96, blue: 0.94).opacity(0.6))
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+                    )
                 }
             }
             .padding()
@@ -318,38 +334,21 @@ struct StorybookPageView: View {
                     }
                 }
 
-                // Text overlay at bottom with subtitle styling
+                // Text overlay at bottom with subtitle styling - Japanese minimalist
                 VStack(spacing: 12) {
-                    // Audio button
-                    if page.audioFileName != nil {
-                        Button(action: onPlayAudio) {
-                            HStack(spacing: 8) {
-                                Image(systemName: "speaker.wave.2.fill")
-                                Text("Play")
-                            }
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 20)
-                            .padding(.vertical, 10)
-                            .background(Color.purple)
-                            .cornerRadius(20)
-                            .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
-                        }
-                    }
-
                     // French text with subtitle styling
                     Text(page.contentFrench)
-                        .font(.custom("EB Garamond", size: 24))
-                        .fontWeight(.semibold)
+                        .font(.custom("EB Garamond", size: 20))
+                        .fontWeight(.medium)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .shadow(color: .black.opacity(0.9), radius: 2, x: 0, y: 1)
                         .shadow(color: .black.opacity(0.9), radius: 4, x: 0, y: 2)
-                        .padding(.horizontal, 32)
-                        .padding(.vertical, 20)
+                        .padding(.horizontal, 28)
+                        .padding(.vertical, 16)
                         .background(
                             RoundedRectangle(cornerRadius: 12)
-                                .fill(Color.black.opacity(0.75))
+                                .fill(Color.black.opacity(0.85))
                         )
                         .padding(.horizontal, 20)
                 }
