@@ -2,7 +2,7 @@
   "storybooks": [
     {
       "id": "storybook_unite1_default",
-      "title": "À l'école - Mon premier jour",
+      "title": "Le Premier Jour d'École",
       "titleInChinese": "在学校 - 我的第一天",
       "uniteId": "unite1",
       "isUnlocked": false,
@@ -100,6 +100,89 @@
           "contentChinese": "我喜欢所有这些颜色！",
           "imageName": "story_colors_rainbow",
           "audioFileName": "story_colors_page5.mp3"
+        }
+      ]
+    },
+    {
+      "id": "storybook_unite1_extra2",
+      "title": "Le stylo magique de Léo",
+      "titleInChinese": "Leo的魔法笔",
+      "uniteId": "unite1",
+      "isUnlocked": false,
+      "isDefault": false,
+      "requiredGems": 10,
+      "orderIndex": 3,
+      "coverImageName": "storybook_unite1_book3_cover",
+      "pages": [
+        {
+          "pageNumber": 1,
+          "contentFrench": "Léo est un petit garçon de huit ans. Aujourd'hui, il va à l'école avec son nouveau stylo bleu.",
+          "contentChinese": "",
+          "imageName": "storybook_unite1_book3_page1",
+          "audioFileName": "story_unite1_book3_page1.mp3"
+        },
+        {
+          "pageNumber": 2,
+          "contentFrench": "En classe, il commence à écrire : « Bonjour, je m’appelle Léo. »",
+          "contentChinese": "",
+          "imageName": "storybook_unite1_book3_page2",
+          "audioFileName": "story_unite1_book3_page2.mp3"
+        },
+        {
+          "pageNumber": 3,
+          "contentFrench": "Soudain, son stylo dit : « Bonjour, Léo ! »",
+          "contentChinese": "",
+          "imageName": "storybook_unite1_book3_page3",
+          "audioFileName": "story_unite1_book3_page3.mp3"
+        },
+        {
+          "pageNumber": 4,
+          "contentFrench": "Léo saute sur sa chaise. — « Oh non ! Un stylo qui parle ! »",
+          "contentChinese": "",
+          "imageName": "storybook_unite1_book3_page4",
+          "audioFileName": "story_unite1_book3_page4.mp3"
+        },
+        {
+          "pageNumber": 5,
+          "contentFrench": "Le stylo rigole : « Ha ha ha ! Écris chien ! »",
+          "contentChinese": "",
+          "imageName": "storybook_unite1_book3_page5",
+          "audioFileName": "story_unite1_book3_page5.mp3"
+        },
+        {
+          "pageNumber": 6,
+          "contentFrench": "Léo écrit « chien » et pouf, un petit chien bleu sort du cahier et court dans la classe !",
+          "contentChinese": "",
+          "imageName": "storybook_unite1_book3_page6",
+          "audioFileName": "story_unite1_book3_page6.mp3"
+        },
+        {
+          "pageNumber": 7,
+          "contentFrench": "La maîtresse crie : — « Mais qu’est-ce que c’est ?! »",
+          "contentChinese": "",
+          "imageName": "storybook_unite1_book3_page7",
+          "audioFileName": "story_unite1_book3_page7.mp3"
+        },
+        {
+          "pageNumber": 8,
+          "contentFrench": "Léo rougit. Le stylo dit : « Vite, écris dodo ! »",
+          "contentChinese": "",
+          "imageName": "storybook_unite1_book3_page8",
+          "audioFileName": "story_unite1_book3_page8.mp3"
+        },
+        {
+          "pageNumber": 9,
+          "contentFrench": "Léo écrit « dodo » et le petit chien s’endort sur le bureau. La maîtresse soupire : — « Léo… ton stylo est vraiment magique ! »",
+          "contentChinese": "",
+          "imageName": "storybook_unite1_book3_page9",
+          "audioFileName": "story_unite1_book3_page9.mp3"
+        },
+        {
+          "pageNumber": 10,
+          "contentFrench": "Léo rit : — « Oui, mais il est aussi très drôle ! » Et depuis ce jour, tout le monde veut emprunter le stylo magique de Léo.",
+          "contentChinese": "",
+          "imageName": "storybook_unite1_book3_page10",
+          "audioFileName": "story_unite1_book3_page10.mp3"
         }
       ]
     }
