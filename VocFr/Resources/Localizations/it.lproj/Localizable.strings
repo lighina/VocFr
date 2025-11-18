@@ -283,7 +283,7 @@
 "achievement.hangman.perfect.title" = "Salvatore dell'impiccato";
 "achievement.hangman.perfect.description" = "Completa l'impiccato senza errori";
 "achievement.matching.speed.title" = "Velocità della luce";
-"achievement.matching.speed.description" = "Completa l'abbinamento in 12 secondi";
+"achievement.matching.speed.description" = "Completa l'abbinamento in 15 secondi";
 
 // Special Achievements
 "achievement.early.bird.title" = "Mattiniero";

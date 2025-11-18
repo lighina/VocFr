@@ -19,6 +19,7 @@ struct StorybooksListView: View {
     @State private var showUnlockAlert = false
     @State private var selectedStorybook: Storybook?
     @State private var insufficientGems = false
+    @State private var showTestRequiredAlert = false
     @State private var expandedUnites: Set<String> = []
 
     var body: some View {
@@ -90,6 +91,14 @@ struct StorybooksListView: View {
         } message: {
             Text("You don't have enough gems to unlock this storybook.")
         }
+        .alert("Test Required", isPresented: $showTestRequiredAlert) {
+            Button("OK") {}
+        } message: {
+            if let storybook = selectedStorybook,
+               let unite = unites.first(where: { $0.id == storybook.uniteId }) {
+                Text("Complete the test for Unite \(unite.number) with a score of 60% or higher to unlock this storybook.")
+            }
+        }
         .onAppear {
             // Auto-unlock default storybooks if test passed
             autoUnlockDefaultStorybooks()
@@ -157,6 +166,12 @@ struct StorybooksListView: View {
     }
 
     private func attemptUnlock(_ storybook: Storybook) {
+        // For default storybooks, check if test is passed first
+        if storybook.isDefault && !hasPassedUniteTest(storybook.uniteId) {
+            showTestRequiredAlert = true
+            return
+        }
+
         // Check if user has enough gems
         if currentGems >= storybook.requiredGems {
             showUnlockAlert = true

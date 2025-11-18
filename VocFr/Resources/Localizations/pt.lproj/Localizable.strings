@@ -283,7 +283,7 @@
 "achievement.hangman.perfect.title" = "Salvador da forca";
 "achievement.hangman.perfect.description" = "Complete a forca sem nenhuma tentativa errada";
 "achievement.matching.speed.title" = "Velocidade da luz";
-"achievement.matching.speed.description" = "Complete a correspondência em 12 segundos";
+"achievement.matching.speed.description" = "Complete a correspondência em 15 segundos";
 
 // Special Achievements
 "achievement.early.bird.title" = "Madrugador";

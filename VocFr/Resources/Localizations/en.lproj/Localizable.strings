@@ -290,7 +290,7 @@
 "achievement.hangman.perfect.title" = "Hangman Saver";
 "achievement.hangman.perfect.description" = "Complete hangman without any wrong try";
 "achievement.matching.speed.title" = "Speed of Light";
-"achievement.matching.speed.description" = "Complete matching in 12 seconds";
+"achievement.matching.speed.description" = "Complete matching in 15 seconds";
 
 // Special Achievements
 "achievement.early.bird.title" = "Early Bird";

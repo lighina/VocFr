@@ -6,16 +6,32 @@
 //
 
 import SwiftUI
+import SwiftData
 
 // 菜单视图
 struct MenuView: View {
     @Environment(\.dismiss) private var dismiss
-    
+    @Query private var allAchievements: [Achievement]
+
+    /// Check if there are any claimable achievements
+    private var hasClaimableAchievements: Bool {
+        allAchievements.contains { $0.isReadyToClaim }
+    }
+
     var body: some View {
         NavigationView {
             List {
                 NavigationLink(destination: AchievementView()) {
-                    MenuRowView(icon: "trophy.fill", title: "menu.achievements.title".localized, description: "menu.achievements.description".localized)
+                    HStack {
+                        MenuRowView(icon: "trophy.fill", title: "menu.achievements.title".localized, description: "menu.achievements.description".localized)
+
+                        // Red badge for claimable achievements
+                        if hasClaimableAchievements {
+                            Circle()
+                                .fill(Color.red)
+                                .frame(width: 8, height: 8)
+                        }
+                    }
                 }
 
                 NavigationLink(destination: ProgressView()) {

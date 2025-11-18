@@ -290,7 +290,7 @@
 "achievement.hangman.perfect.title" = "拯救者";
 "achievement.hangman.perfect.description" = "完成Hangman游戏且没有任何错误尝试";
 "achievement.matching.speed.title" = "光速";
-"achievement.matching.speed.description" = "在12秒内完成配对游戏";
+"achievement.matching.speed.description" = "在15秒内完成配对游戏";
 
 // Special Achievements
 "achievement.early.bird.title" = "早起的鸟儿";

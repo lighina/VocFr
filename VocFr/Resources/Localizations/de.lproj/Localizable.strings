@@ -283,7 +283,7 @@
 "achievement.hangman.perfect.title" = "Galgenmännchen-Retter";
 "achievement.hangman.perfect.description" = "Schließe Galgenmännchen ohne Fehler ab";
 "achievement.matching.speed.title" = "Lichtgeschwindigkeit";
-"achievement.matching.speed.description" = "Schließe das Matching in 12 Sekunden ab";
+"achievement.matching.speed.description" = "Schließe das Matching in 15 Sekunden ab";
 
 // Special Achievements
 "achievement.early.bird.title" = "Frühaufsteher";

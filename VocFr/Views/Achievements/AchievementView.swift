@@ -127,7 +127,8 @@ struct AchievementView: View {
                 CategoryButton(
                     title: "achievement.category.all".localized,
                     icon: "star.fill",
-                    isSelected: selectedCategory == nil
+                    isSelected: selectedCategory == nil,
+                    showBadge: hasAnyClaimableAchievements
                 ) {
                     selectedCategory = nil
                 }
@@ -145,7 +146,8 @@ struct AchievementView: View {
                     CategoryButton(
                         title: category.rawValue.localized,
                         icon: categoryIcon(category),
-                        isSelected: selectedCategory == category
+                        isSelected: selectedCategory == category,
+                        showBadge: hasClaimableAchievements(in: category)
                     ) {
                         selectedCategory = category
                     }
@@ -238,6 +240,16 @@ struct AchievementView: View {
         case .special:
             return "sparkles"
         }
+    }
+
+    /// Check if a category has claimable achievements
+    private func hasClaimableAchievements(in category: AchievementCategory) -> Bool {
+        allAchievements.contains { $0.category == category && $0.isReadyToClaim }
+    }
+
+    /// Check if there are any claimable achievements
+    private var hasAnyClaimableAchievements: Bool {
+        allAchievements.contains { $0.isReadyToClaim }
     }
 
     // MARK: - Achievement Actions
@@ -366,22 +378,41 @@ struct CategoryButton: View {
     let title: String
     let icon: String
     let isSelected: Bool
+    let showBadge: Bool
     let action: () -> Void
+
+    init(title: String, icon: String, isSelected: Bool, showBadge: Bool = false, action: @escaping () -> Void) {
+        self.title = title
+        self.icon = icon
+        self.isSelected = isSelected
+        self.showBadge = showBadge
+        self.action = action
+    }
 
     var body: some View {
         Button(action: action) {
-            HStack(spacing: 6) {
-                Image(systemName: icon)
-                    .font(.caption)
-                Text(title)
-                    .font(.caption)
-                    .fontWeight(.medium)
+            ZStack(alignment: .topTrailing) {
+                HStack(spacing: 6) {
+                    Image(systemName: icon)
+                        .font(.caption)
+                    Text(title)
+                        .font(.caption)
+                        .fontWeight(.medium)
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(isSelected ? Color.blue : Color(.systemGray5))
+                .foregroundColor(isSelected ? .white : .primary)
+                .cornerRadius(20)
+
+                // Red badge
+                if showBadge {
+                    Circle()
+                        .fill(Color.red)
+                        .frame(width: 8, height: 8)
+                        .offset(x: 2, y: -2)
+                }
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 8)
-            .background(isSelected ? Color.blue : Color(.systemGray5))
-            .foregroundColor(isSelected ? .white : .primary)
-            .cornerRadius(20)
         }
     }
 }

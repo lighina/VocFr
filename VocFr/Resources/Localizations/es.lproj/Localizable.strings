@@ -283,7 +283,7 @@
 "achievement.hangman.perfect.title" = "Salvador del ahorcado";
 "achievement.hangman.perfect.description" = "Completa el ahorcado sin ningún intento incorrecto";
 "achievement.matching.speed.title" = "Velocidad de la luz";
-"achievement.matching.speed.description" = "Completa el emparejamiento en 12 segundos";
+"achievement.matching.speed.description" = "Completa el emparejamiento en 15 segundos";
 
 // Special Achievements
 "achievement.early.bird.title" = "Madrugador";

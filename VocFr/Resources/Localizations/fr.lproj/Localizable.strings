@@ -283,7 +283,7 @@
 "achievement.hangman.perfect.title" = "Sauveur du pendu";
 "achievement.hangman.perfect.description" = "Complétez le pendu sans aucune erreur";
 "achievement.matching.speed.title" = "Vitesse de la lumière";
-"achievement.matching.speed.description" = "Complétez l'appariement en 12 secondes";
+"achievement.matching.speed.description" = "Complétez l'appariement en 15 secondes";
 
 // Special Achievements
 "achievement.early.bird.title" = "Lève-tôt";

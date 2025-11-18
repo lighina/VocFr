@@ -6,9 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct MainAppView: View {
     @State private var showingMenu = false
+    @Query private var allAchievements: [Achievement]
+
+    /// Check if there are any claimable achievements
+    private var hasClaimableAchievements: Bool {
+        allAchievements.contains { $0.isReadyToClaim }
+    }
 
     var body: some View {
         VStack(spacing: 30) {
@@ -76,15 +83,35 @@ struct MainAppView: View {
             #if os(iOS)
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: { showingMenu = true }) {
-                    Image(systemName: "line.3.horizontal")
-                        .font(.title2)
+                    ZStack(alignment: .topTrailing) {
+                        Image(systemName: "line.3.horizontal")
+                            .font(.title2)
+
+                        // Red badge for claimable achievements
+                        if hasClaimableAchievements {
+                            Circle()
+                                .fill(Color.red)
+                                .frame(width: 8, height: 8)
+                                .offset(x: 6, y: -6)
+                        }
+                    }
                 }
             }
             #else
             ToolbarItem(placement: .automatic) {
                 Button(action: { showingMenu = true }) {
-                    Image(systemName: "line.3.horizontal")
-                        .font(.title2)
+                    ZStack(alignment: .topTrailing) {
+                        Image(systemName: "line.3.horizontal")
+                            .font(.title2)
+
+                        // Red badge for claimable achievements
+                        if hasClaimableAchievements {
+                            Circle()
+                                .fill(Color.red)
+                                .frame(width: 8, height: 8)
+                                .offset(x: 6, y: -6)
+                        }
+                    }
                 }
             }
             #endif
