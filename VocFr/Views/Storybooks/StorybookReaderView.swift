@@ -13,9 +13,9 @@ struct StorybookReaderView: View {
     let storybook: Storybook
 
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @State private var currentPageIndex = 0
     @State private var audioPlayer: AVAudioPlayer?
+    @State private var secondAudioPlayer: AVAudioPlayer?
     @State private var orientation = UIDevice.current.orientation
 
     private var sortedPages: [StoryPage] {
@@ -27,10 +27,9 @@ struct StorybookReaderView: View {
         return sortedPages[currentPageIndex]
     }
 
-    // Check if we should show two pages side by side (iPad landscape)
+    // Check if we should show two pages side by side (iPad landscape only)
     private var isDoublePageMode: Bool {
-        UIDevice.current.userInterfaceIdiom == .pad &&
-        (orientation.isLandscape || horizontalSizeClass == .regular)
+        UIDevice.current.userInterfaceIdiom == .pad && orientation.isLandscape
     }
 
     // Get the step size for page navigation (1 for single page, 2 for double page)
@@ -139,19 +138,23 @@ struct StorybookReaderView: View {
                 // Auto-play audio for new page with slight delay for animation
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     if newValue < sortedPages.count {
-                        playAudio(for: sortedPages[newValue])
-                        // In double page mode, also play audio for the right page
+                        // In double page mode, play both pages' audio sequentially
                         if isDoublePageMode && newValue + 1 < sortedPages.count {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                playAudio(for: sortedPages[newValue + 1])
-                            }
+                            playDoublePageAudio(
+                                firstPage: sortedPages[newValue],
+                                secondPage: sortedPages[newValue + 1]
+                            )
+                        } else {
+                            playAudio(for: sortedPages[newValue])
                         }
                     }
                 }
             }
             .onAppear {
-                // Auto-play audio for first page
-                if let firstPage = sortedPages.first {
+                // Auto-play audio for first page(s)
+                if isDoublePageMode && sortedPages.count >= 2 {
+                    playDoublePageAudio(firstPage: sortedPages[0], secondPage: sortedPages[1])
+                } else if let firstPage = sortedPages.first {
                     playAudio(for: firstPage)
                 }
                 // Monitor orientation changes
@@ -309,6 +312,70 @@ struct StorybookReaderView: View {
     private func stopAudio() {
         audioPlayer?.stop()
         audioPlayer = nil
+        secondAudioPlayer?.stop()
+        secondAudioPlayer = nil
+    }
+
+    /// Play audio for two pages sequentially with a pause in between
+    private func playDoublePageAudio(firstPage: StoryPage, secondPage: StoryPage) {
+        guard let firstAudioFileName = firstPage.audioFileName else {
+            // If first page has no audio, just play second page
+            playAudio(for: secondPage)
+            return
+        }
+
+        // Play first page audio
+        let firstBaseFileName = firstAudioFileName.replacingOccurrences(of: ".mp3", with: "")
+        if let firstAudioURL = Bundle.main.url(forResource: firstBaseFileName, withExtension: "mp3") {
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: firstAudioURL)
+                audioPlayer?.play()
+                print("🔊 Playing first page audio: \(firstAudioFileName)")
+
+                // Get duration of first audio and schedule second audio
+                if let duration = audioPlayer?.duration {
+                    let pauseInterval: TimeInterval = 0.8 // 0.8 second pause between pages
+                    let delayTime = duration + pauseInterval
+
+                    DispatchQueue.main.asyncAfter(deadline: .now() + delayTime) {
+                        // Play second page audio
+                        self.playSecondPageAudio(for: secondPage)
+                    }
+                } else {
+                    // If can't get duration, use default delay
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                        self.playSecondPageAudio(for: secondPage)
+                    }
+                }
+            } catch {
+                print("❌ Failed to play first page audio: \(error)")
+                // Try to play second page anyway
+                playSecondPageAudio(for: secondPage)
+            }
+        } else {
+            print("⚠️ First page audio file not found: \(firstAudioFileName)")
+            // Try to play second page anyway
+            playSecondPageAudio(for: secondPage)
+        }
+    }
+
+    /// Play audio for the second page (used in double page mode)
+    private func playSecondPageAudio(for page: StoryPage) {
+        guard let audioFileName = page.audioFileName else { return }
+
+        let baseFileName = audioFileName.replacingOccurrences(of: ".mp3", with: "")
+
+        if let audioURL = Bundle.main.url(forResource: baseFileName, withExtension: "mp3") {
+            do {
+                secondAudioPlayer = try AVAudioPlayer(contentsOf: audioURL)
+                secondAudioPlayer?.play()
+                print("🔊 Playing second page audio: \(audioFileName)")
+            } catch {
+                print("❌ Failed to play second page audio: \(error)")
+            }
+        } else {
+            print("⚠️ Second page audio file not found: \(audioFileName)")
+        }
     }
 }
 
