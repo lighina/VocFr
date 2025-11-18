@@ -237,12 +237,11 @@ class AchievementManager {
 
             print("🎯 Checking achievement \(id): currentProgress=\(achievement.currentProgress), targetValue=\(achievement.targetValue), isUnlocked=\(achievement.isUnlocked)")
 
-            // Update progress
-            let wasUnlocked = achievement.updateProgress(currentValue)
+            // Update progress (does NOT auto-unlock, user must claim)
+            let isReadyToClaim = achievement.updateProgress(currentValue)
 
-            if wasUnlocked {
-                print("🏆 Achievement unlocked: \(id)")
-                handleAchievementUnlock(achievement, context: context)
+            if isReadyToClaim {
+                print("🏆 Achievement ready to claim: \(id)")
             } else {
                 print("📊 Achievement progress updated: \(id) -> \(achievement.currentProgress)/\(achievement.targetValue)")
             }
