@@ -164,19 +164,24 @@ struct StorybookPageView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                // Image placeholder
+                // Page illustration
                 ZStack {
                     RoundedRectangle(cornerRadius: 16)
                         .fill(Color.purple.opacity(0.1))
                         .frame(height: 250)
 
-                    VStack {
-                        Image(systemName: "photo")
-                            .font(.system(size: 60))
-                            .foregroundColor(.purple.opacity(0.5))
-
-                        if let imageName = page.imageName {
-                            Text(imageName)
+                    if let imageName = page.imageName, !imageName.isEmpty {
+                        Image(imageName)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxHeight: 250)
+                            .cornerRadius(12)
+                    } else {
+                        VStack {
+                            Image(systemName: "photo")
+                                .font(.system(size: 60))
+                                .foregroundColor(.purple.opacity(0.5))
+                            Text("No image available")
                                 .font(.caption2)
                                 .foregroundColor(.secondary)
                         }

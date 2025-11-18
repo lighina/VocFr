@@ -172,11 +172,12 @@ class StorybookImporter:
 
             # 音频
             audio_src = source_path / f"story_unite{unite_num}_page{page_num}.mp3"
+            audio_name = f"story_unite{unite_num}_book{book_num}_page{page_num}.mp3"
             if audio_src.exists():
-                audio_dst = target_audio_dir / f"story_unite{unite_num}_page{page_num}.mp3"
+                audio_dst = target_audio_dir / audio_name
                 shutil.copy2(audio_src, audio_dst)
-                page['audioFileName'] = f"story_unite{unite_num}_page{page_num}.mp3"
-                print(f"✅ 复制音频: story_unite{unite_num}_page{page_num}.mp3")
+                page['audioFileName'] = audio_name
+                print(f"✅ 复制音频: story_unite{unite_num}_page{page_num}.mp3 -> {audio_name}")
             else:
                 page['audioFileName'] = None
                 print(f"⚠️  未找到音频: story_unite{unite_num}_page{page_num}.mp3")

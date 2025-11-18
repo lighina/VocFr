@@ -155,14 +155,34 @@ struct StorybookCard: View {
                         .fill(storybook.isUnlocked ? Color.purple.opacity(0.2) : Color.gray.opacity(0.2))
                         .frame(width: 80, height: 100)
 
-                    if storybook.isUnlocked {
-                        Image(systemName: "book.fill")
-                            .font(.system(size: 36))
-                            .foregroundColor(.purple)
+                    if let coverImageName = storybook.coverImageName, !coverImageName.isEmpty {
+                        Image(coverImageName)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 80, height: 100)
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .opacity(storybook.isUnlocked ? 1.0 : 0.5)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(storybook.isUnlocked ? Color.purple : Color.gray, lineWidth: 2)
+                            )
+
+                        if !storybook.isUnlocked {
+                            Image(systemName: "lock.fill")
+                                .font(.system(size: 24))
+                                .foregroundColor(.white)
+                                .shadow(color: .black.opacity(0.8), radius: 4)
+                        }
                     } else {
-                        Image(systemName: "lock.fill")
-                            .font(.system(size: 36))
-                            .foregroundColor(.gray)
+                        if storybook.isUnlocked {
+                            Image(systemName: "book.fill")
+                                .font(.system(size: 36))
+                                .foregroundColor(.purple)
+                        } else {
+                            Image(systemName: "lock.fill")
+                                .font(.system(size: 36))
+                                .foregroundColor(.gray)
+                        }
                     }
                 }
 
