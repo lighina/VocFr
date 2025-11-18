@@ -168,15 +168,9 @@ struct StorybookCard: View {
 
                 // Info
                 VStack(alignment: .leading, spacing: 8) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(storybook.title)
-                            .font(.headline)
-                            .foregroundColor(.primary)
-
-                        Text(storybook.titleInChinese)
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                    }
+                    Text(storybook.title)
+                        .font(.headline)
+                        .foregroundColor(.primary)
 
                     HStack(spacing: 4) {
                         Image(systemName: "doc.text")

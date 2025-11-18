@@ -62,19 +62,12 @@ class VocabularyDataLoader {
     /// - Returns: Array of Unite objects
     /// - Throws: Loading or parsing errors
     static func loadVocabularyData() throws -> [Unite] {
-        // Try new split-file format first
-        if let metadataURL = findFile(name: "metadata", extension: "json") {
-            print("📦 Loading split-file format (metadata.json + Unite*.json)")
-            return try loadSplitFormat(metadataURL: metadataURL)
+        guard let metadataURL = findFile(name: "metadata", extension: "json") else {
+            throw DataLoaderError.fileNotFound("metadata.json not found in bundle")
         }
 
-        // Fallback to old monolithic format
-        if let vocabURL = findFile(name: "vocabulary", extension: "json") {
-            print("📦 Loading monolithic format (vocabulary.json)")
-            return try loadMonolithicFormat(vocabURL: vocabURL)
-        }
-
-        throw DataLoaderError.fileNotFound("No vocabulary data found (tried metadata.json and vocabulary.json)")
+        print("📦 Loading vocabulary data (metadata.json + Unite*.json)")
+        return try loadSplitFormat(metadataURL: metadataURL)
     }
 
     // MARK: - Private Loading Methods
@@ -108,24 +101,6 @@ class VocabularyDataLoader {
 
             let wordCount = unite.sections.reduce(0) { $0 + $1.sectionWords.count }
             print("  ✅ Loaded Unite \(uniteNumber): \(unite.title) (\(wordCount) words)")
-        }
-
-        print("✅ Successfully loaded \(unites.count) unités with \(globalWordCache.count) unique words")
-        return unites
-    }
-
-    /// Load vocabulary from monolithic file (vocabulary.json) - Legacy support
-    private static func loadMonolithicFormat(vocabURL: URL) throws -> [Unite] {
-        let data = try Data(contentsOf: vocabURL)
-        let decoder = JSONDecoder()
-        let vocabularyJSON = try decoder.decode(VocabularyJSON.self, from: data)
-
-        print("📖 Loaded vocabulary data version: \(vocabularyJSON.version)")
-        print("📅 Last updated: \(vocabularyJSON.lastUpdated)")
-
-        var globalWordCache: [String: Word] = [:]
-        let unites = vocabularyJSON.unites.map { uniteJSON in
-            convertToUnite(from: uniteJSON, wordCache: &globalWordCache)
         }
 
         print("✅ Successfully loaded \(unites.count) unités with \(globalWordCache.count) unique words")

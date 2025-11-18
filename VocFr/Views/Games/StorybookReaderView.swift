@@ -12,6 +12,7 @@ import AVFoundation
 struct StorybookReaderView: View {
     let storybook: Storybook
 
+    @Environment(\.dismiss) private var dismiss
     @State private var currentPageIndex = 0
     @State private var audioPlayer: AVAudioPlayer?
 
@@ -49,6 +50,16 @@ struct StorybookReaderView: View {
             .tabViewStyle(.page(indexDisplayMode: .never))
             .onChange(of: currentPageIndex) { _, newValue in
                 stopAudio()
+                // Auto-play audio for new page
+                if newValue < sortedPages.count {
+                    playAudio(for: sortedPages[newValue])
+                }
+            }
+            .onAppear {
+                // Auto-play audio for first page
+                if let firstPage = sortedPages.first {
+                    playAudio(for: firstPage)
+                }
             }
 
             // Navigation controls
@@ -113,6 +124,9 @@ struct StorybookReaderView: View {
             withAnimation {
                 currentPageIndex += 1
             }
+        } else {
+            // Last page - dismiss the view
+            dismiss()
         }
     }
 
@@ -170,58 +184,45 @@ struct StorybookPageView: View {
                 }
                 .padding(.horizontal)
 
-                // Text content
+                // Text content with subtitle styling
                 VStack(spacing: 16) {
-                    // French text
-                    VStack(alignment: .leading, spacing: 8) {
-                        HStack {
-                            Text("🇫🇷")
-                                .font(.title3)
-                            Text("storybook.french".localized)
-                                .font(.headline)
-                                .foregroundColor(.secondary)
-
-                            Spacer()
-
-                            // Audio button
-                            if page.audioFileName != nil {
-                                Button(action: onPlayAudio) {
+                    // Audio button at top
+                    HStack {
+                        Spacer()
+                        if page.audioFileName != nil {
+                            Button(action: onPlayAudio) {
+                                HStack(spacing: 8) {
                                     Image(systemName: "speaker.wave.2.fill")
-                                        .font(.title3)
-                                        .foregroundColor(.purple)
+                                    Text("Play")
                                 }
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 10)
+                                .background(Color.purple)
+                                .cornerRadius(20)
                             }
                         }
-
-                        Text(page.contentFrench)
-                            .font(.title3)
-                            .foregroundColor(.primary)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding()
-                            .background(Color(.systemGray6))
-                            .cornerRadius(12)
+                        Spacer()
                     }
 
-                    // Chinese text
-                    VStack(alignment: .leading, spacing: 8) {
-                        HStack {
-                            Text("🇨🇳")
-                                .font(.title3)
-                            Text("storybook.chinese".localized)
-                                .font(.headline)
-                                .foregroundColor(.secondary)
-                        }
-
-                        Text(page.contentChinese)
-                            .font(.body)
-                            .foregroundColor(.secondary)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding()
-                            .background(Color(.systemGray6))
-                            .cornerRadius(12)
-                    }
+                    // French text with subtitle styling
+                    Text(page.contentFrench)
+                        .font(.custom("EB Garamond", size: 22))
+                        .fontWeight(.medium)
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                        .shadow(color: .black.opacity(0.8), radius: 2, x: 0, y: 1)
+                        .shadow(color: .black.opacity(0.8), radius: 4, x: 0, y: 2)
+                        .padding(.horizontal, 32)
+                        .padding(.vertical, 16)
+                        .background(
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Color.black.opacity(0.7))
+                        )
+                        .padding(.horizontal, 24)
                 }
-                .padding(.horizontal)
+                .padding(.horizontal, 8)
             }
             .padding(.vertical)
         }

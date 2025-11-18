@@ -1286,18 +1286,9 @@ extension FrenchVocabularySeeder {
             return issues
         }
         
-        // 检查单词是否有对应的图片资源
-        for word in words {
-            let hasImageResource = Bundle.main.url(forResource: word.imageName, withExtension: nil) != nil ||
-                                  Bundle.main.url(forResource: word.imageName, withExtension: "png") != nil ||
-                                  Bundle.main.url(forResource: word.imageName, withExtension: "jpg") != nil ||
-                                  Bundle.main.url(forResource: word.imageName, withExtension: "jpeg") != nil
-            
-            if !hasImageResource {
-                issues.append("缺少图片资源: \(word.imageName) (单词: \(word.canonical))")
-            }
-        }
-        
+        // Note: Image resource validation removed as it was producing false positives
+        // Images are loaded dynamically and may be in xcassets which Bundle.main.url() cannot detect
+
         // 检查名词是否有正确的性别信息
         let nouns = words.filter { $0.partOfSpeech == .noun }
         for noun in nouns {
