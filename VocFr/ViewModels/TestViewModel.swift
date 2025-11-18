@@ -417,6 +417,11 @@ class TestViewModel {
                 )
             }
 
+            // Unlock default storybook if test passed (score >= 60)
+            if result.score >= 60, let uniteId = unite?.id {
+                unlockDefaultStorybook(for: uniteId, context: modelContext)
+            }
+
             // Update WordProgress for all tested words
             updateWordProgress(context: modelContext)
 
@@ -469,6 +474,29 @@ class TestViewModel {
     }
 
     /// Track achievements for this test session
+    /// Unlock default storybook for the given Unite
+    private func unlockDefaultStorybook(for uniteId: String, context: ModelContext) {
+        // Find the default storybook for this unite
+        let descriptor = FetchDescriptor<Storybook>(
+            predicate: #Predicate<Storybook> { storybook in
+                storybook.uniteId == uniteId && storybook.isDefault == true && storybook.isUnlocked == false
+            }
+        )
+
+        do {
+            let storybooks = try context.fetch(descriptor)
+            if let defaultStorybook = storybooks.first {
+                defaultStorybook.isUnlocked = true
+                try context.save()
+                print("📚 Unlocked default storybook: \(defaultStorybook.title) for Unite \(uniteId)")
+            } else {
+                print("📚 No locked default storybook found for Unite \(uniteId)")
+            }
+        } catch {
+            print("❌ Failed to unlock default storybook: \(error)")
+        }
+    }
+
     private func trackAchievements(accuracy: Double, context: ModelContext) {
         // Get practice count
         let descriptor = FetchDescriptor<PracticeRecord>()
