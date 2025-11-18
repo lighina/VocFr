@@ -61,7 +61,7 @@ struct StorybookReaderView: View {
             .padding(.horizontal)
             .padding(.vertical, 8)
 
-            // Page content with native swipe gesture
+            // Page content with native swipe gesture and page-turn animation
             TabView(selection: $currentPageIndex) {
                 if isDoublePageMode {
                     // Double page mode for iPad landscape
@@ -105,10 +105,13 @@ struct StorybookReaderView: View {
                             }
                         }
                         .tag(index)
+                        .scaleEffect(currentPageIndex == index ? 1.0 : 0.95)
+                        .opacity(currentPageIndex == index ? 1.0 : 0.5)
                         .rotation3DEffect(
-                            .degrees(getRotationAngle(for: index)),
+                            .degrees(Double(index - currentPageIndex) * 10),
                             axis: (x: 0, y: 1, z: 0),
-                            perspective: 0.5
+                            anchor: index > currentPageIndex ? .leading : .trailing,
+                            perspective: 0.4
                         )
                     }
                 } else {
@@ -118,16 +121,19 @@ struct StorybookReaderView: View {
                             playAudio(for: page)
                         })
                         .tag(index)
+                        .scaleEffect(currentPageIndex == index ? 1.0 : 0.95)
+                        .opacity(currentPageIndex == index ? 1.0 : 0.5)
                         .rotation3DEffect(
-                            .degrees(getRotationAngle(for: index)),
+                            .degrees(Double(index - currentPageIndex) * 15),
                             axis: (x: 0, y: 1, z: 0),
-                            perspective: 0.5
+                            anchor: index > currentPageIndex ? .leading : .trailing,
+                            perspective: 0.3
                         )
                     }
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
-            .animation(.spring(response: 0.5, dampingFraction: 0.8), value: currentPageIndex)
+            .animation(.interpolatingSpring(stiffness: 200, damping: 20), value: currentPageIndex)
             .onChange(of: currentPageIndex) { _, newValue in
                 stopAudio()
                 // Auto-play audio for new page with slight delay for animation
