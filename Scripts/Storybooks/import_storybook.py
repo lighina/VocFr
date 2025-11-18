@@ -146,10 +146,11 @@ class StorybookImporter:
 
         # 3. 复制封面图片
         cover_src = source_path / "cover.png"
+        cover_name = f"storybook_unite{unite_num}_book{book_num}_cover"
         if cover_src.exists():
-            cover_dst = target_images_dir / "cover.png"
+            cover_dst = target_images_dir / f"{cover_name}.png"
             shutil.copy2(cover_src, cover_dst)
-            print(f"✅ 复制封面: cover.png")
+            print(f"✅ 复制封面: cover.png -> {cover_name}.png")
         else:
             print(f"⚠️  未找到封面图片: cover.png")
 
@@ -159,11 +160,12 @@ class StorybookImporter:
 
             # 图片
             image_src = source_path / f"page{page_num}.png"
+            image_name = f"storybook_unite{unite_num}_book{book_num}_page{page_num}"
             if image_src.exists():
-                image_dst = target_images_dir / f"page{page_num}.png"
+                image_dst = target_images_dir / f"{image_name}.png"
                 shutil.copy2(image_src, image_dst)
-                page['imageName'] = f"storybook_unite{unite_num}_book{book_num}_page{page_num}"
-                print(f"✅ 复制图片: page{page_num}.png")
+                page['imageName'] = image_name
+                print(f"✅ 复制图片: page{page_num}.png -> {image_name}.png")
             else:
                 page['imageName'] = None
                 print(f"⚠️  未找到图片: page{page_num}.png")
