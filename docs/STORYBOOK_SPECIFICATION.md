@@ -1,8 +1,8 @@
 # Storybook System - 故事书系统详细说明
 
-> **版本**: 1.0
+> **版本**: 2.0
 > **创建日期**: 2025-11-17
-> **最后更新**: 2025-11-17
+> **最后更新**: 2025-11-18
 
 ---
 
@@ -30,8 +30,10 @@
 
 ### 核心特性
 
-- ✅ **每个Unite一本故事书**：紧密结合Unite主题和词汇
-- 🔓 **双重解锁方式**：完成Test自动解锁 或 花费10💎解锁
+- ✅ **每个Unite多本故事书**：每个Unite有2-3本故事书，紧密结合Unite主题和词汇
+- 📚 **分层内容**：1本默认故事书（免费） + 1-2本额外故事书（付费）
+- 🔓 **双重解锁方式**：完成Test（≥60%）自动解锁默认故事书 或 花费10💎解锁额外故事书
+- 🔒 **渐进式访问**：只有已解锁的Unite的故事书才可见和可购买
 - 🎧 **法语配音**：每页提供标准法语朗读
 - 🇨🇳 **中文对照**：逐页提供中文翻译
 - 📱 **翻页阅读**：类似儿童绘本的阅读体验
@@ -50,7 +52,8 @@ class Storybook {
     var titleInChinese: String     // 中文标题
     var uniteId: String            // 所属Unite ID
     var isUnlocked: Bool           // 解锁状态
-    var requiredGems: Int          // 解锁所需宝石（非本Unite解锁）
+    var isDefault: Bool            // 默认故事书（Test解锁）vs 额外故事书（宝石解锁）
+    var requiredGems: Int          // 解锁所需宝石（默认故事书=0，额外故事书=10）
     var orderIndex: Int            // 显示顺序
     var coverImageName: String?    // 封面图片名称
 
@@ -58,8 +61,8 @@ class Storybook {
     var pages: [StoryPage] = []    // 故事页面
 
     init(id: String, title: String, titleInChinese: String,
-         uniteId: String, isUnlocked: Bool, requiredGems: Int,
-         orderIndex: Int, coverImageName: String? = nil)
+         uniteId: String, isUnlocked: Bool, isDefault: Bool = false,
+         requiredGems: Int, orderIndex: Int, coverImageName: String? = nil)
 }
 ```
 
@@ -87,59 +90,120 @@ class StoryPage {
 
 ### 规则
 
-1. **本Unite故事书**：
-   - 完成该Unite的Test → 自动解锁 ✅ 免费
-   - 示例：完成Unite 1 Test → 解锁《À l'école》故事书
+#### 1. 前置条件：Unite必须已解锁
+- **可见性规则**：只有已解锁Unite的故事书才会在列表中显示
+- **购买限制**：未解锁Unite的故事书无法查看或购买
+- **渐进式学习**：鼓励用户按照Unite顺序学习
 
-2. **其他Unite故事书**：
-   - 需要花费 **10💎** 解锁
-   - 示例：在Unite 1，想读Unite 2故事书 → 花费10💎
+#### 2. 默认故事书（isDefault=true）
+- **解锁条件**：完成该Unite的Test且成绩 ≥ 60%
+- **成本**：✅ 免费（requiredGems=0）
+- **触发时机**：Test结果保存时自动检查和解锁
+- **示例**：完成Unite 1 Test（成绩75%）→ 自动解锁《À l'école - Mon premier jour》
+
+#### 3. 额外故事书（isDefault=false）
+- **解锁条件**：手动用宝石解锁
+- **成本**：**10💎**
+- **触发时机**：用户在故事书列表中点击锁定的故事书
+- **示例**：在已解锁Unite 1后，花费10💎解锁《Les couleurs de ma classe》
 
 ### 实现代码
 
-```swift
-// TestViewModel.swift - Test完成后自动解锁故事书
-func completeTest(result: TestResult, modelContext: ModelContext) {
-    // ... 保存结果 ...
+#### 自动解锁：Test完成触发
 
-    // 解锁本Unite的故事书
-    if let uniteId = unite?.id {
-        unlockStorybookForUnite(uniteId: uniteId, context: modelContext)
+```swift
+// TestViewModel.swift
+private func saveTestRecord(result: TestResult) {
+    // ... 保存TestRecord和PracticeRecord ...
+
+    // Award stars and gems
+    let stars = result.score
+    let gems = result.score / 10
+    PointsManager.shared.awardStars(points: stars, ...)
+    PointsManager.shared.awardGems(gems, ...)
+
+    // Unlock default storybook if test passed (score >= 60)
+    if result.score >= 60, let uniteId = unite?.id {
+        unlockDefaultStorybook(for: uniteId, context: modelContext)
     }
+
+    // Update WordProgress and track achievements
+    // ...
 }
 
-private func unlockStorybookForUnite(uniteId: String, context: ModelContext) {
+/// Unlock default storybook for the given Unite
+private func unlockDefaultStorybook(for uniteId: String, context: ModelContext) {
+    // Find the default storybook for this unite
     let descriptor = FetchDescriptor<Storybook>(
-        predicate: #Predicate { $0.uniteId == uniteId }
+        predicate: #Predicate<Storybook> { storybook in
+            storybook.uniteId == uniteId &&
+            storybook.isDefault == true &&
+            storybook.isUnlocked == false
+        }
     )
 
-    if let storybook = try? context.fetch(descriptor).first {
-        if !storybook.isUnlocked {
-            storybook.isUnlocked = true
-            try? context.save()
-            print("📚 Storybook '\(storybook.title)' unlocked!")
+    do {
+        let storybooks = try context.fetch(descriptor)
+        if let defaultStorybook = storybooks.first {
+            defaultStorybook.isUnlocked = true
+            try context.save()
+            print("📚 Unlocked default storybook: \(defaultStorybook.title) for Unite \(uniteId)")
+        } else {
+            print("📚 No locked default storybook found for Unite \(uniteId)")
         }
+    } catch {
+        print("❌ Failed to unlock default storybook: \(error)")
     }
 }
 ```
 
+#### 手动解锁：宝石购买
+
 ```swift
-// PointsManager.swift - 用宝石解锁
-func unlockStorybook(_ storybook: Storybook, modelContext: ModelContext) -> Bool {
-    guard !storybook.isUnlocked else {
-        print("ℹ️ \(storybook.title) is already unlocked")
+// StorybooksListView.swift
+private func unlockStorybook(_ storybook: Storybook) {
+    guard let userProgress = userProgress.first else {
+        print("⚠️ UserProgress not found")
+        return
+    }
+
+    // Check gems again
+    if userProgress.totalGems >= storybook.requiredGems {
+        // Deduct gems
+        userProgress.totalGems -= storybook.requiredGems
+
+        // Unlock storybook
+        storybook.isUnlocked = true
+
+        // Save changes
+        do {
+            try modelContext.save()
+            print("📚 Unlocked storybook: \(storybook.title)")
+        } catch {
+            print("❌ Failed to save storybook unlock: \(error)")
+        }
+    } else {
+        insufficientGems = true
+    }
+}
+```
+
+#### Unite过滤：只显示已解锁Unite的故事书
+
+```swift
+// StorybooksListView.swift
+@Query(sort: \Storybook.orderIndex) private var allStorybooks: [Storybook]
+@Query private var unites: [Unite]
+
+/// Filter storybooks to only show those whose Unite is unlocked
+private var availableStorybooks: [Storybook] {
+    allStorybooks.filter { storybook in
+        // Find the unite this storybook belongs to
+        if let unite = unites.first(where: { $0.id == storybook.uniteId }) {
+            return unite.isUnlocked
+        }
         return false
     }
-
-    if spendGems(storybook.requiredGems, modelContext: modelContext,
-                 for: "Unlock \(storybook.title)") {
-        storybook.isUnlocked = true
-        print("🎉 \(storybook.title) unlocked with \(storybook.requiredGems)💎!")
-        try? modelContext.save()
-        return true
-    }
-
-    return false
 }
 ```
 
@@ -149,72 +213,127 @@ func unlockStorybook(_ storybook: Storybook, modelContext: ModelContext) -> Bool
 
 ### Storybooks.json
 
+**实际实现的数据结构** (VocFr/Resources/Data/Storybooks.json):
+
 ```json
-[
-  {
-    "id": "storybook_unite1",
-    "title": "À l'école - Mon premier jour",
-    "titleInChinese": "在学校 - 我的第一天",
-    "uniteId": "unite1",
-    "isUnlocked": false,
-    "requiredGems": 10,
-    "orderIndex": 1,
-    "coverImageName": "storybook_unite1_cover",
-    "pages": [
-      {
-        "pageNumber": 1,
-        "contentFrench": "C'est mon premier jour à l'école.",
-        "contentChinese": "这是我在学校的第一天。",
-        "imageName": "storybook_unite1_page1",
-        "audioFileName": "storybook_unite1_page1.mp3"
-      },
-      {
-        "pageNumber": 2,
-        "contentFrench": "Je vois un bureau, une chaise et un tableau.",
-        "contentChinese": "我看到一张课桌、一把椅子和一块黑板。",
-        "imageName": "storybook_unite1_page2",
-        "audioFileName": "storybook_unite1_page2.mp3"
-      },
-      {
-        "pageNumber": 3,
-        "contentFrench": "Le professeur dit: \"Bonjour les enfants!\"",
-        "contentChinese": "老师说："孩子们，你们好！"",
-        "imageName": "storybook_unite1_page3",
-        "audioFileName": "storybook_unite1_page3.mp3"
-      },
-      {
-        "pageNumber": 4,
-        "contentFrench": "J'aime mon école!",
-        "contentChinese": "我喜欢我的学校！",
-        "imageName": "storybook_unite1_page4",
-        "audioFileName": "storybook_unite1_page4.mp3"
-      }
-    ]
-  },
-  {
-    "id": "storybook_unite2",
-    "title": "C'est la fête - L'anniversaire de Marie",
-    "titleInChinese": "庆祝 - 玛丽的生日",
-    "uniteId": "unite2",
-    "isUnlocked": false,
-    "requiredGems": 10,
-    "orderIndex": 2,
-    "coverImageName": "storybook_unite2_cover",
-    "pages": [...]
-  },
-  {
-    "id": "storybook_unite3",
-    "title": "Mon chez-moi - La maison de Lucas",
-    "titleInChinese": "我的家 - 卢卡斯的房子",
-    "uniteId": "unite3",
-    "isUnlocked": false,
-    "requiredGems": 10,
-    "orderIndex": 3,
-    "coverImageName": "storybook_unite3_cover",
-    "pages": [...]
-  }
-]
+{
+  "storybooks": [
+    {
+      "id": "storybook_unite1_default",
+      "title": "À l'école - Mon premier jour",
+      "titleInChinese": "在学校 - 我的第一天",
+      "uniteId": "unite1",
+      "isUnlocked": false,
+      "isDefault": true,
+      "requiredGems": 0,
+      "orderIndex": 1,
+      "coverImageName": "storybook_school_cover",
+      "pages": [
+        {
+          "pageNumber": 1,
+          "contentFrench": "Bonjour ! Je m'appelle Sophie. Aujourd'hui, c'est mon premier jour à l'école.",
+          "contentChinese": "你好！我叫索菲。今天是我在学校的第一天。",
+          "imageName": "story_school_day1",
+          "audioFileName": "story_unite1_page1.mp3"
+        },
+        {
+          "pageNumber": 2,
+          "contentFrench": "Voici ma classe. Je vois un bureau, une chaise et un tableau noir.",
+          "contentChinese": "这是我的教室。我看到一张课桌、一把椅子和一块黑板。",
+          "imageName": "story_school_classroom",
+          "audioFileName": "story_unite1_page2.mp3"
+        },
+        {
+          "pageNumber": 3,
+          "contentFrench": "Dans mon sac, j'ai un cahier, un stylo, un crayon et une gomme.",
+          "contentChinese": "在我的书包里，我有一个笔记本、一支钢笔、一支铅笔和一块橡皮。",
+          "imageName": "story_school_bag",
+          "audioFileName": "story_unite1_page3.mp3"
+        },
+        {
+          "pageNumber": 4,
+          "contentFrench": "Mon professeur est très gentil. Il s'appelle Monsieur Dupont.",
+          "contentChinese": "我的老师非常和蔼。他叫杜邦先生。",
+          "imageName": "story_school_teacher",
+          "audioFileName": "story_unite1_page4.mp3"
+        },
+        {
+          "pageNumber": 5,
+          "contentFrench": "À la récréation, je joue avec mes amis dans la cour.",
+          "contentChinese": "课间休息时，我和朋友们在操场上玩耍。",
+          "imageName": "story_school_playground",
+          "audioFileName": "story_unite1_page5.mp3"
+        },
+        {
+          "pageNumber": 6,
+          "contentFrench": "J'aime beaucoup l'école ! À demain !",
+          "contentChinese": "我非常喜欢学校！明天见！",
+          "imageName": "story_school_goodbye",
+          "audioFileName": "story_unite1_page6.mp3"
+        }
+      ]
+    },
+    {
+      "id": "storybook_unite1_extra1",
+      "title": "Les couleurs de ma classe",
+      "titleInChinese": "我的教室的颜色",
+      "uniteId": "unite1",
+      "isUnlocked": false,
+      "isDefault": false,
+      "requiredGems": 10,
+      "orderIndex": 2,
+      "coverImageName": "storybook_colors_cover",
+      "pages": [
+        {
+          "pageNumber": 1,
+          "contentFrench": "Ma classe est très colorée !",
+          "contentChinese": "我的教室五颜六色！",
+          "imageName": "story_colors_classroom",
+          "audioFileName": "story_colors_page1.mp3"
+        },
+        {
+          "pageNumber": 2,
+          "contentFrench": "Le tableau est noir. Les craies sont blanches.",
+          "contentChinese": "黑板是黑色的。粉笔是白色的。",
+          "imageName": "story_colors_blackboard",
+          "audioFileName": "story_colors_page2.mp3"
+        },
+        {
+          "pageNumber": 3,
+          "contentFrench": "Mon cahier est bleu. Mon stylo est rouge.",
+          "contentChinese": "我的笔记本是蓝色的。我的钢笔是红色的。",
+          "imageName": "story_colors_notebook",
+          "audioFileName": "story_colors_page3.mp3"
+        },
+        {
+          "pageNumber": 4,
+          "contentFrench": "Les murs sont jaunes. La porte est verte.",
+          "contentChinese": "墙壁是黄色的。门是绿色的。",
+          "imageName": "story_colors_walls",
+          "audioFileName": "story_colors_page4.mp3"
+        },
+        {
+          "pageNumber": 5,
+          "contentFrench": "J'adore toutes ces couleurs !",
+          "contentChinese": "我喜欢所有这些颜色！",
+          "imageName": "story_colors_rainbow",
+          "audioFileName": "story_colors_page5.mp3"
+        }
+      ]
+    }
+  ]
+}
 ```
+
+**数据结构说明**：
+
+1. **根对象包含storybooks数组**：整个JSON文件使用`{"storybooks": [...]}`结构
+2. **id命名规范**：
+   - 默认故事书：`storybook_unite{N}_default`
+   - 额外故事书：`storybook_unite{N}_extra{M}`
+3. **isDefault字段**：区分默认（true）和额外（false）故事书
+4. **requiredGems**：默认故事书=0，额外故事书=10
+5. **页面数量**：默认故事书6页，额外故事书5页（可根据内容调整）
 
 ---
 
@@ -531,30 +650,46 @@ Page 4:
 
 ## 实施计划
 
-### Phase 1: 基础架构 ✅
-- [x] 创建Storybook和StoryPage模型
-- [x] 设计JSON数据结构
-- [x] 实现PointsManager解锁功能
-- [x] 编写示例JSON数据
+### Phase 1: 基础架构 ✅ 已完成
+- [x] 创建Storybook和StoryPage模型（添加isDefault字段）
+- [x] 设计JSON数据结构（根对象包含storybooks数组）
+- [x] 实现StorybookDataLoader加载器
+- [x] 集成到FrenchVocabularySeeder数据导入流程
+- [x] 编写Unite 1完整JSON数据（2本故事书，共11页）
 
-### Phase 2: UI开发 ⏳
-- [ ] 创建StorybookListView
-- [ ] 创建StorybookReaderView
-- [ ] 实现翻页动画
-- [ ] 添加解锁弹窗
+### Phase 2: UI开发 ✅ 已完成
+- [x] 创建StorybooksListView（含Unite过滤）
+- [x] 创建StorybookReaderView（翻页阅读）
+- [x] 实现StorybookCard组件
+- [x] 添加解锁弹窗（宝石余额检查）
+- [x] 实现Unite-based可见性过滤
 
-### Phase 3: 内容制作 ⏳
-- [ ] Unite 1故事创作
-- [ ] Unite 2故事创作
-- [ ] Unite 3故事创作
-- [ ] 插图设计/生成
-- [ ] 音频录制
+### Phase 3: 解锁逻辑 ✅ 已完成
+- [x] TestViewModel自动解锁默认故事书（Test ≥ 60%）
+- [x] StorybooksListView手动解锁额外故事书（花费10💎）
+- [x] 宝石余额检查和扣除逻辑
+- [x] Unite解锁状态过滤
+- [x] 错误处理和用户反馈
 
-### Phase 4: 测试优化 ⏳
-- [ ] 解锁逻辑测试
-- [ ] 音频播放测试
+### Phase 4: 内容制作 🚧 部分完成
+- [x] Unite 1默认故事创作：《À l'école - Mon premier jour》（6页）
+- [x] Unite 1额外故事创作：《Les couleurs de ma classe》（5页）
+- [ ] Unite 2-6故事创作
+- [ ] 插图设计/生成（当前使用placeholder图片名称）
+- [ ] 音频录制（当前使用placeholder音频文件名）
+
+### Phase 5: 测试优化 ⏳ 待测试
+- [ ] 端到端解锁流程测试
+- [ ] 音频播放功能测试
+- [ ] 多Unite故事书交互测试
 - [ ] 用户体验优化
 - [ ] 性能优化
+
+**当前状态**：
+- ✅ 核心功能已完成：模型、数据加载、UI、解锁逻辑
+- ✅ Unite 1内容完整：2本故事书，11页完整文本
+- 🚧 待补充：插图资源、音频文件
+- ⏳ 待开发：Unite 2-6 故事书内容
 
 ---
 

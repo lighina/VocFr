@@ -626,43 +626,126 @@ func unlockGameMode(_ gameMode: GameMode, modelContext: ModelContext) -> Bool {
 
 #### C. 故事书解锁 📚
 
+**系统概述**：
+- 每个Unite有 **2-3本** 故事书
+- **1本默认故事书**：Test成绩≥60%时自动解锁 ✅ 免费
+- **1-2本额外故事书**：需要10💎解锁
+- **前置条件**：Unite必须已解锁，其故事书才可见/可购买
+
 **规则：**
-1. **本Unite故事书**：完成该Unite的Test自动解锁 ✅ 免费
-2. **其他Unite故事书**：每本10💎
+1. **默认故事书** (isDefault=true)：完成该Unite的Test且成绩≥60% → 自动解锁 ✅ 免费
+2. **额外故事书** (isDefault=false)：每本10💎
+3. **可见性**：只显示已解锁Unite的故事书
 
-| 故事书 | 所属Unite | 自动解锁条件 | 宝石解锁 |
-|-------|----------|-------------|---------|
-| À l'école | Unite 1 | 完成Unite 1 Test | 10💎 |
-| C'est la fête | Unite 2 | 完成Unite 2 Test | 10💎 |
-| Mon chez-moi | Unite 3 | 完成Unite 3 Test | 10💎 |
+| 故事书 | 所属Unite | 类型 | 解锁条件 | 宝石成本 |
+|-------|----------|------|---------|---------|
+| À l'école - Mon premier jour | Unite 1 | 默认 | Test ≥ 60% | 0💎 |
+| Les couleurs de ma classe | Unite 1 | 额外 | 手动解锁 | 10💎 |
+| C'est la fête | Unite 2 | 默认 | Test ≥ 60% | 0💎 |
+| (待开发) | Unite 2 | 额外 | 手动解锁 | 10💎 |
 
+**JSON数据结构**：
 ```json
 // Storybooks.json
 {
-  "id": "storybook_unite1",
+  "id": "storybook_unite1_default",
   "title": "À l'école - Mon premier jour",
+  "titleInChinese": "在学校 - 我的第一天",
   "uniteId": "unite1",
   "isUnlocked": false,
-  "requiredGems": 10,
+  "isDefault": true,        // 默认故事书
+  "requiredGems": 0,        // 默认故事书不需要宝石
+  "orderIndex": 1,
   "pages": [...]
 }
 ```
 
+**SwiftData模型**：
 ```swift
-// PointsManager.swift
-func unlockStorybook(_ storybook: Storybook, modelContext: ModelContext) -> Bool {
-    if spendGems(storybook.requiredGems, ...) {
-        storybook.isUnlocked = true
-        return true
+// Models.swift
+@Model
+class Storybook {
+    var id: String
+    var title: String
+    var titleInChinese: String
+    var uniteId: String           // 所属Unite
+    var isUnlocked: Bool
+    var isDefault: Bool           // 默认故事书（Test解锁）vs 额外故事书（宝石解锁）
+    var requiredGems: Int         // 解锁所需宝石（默认故事书=0）
+    var orderIndex: Int
+    var coverImageName: String?
+
+    @Relationship(deleteRule: .cascade)
+    var pages: [StoryPage] = []
+}
+```
+
+**自动解锁逻辑**：
+```swift
+// TestViewModel.swift
+private func saveTestRecord(result: TestResult) {
+    // ... award stars and gems ...
+
+    // Unlock default storybook if test passed (score >= 60)
+    if result.score >= 60, let uniteId = unite?.id {
+        unlockDefaultStorybook(for: uniteId, context: modelContext)
     }
-    return false
+}
+
+private func unlockDefaultStorybook(for uniteId: String, context: ModelContext) {
+    let descriptor = FetchDescriptor<Storybook>(
+        predicate: #Predicate<Storybook> { storybook in
+            storybook.uniteId == uniteId &&
+            storybook.isDefault == true &&
+            storybook.isUnlocked == false
+        }
+    )
+
+    if let defaultStorybook = try? context.fetch(descriptor).first {
+        defaultStorybook.isUnlocked = true
+        try? context.save()
+        print("📚 Unlocked default storybook: \(defaultStorybook.title)")
+    }
+}
+```
+
+**手动解锁逻辑**：
+```swift
+// StorybooksListView.swift
+private func unlockStorybook(_ storybook: Storybook) {
+    guard let userProgress = userProgress.first else { return }
+
+    // Check gems
+    if userProgress.totalGems >= storybook.requiredGems {
+        // Deduct gems
+        userProgress.totalGems -= storybook.requiredGems
+
+        // Unlock storybook
+        storybook.isUnlocked = true
+        try? modelContext.save()
+    }
+}
+```
+
+**UI过滤逻辑**：
+```swift
+// StorybooksListView.swift
+private var availableStorybooks: [Storybook] {
+    allStorybooks.filter { storybook in
+        // Only show storybooks whose Unite is unlocked
+        if let unite = unites.first(where: { $0.id == storybook.uniteId }) {
+            return unite.isUnlocked
+        }
+        return false
+    }
 }
 ```
 
 **设计理由**：
-- 完成Test自动解锁本Unite故事书作为奖励
-- 想提前阅读其他Unite故事书需付费
-- 鼓励循序渐进学习，同时提供灵活性
+- 完成Test（≥60%）自动解锁默认故事书作为学习奖励
+- 额外故事书提供更多阅读材料，用宝石解锁增加内容价值感
+- Unite锁定时隐藏故事书，鼓励循序渐进学习
+- 多本故事书设计提供丰富的阅读体验
 
 ---
 
