@@ -78,7 +78,6 @@ struct VocFrApp: App {
                 // Load game modes and storybooks
                 print("加载游戏模式和故事书...")
                 try? GameDataLoader.loadGameModesIntoContext(context)
-                try? GameDataLoader.loadStorybooksIntoContext(context)
 
                 print("✅ 数据导入完成")
 
@@ -90,6 +89,10 @@ struct VocFrApp: App {
                     }
                 }
             }
+
+            // Sync storybooks on every launch (supports incremental updates)
+            print("同步故事书数据...")
+            try? GameDataLoader.loadStorybooksIntoContext(context)
 
             // Initialize and sync achievements on every app launch
             AchievementManager.shared.initializeAchievements(in: context)

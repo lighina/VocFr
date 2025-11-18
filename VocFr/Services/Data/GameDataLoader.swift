@@ -135,20 +135,57 @@ class GameDataLoader {
     }
 
     /// Load storybooks into ModelContext
+    /// Supports incremental updates - only imports new storybooks not already in database
     static func loadStorybooksIntoContext(_ context: ModelContext) throws {
         let storybooks = try loadStorybooks()
 
-        for storybook in storybooks {
-            context.insert(storybook)
+        // Fetch existing storybooks from database
+        let descriptor = FetchDescriptor<Storybook>()
+        let existingStorybooks = try context.fetch(descriptor)
+        let existingIds = Set(existingStorybooks.map { $0.id })
 
-            // Pages are automatically inserted due to relationship
-            for page in storybook.pages {
-                page.storybook = storybook
+        var newCount = 0
+        var updatedCount = 0
+
+        for storybook in storybooks {
+            if existingIds.contains(storybook.id) {
+                // Update existing storybook (find and update properties)
+                if let existing = existingStorybooks.first(where: { $0.id == storybook.id }) {
+                    existing.title = storybook.title
+                    existing.titleInChinese = storybook.titleInChinese
+                    existing.uniteId = storybook.uniteId
+                    existing.isDefault = storybook.isDefault
+                    existing.requiredGems = storybook.requiredGems
+                    existing.orderIndex = storybook.orderIndex
+                    existing.coverImageName = storybook.coverImageName
+
+                    // Clear and update pages
+                    existing.pages.removeAll()
+                    for page in storybook.pages {
+                        page.storybook = existing
+                        existing.pages.append(page)
+                    }
+                    updatedCount += 1
+                }
+            } else {
+                // Insert new storybook
+                context.insert(storybook)
+
+                // Pages are automatically inserted due to relationship
+                for page in storybook.pages {
+                    page.storybook = storybook
+                }
+                newCount += 1
             }
         }
 
         try context.save()
-        print("✅ Storybooks loaded into context")
+
+        if newCount > 0 || updatedCount > 0 {
+            print("✅ Storybooks synced: \(newCount) new, \(updatedCount) updated")
+        } else {
+            print("✅ Storybooks up to date")
+        }
     }
 
     // MARK: - Helper Methods
