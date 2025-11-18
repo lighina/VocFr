@@ -248,6 +248,98 @@ python Scripts/Vocabulary/import_vocabulary.py \\
 
 ---
 
+## 📚 文档
+
+VocFr 提供完整的文档，帮助用户和开发者快速上手。
+
+### 👥 用户文档
+
+面向终端用户的使用指南：
+
+- **[用户使用手册](docs/user/USER_GUIDE.md)** - 完整的应用使用说明
+  - 功能详解（学习、测试、游戏、故事书）
+  - 奖励系统说明（星星和宝石）
+  - 界面导航指引
+  - 学习建议和技巧
+
+- **[快速入门指南](docs/user/QUICK_START.md)** - 5 分钟快速上手
+  - 界面介绍
+  - 基本操作流程
+  - 第一次使用指引
+
+- **[功能详细介绍](docs/user/FEATURES_OVERVIEW.md)** - 深入了解各功能
+  - 学习系统详解
+  - 测试和游戏模式
+  - 故事书功能
+  - 设计特色
+
+- **[常见问题 FAQ](docs/user/FAQ.md)** - 33 个常见问题解答
+  - 学习相关问题
+  - 故事书使用
+  - 技术问题排查
+  - 奖励系统说明
+
+### 👨‍💻 开发者文档
+
+面向开发者的技术文档：
+
+- **[开发者指南](docs/developer/DEVELOPER_GUIDE.md)** - 完整开发指南
+  - 项目架构（MVVM）
+  - 开发环境设置
+  - 代码规范
+  - 数据管理
+  - 测试和部署
+  - 贡献指南
+
+- **[更新日志](CHANGELOG.md)** - 版本更新记录
+  - v1.0 完整功能列表
+  - 已知问题
+  - 未来规划
+
+### 📋 功能规范
+
+详细的功能设计文档：
+
+- [游戏模式规范](docs/specifications/GAME_MODE_SPECIFICATION.md)
+- [语言和本地化规范](docs/specifications/LANGUAGE_SPECIFICATION.md)
+- [奖励系统规范](docs/specifications/REWARDS_SYSTEM_SPECIFICATION.md)
+- [故事书功能规范](docs/specifications/STORYBOOK_SPECIFICATION.md)
+- [学习模式规范](docs/specifications/STUDY_MODE_SPECIFICATION.md)
+- [测试模式规范](docs/specifications/TEST_MODE_SPECIFICATION.md)
+
+### 🛠️ 操作指南
+
+自动化工具使用指南：
+
+- **[词汇导入指南](Scripts/Vocabulary/VOCABULARY_IMPORT_GUIDE.md)**
+  - CSV 数据格式
+  - 导入脚本使用
+  - 常见问题
+
+- **[故事书导入指南](Scripts/Storybooks/STORYBOOK_IMPORT_GUIDE.md)**
+  - 资源准备
+  - 导入流程
+  - 故障排除
+
+- **[AI 辅助 PDF 提取](Scripts/Vocabulary/AI_PROMPT_PDF_TO_CSV.md)**
+  - 使用 ChatGPT/Claude 从 PDF 提取词汇
+  - 完整 Prompt 模板
+  - 数据验证流程
+
+### 📖 快速链接
+
+**新用户**：
+1. [5 分钟快速入门](docs/user/QUICK_START.md) ⚡
+2. [完整使用手册](docs/user/USER_GUIDE.md) 📖
+3. [常见问题](docs/user/FAQ.md) ❓
+
+**开发者**：
+1. [开发者指南](docs/developer/DEVELOPER_GUIDE.md) 💻
+2. [词汇导入](Scripts/Vocabulary/VOCABULARY_IMPORT_GUIDE.md) 📝
+3. [故事书导入](Scripts/Storybooks/STORYBOOK_IMPORT_GUIDE.md) 📚
+
+---
+
 ## 📝 待办事项
 
 - [ ] 添加单词发音练习功能
