@@ -35,6 +35,10 @@ class FrenchVocabularySeeder {
             modelContext.insert(userProgress)
         }
 
+        // Import storybooks
+        print("📚 Loading storybook data from JSON...")
+        try StorybookDataLoader.seedStorybooks(to: modelContext)
+
         try modelContext.save()
         print("✅ 成功导入 \(unites.count) 个单元的数据到 SwiftData")
     }

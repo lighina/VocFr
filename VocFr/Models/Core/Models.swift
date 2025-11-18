@@ -276,6 +276,7 @@ class Storybook {
     var titleInChinese: String
     var uniteId: String  // Which Unite this storybook belongs to
     var isUnlocked: Bool
+    var isDefault: Bool  // Default storybook unlocks with Test completion, extra needs gems
     var requiredGems: Int  // Cost to unlock (0 if unlocked by completing Unite test)
     var orderIndex: Int
     var coverImageName: String?
@@ -283,12 +284,13 @@ class Storybook {
     @Relationship(deleteRule: .cascade, inverse: \StoryPage.storybook)
     var pages: [StoryPage] = []
 
-    init(id: String, title: String, titleInChinese: String, uniteId: String, isUnlocked: Bool, requiredGems: Int, orderIndex: Int, coverImageName: String? = nil) {
+    init(id: String, title: String, titleInChinese: String, uniteId: String, isUnlocked: Bool, isDefault: Bool = false, requiredGems: Int, orderIndex: Int, coverImageName: String? = nil) {
         self.id = id
         self.title = title
         self.titleInChinese = titleInChinese
         self.uniteId = uniteId
         self.isUnlocked = isUnlocked
+        self.isDefault = isDefault
         self.requiredGems = requiredGems
         self.orderIndex = orderIndex
         self.coverImageName = coverImageName

@@ -11,11 +11,13 @@ import SwiftData
 
 struct StorybooksListView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query(sort: \Storybook.orderIndex) private var storybooks: [Storybook]
+    @Query(sort: \Storybook.orderIndex) private var allStorybooks: [Storybook]
     @Query private var userProgress: [UserProgress]
+    @Query private var unites: [Unite]
 
     @State private var showUnlockAlert = false
     @State private var selectedStorybook: Storybook?
+    @State private var insufficientGems = false
 
     var body: some View {
         ScrollView {
@@ -35,15 +37,21 @@ struct StorybooksListView: View {
 
                 // Storybooks List
                 VStack(spacing: 16) {
-                    ForEach(storybooks) { storybook in
-                        StorybookCard(
-                            storybook: storybook,
-                            currentGems: currentGems,
-                            onUnlock: {
-                                selectedStorybook = storybook
-                                showUnlockAlert = true
-                            }
-                        )
+                    if availableStorybooks.isEmpty {
+                        Text("storybooks.empty".localized)
+                            .foregroundColor(.secondary)
+                            .padding()
+                    } else {
+                        ForEach(availableStorybooks) { storybook in
+                            StorybookCard(
+                                storybook: storybook,
+                                currentGems: currentGems,
+                                onUnlock: {
+                                    selectedStorybook = storybook
+                                    attemptUnlock(storybook)
+                                }
+                            )
+                        }
                     }
                 }
                 .padding(.horizontal)
@@ -52,19 +60,24 @@ struct StorybooksListView: View {
         }
         .navigationTitle("storybooks.navigation.title".localized)
         .navigationBarTitleDisplayMode(.inline)
-        .alert("storybooks.unlock.title".localized, isPresented: $showUnlockAlert) {
-            Button("storybooks.unlock.cancel".localized, role: .cancel) {
+        .alert("Unlock Storybook", isPresented: $showUnlockAlert) {
+            Button("Cancel", role: .cancel) {
                 selectedStorybook = nil
             }
-            Button("storybooks.unlock.confirm".localized) {
+            Button("Unlock with \(selectedStorybook?.requiredGems ?? 0) 💎") {
                 if let storybook = selectedStorybook {
                     unlockStorybook(storybook)
                 }
             }
         } message: {
             if let storybook = selectedStorybook {
-                Text(String(format: "storybooks.unlock.message".localized, storybook.title, storybook.requiredGems))
+                Text("Unlock \"\(storybook.title)\" with \(storybook.requiredGems) gems?")
             }
+        }
+        .alert("Insufficient Gems", isPresented: $insufficientGems) {
+            Button("OK") {}
+        } message: {
+            Text("You don't have enough gems to unlock this storybook.")
         }
     }
 
@@ -74,15 +87,52 @@ struct StorybooksListView: View {
         userProgress.first?.totalGems ?? 0
     }
 
+    /// Filter storybooks to only show those whose Unite is unlocked
+    private var availableStorybooks: [Storybook] {
+        allStorybooks.filter { storybook in
+            // Find the unite this storybook belongs to
+            if let unite = unites.first(where: { $0.id == storybook.uniteId }) {
+                return unite.isUnlocked
+            }
+            return false
+        }
+    }
+
     // MARK: - Methods
 
-    private func unlockStorybook(_ storybook: Storybook) {
-        let success = PointsManager.shared.unlockStorybook(storybook, modelContext: modelContext)
-
-        if success {
-            print("📚 Unlocked storybook: \(storybook.title)")
+    private func attemptUnlock(_ storybook: Storybook) {
+        // Check if user has enough gems
+        if currentGems >= storybook.requiredGems {
+            showUnlockAlert = true
         } else {
-            print("❌ Failed to unlock storybook: Not enough gems")
+            insufficientGems = true
+        }
+    }
+
+    private func unlockStorybook(_ storybook: Storybook) {
+        guard let userProgress = userProgress.first else {
+            print("⚠️ UserProgress not found")
+            selectedStorybook = nil
+            return
+        }
+
+        // Check gems again
+        if userProgress.totalGems >= storybook.requiredGems {
+            // Deduct gems
+            userProgress.totalGems -= storybook.requiredGems
+
+            // Unlock storybook
+            storybook.isUnlocked = true
+
+            // Save changes
+            do {
+                try modelContext.save()
+                print("📚 Unlocked storybook: \(storybook.title)")
+            } catch {
+                print("❌ Failed to save storybook unlock: \(error)")
+            }
+        } else {
+            insufficientGems = true
         }
 
         selectedStorybook = nil
