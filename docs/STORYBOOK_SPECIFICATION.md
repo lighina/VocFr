@@ -35,8 +35,8 @@
 - 🔓 **双重解锁方式**：完成Test（≥60%）自动解锁默认故事书 或 花费10💎解锁额外故事书
 - 🔒 **渐进式访问**：只有已解锁的Unite的故事书才可见和可购买
 - 🎧 **法语配音**：每页提供标准法语朗读
-- 🇨🇳 **中文对照**：逐页提供中文翻译
 - 📱 **翻页阅读**：类似儿童绘本的阅读体验
+- 🎯 **沉浸式学习**：纯法语阅读环境（数据保留中文字段供未来扩展）
 
 ---
 
@@ -213,7 +213,9 @@ private var availableStorybooks: [Storybook] {
 
 ### Storybooks.json
 
-**实际实现的数据结构** (VocFr/Resources/Data/Storybooks.json):
+**实际实现的数据结构** (VocFr/Data/JSON/Storybooks.json):
+
+**注意**: JSON数据中保留了中文字段（`titleInChinese`, `contentChinese`）以供未来功能扩展，但当前UI实现为**纯法语沉浸式阅读**，不显示中文翻译。
 
 ```json
 {
@@ -386,7 +388,7 @@ struct StorybookListView: View {
 
 ```
 ┌─────────────────────────────────────┐
-│  ← [1/4]                    🔊 📖  │
+│  ← [1/4]                       🔊   │
 ├─────────────────────────────────────┤
 │                                     │
 │         [插图]                       │
@@ -395,7 +397,7 @@ struct StorybookListView: View {
 │                                     │
 │  C'est mon premier jour à l'école.  │
 │                                     │
-│  这是我在学校的第一天。               │
+│  (沉浸式法语阅读，无中文翻译)        │
 │                                     │
 ├─────────────────────────────────────┤
 │        ◀  1 / 4  ▶                 │
@@ -406,7 +408,6 @@ struct StorybookListView: View {
 struct StorybookReaderView: View {
     let storybook: Storybook
     @State private var currentPage = 0
-    @State private var showTranslation = false
 
     private var pages: [StoryPage] {
         storybook.pages.sorted(by: { $0.pageNumber < $1.pageNumber })
@@ -423,9 +424,6 @@ struct StorybookReaderView: View {
                 Button(action: playAudio) {
                     Image(systemName: "speaker.wave.2.fill")
                 }
-                Button(action: { showTranslation.toggle() }) {
-                    Image(systemName: "text.bubble")
-                }
             }
             .padding()
 
@@ -440,20 +438,18 @@ struct StorybookReaderView: View {
                             .frame(maxHeight: 300)
                     }
 
-                    // French text
+                    // French text (immersive learning)
                     Text(pages[currentPage].contentFrench)
-                        .font(.title3)
+                        .font(.custom("EB Garamond", size: 22))
+                        .fontWeight(.medium)
+                        .foregroundColor(.white)
                         .multilineTextAlignment(.center)
+                        .shadow(color: .black.opacity(0.8), radius: 2)
                         .padding()
-
-                    // Chinese translation (toggleable)
-                    if showTranslation {
-                        Text(pages[currentPage].contentChinese)
-                            .font(.body)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.center)
-                            .padding()
-                    }
+                        .background(
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Color.black.opacity(0.7))
+                        )
                 }
             }
 
@@ -639,12 +635,68 @@ Page 4:
 
 ### 每个Storybook需要的资源
 
-| 资源类型 | 数量 | 命名规范 | 示例 |
-|---------|------|----------|------|
-| 封面图片 | 1张 | `storybook_unite{N}_cover.png` | `storybook_unite1_cover.png` |
-| 页面插图 | 4-6张 | `storybook_unite{N}_page{M}.png` | `storybook_unite1_page1.png` |
-| 页面音频 | 4-6个 | `storybook_unite{N}_page{M}.mp3` | `storybook_unite1_page1.mp3` |
-| JSON数据 | 1个 | 在 `Storybooks.json` 中添加 | - |
+| 资源类型 | 数量 | 命名规范 | 示例 | 存储路径 |
+|---------|------|----------|------|----------|
+| 封面图片 | 1张 | `cover.png` | `cover.png` | `VocFr/Resources/Images/Storybooks/Unite{N}/Book{M}/` |
+| 页面插图 | 4-10张 | `page{N}.png` | `page1.png`, `page2.png` | `VocFr/Resources/Images/Storybooks/Unite{N}/Book{M}/` |
+| 页面音频 | 4-10个 | `story_unite{N}_page{M}.mp3` | `story_unite1_page1.mp3` | `VocFr/Resources/Audio/Storybooks/Unite{N}/Book{M}/` |
+| JSON数据 | 1个 | 在 `Storybooks.json` 中添加 | - | `VocFr/Data/JSON/Storybooks.json` |
+
+### 资源组织结构示例
+
+```
+VocFr/
+├── Resources/
+│   ├── Audio/
+│   │   ├── Words/              # 单词音频
+│   │   │   └── Unite1/
+│   │   │       └── Section1/
+│   │   │           └── u1s1-balle.mp3
+│   │   └── Storybooks/         # 故事书音频
+│   │       ├── Unite1/
+│   │       │   ├── Book1/      # 默认故事书
+│   │       │   │   ├── story_unite1_page1.mp3
+│   │       │   │   ├── story_unite1_page2.mp3
+│   │       │   │   └── ...
+│   │       │   └── Book2/      # 额外故事书
+│   │       │       ├── story_unite1_page1.mp3
+│   │       │       └── ...
+│   │       └── Unite2/
+│   │           └── Book1/
+│   │               └── ...
+│   └── Images/
+│       └── Storybooks/
+│           ├── Unite1/
+│           │   ├── Book1/
+│           │   │   ├── cover.png
+│           │   │   ├── page1.png
+│           │   │   ├── page2.png
+│           │   │   └── ...
+│           │   └── Book2/
+│           │       ├── cover.png
+│           │       └── ...
+│           └── Unite2/
+│               └── ...
+└── Data/
+    └── JSON/
+        └── Storybooks.json
+```
+
+### 命名规范说明
+
+1. **图片命名简化**：
+   - 封面：统一使用 `cover.png`
+   - 页面：使用 `page{N}.png`（N从1开始）
+   - 优势：简洁明了，易于管理
+
+2. **音频命名保持描述性**：
+   - 格式：`story_unite{N}_page{M}.mp3`
+   - 优势：音频文件可能跨项目使用，描述性命名便于识别
+
+3. **路径组织原则**：
+   - 按 Unite → Book 层级组织
+   - 每个Book独立文件夹，资源隔离
+   - 便于批量导入和管理
 
 ---
 
