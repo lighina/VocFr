@@ -6,25 +6,25 @@ class FrenchVocabularySeeder {
     private static var globalWordCache: [String: Word] = [:]
 
     static func seedAllData(to modelContext: ModelContext) throws {
-        // Check if data already exists to prevent duplicates
+        // Check if Unite data already exists
         let existingUnitesDescriptor = FetchDescriptor<Unite>()
         let existingUnites = try modelContext.fetch(existingUnitesDescriptor)
 
         if !existingUnites.isEmpty {
-            print("⚠️ Data already imported. Found \(existingUnites.count) existing unités. Skipping import to prevent duplicates.")
-            return
-        }
+            print("⚠️ Unite data already imported. Found \(existingUnites.count) existing unités. Skipping Unite import to prevent duplicates.")
+        } else {
+            // 开始一次完整播种前清空全局缓存
+            Self.globalWordCache.removeAll()
 
-        // 开始一次完整播种前清空全局缓存
-        Self.globalWordCache.removeAll()
+            // Load vocabulary data from JSON
+            print("📖 Loading vocabulary data from JSON...")
+            let unites = try VocabularyDataLoader.loadVocabularyData()
+            print("✅ Successfully loaded \(unites.count) unités from JSON")
 
-        // Load vocabulary data from JSON
-        print("📖 Loading vocabulary data from JSON...")
-        let unites = try VocabularyDataLoader.loadVocabularyData()
-        print("✅ Successfully loaded \(unites.count) unités from JSON")
-
-        for unite in unites {
-            modelContext.insert(unite)
+            for unite in unites {
+                modelContext.insert(unite)
+            }
+            print("✅ 成功导入 \(unites.count) 个单元的数据到 SwiftData")
         }
 
         // 创建初始用户进度 (only if it doesn't exist)
@@ -33,14 +33,15 @@ class FrenchVocabularySeeder {
         if existingProgress.isEmpty {
             let userProgress = UserProgress()
             modelContext.insert(userProgress)
+            print("✅ Created initial UserProgress")
         }
 
-        // Import storybooks
+        // Import storybooks (always check and import if needed)
         print("📚 Loading storybook data from JSON...")
         try StorybookDataLoader.seedStorybooks(to: modelContext)
 
         try modelContext.save()
-        print("✅ 成功导入 \(unites.count) 个单元的数据到 SwiftData")
+        print("✅ Data seeding completed")
     }
 
     // MARK: - Legacy Hardcoded Data (To be removed after JSON migration is verified)
