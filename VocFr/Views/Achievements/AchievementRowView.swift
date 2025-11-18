@@ -10,6 +10,12 @@ import SwiftUI
 
 struct AchievementRowView: View {
     let achievement: Achievement
+    let onClaim: (() -> Void)?
+
+    init(achievement: Achievement, onClaim: (() -> Void)? = nil) {
+        self.achievement = achievement
+        self.onClaim = onClaim
+    }
 
     var body: some View {
         HStack(spacing: 16) {
@@ -23,7 +29,7 @@ struct AchievementRowView: View {
                     .font(.system(size: 28))
                     .foregroundColor(iconColor)
             }
-            .opacity(achievement.isUnlocked ? 1.0 : 0.5)
+            .opacity(achievement.isUnlocked ? 1.0 : (achievement.isReadyToClaim ? 1.0 : 0.5))
 
             // Info
             VStack(alignment: .leading, spacing: 6) {
@@ -50,9 +56,43 @@ struct AchievementRowView: View {
                     .foregroundColor(.secondary)
                     .lineLimit(2)
 
-                // Progress bar (if not unlocked)
-                if !achievement.isUnlocked {
+                // Progress bar or status
+                if achievement.isUnlocked {
+                    // Unlocked: show date and rewards
+                    HStack(spacing: 12) {
+                        if let unlockedDate = achievement.unlockedDate {
+                            HStack(spacing: 4) {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(.green)
+                                Text(formatDate(unlockedDate))
+                            }
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                        }
+
+                        // Show rewards that were earned
+                        if achievement.pointsReward > 0 {
+                            HStack(spacing: 2) {
+                                Text("⭐")
+                                Text("+\(achievement.pointsReward)")
+                            }
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                        }
+
+                        if achievement.gemsReward > 0 {
+                            HStack(spacing: 2) {
+                                Text("💎")
+                                Text("+\(achievement.gemsReward)")
+                            }
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                        }
+                    }
+                } else {
+                    // Not unlocked yet
                     VStack(alignment: .leading, spacing: 4) {
+                        // Progress bar
                         GeometryReader { geometry in
                             ZStack(alignment: .leading) {
                                 // Background
@@ -71,43 +111,73 @@ struct AchievementRowView: View {
                         }
                         .frame(height: 6)
 
-                        // Progress text
-                        Text("\(achievement.currentProgress) / \(achievement.targetValue)")
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
-                    }
-                } else {
-                    // Unlocked date and reward
-                    HStack(spacing: 12) {
-                        if let unlockedDate = achievement.unlockedDate {
-                            HStack(spacing: 4) {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .foregroundColor(.green)
-                                Text(formatDate(unlockedDate))
-                            }
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
-                        }
+                        // Progress text and rewards
+                        HStack(spacing: 8) {
+                            Text("\(achievement.currentProgress) / \(achievement.targetValue)")
+                                .font(.caption2)
+                                .foregroundColor(.secondary)
 
-                        if achievement.pointsReward > 0 {
-                            HStack(spacing: 2) {
-                                Image(systemName: "star.fill")
-                                    .foregroundColor(.yellow)
-                                Text("+\(achievement.pointsReward)")
+                            // Show available rewards
+                            if achievement.pointsReward > 0 {
+                                HStack(spacing: 2) {
+                                    Text("⭐")
+                                    Text("\(achievement.pointsReward)")
+                                }
+                                .font(.caption2)
+                                .foregroundColor(.orange)
                             }
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
+
+                            if achievement.gemsReward > 0 {
+                                HStack(spacing: 2) {
+                                    Text("💎")
+                                    Text("\(achievement.gemsReward)")
+                                }
+                                .font(.caption2)
+                                .foregroundColor(.cyan)
+                            }
                         }
                     }
                 }
             }
 
             Spacer()
+
+            // Claim button (if ready to claim)
+            if achievement.isReadyToClaim {
+                Button(action: {
+                    onClaim?()
+                }) {
+                    Text("Claim")
+                        .font(.caption)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
+                        .background(
+                            LinearGradient(
+                                gradient: Gradient(colors: [.orange, .pink]),
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                        .cornerRadius(20)
+                }
+            }
         }
         .padding(12)
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color(.systemGray6).opacity(achievement.isUnlocked ? 1.0 : 0.5))
+                .fill(Color(.systemGray6).opacity(achievement.isUnlocked ? 1.0 : (achievement.isReadyToClaim ? 1.0 : 0.5)))
+                .overlay(
+                    achievement.isReadyToClaim && !achievement.isUnlocked ?
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(LinearGradient(
+                            gradient: Gradient(colors: [.orange, .pink]),
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        ), lineWidth: 2)
+                    : nil
+                )
         )
     }
 
@@ -129,7 +199,7 @@ struct AchievementRowView: View {
     }
 
     private var iconBackgroundColor: Color {
-        if achievement.isUnlocked {
+        if achievement.isUnlocked || achievement.isReadyToClaim {
             return tierColor.opacity(0.2)
         } else {
             return Color(.systemGray5)
@@ -137,7 +207,7 @@ struct AchievementRowView: View {
     }
 
     private var iconColor: Color {
-        if achievement.isUnlocked {
+        if achievement.isUnlocked || achievement.isReadyToClaim {
             return tierColor
         } else {
             return Color(.systemGray3)
@@ -165,14 +235,15 @@ struct AchievementRowView: View {
                     iconName: "text.book.closed.fill",
                     targetValue: 100,
                     currentProgress: 100,
-                    pointsReward: 20
+                    pointsReward: 20,
+                    gemsReward: 5
                 )
                 a.unlock()
                 return a
             }()
         )
 
-        // In progress achievement
+        // Ready to claim
         AchievementRowView(
             achievement: Achievement(
                 id: "words_50",
@@ -182,8 +253,28 @@ struct AchievementRowView: View {
                 tier: .silver,
                 iconName: "books.vertical.fill",
                 targetValue: 50,
+                currentProgress: 50,
+                pointsReward: 10,
+                gemsReward: 3
+            ),
+            onClaim: {
+                print("Claimed!")
+            }
+        )
+
+        // In progress achievement
+        AchievementRowView(
+            achievement: Achievement(
+                id: "words_30",
+                titleKey: "Learning",
+                descriptionKey: "Learn 30 words",
+                category: .learning,
+                tier: .silver,
+                iconName: "books.vertical.fill",
+                targetValue: 50,
                 currentProgress: 35,
-                pointsReward: 10
+                pointsReward: 10,
+                gemsReward: 2
             )
         )
 

@@ -84,7 +84,12 @@ final class Achievement {
 
     /// Is achievement in progress (some progress but not unlocked)
     var isInProgress: Bool {
-        !isUnlocked && currentProgress > 0
+        !isUnlocked && currentProgress > 0 && currentProgress < targetValue
+    }
+
+    /// Is achievement ready to claim (reached target but not unlocked)
+    var isReadyToClaim: Bool {
+        !isUnlocked && currentProgress >= targetValue
     }
 
     // MARK: - Initialization
@@ -119,21 +124,29 @@ final class Achievement {
 
     // MARK: - Methods
 
-    /// Update progress and check if achievement should unlock
+    /// Update progress (does NOT auto-unlock, user must claim)
     func updateProgress(_ newProgress: Int) -> Bool {
         guard !isUnlocked else { return false }
 
         currentProgress = newProgress
 
-        if currentProgress >= targetValue {
-            unlock()
-            return true
-        }
-
-        return false
+        // Return true if ready to claim (reached target)
+        return currentProgress >= targetValue
     }
 
-    /// Unlock the achievement
+    /// Claim and unlock the achievement (called when user clicks claim button)
+    func claim() -> (stars: Int, gems: Int) {
+        guard !isUnlocked && currentProgress >= targetValue else {
+            return (0, 0)
+        }
+
+        isUnlocked = true
+        unlockedDate = Date()
+
+        return (pointsReward, gemsReward)
+    }
+
+    /// Unlock the achievement (legacy method, prefer claim())
     func unlock() {
         guard !isUnlocked else { return }
         isUnlocked = true

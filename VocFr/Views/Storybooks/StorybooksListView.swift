@@ -14,10 +14,12 @@ struct StorybooksListView: View {
     @Query(sort: \Storybook.orderIndex) private var allStorybooks: [Storybook]
     @Query private var userProgress: [UserProgress]
     @Query private var unites: [Unite]
+    @Query private var testRecords: [TestRecord]
 
     @State private var showUnlockAlert = false
     @State private var selectedStorybook: Storybook?
     @State private var insufficientGems = false
+    @State private var expandedUnites: Set<String> = []
 
     var body: some View {
         ScrollView {
@@ -35,18 +37,27 @@ struct StorybooksListView: View {
                 }
                 .padding(.top, 20)
 
-                // Storybooks List
+                // Storybooks grouped by Unite
                 VStack(spacing: 16) {
-                    if availableStorybooks.isEmpty {
+                    if groupedStorybooks.isEmpty {
                         Text("storybooks.empty".localized)
                             .foregroundColor(.secondary)
                             .padding()
                     } else {
-                        ForEach(availableStorybooks) { storybook in
-                            StorybookCard(
-                                storybook: storybook,
+                        ForEach(groupedStorybooks, id: \.uniteId) { group in
+                            UniteStorybookGroup(
+                                unite: group.unite,
+                                storybooks: group.storybooks,
+                                isExpanded: expandedUnites.contains(group.uniteId),
                                 currentGems: currentGems,
-                                onUnlock: {
+                                onToggle: {
+                                    if expandedUnites.contains(group.uniteId) {
+                                        expandedUnites.remove(group.uniteId)
+                                    } else {
+                                        expandedUnites.insert(group.uniteId)
+                                    }
+                                },
+                                onUnlock: { storybook in
                                     selectedStorybook = storybook
                                     attemptUnlock(storybook)
                                 }
@@ -79,6 +90,10 @@ struct StorybooksListView: View {
         } message: {
             Text("You don't have enough gems to unlock this storybook.")
         }
+        .onAppear {
+            // Auto-unlock default storybooks if test passed
+            autoUnlockDefaultStorybooks()
+        }
     }
 
     // MARK: - Computed Properties
@@ -98,7 +113,48 @@ struct StorybooksListView: View {
         }
     }
 
+    /// Group storybooks by Unite
+    private var groupedStorybooks: [(uniteId: String, unite: Unite, storybooks: [Storybook])] {
+        // Get all unlocked unites
+        let unlockedUnites = unites.filter { $0.isUnlocked }.sorted { $0.number < $1.number }
+
+        return unlockedUnites.compactMap { unite in
+            let booksForUnite = allStorybooks.filter { $0.uniteId == unite.id }
+                .sorted { $0.orderIndex < $1.orderIndex }
+
+            // Only include unite if it has storybooks
+            guard !booksForUnite.isEmpty else { return nil }
+
+            return (uniteId: unite.id, unite: unite, storybooks: booksForUnite)
+        }
+    }
+
+    /// Check if unite test has been passed (score >= 60)
+    private func hasPassedUniteTest(_ uniteId: String) -> Bool {
+        // Find test records for this unite with score >= 60
+        return testRecords.contains { record in
+            record.uniteId == uniteId && record.score >= 60
+        }
+    }
+
     // MARK: - Methods
+
+    /// Auto-unlock default storybooks when test is passed
+    private func autoUnlockDefaultStorybooks() {
+        for storybook in allStorybooks {
+            // Only auto-unlock default storybooks that aren't already unlocked
+            guard storybook.isDefault && !storybook.isUnlocked else { continue }
+
+            // Check if the unite test has been passed
+            if hasPassedUniteTest(storybook.uniteId) {
+                storybook.isUnlocked = true
+                print("📚 Auto-unlocked default storybook: \(storybook.title)")
+            }
+        }
+
+        // Save changes
+        try? modelContext.save()
+    }
 
     private func attemptUnlock(_ storybook: Storybook) {
         // Check if user has enough gems
@@ -136,6 +192,64 @@ struct StorybooksListView: View {
         }
 
         selectedStorybook = nil
+    }
+}
+
+// MARK: - Unite Storybook Group
+
+struct UniteStorybookGroup: View {
+    let unite: Unite
+    let storybooks: [Storybook]
+    let isExpanded: Bool
+    let currentGems: Int
+    let onToggle: () -> Void
+    let onUnlock: (Storybook) -> Void
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            // Unite header (tappable to expand/collapse)
+            Button(action: onToggle) {
+                HStack {
+                    Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
+                        .foregroundColor(.secondary)
+                        .font(.caption)
+
+                    Text("Unite \(unite.number): \(unite.title)")
+                        .font(.headline)
+                        .foregroundColor(.primary)
+
+                    Spacer()
+
+                    Text("\(unlockedCount) / \(storybooks.count)")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                .padding()
+                .background(Color(.systemGray6))
+                .cornerRadius(12)
+            }
+            .buttonStyle(.plain)
+
+            // Storybooks list (shown when expanded)
+            if isExpanded {
+                VStack(spacing: 12) {
+                    ForEach(storybooks) { storybook in
+                        StorybookCard(
+                            storybook: storybook,
+                            currentGems: currentGems,
+                            onUnlock: {
+                                onUnlock(storybook)
+                            }
+                        )
+                        .padding(.leading, 16)
+                    }
+                }
+            }
+        }
+    }
+
+    private var unlockedCount: Int {
+        storybooks.filter { $0.isUnlocked }.count
     }
 }
 

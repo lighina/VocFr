@@ -179,7 +179,9 @@ struct AchievementView: View {
                         // Achievements
                         VStack(spacing: 12) {
                             ForEach(group.achievements) { achievement in
-                                AchievementRowView(achievement: achievement)
+                                AchievementRowView(achievement: achievement, onClaim: {
+                                    claimAchievement(achievement)
+                                })
                             }
                         }
                     }
@@ -235,6 +237,38 @@ struct AchievementView: View {
             return "gamecontroller.fill"
         case .special:
             return "sparkles"
+        }
+    }
+
+    // MARK: - Achievement Actions
+
+    /// Claim an achievement and grant rewards
+    private func claimAchievement(_ achievement: Achievement) {
+        // Claim the achievement and get rewards
+        let rewards = achievement.claim()
+
+        // Add rewards to user progress
+        let descriptor = FetchDescriptor<UserProgress>()
+        guard let userProgress = try? modelContext.fetch(descriptor).first else {
+            print("⚠️ UserProgress not found")
+            return
+        }
+
+        // Grant stars and gems
+        if rewards.stars > 0 {
+            userProgress.totalStars += rewards.stars
+        }
+        if rewards.gems > 0 {
+            userProgress.totalGems += rewards.gems
+        }
+
+        // Save changes
+        do {
+            try modelContext.save()
+            print("🏆 Claimed achievement: \(achievement.titleKey)")
+            print("   Rewards: \(rewards.stars) ⭐, \(rewards.gems) 💎")
+        } catch {
+            print("❌ Failed to save achievement claim: \(error)")
         }
     }
 
