@@ -72,7 +72,6 @@ struct MainAppView: View {
 
             Spacer()
         }
-        .navigationTitle("main.title".localized)
         .toolbar {
             #if os(iOS)
             ToolbarItem(placement: .navigationBarLeading) {
