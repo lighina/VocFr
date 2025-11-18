@@ -1,0 +1,31 @@
+# VocFr 词汇导入模板
+# 使用说明：
+# 1. 用 Excel/Google Sheets 打开此文件
+# 2. 填写数据（每行一个单词）
+# 3. Section 通过空行分隔
+# 4. 保存为 CSV 格式
+# 5. 运行导入脚本
+
+# Unite 信息行（必填，放在最前面）
+UNITE,unite_id,unite_number,unite_title_fr,unite_title_zh,required_stars,required_gems
+UNITE,unite4,4,À la maison,在家里,60,0
+
+# Section 信息行
+SECTION,section_id,section_name,order_index
+SECTION,section4_1,les pièces,1
+
+# 词汇数据（每行一个单词）
+# canonical,chinese,part_of_speech,gender_or_pos,category,elision
+maison,房子,noun,feminine,home,false
+salon,客厅,noun,masculine,home,false
+cuisine,厨房,noun,feminine,home,false
+chambre,卧室,noun,feminine,home,false
+salle de bain,浴室,noun,feminine,home,false
+
+# 空行表示新的 Section
+SECTION,section4_2,les meubles,2
+table,桌子,noun,feminine,furniture,false
+chaise,椅子,noun,feminine,furniture,false
+lit,床,noun,masculine,furniture,false
+armoire,衣柜,noun,feminine,furniture,false
+canapé,沙发,noun,masculine,furniture,false
