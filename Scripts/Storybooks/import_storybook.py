@@ -57,6 +57,9 @@ class StorybookImporter:
             # 检测新页面标记
             if line.startswith('=== Page ') or line.startswith('## Page '):
                 if current_page:
+                    # 确保每页都有必需的字段
+                    if 'contentChinese' not in current_page:
+                        current_page['contentChinese'] = ''
                     pages.append(current_page)
                 page_num += 1
                 current_page = {'pageNumber': page_num}
@@ -70,7 +73,12 @@ class StorybookImporter:
             if line.startswith('[FR]'):
                 current_page['contentFrench'] = line[4:].strip()
             elif line.startswith('[ZH]'):
-                current_page['contentChinese'] = line[4:].strip()
+                chinese_text = line[4:].strip()
+                # 如果中文文本为空或占位符，使用空字符串
+                if chinese_text in ['', '-', 'N/A', '无']:
+                    current_page['contentChinese'] = ''
+                else:
+                    current_page['contentChinese'] = chinese_text
             # 自动检测格式（法语在前，中文在后）
             elif 'contentFrench' not in current_page:
                 current_page['contentFrench'] = line
@@ -79,6 +87,9 @@ class StorybookImporter:
 
         # 添加最后一页
         if current_page:
+            # 确保每页都有必需的字段
+            if 'contentChinese' not in current_page:
+                current_page['contentChinese'] = ''
             pages.append(current_page)
 
         return pages
