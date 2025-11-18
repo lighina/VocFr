@@ -1,0 +1,60 @@
+# Storybook Transcript Template
+# 故事书文本内容模板
+#
+# 使用说明：
+# 1. 复制此文件并重命名为 transcript.txt
+# 2. 删除所有注释行（以 # 开头的行）
+# 3. 填写每一页的法语和中文内容
+# 4. 确保文件使用 UTF-8 编码保存
+#
+# 格式说明：
+# - 每页以 "=== Page N ===" 标记开始（N为页码，从1开始）
+# - 法语文本以 [FR] 开头
+# - 中文翻译以 [ZH] 开头
+# - 页与页之间用空行分隔
+#
+# 注意事项：
+# - 法语文本应简单易懂，适合初学者
+# - 使用该Unite的核心词汇（80%以上）
+# - 每句5-10个单词为宜
+# - 故事应有起承转合，贴近生活场景
+
+=== Page 1 ===
+[FR] Bonjour ! Je m'appelle Sophie. Aujourd'hui, c'est mon premier jour à l'école.
+[ZH] 你好！我叫索菲。今天是我在学校的第一天。
+
+=== Page 2 ===
+[FR] Voici ma classe. Je vois un bureau, une chaise et un tableau noir.
+[ZH] 这是我的教室。我看到一张课桌、一把椅子和一块黑板。
+
+=== Page 3 ===
+[FR] Dans mon sac, j'ai un cahier, un stylo, un crayon et une gomme.
+[ZH] 在我的书包里，我有一个笔记本、一支钢笔、一支铅笔和一块橡皮。
+
+=== Page 4 ===
+[FR] Mon professeur est très gentil. Il s'appelle Monsieur Dupont.
+[ZH] 我的老师非常和蔼。他叫杜邦先生。
+
+=== Page 5 ===
+[FR] À la récréation, je joue avec mes amis dans la cour.
+[ZH] 课间休息时，我和朋友们在操场上玩耍。
+
+=== Page 6 ===
+[FR] J'aime beaucoup l'école ! À demain !
+[ZH] 我非常喜欢学校！明天见！
+
+=== Page 7 ===
+[FR] （根据需要添加更多页面）
+[ZH] （根据需要添加更多页面）
+
+=== Page 8 ===
+[FR] （根据需要添加更多页面）
+[ZH] （根据需要添加更多页面）
+
+=== Page 9 ===
+[FR] （根据需要添加更多页面）
+[ZH] （根据需要添加更多页面）
+
+=== Page 10 ===
+[FR] （根据需要添加更多页面）
+[ZH] （根据需要添加更多页面）
