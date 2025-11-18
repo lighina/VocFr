@@ -1,122 +1,107 @@
-[
-  {
-    "id": "storybook_unite1",
-    "title": "À l'école - Mon premier jour",
-    "titleInChinese": "在学校 - 我的第一天",
-    "uniteId": "unite1",
-    "isUnlocked": false,
-    "requiredGems": 10,
-    "orderIndex": 1,
-    "coverImageName": "storybook_unite1_cover",
-    "pages": [
-      {
-        "pageNumber": 1,
-        "contentFrench": "C'est mon premier jour à l'école.",
-        "contentChinese": "这是我在学校的第一天。",
-        "imageName": "storybook_unite1_page1",
-        "audioFileName": "storybook_unite1_page1.mp3"
-      },
-      {
-        "pageNumber": 2,
-        "contentFrench": "Je vois un bureau, une chaise et un tableau.",
-        "contentChinese": "我看到一张课桌、一把椅子和一块黑板。",
-        "imageName": "storybook_unite1_page2",
-        "audioFileName": "storybook_unite1_page2.mp3"
-      },
-      {
-        "pageNumber": 3,
-        "contentFrench": "Le professeur dit: \"Bonjour les enfants!\"",
-        "contentChinese": "老师说："孩子们，你们好！"",
-        "imageName": "storybook_unite1_page3",
-        "audioFileName": "storybook_unite1_page3.mp3"
-      },
-      {
-        "pageNumber": 4,
-        "contentFrench": "J'aime mon école!",
-        "contentChinese": "我喜欢我的学校！",
-        "imageName": "storybook_unite1_page4",
-        "audioFileName": "storybook_unite1_page4.mp3"
-      }
-    ]
-  },
-  {
-    "id": "storybook_unite2",
-    "title": "C'est la fête - L'anniversaire de Marie",
-    "titleInChinese": "庆祝 - 玛丽的生日",
-    "uniteId": "unite2",
-    "isUnlocked": false,
-    "requiredGems": 10,
-    "orderIndex": 2,
-    "coverImageName": "storybook_unite2_cover",
-    "pages": [
-      {
-        "pageNumber": 1,
-        "contentFrench": "Aujourd'hui, c'est l'anniversaire de Marie.",
-        "contentChinese": "今天是玛丽的生日。",
-        "imageName": "storybook_unite2_page1",
-        "audioFileName": "storybook_unite2_page1.mp3"
-      },
-      {
-        "pageNumber": 2,
-        "contentFrench": "Sa famille est là: papa, maman, et son frère.",
-        "contentChinese": "她的家人都在：爸爸、妈妈和她的哥哥。",
-        "imageName": "storybook_unite2_page2",
-        "audioFileName": "storybook_unite2_page2.mp3"
-      },
-      {
-        "pageNumber": 3,
-        "contentFrench": "Il y a un gâteau avec des bougies!",
-        "contentChinese": "有一个带蜡烛的蛋糕！",
-        "imageName": "storybook_unite2_page3",
-        "audioFileName": "storybook_unite2_page3.mp3"
-      },
-      {
-        "pageNumber": 4,
-        "contentFrench": "Joyeux anniversaire Marie!",
-        "contentChinese": "玛丽，生日快乐！",
-        "imageName": "storybook_unite2_page4",
-        "audioFileName": "storybook_unite2_page4.mp3"
-      }
-    ]
-  },
-  {
-    "id": "storybook_unite3",
-    "title": "Mon chez-moi - La maison de Lucas",
-    "titleInChinese": "我的家 - 卢卡斯的房子",
-    "uniteId": "unite3",
-    "isUnlocked": false,
-    "requiredGems": 10,
-    "orderIndex": 3,
-    "coverImageName": "storybook_unite3_cover",
-    "pages": [
-      {
-        "pageNumber": 1,
-        "contentFrench": "Voici ma maison!",
-        "contentChinese": "这是我的房子！",
-        "imageName": "storybook_unite3_page1",
-        "audioFileName": "storybook_unite3_page1.mp3"
-      },
-      {
-        "pageNumber": 2,
-        "contentFrench": "Dans la cuisine, il y a une table et des chaises.",
-        "contentChinese": "厨房里有一张桌子和几把椅子。",
-        "imageName": "storybook_unite3_page2",
-        "audioFileName": "storybook_unite3_page2.mp3"
-      },
-      {
-        "pageNumber": 3,
-        "contentFrench": "Ma chambre est au premier étage.",
-        "contentChinese": "我的房间在二楼。",
-        "imageName": "storybook_unite3_page3",
-        "audioFileName": "storybook_unite3_page3.mp3"
-      },
-      {
-        "pageNumber": 4,
-        "contentFrench": "J'adore ma maison!",
-        "contentChinese": "我喜欢我的房子！",
-        "imageName": "storybook_unite3_page4",
-        "audioFileName": "storybook_unite3_page4.mp3"
-      }
-    ]
-  }
-]
+{
+  "storybooks": [
+    {
+      "id": "storybook_unite1_default",
+      "title": "À l'école - Mon premier jour",
+      "titleInChinese": "在学校 - 我的第一天",
+      "uniteId": "unite1",
+      "isUnlocked": false,
+      "isDefault": true,
+      "requiredGems": 0,
+      "orderIndex": 1,
+      "coverImageName": "storybook_school_cover",
+      "pages": [
+        {
+          "pageNumber": 1,
+          "contentFrench": "Bonjour ! Je m'appelle Sophie. Aujourd'hui, c'est mon premier jour à l'école.",
+          "contentChinese": "你好！我叫索菲。今天是我在学校的第一天。",
+          "imageName": "story_school_day1",
+          "audioFileName": "story_unite1_page1.mp3"
+        },
+        {
+          "pageNumber": 2,
+          "contentFrench": "Voici ma classe. Je vois un bureau, une chaise et un tableau noir.",
+          "contentChinese": "这是我的教室。我看到一张课桌、一把椅子和一块黑板。",
+          "imageName": "story_school_classroom",
+          "audioFileName": "story_unite1_page2.mp3"
+        },
+        {
+          "pageNumber": 3,
+          "contentFrench": "Dans mon sac, j'ai un cahier, un stylo, un crayon et une gomme.",
+          "contentChinese": "在我的书包里，我有一个笔记本、一支钢笔、一支铅笔和一块橡皮。",
+          "imageName": "story_school_bag",
+          "audioFileName": "story_unite1_page3.mp3"
+        },
+        {
+          "pageNumber": 4,
+          "contentFrench": "Mon professeur est très gentil. Il s'appelle Monsieur Dupont.",
+          "contentChinese": "我的老师非常和蔼。他叫杜邦先生。",
+          "imageName": "story_school_teacher",
+          "audioFileName": "story_unite1_page4.mp3"
+        },
+        {
+          "pageNumber": 5,
+          "contentFrench": "À la récréation, je joue avec mes amis dans la cour.",
+          "contentChinese": "课间休息时，我和朋友们在操场上玩耍。",
+          "imageName": "story_school_playground",
+          "audioFileName": "story_unite1_page5.mp3"
+        },
+        {
+          "pageNumber": 6,
+          "contentFrench": "J'aime beaucoup l'école ! À demain !",
+          "contentChinese": "我非常喜欢学校！明天见！",
+          "imageName": "story_school_goodbye",
+          "audioFileName": "story_unite1_page6.mp3"
+        }
+      ]
+    },
+    {
+      "id": "storybook_unite1_extra1",
+      "title": "Les couleurs de ma classe",
+      "titleInChinese": "我的教室的颜色",
+      "uniteId": "unite1",
+      "isUnlocked": false,
+      "isDefault": false,
+      "requiredGems": 10,
+      "orderIndex": 2,
+      "coverImageName": "storybook_colors_cover",
+      "pages": [
+        {
+          "pageNumber": 1,
+          "contentFrench": "Ma classe est très colorée !",
+          "contentChinese": "我的教室五颜六色！",
+          "imageName": "story_colors_classroom",
+          "audioFileName": "story_colors_page1.mp3"
+        },
+        {
+          "pageNumber": 2,
+          "contentFrench": "Le tableau est noir. Les craies sont blanches.",
+          "contentChinese": "黑板是黑色的。粉笔是白色的。",
+          "imageName": "story_colors_blackboard",
+          "audioFileName": "story_colors_page2.mp3"
+        },
+        {
+          "pageNumber": 3,
+          "contentFrench": "Mon cahier est bleu. Mon stylo est rouge.",
+          "contentChinese": "我的笔记本是蓝色的。我的钢笔是红色的。",
+          "imageName": "story_colors_notebook",
+          "audioFileName": "story_colors_page3.mp3"
+        },
+        {
+          "pageNumber": 4,
+          "contentFrench": "Les murs sont jaunes. La porte est verte.",
+          "contentChinese": "墙壁是黄色的。门是绿色的。",
+          "imageName": "story_colors_walls",
+          "audioFileName": "story_colors_page4.mp3"
+        },
+        {
+          "pageNumber": 5,
+          "contentFrench": "J'adore toutes ces couleurs !",
+          "contentChinese": "我喜欢所有这些颜色！",
+          "imageName": "story_colors_rainbow",
+          "audioFileName": "story_colors_page5.mp3"
+        }
+      ]
+    }
+  ]
+}
