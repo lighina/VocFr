@@ -38,21 +38,29 @@ struct StorybookReaderView: View {
             .padding(.horizontal)
             .padding(.vertical, 8)
 
-            // Page content
+            // Page content with native swipe gesture
             TabView(selection: $currentPageIndex) {
                 ForEach(Array(sortedPages.enumerated()), id: \.element.pageNumber) { index, page in
                     StorybookPageView(page: page, onPlayAudio: {
                         playAudio(for: page)
                     })
                     .tag(index)
+                    .rotation3DEffect(
+                        .degrees(getRotationAngle(for: index)),
+                        axis: (x: 0, y: 1, z: 0),
+                        perspective: 0.5
+                    )
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
+            .animation(.spring(response: 0.5, dampingFraction: 0.8), value: currentPageIndex)
             .onChange(of: currentPageIndex) { _, newValue in
                 stopAudio()
-                // Auto-play audio for new page
-                if newValue < sortedPages.count {
-                    playAudio(for: sortedPages[newValue])
+                // Auto-play audio for new page with slight delay for animation
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    if newValue < sortedPages.count {
+                        playAudio(for: sortedPages[newValue])
+                    }
                 }
             }
             .onAppear {
@@ -113,7 +121,7 @@ struct StorybookReaderView: View {
 
     private func previousPage() {
         if currentPageIndex > 0 {
-            withAnimation {
+            withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
                 currentPageIndex -= 1
             }
         }
@@ -121,7 +129,7 @@ struct StorybookReaderView: View {
 
     private func nextPage() {
         if currentPageIndex < sortedPages.count - 1 {
-            withAnimation {
+            withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
                 currentPageIndex += 1
             }
         } else {
@@ -130,13 +138,23 @@ struct StorybookReaderView: View {
         }
     }
 
+    // MARK: - Animation Helper
+
+    private func getRotationAngle(for index: Int) -> Double {
+        let offset = Double(index - currentPageIndex)
+        // Subtle 3D rotation effect when swiping
+        return offset * 5.0 // Rotate by 5 degrees per page offset
+    }
+
     // MARK: - Audio Methods
 
     private func playAudio(for page: StoryPage) {
         guard let audioFileName = page.audioFileName else { return }
 
-        // Try to find audio file
-        if let audioURL = Bundle.main.url(forResource: audioFileName.replacingOccurrences(of: ".mp3", with: ""), withExtension: "mp3") {
+        let baseFileName = audioFileName.replacingOccurrences(of: ".mp3", with: "")
+
+        // Try to find audio file - first try exact match
+        if let audioURL = Bundle.main.url(forResource: baseFileName, withExtension: "mp3") {
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: audioURL)
                 audioPlayer?.play()
@@ -145,6 +163,26 @@ struct StorybookReaderView: View {
                 print("❌ Failed to play audio: \(error)")
             }
         } else {
+            // If not found, try to find any audio file in bundle that matches the pattern
+            // This handles cases where filename format changed
+            if let bundleURL = Bundle.main.resourceURL {
+                let fileManager = FileManager.default
+                do {
+                    let resourceKeys = Set<URLResourceKey>([.nameKey, .isDirectoryKey])
+                    let enumerator = fileManager.enumerator(at: bundleURL, includingPropertiesForKeys: Array(resourceKeys))
+
+                    while let fileURL = enumerator?.nextObject() as? URL {
+                        if fileURL.pathExtension == "mp3" && fileURL.lastPathComponent == audioFileName {
+                            audioPlayer = try AVAudioPlayer(contentsOf: fileURL)
+                            audioPlayer?.play()
+                            print("🔊 Playing audio (found in bundle): \(audioFileName)")
+                            return
+                        }
+                    }
+                } catch {
+                    print("❌ Error searching for audio: \(error)")
+                }
+            }
             print("⚠️  Audio file not found: \(audioFileName)")
         }
     }
@@ -162,75 +200,67 @@ struct StorybookPageView: View {
     let onPlayAudio: () -> Void
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                // Page illustration
-                ZStack {
-                    RoundedRectangle(cornerRadius: 16)
-                        .fill(Color.purple.opacity(0.1))
-                        .frame(height: 250)
-
-                    if let imageName = page.imageName, !imageName.isEmpty {
-                        Image(imageName)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(maxHeight: 250)
-                            .cornerRadius(12)
-                    } else {
-                        VStack {
-                            Image(systemName: "photo")
-                                .font(.system(size: 60))
-                                .foregroundColor(.purple.opacity(0.5))
-                            Text("No image available")
-                                .font(.caption2)
-                                .foregroundColor(.secondary)
-                        }
+        GeometryReader { geometry in
+            ZStack(alignment: .bottom) {
+                // Full-screen image
+                if let imageName = page.imageName, !imageName.isEmpty {
+                    Image(imageName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: geometry.size.width)
+                        .clipped()
+                } else {
+                    Color.gray.opacity(0.2)
+                    VStack {
+                        Image(systemName: "photo")
+                            .font(.system(size: 80))
+                            .foregroundColor(.gray)
+                        Text("No image available")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
                     }
                 }
-                .padding(.horizontal)
 
-                // Text content with subtitle styling
-                VStack(spacing: 16) {
-                    // Audio button at top
-                    HStack {
-                        Spacer()
-                        if page.audioFileName != nil {
-                            Button(action: onPlayAudio) {
-                                HStack(spacing: 8) {
-                                    Image(systemName: "speaker.wave.2.fill")
-                                    Text("Play")
-                                }
-                                .font(.headline)
-                                .foregroundColor(.white)
-                                .padding(.horizontal, 20)
-                                .padding(.vertical, 10)
-                                .background(Color.purple)
-                                .cornerRadius(20)
+                // Text overlay at bottom with subtitle styling
+                VStack(spacing: 12) {
+                    // Audio button
+                    if page.audioFileName != nil {
+                        Button(action: onPlayAudio) {
+                            HStack(spacing: 8) {
+                                Image(systemName: "speaker.wave.2.fill")
+                                Text("Play")
                             }
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 10)
+                            .background(Color.purple)
+                            .cornerRadius(20)
+                            .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
                         }
-                        Spacer()
                     }
 
                     // French text with subtitle styling
                     Text(page.contentFrench)
-                        .font(.custom("EB Garamond", size: 22))
-                        .fontWeight(.medium)
+                        .font(.custom("EB Garamond", size: 24))
+                        .fontWeight(.semibold)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
-                        .shadow(color: .black.opacity(0.8), radius: 2, x: 0, y: 1)
-                        .shadow(color: .black.opacity(0.8), radius: 4, x: 0, y: 2)
+                        .shadow(color: .black.opacity(0.9), radius: 2, x: 0, y: 1)
+                        .shadow(color: .black.opacity(0.9), radius: 4, x: 0, y: 2)
                         .padding(.horizontal, 32)
-                        .padding(.vertical, 16)
+                        .padding(.vertical, 20)
                         .background(
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(Color.black.opacity(0.7))
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color.black.opacity(0.75))
                         )
-                        .padding(.horizontal, 24)
+                        .padding(.horizontal, 20)
                 }
-                .padding(.horizontal, 8)
+                .padding(.bottom, 20)
             }
-            .padding(.vertical)
+            .frame(width: geometry.size.width, height: geometry.size.height)
         }
+        .ignoresSafeArea(edges: .top)
     }
 }
 

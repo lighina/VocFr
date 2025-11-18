@@ -151,10 +151,6 @@ struct StorybookCard: View {
             HStack(spacing: 16) {
                 // Cover Image
                 ZStack {
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(storybook.isUnlocked ? Color.purple.opacity(0.2) : Color.gray.opacity(0.2))
-                        .frame(width: 80, height: 100)
-
                     if let coverImageName = storybook.coverImageName, !coverImageName.isEmpty {
                         Image(coverImageName)
                             .resizable()
@@ -162,18 +158,22 @@ struct StorybookCard: View {
                             .frame(width: 80, height: 100)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                             .opacity(storybook.isUnlocked ? 1.0 : 0.5)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .stroke(storybook.isUnlocked ? Color.purple : Color.gray, lineWidth: 2)
-                            )
 
                         if !storybook.isUnlocked {
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color.black.opacity(0.5))
+                                .frame(width: 80, height: 100)
+
                             Image(systemName: "lock.fill")
                                 .font(.system(size: 24))
                                 .foregroundColor(.white)
                                 .shadow(color: .black.opacity(0.8), radius: 4)
                         }
                     } else {
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(storybook.isUnlocked ? Color.purple.opacity(0.2) : Color.gray.opacity(0.2))
+                            .frame(width: 80, height: 100)
+
                         if storybook.isUnlocked {
                             Image(systemName: "book.fill")
                                 .font(.system(size: 36))
