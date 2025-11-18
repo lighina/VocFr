@@ -218,9 +218,9 @@ class AchievementManager {
         checkProgressAchievements(ids: ["hangman_perfect"], currentValue: 1, context: context)
     }
 
-    /// Check if matching completed in 12 seconds or less
+    /// Check if matching completed in 15 seconds or less
     func checkMatchingSpeed(timeSpent: TimeInterval, context: ModelContext) {
-        if timeSpent <= 12 {
+        if timeSpent <= 15 {
             checkProgressAchievements(ids: ["matching_speed"], currentValue: 1, context: context)
         }
     }
