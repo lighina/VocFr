@@ -13,10 +13,11 @@ struct StorybookReaderView: View {
     let storybook: Storybook
 
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
     @State private var currentPageIndex = 0
     @State private var audioPlayer: AVAudioPlayer?
     @State private var secondAudioPlayer: AVAudioPlayer?
-    @State private var orientation = UIDevice.current.orientation
+    @State private var screenSize: CGSize = .zero
 
     private var sortedPages: [StoryPage] {
         storybook.pages.sorted { $0.pageNumber < $1.pageNumber }
@@ -29,7 +30,9 @@ struct StorybookReaderView: View {
 
     // Check if we should show two pages side by side (iPad landscape only)
     private var isDoublePageMode: Bool {
-        UIDevice.current.userInterfaceIdiom == .pad && orientation.isLandscape
+        // Use screen dimensions to reliably detect landscape
+        // iPad in landscape: width > height
+        UIDevice.current.userInterfaceIdiom == .pad && screenSize.width > screenSize.height
     }
 
     // Get the step size for page navigation (1 for single page, 2 for double page)
@@ -38,7 +41,8 @@ struct StorybookReaderView: View {
     }
 
     var body: some View {
-        VStack(spacing: 0) {
+        GeometryReader { geometry in
+            VStack(spacing: 0) {
             // Progress bar - Japanese minimalist style
             HStack(spacing: 4) {
                 if isDoublePageMode {
@@ -157,14 +161,6 @@ struct StorybookReaderView: View {
                 } else if let firstPage = sortedPages.first {
                     playAudio(for: firstPage)
                 }
-                // Monitor orientation changes
-                NotificationCenter.default.addObserver(
-                    forName: UIDevice.orientationDidChangeNotification,
-                    object: nil,
-                    queue: .main
-                ) { _ in
-                    orientation = UIDevice.current.orientation
-                }
             }
 
             // Navigation controls - Japanese minimalist style
@@ -230,11 +226,20 @@ struct StorybookReaderView: View {
                 }
             }
             .padding()
-        }
-        .navigationTitle(storybook.title)
-        .navigationBarTitleDisplayMode(.inline)
-        .onDisappear {
-            stopAudio()
+            }
+            .onAppear {
+                // Update screen size to detect orientation
+                screenSize = geometry.size
+            }
+            .onChange(of: geometry.size) { _, newSize in
+                // Update screen size when device rotates
+                screenSize = newSize
+            }
+            .navigationTitle(storybook.title)
+            .navigationBarTitleDisplayMode(.inline)
+            .onDisappear {
+                stopAudio()
+            }
         }
     }
 
@@ -387,7 +392,7 @@ struct StorybookPageView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            ZStack(alignment: .bottom) {
+            ZStack(alignment: .bottomLeading) {
                 // Full-screen image
                 if let imageName = page.imageName, !imageName.isEmpty {
                     Image(imageName)
@@ -407,24 +412,24 @@ struct StorybookPageView: View {
                     }
                 }
 
-                // Text overlay at bottom with subtitle styling - Japanese minimalist
-                VStack(spacing: 12) {
+                // Text overlay at bottom with subtitle styling - left aligned, low opacity background
+                VStack(alignment: .leading, spacing: 0) {
                     // French text with subtitle styling
                     Text(page.contentFrench)
                         .font(.custom("EB Garamond", size: 20))
                         .fontWeight(.medium)
                         .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
+                        .multilineTextAlignment(.leading)
                         .shadow(color: .black.opacity(0.9), radius: 2, x: 0, y: 1)
                         .shadow(color: .black.opacity(0.9), radius: 4, x: 0, y: 2)
-                        .padding(.horizontal, 28)
-                        .padding(.vertical, 16)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color.black.opacity(0.85))
-                        )
                         .padding(.horizontal, 20)
+                        .padding(.vertical, 12)
+                        .background(
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Color.black.opacity(0.25))
+                        )
                 }
+                .padding(.leading, 20)
                 .padding(.bottom, 20)
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
