@@ -97,8 +97,7 @@ struct MatchingGameView: View {
                             viewModel.selectCard(card)
                         }
                     }
-                    .frame(height: cardHeight)
-                    .aspectRatio(1.0, contentMode: .fit)
+                    .frame(width: cardHeight, height: cardHeight)
                 }
             }
             .padding(.horizontal)

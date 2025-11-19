@@ -97,8 +97,7 @@ struct AllWordsMatchingGameView: View {
                     MatchingCardView(card: card) {
                         selectCard(card)
                     }
-                    .frame(height: cardHeight)
-                    .aspectRatio(1.0, contentMode: .fit)
+                    .frame(width: cardHeight, height: cardHeight)
                 }
             }
             .id(refreshTrigger)
