@@ -74,6 +74,7 @@ struct StorybookReaderView: View {
                             if index < sortedPages.count {
                                 StorybookPageView(
                                     page: sortedPages[index],
+                                    isInDoublePageMode: true,
                                     onPlayAudio: { playAudio(for: sortedPages[index]) }
                                 )
                                 .frame(maxWidth: .infinity)
@@ -98,6 +99,7 @@ struct StorybookReaderView: View {
                             if index + 1 < sortedPages.count {
                                 StorybookPageView(
                                     page: sortedPages[index + 1],
+                                    isInDoublePageMode: true,
                                     onPlayAudio: { playAudio(for: sortedPages[index + 1]) }
                                 )
                                 .frame(maxWidth: .infinity)
@@ -120,9 +122,13 @@ struct StorybookReaderView: View {
                 } else {
                     // Single page mode for iPhone or iPad portrait
                     ForEach(Array(sortedPages.enumerated()), id: \.element.pageNumber) { index, page in
-                        StorybookPageView(page: page, onPlayAudio: {
-                            playAudio(for: page)
-                        })
+                        StorybookPageView(
+                            page: page,
+                            isInDoublePageMode: false,
+                            onPlayAudio: {
+                                playAudio(for: page)
+                            }
+                        )
                         .tag(index)
                         .scaleEffect(currentPageIndex == index ? 1.0 : 0.95)
                         .opacity(currentPageIndex == index ? 1.0 : 0.5)
@@ -388,12 +394,15 @@ struct StorybookReaderView: View {
 
 struct StorybookPageView: View {
     let page: StoryPage
+    let isInDoublePageMode: Bool
     let onPlayAudio: () -> Void
 
     var body: some View {
         GeometryReader { geometry in
-            let isPortrait = geometry.size.height > geometry.size.width
-            let fontSize: CGFloat = isPortrait ? 36 : 20
+            // Use double page mode flag to determine font size
+            // Double page mode (iPad landscape): 20pt
+            // Single page mode (iPhone or iPad portrait): 36pt
+            let fontSize: CGFloat = isInDoublePageMode ? 20 : 36
 
             ZStack(alignment: .bottom) {
                 // Full-screen image
