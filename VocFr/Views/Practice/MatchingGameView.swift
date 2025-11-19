@@ -32,11 +32,20 @@ struct MatchingGameView: View {
                 GridItem(.flexible(), spacing: 12)
             ]
 
+            // Calculate card size based on available height
+            // Landscape: 3 rows, Portrait: 4 rows
+            let numberOfRows: CGFloat = isLandscape ? 3 : 4
+            let headerHeight: CGFloat = 120
+            let spacing: CGFloat = 12
+            let totalSpacing = spacing * (numberOfRows - 1)
+            let availableHeight = geometry.size.height - headerHeight - totalSpacing - 40 // 40 for padding
+            let cardHeight = availableHeight / numberOfRows
+
             VStack(spacing: 16) {
                 if viewModel.isCompleted {
                     completedView
                 } else {
-                    gameView(columns: columns, geometry: geometry)
+                    gameView(columns: columns, geometry: geometry, cardHeight: cardHeight)
                 }
             }
             .padding()
@@ -66,7 +75,7 @@ struct MatchingGameView: View {
 
     // MARK: - Game View
 
-    private func gameView(columns: [GridItem], geometry: GeometryProxy) -> some View {
+    private func gameView(columns: [GridItem], geometry: GeometryProxy, cardHeight: CGFloat) -> some View {
         VStack(spacing: 20) {
             // Header with stats
             gameHeader
@@ -80,21 +89,20 @@ struct MatchingGameView: View {
                     .padding(.horizontal)
             }
 
-            // Cards grid - dynamic layout based on orientation
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: 12) {
-                    ForEach(viewModel.cards) { card in
-                        MatchingCardView(card: card) {
-                            withAnimation {
-                                viewModel.selectCard(card)
-                            }
+            // Cards grid - dynamic layout based on orientation, sized by height
+            LazyVGrid(columns: columns, spacing: 12) {
+                ForEach(viewModel.cards) { card in
+                    MatchingCardView(card: card) {
+                        withAnimation {
+                            viewModel.selectCard(card)
                         }
-                        .aspectRatio(1.0, contentMode: .fit)
                     }
+                    .frame(height: cardHeight)
+                    .aspectRatio(1.0, contentMode: .fit)
                 }
-                .padding(.horizontal)
-                .id(viewModel.refreshTrigger)  // Force refresh when cards change
             }
+            .padding(.horizontal)
+            .id(viewModel.refreshTrigger)  // Force refresh when cards change
 
             Spacer()
         }

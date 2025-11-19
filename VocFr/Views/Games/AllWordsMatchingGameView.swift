@@ -40,11 +40,20 @@ struct AllWordsMatchingGameView: View {
                 GridItem(.flexible(), spacing: 12)
             ]
 
+            // Calculate card size based on available height
+            // Landscape: 3 rows, Portrait: 4 rows
+            let numberOfRows: CGFloat = isLandscape ? 3 : 4
+            let headerHeight: CGFloat = 100
+            let spacing: CGFloat = 12
+            let totalSpacing = spacing * (numberOfRows - 1)
+            let availableHeight = geometry.size.height - headerHeight - totalSpacing - 40 // 40 for padding
+            let cardHeight = availableHeight / numberOfRows
+
             VStack(spacing: 16) {
                 if isCompleted {
                     completedView
                 } else {
-                    gameView(columns: columns, geometry: geometry)
+                    gameView(columns: columns, geometry: geometry, cardHeight: cardHeight)
                 }
             }
             .padding()
@@ -69,7 +78,7 @@ struct AllWordsMatchingGameView: View {
 
     // MARK: - Game View
 
-    private func gameView(columns: [GridItem], geometry: GeometryProxy) -> some View {
+    private func gameView(columns: [GridItem], geometry: GeometryProxy, cardHeight: CGFloat) -> some View {
         VStack(spacing: 20) {
             // Header
             gameHeader
@@ -82,18 +91,17 @@ struct AllWordsMatchingGameView: View {
                     .multilineTextAlignment(.center)
             }
 
-            // Cards grid - dynamic layout based on orientation
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: 12) {
-                    ForEach(cards) { card in
-                        MatchingCardView(card: card) {
-                            selectCard(card)
-                        }
-                        .aspectRatio(1.0, contentMode: .fit)
+            // Cards grid - dynamic layout based on orientation, sized by height
+            LazyVGrid(columns: columns, spacing: 12) {
+                ForEach(cards) { card in
+                    MatchingCardView(card: card) {
+                        selectCard(card)
                     }
+                    .frame(height: cardHeight)
+                    .aspectRatio(1.0, contentMode: .fit)
                 }
-                .id(refreshTrigger)
             }
+            .id(refreshTrigger)
 
             Spacer()
         }
