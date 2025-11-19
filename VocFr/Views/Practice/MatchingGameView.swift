@@ -21,16 +21,6 @@ struct MatchingGameView: View {
     var body: some View {
         GeometryReader { geometry in
             let isLandscape = geometry.size.width > geometry.size.height
-            let columns = isLandscape ? [
-                GridItem(.flexible(), spacing: 12),
-                GridItem(.flexible(), spacing: 12),
-                GridItem(.flexible(), spacing: 12),
-                GridItem(.flexible(), spacing: 12)
-            ] : [
-                GridItem(.flexible(), spacing: 12),
-                GridItem(.flexible(), spacing: 12),
-                GridItem(.flexible(), spacing: 12)
-            ]
 
             // Calculate card size based on available height
             // Landscape: 3 rows, Portrait: 4 rows
@@ -40,6 +30,18 @@ struct MatchingGameView: View {
             let totalSpacing = spacing * (numberOfRows - 1)
             let availableHeight = geometry.size.height - headerHeight - totalSpacing - 40 // 40 for padding
             let cardHeight = availableHeight / numberOfRows
+
+            // Create fixed-width columns with consistent spacing
+            let columns = isLandscape ? [
+                GridItem(.fixed(cardHeight), spacing: 12),
+                GridItem(.fixed(cardHeight), spacing: 12),
+                GridItem(.fixed(cardHeight), spacing: 12),
+                GridItem(.fixed(cardHeight), spacing: 12)
+            ] : [
+                GridItem(.fixed(cardHeight), spacing: 12),
+                GridItem(.fixed(cardHeight), spacing: 12),
+                GridItem(.fixed(cardHeight), spacing: 12)
+            ]
 
             VStack(spacing: 16) {
                 if viewModel.isCompleted {
