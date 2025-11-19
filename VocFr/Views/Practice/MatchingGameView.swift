@@ -14,52 +14,59 @@ struct MatchingGameView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel: MatchingGameViewModel
 
-    // Grid layout
-    private let columns = [
-        GridItem(.flexible(), spacing: 12),
-        GridItem(.flexible(), spacing: 12),
-        GridItem(.flexible(), spacing: 12)
-    ]
-
     init(section: Section) {
         self._viewModel = State(initialValue: MatchingGameViewModel(section: section, modelContext: nil))
     }
 
     var body: some View {
-        VStack(spacing: 16) {
-            if viewModel.isCompleted {
-                completedView
-            } else {
-                gameView
+        GeometryReader { geometry in
+            let isLandscape = geometry.size.width > geometry.size.height
+            let columns = isLandscape ? [
+                GridItem(.flexible(), spacing: 12),
+                GridItem(.flexible(), spacing: 12),
+                GridItem(.flexible(), spacing: 12),
+                GridItem(.flexible(), spacing: 12)
+            ] : [
+                GridItem(.flexible(), spacing: 12),
+                GridItem(.flexible(), spacing: 12),
+                GridItem(.flexible(), spacing: 12)
+            ]
+
+            VStack(spacing: 16) {
+                if viewModel.isCompleted {
+                    completedView
+                } else {
+                    gameView(columns: columns, geometry: geometry)
+                }
             }
-        }
-        .padding()
-        .navigationTitle("matching.game.title".localized(viewModel.sectionName))
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
-                    dismiss()
-                }) {
-                    HStack(spacing: 4) {
-                        Image(systemName: "chevron.left")
-                            .font(.system(size: 16, weight: .semibold))
-                        Text(viewModel.sectionName.capitalized)
-                            .font(.system(size: 16))
+            .padding()
+            .navigationTitle("matching.game.title".localized(viewModel.sectionName))
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "chevron.left")
+                                .font(.system(size: 16, weight: .semibold))
+                            Text(viewModel.sectionName.capitalized)
+                                .font(.system(size: 16))
+                        }
                     }
                 }
             }
-        }
-        .onAppear {
-            // Set modelContext after view appears
-            viewModel = MatchingGameViewModel(section: viewModel.section, modelContext: modelContext)
+            .onAppear {
+                // Set modelContext after view appears
+                viewModel = MatchingGameViewModel(section: viewModel.section, modelContext: modelContext)
+            }
         }
     }
 
     // MARK: - Game View
 
-    private var gameView: some View {
+    private func gameView(columns: [GridItem], geometry: GeometryProxy) -> some View {
         VStack(spacing: 20) {
             // Header with stats
             gameHeader
@@ -73,7 +80,7 @@ struct MatchingGameView: View {
                     .padding(.horizontal)
             }
 
-            // Cards grid (3 columns × 4 rows = 12 cards)
+            // Cards grid - dynamic layout based on orientation
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 12) {
                     ForEach(viewModel.cards) { card in

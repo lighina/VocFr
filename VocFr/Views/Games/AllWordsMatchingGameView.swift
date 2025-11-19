@@ -25,42 +25,51 @@ struct AllWordsMatchingGameView: View {
     @State private var completionTime: TimeInterval = 0
 
     private let totalPairs = 6
-    private let columns = [
-        GridItem(.flexible(), spacing: 12),
-        GridItem(.flexible(), spacing: 12),
-        GridItem(.flexible(), spacing: 12)
-    ]
 
     var body: some View {
-        VStack(spacing: 16) {
-            if isCompleted {
-                completedView
-            } else {
-                gameView
+        GeometryReader { geometry in
+            let isLandscape = geometry.size.width > geometry.size.height
+            let columns = isLandscape ? [
+                GridItem(.flexible(), spacing: 12),
+                GridItem(.flexible(), spacing: 12),
+                GridItem(.flexible(), spacing: 12),
+                GridItem(.flexible(), spacing: 12)
+            ] : [
+                GridItem(.flexible(), spacing: 12),
+                GridItem(.flexible(), spacing: 12),
+                GridItem(.flexible(), spacing: 12)
+            ]
+
+            VStack(spacing: 16) {
+                if isCompleted {
+                    completedView
+                } else {
+                    gameView(columns: columns, geometry: geometry)
+                }
             }
-        }
-        .padding()
-        .navigationTitle("matching.game.all.words.title".localized)
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { dismiss() }) {
-                    HStack(spacing: 4) {
-                        Image(systemName: "chevron.left")
-                        Text("game.mode.back.to.games".localized)
+            .padding()
+            .navigationTitle("matching.game.all.words.title".localized)
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: { dismiss() }) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "chevron.left")
+                            Text("game.mode.back.to.games".localized)
+                        }
                     }
                 }
             }
-        }
-        .onAppear {
-            setupGame()
+            .onAppear {
+                setupGame()
+            }
         }
     }
 
     // MARK: - Game View
 
-    private var gameView: some View {
+    private func gameView(columns: [GridItem], geometry: GeometryProxy) -> some View {
         VStack(spacing: 20) {
             // Header
             gameHeader
@@ -73,7 +82,7 @@ struct AllWordsMatchingGameView: View {
                     .multilineTextAlignment(.center)
             }
 
-            // Cards grid
+            // Cards grid - dynamic layout based on orientation
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 12) {
                     ForEach(cards) { card in
