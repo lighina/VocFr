@@ -66,7 +66,7 @@ struct MatchingCardView: View {
             // Text card
             VStack(spacing: 4) {
                 Text(card.word.canonical)
-                    .font(.system(size: 14, weight: .semibold))
+                    .font(.system(size: 12, weight: .semibold))
                     .foregroundColor(.primary)
                     .multilineTextAlignment(.center)
                     .minimumScaleFactor(0.5)
