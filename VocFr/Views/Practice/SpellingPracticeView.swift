@@ -253,9 +253,9 @@ struct SpellingPracticeView: View {
                 }
             }
 
-            // Row 2: ï ô ù û ç œ æ
+            // Row 2: ï ô ù û ç œ
             HStack(spacing: isInputFocused ? 4 : 8) {
-                ForEach(["ï", "ô", "ù", "û", "ç", "œ", "æ"], id: \.self) { char in
+                ForEach(["ï", "ô", "ù", "û", "ç", "œ"], id: \.self) { char in
                     characterButton(char)
                 }
             }
