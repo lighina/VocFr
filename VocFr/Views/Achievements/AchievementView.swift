@@ -154,6 +154,7 @@ struct AchievementView: View {
                 }
             }
             .padding(.horizontal, 4)
+            .padding(.vertical, 6)
         }
     }
 
