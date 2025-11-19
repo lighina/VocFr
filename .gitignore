@@ -1,3 +1,4 @@
 VocFr.xcodeproj/xcuserdata/
 .venv/
 VocFr/Resources/Audio/Words/
+Scripts/Vocabulary/*copy*.csv
