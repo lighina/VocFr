@@ -160,14 +160,6 @@ struct StorybookReaderView: View {
                     }
                 }
             }
-            .onAppear {
-                // Auto-play audio for first page(s)
-                if isDoublePageMode && sortedPages.count >= 2 {
-                    playDoublePageAudio(firstPage: sortedPages[0], secondPage: sortedPages[1])
-                } else if let firstPage = sortedPages.first {
-                    playAudio(for: firstPage)
-                }
-            }
 
             // Navigation controls - Japanese minimalist style
             HStack {
@@ -236,6 +228,15 @@ struct StorybookReaderView: View {
             .onAppear {
                 // Update screen size to detect orientation
                 screenSize = geometry.size
+
+                // Auto-play audio for first page(s) after screen size is set
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    if self.isDoublePageMode && self.sortedPages.count >= 2 {
+                        self.playDoublePageAudio(firstPage: self.sortedPages[0], secondPage: self.sortedPages[1])
+                    } else if let firstPage = self.sortedPages.first {
+                        self.playAudio(for: firstPage)
+                    }
+                }
             }
             .onChange(of: geometry.size) { _, newSize in
                 // Update screen size when device rotates
