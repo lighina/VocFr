@@ -391,26 +391,25 @@ struct CategoryButton: View {
 
     var body: some View {
         Button(action: action) {
-            ZStack(alignment: .topTrailing) {
-                HStack(spacing: 6) {
-                    Image(systemName: icon)
-                        .font(.caption)
-                    Text(title)
-                        .font(.caption)
-                        .fontWeight(.medium)
-                }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 10)
-                .background(isSelected ? Color.blue : Color(.systemGray5))
-                .foregroundColor(isSelected ? .white : .primary)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
-
-                // Red badge
+            HStack(spacing: 6) {
+                Image(systemName: icon)
+                    .font(.caption)
+                Text(title)
+                    .font(.caption)
+                    .fontWeight(.medium)
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
+            .background(isSelected ? Color.blue : Color(.systemGray5))
+            .foregroundColor(isSelected ? .white : .primary)
+            .cornerRadius(20)
+            .overlay(alignment: .topTrailing) {
+                // Red badge positioned outside the button
                 if showBadge {
                     Circle()
                         .fill(Color.red)
                         .frame(width: 10, height: 10)
-                        .offset(x: 5, y: -5)
+                        .offset(x: 3, y: -3)
                 }
             }
         }
