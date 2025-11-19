@@ -397,8 +397,8 @@ struct StorybookPageView: View {
                 if let imageName = page.imageName, !imageName.isEmpty {
                     Image(imageName)
                         .resizable()
-                        .scaledToFit()
-                        .frame(width: geometry.size.width)
+                        .scaledToFill()
+                        .frame(width: geometry.size.width, height: geometry.size.height)
                         .clipped()
                 } else {
                     Color.gray.opacity(0.2)
