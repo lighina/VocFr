@@ -393,7 +393,7 @@ struct StorybookPageView: View {
     var body: some View {
         GeometryReader { geometry in
             let isPortrait = geometry.size.height > geometry.size.width
-            let fontSize: CGFloat = isPortrait ? 24 : 20
+            let fontSize: CGFloat = isPortrait ? 36 : 20
 
             ZStack(alignment: .bottom) {
                 // Full-screen image
@@ -418,7 +418,7 @@ struct StorybookPageView: View {
                 // Text overlay at bottom - text box centered with margin, text aligned left
                 HStack {
                     Text(page.contentFrench)
-                        .font(.custom("EB Garamond", size: fontSize))
+                        .font(.custom("Georgia", size: fontSize))
                         .fontWeight(.medium)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.leading)
