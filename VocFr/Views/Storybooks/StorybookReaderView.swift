@@ -392,7 +392,7 @@ struct StorybookPageView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            ZStack(alignment: .bottomLeading) {
+            ZStack(alignment: .bottom) {
                 // Full-screen image
                 if let imageName = page.imageName, !imageName.isEmpty {
                     Image(imageName)
@@ -412,14 +412,14 @@ struct StorybookPageView: View {
                     }
                 }
 
-                // Text overlay at bottom with subtitle styling - left aligned, low opacity background
-                VStack(alignment: .leading, spacing: 0) {
-                    // French text with subtitle styling
+                // Text overlay at bottom - text box centered with margin, text aligned left
+                HStack {
                     Text(page.contentFrench)
                         .font(.custom("EB Garamond", size: 20))
                         .fontWeight(.medium)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .shadow(color: .black.opacity(0.9), radius: 2, x: 0, y: 1)
                         .shadow(color: .black.opacity(0.9), radius: 4, x: 0, y: 2)
                         .padding(.horizontal, 20)
@@ -429,7 +429,7 @@ struct StorybookPageView: View {
                                 .fill(Color.black.opacity(0.25))
                         )
                 }
-                .padding(.leading, 20)
+                .padding(.horizontal, 24)
                 .padding(.bottom, 20)
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
