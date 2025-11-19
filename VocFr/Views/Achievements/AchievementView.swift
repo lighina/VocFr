@@ -400,7 +400,7 @@ struct CategoryButton: View {
                         .fontWeight(.medium)
                 }
                 .padding(.horizontal, 16)
-                .padding(.vertical, 8)
+                .padding(.vertical, 10)
                 .background(isSelected ? Color.blue : Color(.systemGray5))
                 .foregroundColor(isSelected ? .white : .primary)
                 .cornerRadius(20)
@@ -410,7 +410,7 @@ struct CategoryButton: View {
                     Circle()
                         .fill(Color.red)
                         .frame(width: 8, height: 8)
-                        .offset(x: 2, y: -2)
+                        .offset(x: 4, y: -4)
                 }
             }
         }

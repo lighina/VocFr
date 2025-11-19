@@ -23,7 +23,12 @@ struct ProgressView: View {
                 }
             }
             .padding()
-            .navigationTitle("progress.title".localized)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    EmptyView()
+                }
+            }
         }
     }
     

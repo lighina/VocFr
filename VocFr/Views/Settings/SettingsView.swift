@@ -55,7 +55,12 @@ struct SettingsView: View {
                     }
                 }
             }
-            .navigationTitle("settings.title".localized)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    EmptyView()
+                }
+            }
             .alert("settings.data.reset.confirm.title".localized, isPresented: $showResetConfirmation) {
                 Button("common.cancel".localized, role: .cancel) { }
                 Button("settings.data.reset.confirm".localized, role: .destructive) {
