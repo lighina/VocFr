@@ -125,17 +125,28 @@ struct HangmanGameView: View {
     // MARK: - Letter Grid
 
     private var letterGrid: some View {
-        VStack(spacing: 12) {
-            Text("hangman.tap.letter".localized)
-                .font(.caption)
-                .foregroundColor(.secondary)
+        GeometryReader { geometry in
+            let isLandscape = geometry.size.width > geometry.size.height
+            let columnsCount = isLandscape ? 10 : 7
+            let buttonSize: CGFloat = 40
+            let spacing: CGFloat = 8
 
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 7), spacing: 8) {
-                ForEach(viewModel.availableLetters, id: \.self) { letter in
-                    letterButton(letter)
+            // Create fixed-width columns for consistent spacing
+            let columns = Array(repeating: GridItem(.fixed(buttonSize), spacing: spacing), count: columnsCount)
+
+            VStack(spacing: 12) {
+                Text("hangman.tap.letter".localized)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+
+                LazyVGrid(columns: columns, spacing: spacing) {
+                    ForEach(viewModel.availableLetters, id: \.self) { letter in
+                        letterButton(letter)
+                    }
                 }
             }
         }
+        .frame(height: 200) // Fixed height for the letter grid area
     }
 
     private func letterButton(_ letter: Character) -> some View {

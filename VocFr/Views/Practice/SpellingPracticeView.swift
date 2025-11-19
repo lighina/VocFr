@@ -246,16 +246,16 @@ struct SpellingPracticeView: View {
                     .foregroundColor(.secondary)
             }
 
-            // Row 1: à â ä é è ê ë
+            // Row 1: à â é è ê ë î
             HStack(spacing: isInputFocused ? 4 : 8) {
-                ForEach(["à", "â", "ä", "é", "è", "ê", "ë"], id: \.self) { char in
+                ForEach(["à", "â", "é", "è", "ê", "ë", "î"], id: \.self) { char in
                     characterButton(char)
                 }
             }
 
-            // Row 2: î ï ô ù û ü ç
+            // Row 2: ï ô ù û ç œ æ
             HStack(spacing: isInputFocused ? 4 : 8) {
-                ForEach(["î", "ï", "ô", "ù", "û", "ü", "ç"], id: \.self) { char in
+                ForEach(["ï", "ô", "ù", "û", "ç", "œ", "æ"], id: \.self) { char in
                     characterButton(char)
                 }
             }
