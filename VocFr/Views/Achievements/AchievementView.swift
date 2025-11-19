@@ -403,17 +403,18 @@ struct CategoryButton: View {
                 .padding(.vertical, 10)
                 .background(isSelected ? Color.blue : Color(.systemGray5))
                 .foregroundColor(isSelected ? .white : .primary)
-                .cornerRadius(20)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
 
                 // Red badge
                 if showBadge {
                     Circle()
                         .fill(Color.red)
-                        .frame(width: 8, height: 8)
-                        .offset(x: 4, y: -4)
+                        .frame(width: 10, height: 10)
+                        .offset(x: 5, y: -5)
                 }
             }
         }
+        .buttonStyle(PlainButtonStyle())
     }
 }
 
