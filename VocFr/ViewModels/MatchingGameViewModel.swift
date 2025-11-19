@@ -125,12 +125,12 @@ class MatchingGameViewModel {
 
     /// Setup the game with shuffled cards
     private func setupGame() {
-        // Get words from section
+        // Get words from section and shuffle for random selection
         let words = section.sectionWords
-            .sorted(by: { $0.orderIndex < $1.orderIndex })
             .compactMap { $0.word }
+            .shuffled()
 
-        // Take first 6 words (or all if less than 6)
+        // Take 6 random words (or all if less than 6)
         let selectedWords = Array(words.prefix(pairCount))
 
         // Set actual pair count based on selected words
