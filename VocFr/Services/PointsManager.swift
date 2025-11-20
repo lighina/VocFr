@@ -60,11 +60,14 @@ class PointsManager {
 
         let calendar = Calendar.current
         let today = Date()
+        let todayStart = calendar.startOfDay(for: today)
 
-        // Check if already awarded today
-        if let lastStudy = userProgress.lastStudyDate,
-           calendar.isDate(lastStudy, inSameDayAs: today) {
-            return // Already awarded today
+        // Check if already awarded today (compare start of day)
+        if let lastStudy = userProgress.lastStudyDate {
+            let lastStudyStart = calendar.startOfDay(for: lastStudy)
+            if lastStudyStart == todayStart {
+                return // Already awarded today
+            }
         }
 
         // Save the old last study date before updating
@@ -73,8 +76,8 @@ class PointsManager {
         // Update streak BEFORE updating lastStudyDate
         updateStreak(userProgress: userProgress, oldLastStudyDate: oldLastStudyDate, today: today, calendar: calendar, modelContext: modelContext)
 
-        // Update last study date
-        userProgress.lastStudyDate = today
+        // Update last study date to start of today
+        userProgress.lastStudyDate = todayStart
 
         // Award daily login points
         addPoints(RewardPoints.dailyLogin, to: modelContext, reason: "Daily login")
@@ -159,7 +162,11 @@ class PointsManager {
             return
         }
 
-        let daysDifference = calendar.dateComponents([.day], from: lastStudy, to: today).day ?? 0
+        // Normalize dates to start of day for accurate comparison
+        let lastStudyDay = calendar.startOfDay(for: lastStudy)
+        let todayDay = calendar.startOfDay(for: today)
+
+        let daysDifference = calendar.dateComponents([.day], from: lastStudyDay, to: todayDay).day ?? 0
 
         if daysDifference == 1 {
             // Consecutive day
@@ -170,7 +177,7 @@ class PointsManager {
             print("💔 Streak broken! Was: \(userProgress.currentStreak) days, reset to 1")
             userProgress.currentStreak = 1
         }
-        // If daysDifference == 0, same day, no change needed (should not happen)
+        // If daysDifference == 0, same day, no change needed (should not happen due to check in awardDailyLoginPoints)
 
         // Track streak achievement
         AchievementManager.shared.checkStreak(currentStreak: userProgress.currentStreak, context: modelContext)
