@@ -162,18 +162,18 @@ struct ListeningPracticeView: View {
         }
         .onAppear {
             // Auto-play audio on first appearance
-            if viewModel.shouldAutoPlay() {
+            if viewModel.shouldAutoPlay(), let currentWord = viewModel.currentWord {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    playAudio(for: word)
+                    playAudio(for: currentWord)
                     viewModel.markAutoPlayed()
                 }
             }
         }
         .onChange(of: viewModel.currentWordIndex) { _, _ in
             // Auto-play audio when word changes
-            if viewModel.shouldAutoPlay() {
+            if viewModel.shouldAutoPlay(), let currentWord = viewModel.currentWord {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    playAudio(for: word)
+                    playAudio(for: currentWord)
                     viewModel.markAutoPlayed()
                 }
             }
