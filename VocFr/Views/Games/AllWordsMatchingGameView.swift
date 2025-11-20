@@ -30,32 +30,46 @@ struct AllWordsMatchingGameView: View {
         GeometryReader { geometry in
             let isLandscape = geometry.size.width > geometry.size.height
 
-            // Calculate card size based on available height
-            // Landscape: 3 rows, Portrait: 4 rows
+            // Calculate card size to fit both dimensions
+            // Landscape: 4 columns, 3 rows
+            // Portrait: 3 columns, 4 rows
             let numberOfRows: CGFloat = isLandscape ? 3 : 4
+            let numberOfColumns: CGFloat = isLandscape ? 4 : 3
             let headerHeight: CGFloat = 100
             let spacing: CGFloat = 12
-            let totalSpacing = spacing * (numberOfRows - 1)
-            let availableHeight = geometry.size.height - headerHeight - totalSpacing - 40 // 40 for padding
-            let cardHeight = availableHeight / numberOfRows
+            let horizontalPadding: CGFloat = 40
+            let verticalPadding: CGFloat = 40
+
+            // Calculate based on height
+            let rowSpacing = spacing * (numberOfRows - 1)
+            let availableHeight = geometry.size.height - headerHeight - rowSpacing - verticalPadding
+            let heightBasedSize = availableHeight / numberOfRows
+
+            // Calculate based on width
+            let columnSpacing = spacing * (numberOfColumns - 1)
+            let availableWidth = geometry.size.width - columnSpacing - horizontalPadding
+            let widthBasedSize = availableWidth / numberOfColumns
+
+            // Use the smaller size to ensure cards fit in both dimensions
+            let cardSize = min(heightBasedSize, widthBasedSize)
 
             // Create fixed-width columns with consistent spacing
             let columns = isLandscape ? [
-                GridItem(.fixed(cardHeight), spacing: 12),
-                GridItem(.fixed(cardHeight), spacing: 12),
-                GridItem(.fixed(cardHeight), spacing: 12),
-                GridItem(.fixed(cardHeight), spacing: 12)
+                GridItem(.fixed(cardSize), spacing: 12),
+                GridItem(.fixed(cardSize), spacing: 12),
+                GridItem(.fixed(cardSize), spacing: 12),
+                GridItem(.fixed(cardSize), spacing: 12)
             ] : [
-                GridItem(.fixed(cardHeight), spacing: 12),
-                GridItem(.fixed(cardHeight), spacing: 12),
-                GridItem(.fixed(cardHeight), spacing: 12)
+                GridItem(.fixed(cardSize), spacing: 12),
+                GridItem(.fixed(cardSize), spacing: 12),
+                GridItem(.fixed(cardSize), spacing: 12)
             ]
 
             VStack(spacing: 16) {
                 if isCompleted {
                     completedView
                 } else {
-                    gameView(columns: columns, geometry: geometry, cardHeight: cardHeight)
+                    gameView(columns: columns, geometry: geometry, cardSize: cardSize)
                 }
             }
             .padding()
@@ -80,7 +94,7 @@ struct AllWordsMatchingGameView: View {
 
     // MARK: - Game View
 
-    private func gameView(columns: [GridItem], geometry: GeometryProxy, cardHeight: CGFloat) -> some View {
+    private func gameView(columns: [GridItem], geometry: GeometryProxy, cardSize: CGFloat) -> some View {
         VStack(spacing: 20) {
             // Header
             gameHeader
@@ -93,13 +107,13 @@ struct AllWordsMatchingGameView: View {
                     .multilineTextAlignment(.center)
             }
 
-            // Cards grid - dynamic layout based on orientation, sized by height
+            // Cards grid - dynamic layout based on orientation, sized to fit screen
             LazyVGrid(columns: columns, spacing: 12) {
                 ForEach(cards) { card in
                     MatchingCardView(card: card) {
                         selectCard(card)
                     }
-                    .frame(width: cardHeight, height: cardHeight)
+                    .frame(width: cardSize, height: cardSize)
                 }
             }
             .id(refreshTrigger)

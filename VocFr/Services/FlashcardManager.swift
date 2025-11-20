@@ -21,8 +21,8 @@ class FlashcardManager {
     /// Get cards due for review today from a section
     func getDueCards(section: Section, context: ModelContext) -> [Word] {
         let sectionWords = section.sectionWords
-            .sorted(by: { $0.orderIndex < $1.orderIndex })
             .compactMap { $0.word }
+            .shuffled()
 
         var dueWords: [Word] = []
 

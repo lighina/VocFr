@@ -148,10 +148,10 @@ class SpellingViewModel {
 
     private func loadPracticeQueue() {
         practiceQueue = section.sectionWords
-            .sorted(by: { $0.orderIndex < $1.orderIndex })
             .compactMap { $0.word }
+            .shuffled()
 
-        print("📝 Loaded \(practiceQueue.count) words for spelling practice")
+        print("📝 Loaded \(practiceQueue.count) words for spelling practice (shuffled)")
 
         if practiceQueue.isEmpty {
             isCompleted = true
