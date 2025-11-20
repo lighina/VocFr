@@ -131,19 +131,30 @@ struct ListeningPracticeView: View {
             }
             .padding(.vertical, 20)
 
-            // Answer options (4 buttons in 2×2 grid)
-            LazyVGrid(columns: [
-                GridItem(.flexible(), spacing: 12),
-                GridItem(.flexible(), spacing: 12)
-            ], spacing: 12) {
-                ForEach(Array(viewModel.currentOptions.enumerated()), id: \.element.id) { index, option in
-                    answerButton(
-                        text: option.canonical,
-                        index: index,
-                        isCorrect: option.id == word.id
-                    )
-                    .aspectRatio(0.85, contentMode: .fit)
+            // Answer options (4 buttons in 2×2 grid with square images)
+            GeometryReader { geometry in
+                let spacing: CGFloat = 12
+                let numberOfRows: CGFloat = 2
+                let totalSpacing = spacing * (numberOfRows - 1)
+                let availableHeight = geometry.size.height - totalSpacing
+                let cardHeight = availableHeight / numberOfRows
+
+                let columns = [
+                    GridItem(.fixed(cardHeight), spacing: spacing),
+                    GridItem(.fixed(cardHeight), spacing: spacing)
+                ]
+
+                LazyVGrid(columns: columns, spacing: spacing) {
+                    ForEach(Array(viewModel.currentOptions.enumerated()), id: \.element.id) { index, option in
+                        answerButton(
+                            text: option.canonical,
+                            index: index,
+                            isCorrect: option.id == word.id,
+                            cardSize: cardHeight
+                        )
+                    }
                 }
+                .frame(maxWidth: .infinity)
             }
             .padding(.horizontal)
 
@@ -170,7 +181,7 @@ struct ListeningPracticeView: View {
     }
 
     /// Answer button with image feedback
-    private func answerButton(text: String, index: Int, isCorrect: Bool) -> some View {
+    private func answerButton(text: String, index: Int, isCorrect: Bool, cardSize: CGFloat) -> some View {
         let word = viewModel.currentOptions[index]
 
         return Button(action: {
@@ -178,72 +189,58 @@ struct ListeningPracticeView: View {
                 viewModel.selectAnswer(at: index)
             }
         }) {
-            VStack(spacing: 12) {
-                // Word image (larger for image-only mode)
+            ZStack(alignment: .center) {
+                // Square word image
                 if let image = UIImage(named: word.imageName) {
                     Image(uiImage: image)
                         .resizable()
-                        .scaledToFit()
-                        .frame(height: 100)
-                        .cornerRadius(8)
+                        .scaledToFill()
+                        .frame(width: cardSize, height: cardSize)
+                        .clipped()
+                        .cornerRadius(12)
                 } else {
                     // Fallback if image not found
                     ZStack {
-                        RoundedRectangle(cornerRadius: 8)
+                        RoundedRectangle(cornerRadius: 12)
                             .fill(Color(.systemGray5))
-                            .frame(height: 100)
+                            .frame(width: cardSize, height: cardSize)
                         Image(systemName: "photo")
                             .font(.largeTitle)
                             .foregroundColor(.gray)
                     }
                 }
 
-                // Show checkmark or X after selection
+                // Show checkmark or X overlay after selection
                 if viewModel.selectedAnswerIndex == index {
-                    Image(systemName: viewModel.isAnswerCorrect ? "checkmark.circle.fill" : "xmark.circle.fill")
-                        .foregroundColor(viewModel.isAnswerCorrect ? .green : .red)
-                        .font(.title2)
+                    Circle()
+                        .fill(viewModel.isAnswerCorrect ? Color.green : Color.red)
+                        .frame(width: 50, height: 50)
+                        .overlay(
+                            Image(systemName: viewModel.isAnswerCorrect ? "checkmark" : "xmark")
+                                .foregroundColor(.white)
+                                .font(.title2)
+                                .fontWeight(.bold)
+                        )
                 } else if viewModel.selectedAnswerIndex != nil && isCorrect {
                     // Show correct answer if user selected wrong
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(.green)
-                        .font(.title2)
-                } else {
-                    // Spacer to maintain consistent height
-                    Color.clear
-                        .frame(height: 28)
+                    Circle()
+                        .fill(Color.green)
+                        .frame(width: 50, height: 50)
+                        .overlay(
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.white)
+                                .font(.title2)
+                                .fontWeight(.bold)
+                        )
                 }
             }
-            .padding()
-            .frame(maxWidth: .infinity)
-            .background(buttonBackgroundColor(index: index, isCorrect: isCorrect))
-            .cornerRadius(12)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(buttonBorderColor(index: index, isCorrect: isCorrect), lineWidth: 2)
+                    .stroke(buttonBorderColor(index: index, isCorrect: isCorrect), lineWidth: 3)
             )
         }
+        .frame(width: cardSize, height: cardSize)
         .disabled(viewModel.selectedAnswerIndex != nil)
-    }
-
-    /// Button foreground color based on state
-    private func buttonForegroundColor(index: Int, isCorrect: Bool) -> Color {
-        if viewModel.selectedAnswerIndex == index {
-            return viewModel.isAnswerCorrect ? .white : .white
-        } else if viewModel.selectedAnswerIndex != nil && isCorrect {
-            return .white
-        }
-        return .primary
-    }
-
-    /// Button background color based on state
-    private func buttonBackgroundColor(index: Int, isCorrect: Bool) -> Color {
-        if viewModel.selectedAnswerIndex == index {
-            return viewModel.isAnswerCorrect ? .green : .red
-        } else if viewModel.selectedAnswerIndex != nil && isCorrect {
-            return .green.opacity(0.8)
-        }
-        return Color(.systemGray6)
     }
 
     /// Button border color based on state
