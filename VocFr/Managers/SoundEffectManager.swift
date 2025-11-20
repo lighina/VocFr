@@ -21,7 +21,7 @@ class SoundEffectManager {
     // MARK: - Properties
 
     private var audioPlayers: [String: AVAudioPlayer] = [:]
-    private let soundVolume: Float = 0.3 // Low volume for sound effects
+    private let soundVolume: Float = 0.18 // Low volume for sound effects (reduced by 40%)
 
     // MARK: - Initialization
 

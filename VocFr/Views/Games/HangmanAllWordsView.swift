@@ -254,21 +254,39 @@ struct HangmanAllWordsView: View {
                 }
             }
 
-            HStack(spacing: 16) {
-                Button(action: {
-                    viewModel.restartWord()
-                }) {
-                    HStack {
-                        Image(systemName: "arrow.clockwise")
-                        Text("hangman.retry".localized)
+            // Only show Retry button when won, not when lost
+            if viewModel.gameState == .won {
+                HStack(spacing: 16) {
+                    Button(action: {
+                        viewModel.restartWord()
+                    }) {
+                        HStack {
+                            Image(systemName: "arrow.clockwise")
+                            Text("hangman.retry".localized)
+                        }
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.orange)
+                        .cornerRadius(12)
                     }
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.orange)
-                    .cornerRadius(12)
-                }
 
+                    Button(action: {
+                        viewModel.nextWord()
+                    }) {
+                        HStack {
+                            Text("hangman.next".localized)
+                            Image(systemName: "arrow.right")
+                        }
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(12)
+                    }
+                }
+            } else {
+                // Lost state - only show Next button
                 Button(action: {
                     viewModel.nextWord()
                 }) {
@@ -431,13 +449,18 @@ class HangmanAllWordsViewModel {
         guessedLetters.insert(lowerLetter)
 
         if !wordToGuess.lowercased().contains(lowerLetter) {
+            // Incorrect guess
             incorrectGuesses += 1
             remainingGuesses -= 1
+            SoundEffectManager.shared.playIncorrectSound()
 
             if remainingGuesses <= 0 {
                 gameState = .lost
             }
         } else {
+            // Correct guess - play success sound
+            SoundEffectManager.shared.playCorrectSound()
+
             updateDisplayString()
 
             if !displayString.contains("_") {
@@ -453,14 +476,18 @@ class HangmanAllWordsViewModel {
         guard !isGameOver else { return }
 
         if word.lowercased() == wordToGuess.lowercased() {
+            // Correct word guess
             displayString = wordToGuess
             gameState = .won
             let points = calculatePoints()
             totalPoints += points
             wordsWon += 1
+            SoundEffectManager.shared.playCorrectSound()
         } else {
+            // Incorrect word guess - counts as incorrect
             incorrectGuesses += 1
             remainingGuesses -= 1
+            SoundEffectManager.shared.playIncorrectSound()
 
             if remainingGuesses <= 0 {
                 gameState = .lost

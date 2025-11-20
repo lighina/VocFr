@@ -256,21 +256,39 @@ struct HangmanGameView: View {
                 }
             }
 
-            HStack(spacing: 16) {
-                Button(action: {
-                    viewModel.restartWord()
-                }) {
-                    HStack {
-                        Image(systemName: "arrow.clockwise")
-                        Text("hangman.retry".localized)
+            // Only show Retry button when won, not when lost
+            if viewModel.gameState == .won {
+                HStack(spacing: 16) {
+                    Button(action: {
+                        viewModel.restartWord()
+                    }) {
+                        HStack {
+                            Image(systemName: "arrow.clockwise")
+                            Text("hangman.retry".localized)
+                        }
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.orange)
+                        .cornerRadius(12)
                     }
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.orange)
-                    .cornerRadius(12)
-                }
 
+                    Button(action: {
+                        viewModel.nextWord()
+                    }) {
+                        HStack {
+                            Text("hangman.next".localized)
+                            Image(systemName: "arrow.right")
+                        }
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(12)
+                    }
+                }
+            } else {
+                // Lost state - only show Next button
                 Button(action: {
                     viewModel.nextWord()
                 }) {
