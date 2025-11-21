@@ -116,7 +116,6 @@ struct MatchingGameView: View {
                     .frame(width: cardSize, height: cardSize)
                 }
             }
-            .padding(.horizontal)
             .id(viewModel.refreshTrigger)  // Force refresh when cards change
 
             Spacer()

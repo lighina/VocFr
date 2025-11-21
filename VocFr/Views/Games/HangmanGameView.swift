@@ -128,40 +128,43 @@ struct HangmanGameView: View {
         GeometryReader { geometry in
             let isLandscape = geometry.size.width > geometry.size.height
             let columnsCount = isLandscape ? 10 : 7
-            let buttonSize: CGFloat = 40
             let spacing: CGFloat = 8
-
+            
+            // Calculate button size dynamically to fit screen width
+            // Consider horizontal padding (32 total) from parent
+            let availableWidth = geometry.size.width - 32
+            let totalSpacing = CGFloat(columnsCount - 1) * spacing
+            let calculatedButtonSize = (availableWidth - totalSpacing) / CGFloat(columnsCount)
+            let buttonSize = max(calculatedButtonSize, 35) // Minimum 35pt for usability
+            
             // Create fixed-width columns for consistent spacing
             let columns = Array(repeating: GridItem(.fixed(buttonSize), spacing: spacing), count: columnsCount)
-
+            
             VStack(spacing: 12) {
                 Text("hangman.tap.letter".localized)
                     .font(.caption)
                     .foregroundColor(.secondary)
-
+                
                 LazyVGrid(columns: columns, spacing: spacing) {
                     ForEach(viewModel.availableLetters, id: \.self) { letter in
-                        letterButton(letter)
+                        letterButton(letter, size: buttonSize)
                     }
                 }
             }
         }
         .frame(height: 200) // Fixed height for the letter grid area
     }
-
-    private func letterButton(_ letter: Character) -> some View {
+    
+    private func letterButton(_ letter: Character, size: CGFloat) -> some View {
         let isGuessed = viewModel.guessedLetters.contains(letter)
         let isInWord = viewModel.wordToGuess.contains(letter)
-
+    
         return Button(action: {
             viewModel.guessLetter(letter)
         }) {
             Text(String(letter).uppercased())
                 .font(.system(size: 16, weight: .semibold))
-                .frame(width: 40, height: 40)
-                .background(buttonColor(isGuessed: isGuessed, isInWord: isInWord))
-                .foregroundColor(isGuessed ? .white : .primary)
-                .cornerRadius(8)
+                .frame(width: size, height: size)
         }
         .disabled(isGuessed || viewModel.isGameOver)
     }

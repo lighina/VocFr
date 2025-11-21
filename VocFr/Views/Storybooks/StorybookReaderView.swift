@@ -400,10 +400,31 @@ struct StorybookPageView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            // Use double page mode flag to determine font size
-            // Double page mode (iPad landscape): 24pt
-            // Single page mode (iPhone or iPad portrait): 36pt
-            let fontSize: CGFloat = isInDoublePageMode ? 24 : 36
+            // Determine font size based on device and orientation
+
+            // iPad landscape (double page mode): 24pt
+
+            // iPad portrait: 36pt
+
+            // iPhone portrait: 20pt (smaller to avoid covering too much of image)
+
+            let fontSize: CGFloat = {
+
+                if isInDoublePageMode {
+
+                    return 24  // iPad landscape
+
+                } else if UIDevice.current.userInterfaceIdiom == .phone {
+
+                    return 20  // iPhone - use smaller font
+
+                } else {
+
+                    return 36  // iPad portrait
+
+                }
+
+            }()
 
             ZStack(alignment: .bottom) {
                 // Full-screen image
