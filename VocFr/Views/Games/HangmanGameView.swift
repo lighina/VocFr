@@ -95,8 +95,6 @@ struct HangmanGameView: View {
                     if viewModel.gameState == .playing {
                         // Letter grid
                         letterGrid
-                            .padding(.horizontal)
-
                         // Word guess input
                         wordGuessSection
                             .padding(.horizontal)
@@ -129,30 +127,32 @@ struct HangmanGameView: View {
             let isLandscape = geometry.size.width > geometry.size.height
             let columnsCount = isLandscape ? 10 : 7
             let spacing: CGFloat = 8
-            
+            let horizontalPadding: CGFloat = 40 // Total horizontal padding
+
             // Calculate button size dynamically to fit screen width
-            // Consider horizontal padding (32 total) from parent
-            let availableWidth = geometry.size.width - 32
+            let availableWidth = geometry.size.width - horizontalPadding
             let totalSpacing = CGFloat(columnsCount - 1) * spacing
             let calculatedButtonSize = (availableWidth - totalSpacing) / CGFloat(columnsCount)
-            let buttonSize = max(calculatedButtonSize, 35) // Minimum 35pt for usability
-            
+            // Set minimum 32pt and maximum 42pt for consistent sizing across devices
+            let buttonSize = min(max(calculatedButtonSize, 32), 42)
+ 
             // Create fixed-width columns for consistent spacing
             let columns = Array(repeating: GridItem(.fixed(buttonSize), spacing: spacing), count: columnsCount)
-            
+ 
             VStack(spacing: 12) {
                 Text("hangman.tap.letter".localized)
                     .font(.caption)
                     .foregroundColor(.secondary)
-                
+ 
                 LazyVGrid(columns: columns, spacing: spacing) {
                     ForEach(viewModel.availableLetters, id: \.self) { letter in
                         letterButton(letter, size: buttonSize)
                     }
                 }
             }
+            .padding(.horizontal, 20)
         }
-        .frame(height: 200) // Fixed height for the letter grid area
+        .frame(height: 220) // Increased height to prevent overlap with input field
     }
     
     private func letterButton(_ letter: Character, size: CGFloat) -> some View {
@@ -165,6 +165,9 @@ struct HangmanGameView: View {
             Text(String(letter).uppercased())
                 .font(.system(size: 16, weight: .semibold))
                 .frame(width: size, height: size)
+                .background(buttonColor(isGuessed: isGuessed, isInWord: isInWord))
+                .foregroundColor(isGuessed ? .white : .primary)
+                .cornerRadius(8)
         }
         .disabled(isGuessed || viewModel.isGameOver)
     }
