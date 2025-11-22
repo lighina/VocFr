@@ -171,16 +171,16 @@ struct StorybookReaderView: View {
                     }
                     .font(.subheadline)
                     .fontWeight(.medium)
-                    .foregroundColor(currentPageIndex > 0 ? Color(red: 0.44, green: 0.44, blue: 0.44) : Color.gray.opacity(0.3))
+                    .foregroundColor(currentPageIndex > 0 ? .primaryText : .tertiaryText)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 10)
                     .background(
                         RoundedRectangle(cornerRadius: 20)
-                            .fill(Color(red: 0.96, green: 0.96, blue: 0.94).opacity(0.6))
+                            .fill(Color.cardBackground)
                     )
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+                            .stroke(Color.separator, lineWidth: 1)
                     )
                 }
                 .disabled(currentPageIndex == 0)
@@ -192,11 +192,11 @@ struct StorybookReaderView: View {
                     let endPage = min(currentPageIndex + 2, sortedPages.count)
                     Text("\(currentPageIndex + 1)-\(endPage) / \(sortedPages.count)")
                         .font(.caption)
-                        .foregroundColor(Color(red: 0.44, green: 0.44, blue: 0.44))
+                        .foregroundColor(.secondaryText)
                 } else {
                     Text("\(currentPageIndex + 1) / \(sortedPages.count)")
                         .font(.caption)
-                        .foregroundColor(Color(red: 0.44, green: 0.44, blue: 0.44))
+                        .foregroundColor(.secondaryText)
                 }
 
                 Spacer()
@@ -210,16 +210,16 @@ struct StorybookReaderView: View {
                     }
                     .font(.subheadline)
                     .fontWeight(.medium)
-                    .foregroundColor(Color(red: 0.44, green: 0.44, blue: 0.44))
+                    .foregroundColor(.primaryText)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 10)
                     .background(
                         RoundedRectangle(cornerRadius: 20)
-                            .fill(Color(red: 0.96, green: 0.96, blue: 0.94).opacity(0.6))
+                            .fill(Color.cardBackground)
                     )
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+                            .stroke(Color.separator, lineWidth: 1)
                     )
                 }
             }

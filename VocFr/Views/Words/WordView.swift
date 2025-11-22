@@ -98,13 +98,13 @@ struct WordDetailView: View {
                                 // Main word line (for nouns, show base word; others show canonical)
                                 Text(getWordTitle(for: word))
                                     .font(.system(size: 36, weight: .medium, design: .default))
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.primaryText)
                                     .multilineTextAlignment(.center)
 
                                 // Grammatical indicator
                                 Text(getGrammaticalIndicator(for: word))
                                     .font(.system(size: 16, weight: .regular, design: .default))
-                                    .foregroundStyle(.secondary)
+                                    .foregroundColor(.secondaryText)
                                     .italic()
 
                                 // Audio button
@@ -122,7 +122,7 @@ struct WordDetailView: View {
                             .padding(.bottom, 28)
                             .padding(.horizontal, 24)
                             .frame(maxWidth: .infinity)
-                            .background(Color.white)
+                            .background(Color.cardBackground)
                             .cornerRadius(24)
                             .shadow(color: Color.black.opacity(0.08), radius: 12, x: 0, y: 4)
                             .shadow(color: Color.black.opacity(0.04), radius: 2, x: 0, y: 1)

@@ -93,9 +93,9 @@ struct MatchingCardView: View {
 
     private var cardBackgroundColor: Color {
         if card.isMatched {
-            return Color.green.opacity(0.3)
+            return Color.cardMatched
         } else if card.isFaceUp {
-            return Color.white
+            return Color.cardBackground
         } else {
             return Color.blue.opacity(0.8)
         }
