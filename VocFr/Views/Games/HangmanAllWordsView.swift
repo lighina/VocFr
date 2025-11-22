@@ -65,10 +65,10 @@ struct HangmanAllWordsView: View {
                 Spacer()
                 Text("🎯 \(viewModel.totalPoints) pts")
                     .font(.headline)
-                    .foregroundColor(.blue)
+                    .foregroundColor(.accentPrimary)
             }
             .padding()
-            .background(Color(.systemGray6))
+            .background(Color.cardBackground)
 
             ScrollView {
                 VStack(spacing: 20) {
@@ -88,7 +88,7 @@ struct HangmanAllWordsView: View {
                         .tracking(2)
                         .foregroundColor(.primary)
                         .padding()
-                        .background(Color(.systemGray6))
+                        .background(Color.cardBackground)
                         .cornerRadius(12)
 
                     if viewModel.gameState == .playing {
@@ -114,7 +114,7 @@ struct HangmanAllWordsView: View {
     private var hangmanFigure: some View {
         HangmanCanvas(incorrectGuesses: viewModel.incorrectGuesses)
             .frame(width: 200, height: 200)
-            .background(Color(.systemGray6))
+            .background(Color.cardBackground)
             .cornerRadius(12)
     }
 
@@ -171,7 +171,7 @@ struct HangmanAllWordsView: View {
 
     private func buttonColor(isGuessed: Bool, isInWord: Bool) -> Color {
         if !isGuessed {
-            return Color(.systemGray5)
+            return Color.letterUnguessed
         } else if isInWord {
             return .green
         } else {
@@ -202,7 +202,7 @@ struct HangmanAllWordsView: View {
                 Button(action: submitWordGuess) {
                     Image(systemName: "arrow.right.circle.fill")
                         .font(.title2)
-                        .foregroundColor(.blue)
+                        .foregroundColor(.accentPrimary)
                 }
                 .disabled(wordGuess.isEmpty)
             }
@@ -272,7 +272,7 @@ struct HangmanAllWordsView: View {
                         .font(.headline)
                         .foregroundColor(.white)
                         .padding()
-                        .background(Color.orange)
+                        .background(Color.warning)
                         .cornerRadius(12)
                     }
 
@@ -286,7 +286,7 @@ struct HangmanAllWordsView: View {
                         .font(.headline)
                         .foregroundColor(.white)
                         .padding()
-                        .background(Color.blue)
+                        .background(Color.accentPrimary)
                         .cornerRadius(12)
                     }
                 }
@@ -302,7 +302,7 @@ struct HangmanAllWordsView: View {
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
-                    .background(Color.blue)
+                    .background(Color.accentPrimary)
                     .cornerRadius(12)
                 }
             }
@@ -318,7 +318,7 @@ struct HangmanAllWordsView: View {
 
             Image(systemName: "trophy.fill")
                 .font(.system(size: 80))
-                .foregroundColor(.yellow)
+                .foregroundColor(.info)
 
             Text("hangman.session.complete".localized)
                 .font(.title)
@@ -355,11 +355,11 @@ struct HangmanAllWordsView: View {
                     Text("\(viewModel.totalPoints) pts")
                         .font(.title2)
                         .fontWeight(.bold)
-                        .foregroundColor(.blue)
+                        .foregroundColor(.accentPrimary)
                 }
             }
             .padding()
-            .background(Color(.systemGray6))
+            .background(Color.cardBackground)
             .cornerRadius(12)
 
             Button(action: {
@@ -373,7 +373,7 @@ struct HangmanAllWordsView: View {
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
                 .padding()
-                .background(Color.blue)
+                .background(Color.accentPrimary)
                 .cornerRadius(12)
             }
 

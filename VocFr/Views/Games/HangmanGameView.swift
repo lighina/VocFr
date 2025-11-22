@@ -66,10 +66,10 @@ struct HangmanGameView: View {
                 Spacer()
                 Text("🎯 \(viewModel.totalPoints) pts")
                     .font(.headline)
-                    .foregroundColor(.blue)
+                    .foregroundColor(.accentPrimary)
             }
             .padding()
-            .background(Color(.systemGray6))
+            .background(Color.cardBackground)
 
             ScrollView {
                 VStack(spacing: 20) {
@@ -87,9 +87,9 @@ struct HangmanGameView: View {
                     Text(viewModel.displayString)
                         .font(.system(size: 24, weight: .bold, design: .monospaced))
                         .tracking(2)
-                        .foregroundColor(.primary)
+                        .foregroundColor(.primaryText)
                         .padding()
-                        .background(Color(.systemGray6))
+                        .background(Color.cardBackground)
                         .cornerRadius(12)
 
                     if viewModel.gameState == .playing {
@@ -115,7 +115,7 @@ struct HangmanGameView: View {
     private var hangmanFigure: some View {
         HangmanCanvas(incorrectGuesses: viewModel.incorrectGuesses)
             .frame(width: 200, height: 200)  // 减小尺寸以适应窗口
-            .background(Color(.systemGray6))
+            .background(Color.cardBackground)
             .cornerRadius(12)
     }
 
@@ -174,11 +174,11 @@ struct HangmanGameView: View {
 
     private func buttonColor(isGuessed: Bool, isInWord: Bool) -> Color {
         if !isGuessed {
-            return Color(.systemGray5)
+            return Color.letterUnguessed
         } else if isInWord {
-            return .green
+            return .correct
         } else {
-            return .red
+            return .incorrect
         }
     }
 
@@ -205,7 +205,7 @@ struct HangmanGameView: View {
                 Button(action: submitWordGuess) {
                     Image(systemName: "arrow.right.circle.fill")
                         .font(.title2)
-                        .foregroundColor(.blue)
+                        .foregroundColor(.accentPrimary)
                 }
                 .disabled(wordGuess.isEmpty)
             }
@@ -275,7 +275,7 @@ struct HangmanGameView: View {
                         .font(.headline)
                         .foregroundColor(.white)
                         .padding()
-                        .background(Color.orange)
+                        .background(Color.warning)
                         .cornerRadius(12)
                     }
 
@@ -289,7 +289,7 @@ struct HangmanGameView: View {
                         .font(.headline)
                         .foregroundColor(.white)
                         .padding()
-                        .background(Color.blue)
+                        .background(Color.accentPrimary)
                         .cornerRadius(12)
                     }
                 }
@@ -321,7 +321,7 @@ struct HangmanGameView: View {
 
             Image(systemName: "trophy.fill")
                 .font(.system(size: 80))
-                .foregroundColor(.yellow)
+                .foregroundColor(.info)
 
             Text("hangman.session.complete".localized)
                 .font(.title)
@@ -358,11 +358,11 @@ struct HangmanGameView: View {
                     Text("\(viewModel.totalPoints) pts")
                         .font(.title2)
                         .fontWeight(.bold)
-                        .foregroundColor(.blue)
+                        .foregroundColor(.accentPrimary)
                 }
             }
             .padding()
-            .background(Color(.systemGray6))
+            .background(Color.cardBackground)
             .cornerRadius(12)
 
             Button(action: {

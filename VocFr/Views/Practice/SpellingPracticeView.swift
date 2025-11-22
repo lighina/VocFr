@@ -230,7 +230,7 @@ struct SpellingPracticeView: View {
                 .padding(isInputFocused ? 8 : 12)
                 .background(
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(Color(.systemGray6))
+                        .fill(Color.cardBackground)
                 )
         }
         .animation(.easeInOut(duration: 0.3), value: isInputFocused)
@@ -272,9 +272,9 @@ struct SpellingPracticeView: View {
         }) {
             Text(character)
                 .font(isInputFocused ? .body : .headline)
-                .foregroundColor(.blue)
+                .foregroundColor(.specialCharForeground)
                 .frame(width: isInputFocused ? 30 : 35, height: isInputFocused ? 30 : 35)
-                .background(Color.blue.opacity(0.1))
+                .background(Color.specialCharBackground)
                 .cornerRadius(6)
         }
         .disabled(viewModel.hasSubmitted)
@@ -513,7 +513,7 @@ struct SpellingPracticeView: View {
             .padding()
             .background(
                 RoundedRectangle(cornerRadius: 16)
-                    .fill(Color(.systemGray6))
+                    .fill(Color.cardBackground)
             )
 
             // Restart button
