@@ -317,7 +317,7 @@ def main():
     parser.add_argument(
         '--instructions',
         type=str,
-        default='Speak français slowly and clearly for language learners. Pause at periods.',
+        default='Speak standard français slowly and clearly for language learners. Pause at periods.',
         help='Instructions for gpt-4o-mini-tts model to control speech characteristics'
     )
 
