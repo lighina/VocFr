@@ -649,7 +649,7 @@
           "genderOrPos": "adjective",
           "category": "adjectives",
           "elision": false,
-          "nameOfImage": "préféré_image.png"
+          "nameOfImage": null
         },
         {
           "canonical": "bleu",
@@ -770,7 +770,7 @@
           "genderOrPos": "adjective",
           "category": "adjectives",
           "elision": false,
-          "nameOfImage": "génial_image.png"
+          "nameOfImage": null
         },
         {
           "canonical": "gris",

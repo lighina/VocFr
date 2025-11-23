@@ -773,7 +773,7 @@
           "genderOrPos": "conjunction",
           "category": "conjunctions",
           "elision": false,
-          "nameOfImage": "parce_que_image.png"
+          "nameOfImage": null
         },
         {
           "canonical": "d'abord",
@@ -784,7 +784,7 @@
           "genderOrPos": "adverb",
           "category": "adverbs",
           "elision": false,
-          "nameOfImage": "d'abord_image.png"
+          "nameOfImage": null
         },
         {
           "canonical": "ensuite",
@@ -795,7 +795,7 @@
           "genderOrPos": "adverb",
           "category": "adverbs",
           "elision": false,
-          "nameOfImage": "ensuite_image.png"
+          "nameOfImage": null
         }
       ]
     }

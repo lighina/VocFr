@@ -364,7 +364,7 @@
           "genderOrPos": "feminine",
           "category": "quantity",
           "elision": false,
-          "nameOfImage": "une_tranche_de_image.png"
+          "nameOfImage": null
         },
         {
           "canonical": "une tartine de",
@@ -375,7 +375,7 @@
           "genderOrPos": "feminine",
           "category": "quantity",
           "elision": false,
-          "nameOfImage": "une_tartine_de_image.png"
+          "nameOfImage": null
         },
         {
           "canonical": "un kilo de",
@@ -386,7 +386,7 @@
           "genderOrPos": "masculine",
           "category": "quantity",
           "elision": false,
-          "nameOfImage": "un_kilo_de_image.png"
+          "nameOfImage": null
         },
         {
           "canonical": "un morceau de",
@@ -397,7 +397,7 @@
           "genderOrPos": "masculine",
           "category": "quantity",
           "elision": false,
-          "nameOfImage": "un_morceau_de_image.png"
+          "nameOfImage": null
         },
         {
           "canonical": "une bouteille de",
@@ -408,7 +408,7 @@
           "genderOrPos": "feminine",
           "category": "quantity",
           "elision": false,
-          "nameOfImage": "une_bouteille_de_image.png"
+          "nameOfImage": null
         },
         {
           "canonical": "un verre de",
@@ -419,7 +419,7 @@
           "genderOrPos": "masculine",
           "category": "quantity",
           "elision": false,
-          "nameOfImage": "un_verre_de_image.png"
+          "nameOfImage": null
         },
         {
           "canonical": "un jus de",
@@ -430,7 +430,7 @@
           "genderOrPos": "masculine",
           "category": "quantity",
           "elision": false,
-          "nameOfImage": "un_jus_de_image.png"
+          "nameOfImage": null
         }
       ]
     },
