@@ -3,8 +3,8 @@
   "number": 6,
   "title": "En colonie",
   "isUnlocked": true,
-  "requiredStars": 0,
-  "requiredGems": 0,
+  "requiredStars": 5000,
+  "requiredGems": 200,
   "sections": [
     {
       "id": "section6_1",

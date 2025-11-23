@@ -3,8 +3,8 @@
   "number": 4,
   "title": "Au village",
   "isUnlocked": true,
-  "requiredStars": 0,
-  "requiredGems": 0,
+  "requiredStars": 3000,
+  "requiredGems": 200,
   "sections": [
     {
       "id": "section4_1",

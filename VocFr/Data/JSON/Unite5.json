@@ -3,8 +3,8 @@
   "number": 5,
   "title": "À table",
   "isUnlocked": true,
-  "requiredStars": 0,
-  "requiredGems": 0,
+  "requiredStars": 4000,
+  "requiredGems": 200,
   "sections": [
     {
       "id": "section5_1",
