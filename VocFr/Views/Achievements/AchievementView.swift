@@ -315,6 +315,10 @@ struct AchievementView: View {
         switch code {
         case "show me the money":
             showMeTheMoney()
+        case "show me the star":
+            showMeTheStar()
+        case "show me the gem":
+            showMeTheGem()
         case "shaoyuan":
             shaoyuanCheat()
         default:
@@ -324,13 +328,33 @@ struct AchievementView: View {
         secretCode = ""
     }
 
-    /// Cheat: Set stars and gems to 999
+    /// Cheat: Set stars and gems to 99999
     private func showMeTheMoney() {
         let descriptor = FetchDescriptor<UserProgress>()
         guard let userProgress = try? modelContext.fetch(descriptor).first else { return }
 
-        userProgress.totalStars = 999
+        userProgress.totalStars = 99999
         userProgress.totalGems = 999
+
+        try? modelContext.save()
+    }
+
+    /// Cheat: Add stars 1000
+    private func showMeTheStar() {
+        let descriptor = FetchDescriptor<UserProgress>()
+        guard let userProgress = try? modelContext.fetch(descriptor).first else { return }
+
+        userProgress.totalStars += 1000
+
+        try? modelContext.save()
+    }
+
+    /// Cheat: Add gems 100
+    private func showMeTheGem() {
+        let descriptor = FetchDescriptor<UserProgress>()
+        guard let userProgress = try? modelContext.fetch(descriptor).first else { return }
+
+        userProgress.totalGems += 100
 
         try? modelContext.save()
     }

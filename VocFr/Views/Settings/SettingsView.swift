@@ -12,9 +12,6 @@ struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var languageManager = LanguageManager.shared
     @State private var showResetConfirmation = false
-    @State private var cheatCode = ""
-    @State private var showCheatResult = false
-    @State private var cheatResultMessage = ""
 
     var body: some View {
         NavigationView {
@@ -48,40 +45,6 @@ struct SettingsView: View {
                     }
                 }
 
-                // Debug section (cheat codes)
-                SwiftUI.Section {
-                    HStack {
-                        TextField("Enter cheat code", text: $cheatCode)
-                            .textFieldStyle(.roundedBorder)
-                            .autocapitalization(.none)
-                            .autocorrectionDisabled()
-
-                        Button("Apply") {
-                            applyCheatCode()
-                        }
-                        .disabled(cheatCode.isEmpty)
-                    }
-
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Available codes:")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                        Text("• show me the money - +99990⭐ +999💎")
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
-                        Text("• show me the star - +200⭐")
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
-                        Text("• show me the gem - +100💎")
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
-                    }
-                } header: {
-                    Text("Debug Cheat Codes")
-                } footer: {
-                    Text("Use these codes to test unlock features")
-                }
-
                 // About section
                 SwiftUI.Section("settings.about.title".localized) {
                     HStack {
@@ -105,13 +68,6 @@ struct SettingsView: View {
                 }
             } message: {
                 Text("settings.data.reset.confirm.message".localized)
-            }
-            .alert("Cheat Code", isPresented: $showCheatResult) {
-                Button("OK") {
-                    cheatCode = ""
-                }
-            } message: {
-                Text(cheatResultMessage)
             }
         }
     }
@@ -232,53 +188,6 @@ struct SettingsView: View {
             print("   - Storybooks: all locked")
         } catch {
             print("❌ User data reset failed: \(error)")
-        }
-    }
-
-    private func applyCheatCode() {
-        let code = cheatCode.lowercased().trimmingCharacters(in: .whitespaces)
-
-        do {
-            let progressDescriptor = FetchDescriptor<UserProgress>()
-            guard let userProgress = try modelContext.fetch(progressDescriptor).first else {
-                cheatResultMessage = "❌ User progress not found"
-                showCheatResult = true
-                return
-            }
-
-            let oldStars = userProgress.totalStars
-            let oldGems = userProgress.totalGems
-
-            switch code {
-            case "show me the money":
-                userProgress.totalStars += 99990
-                userProgress.totalGems += 999
-                cheatResultMessage = "💰 Money cheat applied!\n⭐ Stars: \(oldStars) → \(userProgress.totalStars)\n💎 Gems: \(oldGems) → \(userProgress.totalGems)"
-
-            case "show me the star":
-                userProgress.totalStars += 200
-                cheatResultMessage = "⭐ Star cheat applied!\n⭐ Stars: \(oldStars) → \(userProgress.totalStars)"
-
-            case "show me the gem":
-                userProgress.totalGems += 100
-                cheatResultMessage = "💎 Gem cheat applied!\n💎 Gems: \(oldGems) → \(userProgress.totalGems)"
-
-            default:
-                cheatResultMessage = "❌ Invalid cheat code\n\nTry:\n• show me the money\n• show me the star\n• show me the gem"
-                showCheatResult = true
-                return
-            }
-
-            try modelContext.save()
-            showCheatResult = true
-
-            print("✅ Cheat code applied: \(code)")
-            print("   - Stars: \(oldStars) → \(userProgress.totalStars)")
-            print("   - Gems: \(oldGems) → \(userProgress.totalGems)")
-        } catch {
-            cheatResultMessage = "❌ Failed to apply cheat code: \(error.localizedDescription)"
-            showCheatResult = true
-            print("❌ Cheat code failed: \(error)")
         }
     }
 }
