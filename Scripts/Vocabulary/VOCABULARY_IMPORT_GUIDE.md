@@ -83,8 +83,10 @@ SECTION,section4_1,les pièces,1
 #### 3. 单词数据行
 
 ```csv
-canonical,chinese,part_of_speech,gender_or_pos,category,elision
-maison,房子,noun,feminine,home,false
+canonical,chinese,part_of_speech,gender_or_pos,category,elision,german,type,nameOfImage
+maison,房子,noun,feminine,home,false,das Haus,vocabulary,
+orange,橙色,adjective,,,false,orange,vocabulary,orange_color_image
+Bon appétit,祝好胃口,expression,,,false,,expression,none
 ```
 
 字段说明：
@@ -97,6 +99,9 @@ maison,房子,noun,feminine,home,false
 | `gender_or_pos` | 性别/位置 | `masculine`, `feminine` | ✅ |
 | `category` | 分类 | `home`, `food` | ✅ |
 | `elision` | 是否需要省音 | `true`, `false` | ✅ |
+| `german` | 德语翻译（对比学习） | `das Haus`, `die Orange` | ❌ |
+| `type` | 单词类型 | `vocabulary`, `expression`, `sentence` | ❌ |
+| `nameOfImage` | 自定义图片名称 | `orange_color_image`, `none` | ❌ |
 
 **词性选项：**
 - `noun` - 名词
@@ -112,6 +117,34 @@ maison,房子,noun,feminine,home,false
 **省音（elision）：**
 - `true` - 需要省音（如 `heure` → `l'heure`）
 - `false` - 不需要省音
+
+**德语翻译（german，可选）：**
+- 用于对比学习，帮助同时学习法语和德语的学习者
+- 留空或不填写也可以
+
+**单词类型（type，可选）：**
+- `vocabulary` - 普通单词（默认）
+- `expression` - 短语、词组
+- `sentence` - 完整句子
+- 此字段影响未来的练习模式分类
+
+**自定义图片名称（nameOfImage，可选）：**
+1. **默认情况**：留空，系统自动使用 `{canonical}_image`
+   - 例如：`chat` → `chat_image.png`
+
+2. **同形异义词**：不同意思需要不同图片
+   ```csv
+   orange,橙色,adjective,,,false,,vocabulary,orange_color_image
+   orange,橙子,noun,feminine,fruit,false,,vocabulary,orange_fruit_image
+   ```
+
+3. **无图片单词**：表达式或句子无法用图片表示
+   ```csv
+   Bon appétit,祝好胃口,expression,,,false,,expression,none
+   Comment allez-vous?,您好吗？,sentence,,,false,,sentence,none
+   ```
+   - 使用 `none` 或留空表示无图片
+   - 这些单词会自动从视觉练习模式中排除
 
 ### 完整示例
 
@@ -201,21 +234,28 @@ python Scripts/Vocabulary/import_vocabulary.py \\
 如果需要为单词添加图片：
 
 **图片命名规则：**
-```
-{canonical}.png
-```
 
-**示例：**
-```
-maison.png
-salon.png
-cuisine.png
-```
+1. **默认命名**（未指定 `nameOfImage` 时）：
+   ```
+   {canonical}_image.png
+   ```
+   示例：`maison_image.png`, `chat_image.png`
+
+2. **自定义命名**（指定了 `nameOfImage` 时）：
+   ```
+   {nameOfImage}.png
+   ```
+   示例：`orange_color_image.png`, `orange_fruit_image.png`
+
+3. **无图片单词**（`nameOfImage` 为 `none` 时）：
+   - 不需要准备图片文件
+   - 适用于表达式和句子
 
 **添加到 Assets：**
 1. 在 Xcode 中打开 `Assets.xcassets`
 2. 拖拽所有图片到 Assets
-3. 图片会自动以文件名作为资源名称
+3. 图片会自动以文件名（去掉 .png）作为资源名称
+4. 确保资源名称与 JSON 中的 `imageName` 字段匹配
 
 ### 3. 准备音频资源
 

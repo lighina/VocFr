@@ -274,7 +274,7 @@ Level 4: WordDetailView (单词详情)
 
 #### 实现逻辑
 ```swift
-if !word.imageName.isEmpty && imageExists(named: word.imageName) {
+if word.hasImage && imageExists(named: word.imageName) {
     Image(word.imageName)
         .resizable()
         .aspectRatio(contentMode: .fit)
@@ -297,6 +297,57 @@ if !word.imageName.isEmpty && imageExists(named: word.imageName) {
 - 保持纵横比
 - 无图片时显示灰色占位符
 - 点击图片触发单词卡片显示
+
+#### 图片命名规则（v1.1+）
+
+**1. 默认命名**：
+```swift
+// 自动规范化并添加 _image 后缀
+"école" → "ecole_image.png"
+"chat" → "chat_image.png"
+```
+
+**2. 自定义命名（同形异义词）**：
+```json
+// Unite JSON中指定 nameOfImage
+{
+  "canonical": "orange",
+  "partOfSpeech": "adjective",
+  "nameOfImage": "orange_color_image"  // 橙色
+}
+{
+  "canonical": "orange",
+  "partOfSpeech": "noun",
+  "nameOfImage": "orange_fruit_image"  // 橙子
+}
+```
+
+**3. 无图片单词（表达式/句子）**：
+```json
+{
+  "canonical": "Bon appétit",
+  "type": "expression",
+  "nameOfImage": "none"  // 或 "null" 或留空
+}
+```
+
+#### 单词过滤
+
+**hasImage 属性**：
+```swift
+// Word.swift
+var hasImage: Bool {
+    return !imageName.isEmpty && imageName.lowercased() != "none"
+}
+
+// 使用示例：筛选有图片的单词用于视觉练习模式
+let visualWords = allWords.filter { $0.hasImage }
+```
+
+**用途**：
+- 视觉练习模式（看图选词）：只使用 `hasImage == true` 的单词
+- 表达式和句子自动从图片练习中排除
+- 确保练习模式的有效性和质量
 
 ---
 

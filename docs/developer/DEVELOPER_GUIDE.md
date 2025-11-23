@@ -380,7 +380,6 @@ try context.save()
   "id": "unite1",
   "number": 1,
   "title": "À l'école",
-  "titleInChinese": "在学校",
   "isUnlocked": true,
   "requiredStars": 0,
   "requiredGems": 0,
@@ -396,13 +395,28 @@ try context.save()
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "school_objects",
-          "elision": false
+          "elision": false,
+          "german": "das Buch",
+          "type": "vocabulary",
+          "nameOfImage": "livre_image"
         }
       ]
     }
   ]
 }
 ```
+
+**新增字段说明**（v1.1+）：
+
+- **german** (可选): 德语翻译，用于对比学习
+- **type** (可选): 单词类型
+  - `vocabulary` - 普通单词（默认）
+  - `expression` - 短语/词组
+  - `sentence` - 完整句子
+- **nameOfImage** (可选): 自定义图片名称
+  - 留空：自动使用 `{canonical}_image`
+  - 自定义：用于区分同形异义词（如 `orange_color_image` vs `orange_fruit_image`）
+  - `"none"` 或 `"null"`: 表示无图片（表达式/句子）
 
 **Storybook 数据** (`Storybooks.json`):
 
@@ -455,6 +469,94 @@ python Scripts/Storybooks/import_storybook.py \
 详见：
 - [词汇导入指南](../../Scripts/Vocabulary/VOCABULARY_IMPORT_GUIDE.md)
 - [故事书导入指南](../../Scripts/Storybooks/STORYBOOK_IMPORT_GUIDE.md)
+
+### 图片资源管理
+
+**命名规则**：
+
+1. **默认命名**（未指定 `nameOfImage`）：
+   ```
+   {canonical}_image.png
+   ```
+   - 自动规范化：移除重音、空格转下划线
+   - 例如：`école` → `ecole_image.png`
+
+2. **自定义命名**（指定 `nameOfImage`）：
+   ```
+   {nameOfImage}.png
+   ```
+   - 用于同形异义词（homonyms）
+   - 例如：
+     - `orange` (形容词) → `orange_color_image.png`
+     - `orange` (名词) → `orange_fruit_image.png`
+
+3. **无图片单词**（`nameOfImage` = `"none"`）：
+   - 不需要准备图片文件
+   - 自动从视觉练习模式中排除
+   - 适用于表达式和句子
+
+**性能考虑**：
+- `nameOfImage` 字段对加载速度影响可忽略（<1ms for 1000 words）
+- 图片资源建议使用 Asset Catalog 优化
+
+**代码实现**：
+
+```swift
+// VocabularyDataLoader.swift
+private static func convertToWord(from json: WordJSON) -> Word {
+    // 确定图片名称
+    let imageName: String
+    if let customImageName = json.nameOfImage, !customImageName.isEmpty {
+        let trimmed = customImageName.trimmingCharacters(in: .whitespaces).lowercased()
+        if trimmed == "none" || trimmed == "null" {
+            imageName = ""  // 无图片
+        } else {
+            imageName = customImageName.replacingOccurrences(of: ".png", with: "")
+        }
+    } else {
+        // 回退到默认命名
+        imageName = normalizeForAssetName(json.canonical) + "_image"
+    }
+    // ...
+}
+```
+
+**Word 模型过滤**：
+
+```swift
+// Word.swift
+@Model
+class Word {
+    var imageName: String
+
+    /// 检查单词是否有关联图片
+    var hasImage: Bool {
+        return !imageName.isEmpty && imageName.lowercased() != "none"
+    }
+}
+
+// 使用示例：筛选有图片的单词用于视觉练习
+let visualWords = allWords.filter { $0.hasImage }
+```
+
+### 调试功能
+
+**设置界面隐藏功能**（仅用于开发和测试）：
+
+在 `SettingsView.swift` 中，Debug 部分提供了以下作弊码：
+
+| 作弊码 | 效果 | 用途 |
+|--------|------|------|
+| `show me the money` | +99990 stars, +999 gems | 快速解锁所有内容 |
+| `show me the star` | +200 stars | 测试星星解锁 |
+| `show me the gem` | +100 gems | 测试宝石解锁 |
+
+**代码位置**：`VocFr/Views/Settings/SettingsView.swift:applyCheatCode()`
+
+**注意**：
+- 这些功能仅用于开发测试
+- 正式发布前应移除或隐藏此功能
+- 可通过编译标志控制：`#if DEBUG`
 
 ---
 

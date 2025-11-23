@@ -49,13 +49,13 @@ Test Mode（测试模式）是VocFr应用的综合能力测试功能，旨在全
 ### 1. 测试范围
 
 #### 单元测试 (Unit Test)
-- 选择特定Unite（1-8）进行测试
+- 选择特定Unite（1-6）进行测试
 - 题目范围：该单元内所有学习过的词汇
 - 适合：单元学习完成后的复习测试
 
 #### 综合测试 (Comprehensive Test)
 - 覆盖所有已学习的词汇
-- 题目范围：全部解锁单元的词汇
+- 题目范围：全部解锁单元的词汇（Unite 1-6）
 - 适合：阶段性总复习
 
 ### 2. 测试配置
@@ -100,12 +100,17 @@ Test Mode（测试模式）是VocFr应用的综合能力测试功能，旨在全
 #### 实现逻辑
 ```swift
 private func generateImageToWordQuestion(word: Word, allWords: [Word]) -> TestQuestion? {
+    // 仅使用有图片的单词（v1.1+：排除表达式和句子）
+    guard word.hasImage else { return nil }
+
     // 正确答案：当前单词
     var options: [String] = [word.canonical]
 
-    // 3个干扰项：同词性的其他单词
+    // 3个干扰项：同词性且有图片的其他单词
     let wrongWords = allWords
-        .filter { $0.id != word.id && $0.partOfSpeech == word.partOfSpeech }
+        .filter { $0.id != word.id &&
+                  $0.partOfSpeech == word.partOfSpeech &&
+                  $0.hasImage }
         .shuffled()
         .prefix(3)
 
@@ -120,6 +125,22 @@ private func generateImageToWordQuestion(word: Word, allWords: [Word]) -> TestQu
     )
 }
 ```
+
+#### 单词过滤（v1.1+）
+**自动排除无图片单词**：
+- 表达式（`type: "expression"`）
+- 句子（`type: "sentence"`）
+- 自定义无图片（`nameOfImage: "none"`）
+
+**hasImage 属性检查**：
+```swift
+// Word.swift
+var hasImage: Bool {
+    return !imageName.isEmpty && imageName.lowercased() != "none"
+}
+```
+
+这确保所有"看图选词"题目都有有效的图片显示。
 
 ---
 

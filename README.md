@@ -149,13 +149,70 @@ python Scripts/Storybooks/import_storybook.py \\
   "id": "unite1",
   "number": 1,
   "title": "À l'école",
-  "titleInChinese": "在学校",
   "isUnlocked": true,
   "requiredStars": 0,
   "requiredGems": 0,
-  "sections": [...]
+  "sections": [
+    {
+      "id": "section1",
+      "name": "Classroom Items",
+      "orderIndex": 0,
+      "words": [...]
+    }
+  ]
 }
 ```
+
+### Word 数据结构
+
+每个单词支持以下字段：
+
+```json
+{
+  "canonical": "orange",
+  "chinese": "橙子",
+  "partOfSpeech": "noun",
+  "genderOrPos": "feminine",
+  "category": "food",
+  "elision": false,
+  "german": "die Orange",
+  "type": "vocabulary",
+  "nameOfImage": "orange_fruit_image"
+}
+```
+
+**字段说明：**
+
+- **canonical**: 法语单词原型（必填）
+- **chinese**: 中文释义（必填）
+- **partOfSpeech**: 词性（noun/verb/adjective/等）
+- **genderOrPos**: 性别（masculine/feminine）或其他词性信息
+- **category**: 分类标签（food/color/school/等）
+- **elision**: 是否需要省音
+- **german**: 德语翻译（可选，用于对比学习）
+- **type**: 单词类型（vocabulary/expression/sentence）
+- **nameOfImage**: 自定义图片名称（可选，见下方说明）
+
+**图片命名规则：**
+
+1. **默认命名**：如果不指定 `nameOfImage`，系统自动使用 `{canonical}_image`
+   - 例如：`chat` → `chat_image.png`
+
+2. **自定义命名**：用于区分同形异义词（homonyms）
+   ```json
+   // 橙色（形容词）
+   {"canonical": "orange", "partOfSpeech": "adjective", "nameOfImage": "orange_color_image"}
+
+   // 橙子（名词）
+   {"canonical": "orange", "partOfSpeech": "noun", "nameOfImage": "orange_fruit_image"}
+   ```
+
+3. **无图片单词**：短语、表达式、句子可能无法用图片表示
+   ```json
+   {"canonical": "Bon appétit", "type": "expression", "nameOfImage": "none"}
+   ```
+   - 使用 `"none"` 或 `"null"` 或空字符串表示无图片
+   - 这些单词会自动从视觉练习模式中排除
 
 ### Storybook 数据结构
 
