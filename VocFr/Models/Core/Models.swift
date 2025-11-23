@@ -107,6 +107,12 @@ class Word {
         self.partOfSpeech = partOfSpeech
         self.category = category
     }
+
+    /// Check if this word has an associated image
+    /// Returns false if imageName is empty or "none" (for expressions/sentences)
+    var hasImage: Bool {
+        return !imageName.isEmpty && imageName.lowercased() != "none"
+    }
 }
 
 @Model

@@ -54,6 +54,9 @@ class VocabularyDataLoader {
         let genderOrPos: String
         let category: String
         let elision: Bool
+        let german: String?          // Optional for backward compatibility
+        let type: String?            // "vocabulary", "expression", "sentence"
+        let nameOfImage: String?     // Custom image name or null for no image
     }
 
     // MARK: - Public Methods
@@ -197,8 +200,27 @@ class VocabularyDataLoader {
         default: partOfSpeech = .other
         }
 
-        // Generate image name (normalized, ASCII-only)
-        let imageName = normalizeForAssetName(json.canonical) + "_image"
+        // Determine image name
+        // Priority: 1. Use nameOfImage from JSON if provided
+        //          2. Fall back to normalized canonical + "_image"
+        // Special: "none", "null", or empty string = no image (for expressions/sentences)
+        let imageName: String
+        if let customImageName = json.nameOfImage, !customImageName.isEmpty {
+            let trimmed = customImageName.trimmingCharacters(in: .whitespaces).lowercased()
+
+            // Check for special "no image" markers
+            if trimmed == "none" || trimmed == "null" {
+                imageName = ""  // Empty string indicates no image
+            } else {
+                // Use custom image name from JSON (supports homonyms)
+                // e.g., "orange_color_image.png" vs "orange_fruit_image.png"
+                imageName = customImageName.replacingOccurrences(of: ".png", with: "")
+                                          .replacingOccurrences(of: ".jpg", with: "")
+            }
+        } else {
+            // Fall back to default naming (normalized, ASCII-only)
+            imageName = normalizeForAssetName(json.canonical) + "_image"
+        }
 
         // Generate unique ID: canonical + partOfSpeech
         // This ensures words with same spelling but different meanings
