@@ -17,7 +17,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "house",
-          "elision": false
+          "elision": false,
+          "german": "Haus",
+          "type": "vocabulary",
+          "nameOfImage": "maison_image.png"
         },
         {
           "canonical": "chambre",
@@ -25,7 +28,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "house",
-          "elision": false
+          "elision": false,
+          "german": "Schlafzimmer",
+          "type": "vocabulary",
+          "nameOfImage": "chambre_image.png"
         },
         {
           "canonical": "salle de bain",
@@ -33,7 +39,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "house",
-          "elision": false
+          "elision": false,
+          "german": "Badezimmer",
+          "type": "vocabulary",
+          "nameOfImage": "salle_de_bain_image.png"
         },
         {
           "canonical": "salon",
@@ -41,7 +50,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "house",
-          "elision": false
+          "elision": false,
+          "german": "Wohnzimmer",
+          "type": "vocabulary",
+          "nameOfImage": "salon_image.png"
         },
         {
           "canonical": "cuisine",
@@ -49,7 +61,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "house",
-          "elision": false
+          "elision": false,
+          "german": "Küche",
+          "type": "vocabulary",
+          "nameOfImage": "cuisine_image.png"
         },
         {
           "canonical": "grenier",
@@ -57,7 +72,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "house",
-          "elision": false
+          "elision": false,
+          "german": "Dachboden",
+          "type": "vocabulary",
+          "nameOfImage": "grenier_image.png"
         },
         {
           "canonical": "cave",
@@ -65,7 +83,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "house",
-          "elision": false
+          "elision": false,
+          "german": "Keller",
+          "type": "vocabulary",
+          "nameOfImage": "cave_image.png"
         },
         {
           "canonical": "balcon",
@@ -73,7 +94,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "house",
-          "elision": false
+          "elision": false,
+          "german": "Balkon",
+          "type": "vocabulary",
+          "nameOfImage": "balcon_image.png"
         },
         {
           "canonical": "garage",
@@ -81,7 +105,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "house",
-          "elision": false
+          "elision": false,
+          "german": "Garage",
+          "type": "vocabulary",
+          "nameOfImage": "garage_image.png"
         },
         {
           "canonical": "terrasse",
@@ -89,7 +116,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "house",
-          "elision": false
+          "elision": false,
+          "german": "Terrasse",
+          "type": "vocabulary",
+          "nameOfImage": "terrasse_image.png"
         },
         {
           "canonical": "jardin",
@@ -97,7 +127,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "house",
-          "elision": false
+          "elision": false,
+          "german": "Garten",
+          "type": "vocabulary",
+          "nameOfImage": "jardin_image.png"
         },
         {
           "canonical": "escalier",
@@ -105,7 +138,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "house",
-          "elision": true
+          "elision": true,
+          "german": "Treppe",
+          "type": "vocabulary",
+          "nameOfImage": "escalier_image.png"
         }
       ]
     },
@@ -120,7 +156,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "furniture",
-          "elision": false
+          "elision": false,
+          "german": "Stuhl",
+          "type": "vocabulary",
+          "nameOfImage": "chaise_image.png"
         },
         {
           "canonical": "bureau",
@@ -128,7 +167,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "furniture",
-          "elision": false
+          "elision": false,
+          "german": "Schreibtisch",
+          "type": "vocabulary",
+          "nameOfImage": "bureau_image.png"
         },
         {
           "canonical": "tapis",
@@ -136,7 +178,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "furniture",
-          "elision": false
+          "elision": false,
+          "german": "Teppich",
+          "type": "vocabulary",
+          "nameOfImage": "tapis_image.png"
         },
         {
           "canonical": "lit",
@@ -144,7 +189,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "furniture",
-          "elision": false
+          "elision": false,
+          "german": "Bett",
+          "type": "vocabulary",
+          "nameOfImage": "lit_image.png"
         },
         {
           "canonical": "armoire",
@@ -152,7 +200,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "furniture",
-          "elision": true
+          "elision": true,
+          "german": "Schrank",
+          "type": "vocabulary",
+          "nameOfImage": "armoire_image.png"
         },
         {
           "canonical": "tiroir",
@@ -160,7 +211,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "furniture",
-          "elision": false
+          "elision": false,
+          "german": "Schublade",
+          "type": "vocabulary",
+          "nameOfImage": "tiroir_image.png"
         },
         {
           "canonical": "miroir",
@@ -168,7 +222,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "furniture",
-          "elision": false
+          "elision": false,
+          "german": "Spiegel",
+          "type": "vocabulary",
+          "nameOfImage": "miroir_image.png"
         },
         {
           "canonical": "lampe",
@@ -176,7 +233,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "furniture",
-          "elision": false
+          "elision": false,
+          "german": "Lampe",
+          "type": "vocabulary",
+          "nameOfImage": "lampe_image.png"
         },
         {
           "canonical": "boite",
@@ -184,7 +244,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "furniture",
-          "elision": false
+          "elision": false,
+          "german": "Kiste",
+          "type": "vocabulary",
+          "nameOfImage": "boite_image.png"
         },
         {
           "canonical": "étagère",
@@ -192,7 +255,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "furniture",
-          "elision": true
+          "elision": true,
+          "german": "Regal",
+          "type": "vocabulary",
+          "nameOfImage": "etagere_image.png"
         },
         {
           "canonical": "ordinateur",
@@ -200,7 +266,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "furniture",
-          "elision": true
+          "elision": true,
+          "german": "Computer",
+          "type": "vocabulary",
+          "nameOfImage": "ordinateur_image.png"
         },
         {
           "canonical": "vêtements",
@@ -208,7 +277,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "plural",
           "category": "furniture",
-          "elision": false
+          "elision": false,
+          "german": "Kleider",
+          "type": "vocabulary",
+          "nameOfImage": "vetements_image.png"
         },
         {
           "canonical": "jouets",
@@ -216,7 +288,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "plural",
           "category": "furniture",
-          "elision": false
+          "elision": false,
+          "german": "Spielsachen",
+          "type": "vocabulary",
+          "nameOfImage": "jouets_image.png"
         },
         {
           "canonical": "affaires de classe",
@@ -224,7 +299,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "plural",
           "category": "furniture",
-          "elision": false
+          "elision": false,
+          "german": "Schulsachen",
+          "type": "vocabulary",
+          "nameOfImage": "affaires_de_classe_image.png"
         },
         {
           "canonical": "porte",
@@ -232,7 +310,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "furniture",
-          "elision": false
+          "elision": false,
+          "german": "Tür",
+          "type": "vocabulary",
+          "nameOfImage": "porte_image.png"
         },
         {
           "canonical": "fenêtre",
@@ -240,7 +321,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "furniture",
-          "elision": false
+          "elision": false,
+          "german": "Fenster",
+          "type": "vocabulary",
+          "nameOfImage": "fenetre_image.png"
         }
       ]
     },
@@ -255,7 +339,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "toys",
-          "elision": false
+          "elision": false,
+          "german": "Kartenspiel",
+          "type": "vocabulary",
+          "nameOfImage": "jeu_de_cartes_image.png"
         },
         {
           "canonical": "guitare",
@@ -263,7 +350,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "toys",
-          "elision": false
+          "elision": false,
+          "german": "Gitarre",
+          "type": "vocabulary",
+          "nameOfImage": "guitare_image.png"
         },
         {
           "canonical": "roi",
@@ -271,7 +361,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "toys",
-          "elision": false
+          "elision": false,
+          "german": "König",
+          "type": "vocabulary",
+          "nameOfImage": "roi_image.png"
         },
         {
           "canonical": "poisson",
@@ -279,7 +372,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "toys",
-          "elision": false
+          "elision": false,
+          "german": "Fisch",
+          "type": "vocabulary",
+          "nameOfImage": "poisson_image.png"
         },
         {
           "canonical": "nounours",
@@ -287,7 +383,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "toys",
-          "elision": false
+          "elision": false,
+          "german": "Teddy",
+          "type": "vocabulary",
+          "nameOfImage": "nounours_image.png"
         },
         {
           "canonical": "peluche",
@@ -295,7 +394,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "toys",
-          "elision": false
+          "elision": false,
+          "german": "Stofftier",
+          "type": "vocabulary",
+          "nameOfImage": "peluche_image.png"
         },
         {
           "canonical": "poupée",
@@ -303,7 +405,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "toys",
-          "elision": false
+          "elision": false,
+          "german": "Puppe",
+          "type": "vocabulary",
+          "nameOfImage": "poupee_image.png"
         },
         {
           "canonical": "ballon",
@@ -311,7 +416,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "toys",
-          "elision": false
+          "elision": false,
+          "german": "Ball",
+          "type": "vocabulary",
+          "nameOfImage": "ballon_image.png"
         },
         {
           "canonical": "balle",
@@ -319,7 +427,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "toys",
-          "elision": false
+          "elision": false,
+          "german": "Ball",
+          "type": "vocabulary",
+          "nameOfImage": "balle_image.png"
         },
         {
           "canonical": "dé",
@@ -327,7 +438,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "toys",
-          "elision": false
+          "elision": false,
+          "german": "Spielwürfel",
+          "type": "vocabulary",
+          "nameOfImage": "de_image.png"
         },
         {
           "canonical": "moto",
@@ -335,7 +449,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "toys",
-          "elision": false
+          "elision": false,
+          "german": "Motorrad",
+          "type": "vocabulary",
+          "nameOfImage": "moto_image.png"
         },
         {
           "canonical": "vélo",
@@ -343,7 +460,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "toys",
-          "elision": false
+          "elision": false,
+          "german": "Fahrrad",
+          "type": "vocabulary",
+          "nameOfImage": "velo_image.png"
         },
         {
           "canonical": "voiture",
@@ -351,7 +471,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "toys",
-          "elision": false
+          "elision": false,
+          "german": "Auto",
+          "type": "vocabulary",
+          "nameOfImage": "voiture_image.png"
         },
         {
           "canonical": "tente",
@@ -359,7 +482,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "toys",
-          "elision": false
+          "elision": false,
+          "german": "Zelt",
+          "type": "vocabulary",
+          "nameOfImage": "tente_image.png"
         }
       ]
     },
@@ -374,7 +500,10 @@
           "partOfSpeech": "verb",
           "genderOrPos": "verb",
           "category": "verbs",
-          "elision": false
+          "elision": false,
+          "german": "haben",
+          "type": "vocabulary",
+          "nameOfImage": "avoir_image.png"
         },
         {
           "canonical": "être",
@@ -382,7 +511,10 @@
           "partOfSpeech": "verb",
           "genderOrPos": "verb",
           "category": "verbs",
-          "elision": false
+          "elision": false,
+          "german": "sein",
+          "type": "vocabulary",
+          "nameOfImage": "etre_image.png"
         },
         {
           "canonical": "aimer",
@@ -390,7 +522,10 @@
           "partOfSpeech": "verb",
           "genderOrPos": "verb",
           "category": "verbs",
-          "elision": false
+          "elision": false,
+          "german": "lieben, gern haben, mögen",
+          "type": "vocabulary",
+          "nameOfImage": "aimer_image.png"
         },
         {
           "canonical": "manger",
@@ -398,7 +533,10 @@
           "partOfSpeech": "verb",
           "genderOrPos": "verb",
           "category": "verbs",
-          "elision": false
+          "elision": false,
+          "german": "essen",
+          "type": "vocabulary",
+          "nameOfImage": "manger_image.png"
         },
         {
           "canonical": "couper",
@@ -406,7 +544,10 @@
           "partOfSpeech": "verb",
           "genderOrPos": "verb",
           "category": "verbs",
-          "elision": false
+          "elision": false,
+          "german": "schneiden",
+          "type": "vocabulary",
+          "nameOfImage": "couper_image.png"
         },
         {
           "canonical": "éplucher",
@@ -414,7 +555,10 @@
           "partOfSpeech": "verb",
           "genderOrPos": "verb",
           "category": "verbs",
-          "elision": false
+          "elision": false,
+          "german": "schälen",
+          "type": "vocabulary",
+          "nameOfImage": "eplucher_image.png"
         },
         {
           "canonical": "chercher",
@@ -422,7 +566,10 @@
           "partOfSpeech": "verb",
           "genderOrPos": "verb",
           "category": "verbs",
-          "elision": false
+          "elision": false,
+          "german": "suchen",
+          "type": "vocabulary",
+          "nameOfImage": "chercher_image.png"
         },
         {
           "canonical": "trouver",
@@ -430,7 +577,10 @@
           "partOfSpeech": "verb",
           "genderOrPos": "verb",
           "category": "verbs",
-          "elision": false
+          "elision": false,
+          "german": "finden",
+          "type": "vocabulary",
+          "nameOfImage": "trouver_image.png"
         },
         {
           "canonical": "ranger",
@@ -438,7 +588,10 @@
           "partOfSpeech": "verb",
           "genderOrPos": "verb",
           "category": "verbs",
-          "elision": false
+          "elision": false,
+          "german": "aufräumen",
+          "type": "vocabulary",
+          "nameOfImage": "ranger_image.png"
         },
         {
           "canonical": "jouer",
@@ -446,7 +599,10 @@
           "partOfSpeech": "verb",
           "genderOrPos": "verb",
           "category": "verbs",
-          "elision": false
+          "elision": false,
+          "german": "spielen",
+          "type": "vocabulary",
+          "nameOfImage": "jouer_image.png"
         },
         {
           "canonical": "dessiner",
@@ -454,7 +610,10 @@
           "partOfSpeech": "verb",
           "genderOrPos": "verb",
           "category": "verbs",
-          "elision": false
+          "elision": false,
+          "german": "malen",
+          "type": "vocabulary",
+          "nameOfImage": "dessiner_image.png"
         },
         {
           "canonical": "chanter",
@@ -462,7 +621,10 @@
           "partOfSpeech": "verb",
           "genderOrPos": "verb",
           "category": "verbs",
-          "elision": false
+          "elision": false,
+          "german": "singen",
+          "type": "vocabulary",
+          "nameOfImage": "chanter_image.png"
         },
         {
           "canonical": "danser",
@@ -470,7 +632,10 @@
           "partOfSpeech": "verb",
           "genderOrPos": "verb",
           "category": "verbs",
-          "elision": false
+          "elision": false,
+          "german": "tanzen",
+          "type": "vocabulary",
+          "nameOfImage": "danser_image.png"
         },
         {
           "canonical": "prendre",
@@ -478,7 +643,10 @@
           "partOfSpeech": "verb",
           "genderOrPos": "verb",
           "category": "verbs",
-          "elision": false
+          "elision": false,
+          "german": "nehmen",
+          "type": "vocabulary",
+          "nameOfImage": "prendre_image.png"
         },
         {
           "canonical": "mettre",
@@ -486,7 +654,10 @@
           "partOfSpeech": "verb",
           "genderOrPos": "verb",
           "category": "verbs",
-          "elision": false
+          "elision": false,
+          "german": "legen, stellen",
+          "type": "vocabulary",
+          "nameOfImage": "mettre_image.png"
         }
       ]
     },
@@ -501,7 +672,10 @@
           "partOfSpeech": "preposition",
           "genderOrPos": "preposition",
           "category": "prepositions",
-          "elision": false
+          "elision": false,
+          "german": "auf",
+          "type": "vocabulary",
+          "nameOfImage": "sur_image.png"
         },
         {
           "canonical": "sous",
@@ -509,7 +683,10 @@
           "partOfSpeech": "preposition",
           "genderOrPos": "preposition",
           "category": "prepositions",
-          "elision": false
+          "elision": false,
+          "german": "unter",
+          "type": "vocabulary",
+          "nameOfImage": "sous_image.png"
         },
         {
           "canonical": "dans",
@@ -517,7 +694,10 @@
           "partOfSpeech": "preposition",
           "genderOrPos": "preposition",
           "category": "prepositions",
-          "elision": false
+          "elision": false,
+          "german": "in, im",
+          "type": "vocabulary",
+          "nameOfImage": "dans_image.png"
         },
         {
           "canonical": "devant",
@@ -525,7 +705,10 @@
           "partOfSpeech": "preposition",
           "genderOrPos": "preposition",
           "category": "prepositions",
-          "elision": false
+          "elision": false,
+          "german": "vor",
+          "type": "vocabulary",
+          "nameOfImage": "devant_image.png"
         },
         {
           "canonical": "derrière",
@@ -533,7 +716,10 @@
           "partOfSpeech": "preposition",
           "genderOrPos": "preposition",
           "category": "prepositions",
-          "elision": false
+          "elision": false,
+          "german": "hinter",
+          "type": "vocabulary",
+          "nameOfImage": "derriere_image.png"
         },
         {
           "canonical": "à côté de",
@@ -541,7 +727,10 @@
           "partOfSpeech": "preposition",
           "genderOrPos": "preposition",
           "category": "prepositions",
-          "elision": false
+          "elision": false,
+          "german": "neben",
+          "type": "vocabulary",
+          "nameOfImage": "a_cote_de_image.png"
         }
       ]
     }

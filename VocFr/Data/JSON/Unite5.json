@@ -1,0 +1,675 @@
+{
+  "id": "unite5",
+  "number": 5,
+  "title": "À table",
+  "isUnlocked": true,
+  "requiredStars": 0,
+  "requiredGems": 0,
+  "sections": [
+    {
+      "id": "section5_1",
+      "name": "à table",
+      "orderIndex": 1,
+      "words": [
+        {
+          "canonical": "assiette",
+          "chinese": "盘子",
+          "german": "Teller",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "tableware",
+          "elision": true,
+          "nameOfImage": "assiette_image.png"
+        },
+        {
+          "canonical": "bol",
+          "chinese": "碗",
+          "german": "Schüssel",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "tableware",
+          "elision": false,
+          "nameOfImage": "bol_image.png"
+        },
+        {
+          "canonical": "tasse",
+          "chinese": "杯子",
+          "german": "Tasse",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "tableware",
+          "elision": false,
+          "nameOfImage": "tasse_image.png"
+        },
+        {
+          "canonical": "verre",
+          "chinese": "玻璃杯",
+          "german": "Glas",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "tableware",
+          "elision": false,
+          "nameOfImage": "verre_image.png"
+        },
+        {
+          "canonical": "bouteille",
+          "chinese": "瓶子",
+          "german": "Flasche",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "tableware",
+          "elision": false,
+          "nameOfImage": "bouteille_image.png"
+        },
+        {
+          "canonical": "couteau",
+          "chinese": "刀",
+          "german": "Messer",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "tableware",
+          "elision": false,
+          "nameOfImage": "couteau_image.png"
+        },
+        {
+          "canonical": "fourchette",
+          "chinese": "叉子",
+          "german": "Gabel",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "tableware",
+          "elision": false,
+          "nameOfImage": "fourchette_image.png"
+        },
+        {
+          "canonical": "cuillère",
+          "chinese": "勺子",
+          "german": "Löffel",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "tableware",
+          "elision": false,
+          "nameOfImage": "cuillère_image.png"
+        },
+        {
+          "canonical": "serviette",
+          "chinese": "餐巾",
+          "german": "Serviette",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "tableware",
+          "elision": false,
+          "nameOfImage": "serviette_image.png"
+        }
+      ]
+    },
+    {
+      "id": "section5_2",
+      "name": "les aliments",
+      "orderIndex": 2,
+      "words": [
+        {
+          "canonical": "tartine",
+          "chinese": "涂抹面包片",
+          "german": "Butterbrot",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": false,
+          "nameOfImage": "tartine_image.png"
+        },
+        {
+          "canonical": "beurre",
+          "chinese": "黄油",
+          "german": "Butter",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false,
+          "nameOfImage": "beurre_image.png"
+        },
+        {
+          "canonical": "confiture",
+          "chinese": "果酱",
+          "german": "Marmelade",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": false,
+          "nameOfImage": "confiture_image.png"
+        },
+        {
+          "canonical": "miel",
+          "chinese": "蜂蜜",
+          "german": "Honig",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false,
+          "nameOfImage": "miel_image.png"
+        },
+        {
+          "canonical": "fromage",
+          "chinese": "奶酪",
+          "german": "Käse",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false,
+          "nameOfImage": "fromage_image.png"
+        },
+        {
+          "canonical": "jambon",
+          "chinese": "火腿",
+          "german": "Schinken",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false,
+          "nameOfImage": "jambon_image.png"
+        },
+        {
+          "canonical": "lait",
+          "chinese": "牛奶",
+          "german": "Milch",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false,
+          "nameOfImage": "lait_image.png"
+        },
+        {
+          "canonical": "thé",
+          "chinese": "茶",
+          "german": "Tee",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false,
+          "nameOfImage": "thé_image.png"
+        },
+        {
+          "canonical": "chocolat chaud",
+          "chinese": "热巧克力",
+          "german": "heiße Schokolade",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false,
+          "nameOfImage": "chocolat_chaud_image.png"
+        },
+        {
+          "canonical": "yaourt",
+          "chinese": "酸奶",
+          "german": "Joghurt",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false,
+          "nameOfImage": "yaourt_image.png"
+        },
+        {
+          "canonical": "sel",
+          "chinese": "盐",
+          "german": "Salz",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false,
+          "nameOfImage": "sel_image.png"
+        },
+        {
+          "canonical": "poivre",
+          "chinese": "胡椒",
+          "german": "Pfeffer",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false,
+          "nameOfImage": "poivre_image.png"
+        },
+        {
+          "canonical": "omelette",
+          "chinese": "煎蛋卷",
+          "german": "Omelett",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": true,
+          "nameOfImage": "omelette_image.png"
+        },
+        {
+          "canonical": "oeuf",
+          "chinese": "鸡蛋",
+          "german": "Ei",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": true,
+          "nameOfImage": "oeuf_image.png"
+        },
+        {
+          "canonical": "céréales",
+          "chinese": "麦片",
+          "german": "Getreideflocken",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": false,
+          "nameOfImage": "céréales_image.png"
+        },
+        {
+          "canonical": "crêpe",
+          "chinese": "薄饼",
+          "german": "Pfannkuchen",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": false,
+          "nameOfImage": "crêpe_image.png"
+        },
+        {
+          "canonical": "sucre",
+          "chinese": "糖",
+          "german": "Zucker",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false,
+          "nameOfImage": "sucre_image.png"
+        },
+        {
+          "canonical": "radis",
+          "chinese": "萝卜",
+          "german": "Radieschen",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false,
+          "nameOfImage": "radis_image.png"
+        },
+        {
+          "canonical": "ananas",
+          "chinese": "菠萝",
+          "german": "Ananas",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": true,
+          "nameOfImage": "ananas_image.png"
+        },
+        {
+          "canonical": "melon",
+          "chinese": "西瓜",
+          "german": "Melone",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "food",
+          "elision": false,
+          "nameOfImage": "melon_image.png"
+        },
+        {
+          "canonical": "noix",
+          "chinese": "坚果",
+          "german": "Nuss",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "food",
+          "elision": false,
+          "nameOfImage": "noix_image.png"
+        }
+      ]
+    },
+    {
+      "id": "section5_3",
+      "name": "les quantités",
+      "orderIndex": 3,
+      "words": [
+        {
+          "canonical": "une tranche de",
+          "chinese": "一片",
+          "german": "eine Scheibe von",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "quantity",
+          "elision": false,
+          "nameOfImage": "une_tranche_de_image.png"
+        },
+        {
+          "canonical": "une tartine de",
+          "chinese": "一片涂抹面包",
+          "german": "ein Butterbrot mit",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "quantity",
+          "elision": false,
+          "nameOfImage": "une_tartine_de_image.png"
+        },
+        {
+          "canonical": "un kilo de",
+          "chinese": "一公斤",
+          "german": "ein Kilo von",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "quantity",
+          "elision": false,
+          "nameOfImage": "un_kilo_de_image.png"
+        },
+        {
+          "canonical": "un morceau de",
+          "chinese": "一块",
+          "german": "ein Stück von",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "quantity",
+          "elision": false,
+          "nameOfImage": "un_morceau_de_image.png"
+        },
+        {
+          "canonical": "une bouteille de",
+          "chinese": "一瓶",
+          "german": "eine Flasche mit",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "quantity",
+          "elision": false,
+          "nameOfImage": "une_bouteille_de_image.png"
+        },
+        {
+          "canonical": "un verre de",
+          "chinese": "一杯",
+          "german": "ein Glas mit",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "quantity",
+          "elision": false,
+          "nameOfImage": "un_verre_de_image.png"
+        },
+        {
+          "canonical": "un jus de",
+          "chinese": "一杯...汁",
+          "german": "ein Saft mit",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "quantity",
+          "elision": false,
+          "nameOfImage": "un_jus_de_image.png"
+        }
+      ]
+    },
+    {
+      "id": "section5_4",
+      "name": "les repas",
+      "orderIndex": 4,
+      "words": [
+        {
+          "canonical": "petit-déjeuner",
+          "chinese": "早餐",
+          "german": "Frühstück",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "meals",
+          "elision": false,
+          "nameOfImage": "petit-déjeuner_image.png"
+        },
+        {
+          "canonical": "déjeuner",
+          "chinese": "午餐",
+          "german": "Mittagessen",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "meals",
+          "elision": false,
+          "nameOfImage": "déjeuner_image.png"
+        },
+        {
+          "canonical": "gouter",
+          "chinese": "下午茶",
+          "german": "Zwischenmahlzeit",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "meals",
+          "elision": false,
+          "nameOfImage": "gouter_image.png"
+        },
+        {
+          "canonical": "dîner",
+          "chinese": "晚餐",
+          "german": "Abendessen",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "meals",
+          "elision": false,
+          "nameOfImage": "dîner_image.png"
+        }
+      ]
+    },
+    {
+      "id": "section5_5",
+      "name": "la journée",
+      "orderIndex": 5,
+      "words": [
+        {
+          "canonical": "matin",
+          "chinese": "早上",
+          "german": "Morgen, am Morgen",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "time",
+          "elision": false,
+          "nameOfImage": "matin_image.png"
+        },
+        {
+          "canonical": "midi",
+          "chinese": "中午",
+          "german": "Mittag, am Mittag",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "time",
+          "elision": false,
+          "nameOfImage": "midi_image.png"
+        },
+        {
+          "canonical": "après-midi",
+          "chinese": "下午",
+          "german": "Nachmittag, am Nachmittag",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "time",
+          "elision": true,
+          "nameOfImage": "après-midi_image.png"
+        },
+        {
+          "canonical": "soir",
+          "chinese": "晚上",
+          "german": "Abend, am Abend",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "time",
+          "elision": false,
+          "nameOfImage": "soir_image.png"
+        }
+      ]
+    },
+    {
+      "id": "section5_6",
+      "name": "les verbes",
+      "orderIndex": 6,
+      "words": [
+        {
+          "canonical": "manger",
+          "chinese": "吃",
+          "german": "essen",
+          "type": "vocabulary",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false,
+          "nameOfImage": "manger_image.png"
+        },
+        {
+          "canonical": "ranger",
+          "chinese": "整理",
+          "german": "aufräumen",
+          "type": "vocabulary",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false,
+          "nameOfImage": "ranger_image.png"
+        },
+        {
+          "canonical": "boire",
+          "chinese": "喝",
+          "german": "trinken",
+          "type": "vocabulary",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false,
+          "nameOfImage": "boire_image.png"
+        }
+      ]
+    },
+    {
+      "id": "section5_7",
+      "name": "les adjectifs",
+      "orderIndex": 7,
+      "words": [
+        {
+          "canonical": "content",
+          "chinese": "高兴的",
+          "german": "froh",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "feelings",
+          "elision": false,
+          "nameOfImage": "content_image.png"
+        },
+        {
+          "canonical": "triste",
+          "chinese": "悲伤的",
+          "german": "traurig",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "feelings",
+          "elision": false,
+          "nameOfImage": "triste_image.png"
+        },
+        {
+          "canonical": "gêné",
+          "chinese": "尴尬的",
+          "german": "verlegen",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "feelings",
+          "elision": false,
+          "nameOfImage": "gêné_image.png"
+        },
+        {
+          "canonical": "énervé",
+          "chinese": "生气的",
+          "german": "genervt",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "feelings",
+          "elision": false,
+          "nameOfImage": "énervé_image.png"
+        },
+        {
+          "canonical": "surpris",
+          "chinese": "惊讶的",
+          "german": "überrascht",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "feelings",
+          "elision": false,
+          "nameOfImage": "surpris_image.png"
+        },
+        {
+          "canonical": "effrayé",
+          "chinese": "害怕的",
+          "german": "erschrocken",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "feelings",
+          "elision": false,
+          "nameOfImage": "effrayé_image.png"
+        },
+        {
+          "canonical": "heureux",
+          "chinese": "幸福的",
+          "german": "glücklich",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "feelings",
+          "elision": false,
+          "nameOfImage": "heureux_image.png"
+        },
+        {
+          "canonical": "fâché",
+          "chinese": "愤怒的",
+          "german": "verärgert",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "feelings",
+          "elision": false,
+          "nameOfImage": "fâché_image.png"
+        }
+      ]
+    }
+  ]
+}

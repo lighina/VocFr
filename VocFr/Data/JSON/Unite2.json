@@ -17,7 +17,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "family",
-          "elision": false
+          "elision": false,
+          "german": "Familie",
+          "type": "vocabulary",
+          "nameOfImage": "famille_image.png"
         },
         {
           "canonical": "père",
@@ -25,7 +28,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "family",
-          "elision": false
+          "elision": false,
+          "german": "Vater",
+          "type": "vocabulary",
+          "nameOfImage": "pere_image.png"
         },
         {
           "canonical": "mère",
@@ -33,7 +39,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "family",
-          "elision": false
+          "elision": false,
+          "german": "Mutter",
+          "type": "vocabulary",
+          "nameOfImage": "mere_image.png"
         },
         {
           "canonical": "parents",
@@ -41,7 +50,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "plural",
           "category": "family",
-          "elision": false
+          "elision": false,
+          "german": "Eltern",
+          "type": "vocabulary",
+          "nameOfImage": "parents_image.png"
         },
         {
           "canonical": "papa",
@@ -49,7 +61,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "family",
-          "elision": false
+          "elision": false,
+          "german": "Papa",
+          "type": "vocabulary",
+          "nameOfImage": "papa_image.png"
         },
         {
           "canonical": "maman",
@@ -57,7 +72,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "family",
-          "elision": false
+          "elision": false,
+          "german": "Mama",
+          "type": "vocabulary",
+          "nameOfImage": "maman_image.png"
         },
         {
           "canonical": "grand-père",
@@ -65,7 +83,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "family",
-          "elision": false
+          "elision": false,
+          "german": "Großvater",
+          "type": "vocabulary",
+          "nameOfImage": "grand-pere_image.png"
         },
         {
           "canonical": "grand-mère",
@@ -73,7 +94,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "family",
-          "elision": false
+          "elision": false,
+          "german": "Großmutter",
+          "type": "vocabulary",
+          "nameOfImage": "grand-mere_image.png"
         },
         {
           "canonical": "grands-parents",
@@ -81,7 +105,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "plural",
           "category": "family",
-          "elision": false
+          "elision": false,
+          "german": "Großeltern",
+          "type": "vocabulary",
+          "nameOfImage": "grands-parents_image.png"
         },
         {
           "canonical": "papy",
@@ -89,7 +116,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "family",
-          "elision": false
+          "elision": false,
+          "german": "Opa",
+          "type": "vocabulary",
+          "nameOfImage": "papy_image.png"
         },
         {
           "canonical": "mamie",
@@ -97,7 +127,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "family",
-          "elision": false
+          "elision": false,
+          "german": "Oma",
+          "type": "vocabulary",
+          "nameOfImage": "mamie_image.png"
         },
         {
           "canonical": "frère",
@@ -105,7 +138,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "family",
-          "elision": false
+          "elision": false,
+          "german": "Bruder",
+          "type": "vocabulary",
+          "nameOfImage": "frere_image.png"
         },
         {
           "canonical": "soeur",
@@ -113,7 +149,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "family",
-          "elision": false
+          "elision": false,
+          "german": "Schwester",
+          "type": "vocabulary",
+          "nameOfImage": "soeur_image.png"
         },
         {
           "canonical": "oncle",
@@ -121,7 +160,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "family",
-          "elision": true
+          "elision": true,
+          "german": "Onkel",
+          "type": "vocabulary",
+          "nameOfImage": "oncle_image.png"
         },
         {
           "canonical": "tante",
@@ -129,7 +171,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "family",
-          "elision": false
+          "elision": false,
+          "german": "Tante",
+          "type": "vocabulary",
+          "nameOfImage": "tante_image.png"
         }
       ]
     },
@@ -144,7 +189,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Kuchen",
+          "type": "vocabulary",
+          "nameOfImage": "gâteau_image.png"
         },
         {
           "canonical": "tarte",
@@ -152,7 +200,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Torte",
+          "type": "vocabulary",
+          "nameOfImage": "tarte_image.png"
         },
         {
           "canonical": "glace",
@@ -160,7 +211,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Eis",
+          "type": "vocabulary",
+          "nameOfImage": "glace_image.png"
         },
         {
           "canonical": "bonbon",
@@ -168,7 +222,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Bonbon",
+          "type": "vocabulary",
+          "nameOfImage": "bonbon_image.png"
         },
         {
           "canonical": "chocolat",
@@ -176,7 +233,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Schokolade",
+          "type": "vocabulary",
+          "nameOfImage": "chocolat_image.png"
         },
         {
           "canonical": "pain",
@@ -184,7 +244,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Brot",
+          "type": "vocabulary",
+          "nameOfImage": "pain_image.png"
         },
         {
           "canonical": "baguette",
@@ -192,7 +255,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Baguette",
+          "type": "vocabulary",
+          "nameOfImage": "baguette_image.png"
         },
         {
           "canonical": "fruits",
@@ -200,7 +266,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "plural",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Obst",
+          "type": "vocabulary",
+          "nameOfImage": "fruits_image.png"
         },
         {
           "canonical": "citron",
@@ -208,7 +277,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Zitrone",
+          "type": "vocabulary",
+          "nameOfImage": "citron_image.png"
         },
         {
           "canonical": "banane",
@@ -216,7 +288,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Banane",
+          "type": "vocabulary",
+          "nameOfImage": "banane_image.png"
         },
         {
           "canonical": "pomme",
@@ -224,7 +299,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Apfel",
+          "type": "vocabulary",
+          "nameOfImage": "pomme_image.png"
         },
         {
           "canonical": "poire",
@@ -232,7 +310,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Birne",
+          "type": "vocabulary",
+          "nameOfImage": "poire_image.png"
         },
         {
           "canonical": "fraise",
@@ -240,7 +321,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Erdbeere",
+          "type": "vocabulary",
+          "nameOfImage": "fraise_image.png"
         },
         {
           "canonical": "orange",
@@ -248,7 +332,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "food",
-          "elision": true
+          "elision": true,
+          "german": "Orange, Apfelsine",
+          "type": "vocabulary",
+          "nameOfImage": "orange_image.png"
         },
         {
           "canonical": "melon",
@@ -256,7 +343,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Melone",
+          "type": "vocabulary",
+          "nameOfImage": "melon_image.png"
         },
         {
           "canonical": "ananas",
@@ -264,7 +354,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "food",
-          "elision": true
+          "elision": true,
+          "german": "Ananas",
+          "type": "vocabulary",
+          "nameOfImage": "ananas_image.png"
         },
         {
           "canonical": "salade de fruits",
@@ -272,7 +365,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Obstsalat",
+          "type": "vocabulary",
+          "nameOfImage": "salade_de_fruits_image.png"
         },
         {
           "canonical": "légumes",
@@ -280,7 +376,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "plural",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Gemüse",
+          "type": "vocabulary",
+          "nameOfImage": "legumes_image.png"
         },
         {
           "canonical": "poivron",
@@ -288,7 +387,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Paprika",
+          "type": "vocabulary",
+          "nameOfImage": "poivron_image.png"
         },
         {
           "canonical": "salade",
@@ -296,7 +398,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Salat",
+          "type": "vocabulary",
+          "nameOfImage": "salade_image.png"
         },
         {
           "canonical": "carotte",
@@ -304,7 +409,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Möhre, Karotte",
+          "type": "vocabulary",
+          "nameOfImage": "carotte_image.png"
         },
         {
           "canonical": "tomate",
@@ -312,7 +420,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Tomate",
+          "type": "vocabulary",
+          "nameOfImage": "tomate_image.png"
         },
         {
           "canonical": "concombre",
@@ -320,7 +431,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Salatgurke",
+          "type": "vocabulary",
+          "nameOfImage": "concombre_image.png"
         },
         {
           "canonical": "champignon",
@@ -328,7 +442,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Pilz",
+          "type": "vocabulary",
+          "nameOfImage": "champignon_image.png"
         },
         {
           "canonical": "pomme de terre",
@@ -336,7 +453,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Kartoffel",
+          "type": "vocabulary",
+          "nameOfImage": "pomme_de_terre_image.png"
         },
         {
           "canonical": "fromage",
@@ -344,7 +464,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Käse",
+          "type": "vocabulary",
+          "nameOfImage": "fromage_image.png"
         },
         {
           "canonical": "saucisse",
@@ -352,7 +475,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Salami",
+          "type": "vocabulary",
+          "nameOfImage": "saucisse_image.png"
         },
         {
           "canonical": "poisson",
@@ -360,7 +486,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Fisch",
+          "type": "vocabulary",
+          "nameOfImage": "poisson_image.png"
         },
         {
           "canonical": "viande",
@@ -368,7 +497,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Fleisch",
+          "type": "vocabulary",
+          "nameOfImage": "viande_image.png"
         },
         {
           "canonical": "boissons",
@@ -376,7 +508,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "plural",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Getränke",
+          "type": "vocabulary",
+          "nameOfImage": "boissons_image.png"
         },
         {
           "canonical": "eau",
@@ -384,7 +519,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "food",
-          "elision": true
+          "elision": true,
+          "german": "Wasser",
+          "type": "vocabulary",
+          "nameOfImage": "eau_image.png"
         },
         {
           "canonical": "limonade",
@@ -392,7 +530,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Limonade",
+          "type": "vocabulary",
+          "nameOfImage": "limonade_image.png"
         },
         {
           "canonical": "jus",
@@ -400,7 +541,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Saft",
+          "type": "vocabulary",
+          "nameOfImage": "jus_image.png"
         },
         {
           "canonical": "jus d'orange",
@@ -408,7 +552,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Orangensaft",
+          "type": "vocabulary",
+          "nameOfImage": "jus_d_orange_image.png"
         },
         {
           "canonical": "lait",
@@ -416,7 +563,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Milch",
+          "type": "vocabulary",
+          "nameOfImage": "lait_image.png"
         },
         {
           "canonical": "café",
@@ -424,7 +574,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Kaffee",
+          "type": "vocabulary",
+          "nameOfImage": "cafe_image.png"
         },
         {
           "canonical": "thé",
@@ -432,7 +585,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Tee",
+          "type": "vocabulary",
+          "nameOfImage": "the_image.png"
         },
         {
           "canonical": "sucre",
@@ -440,7 +596,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Zucker",
+          "type": "vocabulary",
+          "nameOfImage": "sucre_image.png"
         },
         {
           "canonical": "poivre",
@@ -448,7 +607,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Pfeffer",
+          "type": "vocabulary",
+          "nameOfImage": "poivre_image.png"
         },
         {
           "canonical": "sel",
@@ -456,7 +618,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "masculine",
           "category": "food",
-          "elision": false
+          "elision": false,
+          "german": "Salz",
+          "type": "vocabulary",
+          "nameOfImage": "sel_image.png"
         }
       ]
     },
@@ -471,7 +636,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "other",
-          "elision": false
+          "elision": false,
+          "german": "Fest",
+          "type": "vocabulary",
+          "nameOfImage": "fete_image.png"
         },
         {
           "canonical": "invitation",
@@ -479,7 +647,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "other",
-          "elision": true
+          "elision": true,
+          "german": "Einladung",
+          "type": "vocabulary",
+          "nameOfImage": "invitation_image.png"
         },
         {
           "canonical": "musique",
@@ -487,7 +658,10 @@
           "partOfSpeech": "noun",
           "genderOrPos": "feminine",
           "category": "other",
-          "elision": false
+          "elision": false,
+          "german": "Musik",
+          "type": "vocabulary",
+          "nameOfImage": "musique_image.png"
         },
         {
           "canonical": "il est",
@@ -495,7 +669,10 @@
           "partOfSpeech": "other",
           "genderOrPos": "other",
           "category": "other",
-          "elision": false
+          "elision": false,
+          "german": "er ist",
+          "type": "vocabulary",
+          "nameOfImage": "il_est_image.png"
         },
         {
           "canonical": "et",
@@ -503,7 +680,10 @@
           "partOfSpeech": "other",
           "genderOrPos": "other",
           "category": "other",
-          "elision": false
+          "elision": false,
+          "german": "und",
+          "type": "vocabulary",
+          "nameOfImage": "et_image.png"
         }
       ]
     },
@@ -518,7 +698,10 @@
           "partOfSpeech": "verb",
           "genderOrPos": "verb",
           "category": "verbs",
-          "elision": false
+          "elision": false,
+          "german": "haben",
+          "type": "vocabulary",
+          "nameOfImage": "avoir_image.png"
         },
         {
           "canonical": "aimer",
@@ -526,7 +709,10 @@
           "partOfSpeech": "verb",
           "genderOrPos": "verb",
           "category": "verbs",
-          "elision": false
+          "elision": false,
+          "german": "lieben, gern haben, mögen",
+          "type": "vocabulary",
+          "nameOfImage": "aimer_image.png"
         },
         {
           "canonical": "manger",
@@ -534,7 +720,10 @@
           "partOfSpeech": "verb",
           "genderOrPos": "verb",
           "category": "verbs",
-          "elision": false
+          "elision": false,
+          "german": "essen",
+          "type": "vocabulary",
+          "nameOfImage": "manger_image.png"
         },
         {
           "canonical": "couper",
@@ -542,7 +731,10 @@
           "partOfSpeech": "verb",
           "genderOrPos": "verb",
           "category": "verbs",
-          "elision": false
+          "elision": false,
+          "german": "schneiden",
+          "type": "vocabulary",
+          "nameOfImage": "couper_image.png"
         },
         {
           "canonical": "éplucher",
@@ -550,7 +742,10 @@
           "partOfSpeech": "verb",
           "genderOrPos": "verb",
           "category": "verbs",
-          "elision": false
+          "elision": false,
+          "german": "schälen",
+          "type": "vocabulary",
+          "nameOfImage": "eplucher_image.png"
         },
         {
           "canonical": "prendre",
@@ -558,7 +753,10 @@
           "partOfSpeech": "verb",
           "genderOrPos": "verb",
           "category": "verbs",
-          "elision": false
+          "elision": false,
+          "german": "nehmen",
+          "type": "vocabulary",
+          "nameOfImage": "prendre_image.png"
         },
         {
           "canonical": "mettre",
@@ -566,7 +764,10 @@
           "partOfSpeech": "verb",
           "genderOrPos": "verb",
           "category": "verbs",
-          "elision": false
+          "elision": false,
+          "german": "legen, stellen",
+          "type": "vocabulary",
+          "nameOfImage": "mettre_image.png"
         }
       ]
     },
@@ -581,7 +782,10 @@
           "partOfSpeech": "number",
           "genderOrPos": "number",
           "category": "numbers",
-          "elision": false
+          "elision": false,
+          "german": "null",
+          "type": "vocabulary",
+          "nameOfImage": "zero_image.png"
         },
         {
           "canonical": "un",
@@ -589,7 +793,10 @@
           "partOfSpeech": "number",
           "genderOrPos": "number",
           "category": "numbers",
-          "elision": false
+          "elision": false,
+          "german": "eins",
+          "type": "vocabulary",
+          "nameOfImage": "un_image.png"
         },
         {
           "canonical": "deux",
@@ -597,7 +804,10 @@
           "partOfSpeech": "number",
           "genderOrPos": "number",
           "category": "numbers",
-          "elision": false
+          "elision": false,
+          "german": "zwei",
+          "type": "vocabulary",
+          "nameOfImage": "deux_image.png"
         },
         {
           "canonical": "trois",
@@ -605,7 +815,10 @@
           "partOfSpeech": "number",
           "genderOrPos": "number",
           "category": "numbers",
-          "elision": false
+          "elision": false,
+          "german": "drei",
+          "type": "vocabulary",
+          "nameOfImage": "trois_image.png"
         },
         {
           "canonical": "quatre",
@@ -613,7 +826,10 @@
           "partOfSpeech": "number",
           "genderOrPos": "number",
           "category": "numbers",
-          "elision": false
+          "elision": false,
+          "german": "vier",
+          "type": "vocabulary",
+          "nameOfImage": "quatre_image.png"
         },
         {
           "canonical": "cinq",
@@ -621,7 +837,10 @@
           "partOfSpeech": "number",
           "genderOrPos": "number",
           "category": "numbers",
-          "elision": false
+          "elision": false,
+          "german": "fünf",
+          "type": "vocabulary",
+          "nameOfImage": "cinq_image.png"
         },
         {
           "canonical": "six",
@@ -629,7 +848,10 @@
           "partOfSpeech": "number",
           "genderOrPos": "number",
           "category": "numbers",
-          "elision": false
+          "elision": false,
+          "german": "sechs",
+          "type": "vocabulary",
+          "nameOfImage": "six_image.png"
         },
         {
           "canonical": "sept",
@@ -637,7 +859,10 @@
           "partOfSpeech": "number",
           "genderOrPos": "number",
           "category": "numbers",
-          "elision": false
+          "elision": false,
+          "german": "sieben",
+          "type": "vocabulary",
+          "nameOfImage": "sept_image.png"
         },
         {
           "canonical": "huit",
@@ -645,7 +870,10 @@
           "partOfSpeech": "number",
           "genderOrPos": "number",
           "category": "numbers",
-          "elision": false
+          "elision": false,
+          "german": "acht",
+          "type": "vocabulary",
+          "nameOfImage": "huit_image.png"
         },
         {
           "canonical": "neuf",
@@ -653,7 +881,10 @@
           "partOfSpeech": "number",
           "genderOrPos": "number",
           "category": "numbers",
-          "elision": false
+          "elision": false,
+          "german": "neun",
+          "type": "vocabulary",
+          "nameOfImage": "neuf_image.png"
         },
         {
           "canonical": "dix",
@@ -661,7 +892,10 @@
           "partOfSpeech": "number",
           "genderOrPos": "number",
           "category": "numbers",
-          "elision": false
+          "elision": false,
+          "german": "zehn",
+          "type": "vocabulary",
+          "nameOfImage": "dix_image.png"
         },
         {
           "canonical": "onze",
@@ -669,7 +903,10 @@
           "partOfSpeech": "number",
           "genderOrPos": "number",
           "category": "numbers",
-          "elision": false
+          "elision": false,
+          "german": "elf",
+          "type": "vocabulary",
+          "nameOfImage": "onze_image.png"
         },
         {
           "canonical": "douze",
@@ -677,7 +914,10 @@
           "partOfSpeech": "number",
           "genderOrPos": "number",
           "category": "numbers",
-          "elision": false
+          "elision": false,
+          "german": "zwölf",
+          "type": "vocabulary",
+          "nameOfImage": "douze_image.png"
         },
         {
           "canonical": "treize",
@@ -685,7 +925,10 @@
           "partOfSpeech": "number",
           "genderOrPos": "number",
           "category": "numbers",
-          "elision": false
+          "elision": false,
+          "german": "dreizehn",
+          "type": "vocabulary",
+          "nameOfImage": "treize_image.png"
         },
         {
           "canonical": "quatorze",
@@ -693,7 +936,10 @@
           "partOfSpeech": "number",
           "genderOrPos": "number",
           "category": "numbers",
-          "elision": false
+          "elision": false,
+          "german": "vierzehn",
+          "type": "vocabulary",
+          "nameOfImage": "quatorze_image.png"
         },
         {
           "canonical": "quinze",
@@ -701,7 +947,10 @@
           "partOfSpeech": "number",
           "genderOrPos": "number",
           "category": "numbers",
-          "elision": false
+          "elision": false,
+          "german": "fünfzehn",
+          "type": "vocabulary",
+          "nameOfImage": "quinze_image.png"
         },
         {
           "canonical": "seize",
@@ -709,7 +958,10 @@
           "partOfSpeech": "number",
           "genderOrPos": "number",
           "category": "numbers",
-          "elision": false
+          "elision": false,
+          "german": "sechzehn",
+          "type": "vocabulary",
+          "nameOfImage": "seize_image.png"
         },
         {
           "canonical": "dix-sept",
@@ -717,7 +969,10 @@
           "partOfSpeech": "number",
           "genderOrPos": "number",
           "category": "numbers",
-          "elision": false
+          "elision": false,
+          "german": "siebzehn",
+          "type": "vocabulary",
+          "nameOfImage": "dix-sept_image.png"
         },
         {
           "canonical": "dix-huit",
@@ -725,7 +980,10 @@
           "partOfSpeech": "number",
           "genderOrPos": "number",
           "category": "numbers",
-          "elision": false
+          "elision": false,
+          "german": "achtzehn",
+          "type": "vocabulary",
+          "nameOfImage": "dix-huit_image.png"
         },
         {
           "canonical": "dix-neuf",
@@ -733,7 +991,10 @@
           "partOfSpeech": "number",
           "genderOrPos": "number",
           "category": "numbers",
-          "elision": false
+          "elision": false,
+          "german": "neunzehn",
+          "type": "vocabulary",
+          "nameOfImage": "dix-neuf_image.png"
         },
         {
           "canonical": "vingt",
@@ -741,7 +1002,10 @@
           "partOfSpeech": "number",
           "genderOrPos": "number",
           "category": "numbers",
-          "elision": false
+          "elision": false,
+          "german": "zwanzig",
+          "type": "vocabulary",
+          "nameOfImage": "vingt_image.png"
         }
       ]
     }

@@ -1,0 +1,983 @@
+{
+  "id": "unite4",
+  "number": 4,
+  "title": "Au village",
+  "isUnlocked": true,
+  "requiredStars": 0,
+  "requiredGems": 0,
+  "sections": [
+    {
+      "id": "section4_1",
+      "name": "au village",
+      "orderIndex": 1,
+      "words": [
+        {
+          "canonical": "village",
+          "chinese": "村庄",
+          "german": "Dorf",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "places",
+          "elision": false,
+          "nameOfImage": "village_image.png"
+        },
+        {
+          "canonical": "rue",
+          "chinese": "街道",
+          "german": "Straße",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "places",
+          "elision": false,
+          "nameOfImage": "rue_image.png"
+        },
+        {
+          "canonical": "trottoir",
+          "chinese": "人行道",
+          "german": "Bürgersteig",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "places",
+          "elision": false,
+          "nameOfImage": "trottoir_image.png"
+        },
+        {
+          "canonical": "coin",
+          "chinese": "角落",
+          "german": "Ecke",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "places",
+          "elision": false,
+          "nameOfImage": "coin_image.png"
+        },
+        {
+          "canonical": "chemin",
+          "chinese": "小路",
+          "german": "Weg",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "places",
+          "elision": false,
+          "nameOfImage": "chemin_image.png"
+        },
+        {
+          "canonical": "arrêt de bus",
+          "chinese": "公交车站",
+          "german": "Bushaltestelle",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "places",
+          "elision": true,
+          "nameOfImage": "arrêt_de_bus_image.png"
+        },
+        {
+          "canonical": "aire de jeux",
+          "chinese": "游乐场",
+          "german": "Spielplatz",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "places",
+          "elision": true,
+          "nameOfImage": "aire_de_jeux_image.png"
+        },
+        {
+          "canonical": "feu rouge",
+          "chinese": "红绿灯",
+          "german": "Ampel",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "places",
+          "elision": false,
+          "nameOfImage": "feu_rouge_image.png"
+        },
+        {
+          "canonical": "parc",
+          "chinese": "公园",
+          "german": "Park",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "places",
+          "elision": false,
+          "nameOfImage": "parc_image.png"
+        }
+      ]
+    },
+    {
+      "id": "section4_2",
+      "name": "les bâtiments",
+      "orderIndex": 2,
+      "words": [
+        {
+          "canonical": "boulangerie",
+          "chinese": "面包店",
+          "german": "Bäckerei",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "buildings",
+          "elision": false,
+          "nameOfImage": "boulangerie_image.png"
+        },
+        {
+          "canonical": "boucherie",
+          "chinese": "肉店",
+          "german": "Metzgerei",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "buildings",
+          "elision": false,
+          "nameOfImage": "boucherie_image.png"
+        },
+        {
+          "canonical": "librairie",
+          "chinese": "书店",
+          "german": "Bücherladen",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "buildings",
+          "elision": false,
+          "nameOfImage": "librairie_image.png"
+        },
+        {
+          "canonical": "supermarché",
+          "chinese": "超市",
+          "german": "Supermarkt",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "buildings",
+          "elision": false,
+          "nameOfImage": "supermarché_image.png"
+        },
+        {
+          "canonical": "bibliothèque",
+          "chinese": "图书馆",
+          "german": "Bibliothek",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "buildings",
+          "elision": false,
+          "nameOfImage": "bibliothèque_image.png"
+        },
+        {
+          "canonical": "cinéma",
+          "chinese": "电影院",
+          "german": "Kino",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "buildings",
+          "elision": false,
+          "nameOfImage": "cinéma_image.png"
+        },
+        {
+          "canonical": "pharmacie",
+          "chinese": "药店",
+          "german": "Apotheke",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "buildings",
+          "elision": false,
+          "nameOfImage": "pharmacie_image.png"
+        },
+        {
+          "canonical": "marché",
+          "chinese": "市场",
+          "german": "Markt",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "buildings",
+          "elision": false,
+          "nameOfImage": "marché_image.png"
+        },
+        {
+          "canonical": "restaurant",
+          "chinese": "餐厅",
+          "german": "Restaurant",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "buildings",
+          "elision": false,
+          "nameOfImage": "restaurant_image.png"
+        },
+        {
+          "canonical": "gare",
+          "chinese": "火车站",
+          "german": "Bahnhof",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "buildings",
+          "elision": false,
+          "nameOfImage": "gare_image.png"
+        },
+        {
+          "canonical": "maison",
+          "chinese": "房子",
+          "german": "Haus",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "buildings",
+          "elision": false,
+          "nameOfImage": "maison_image.png"
+        },
+        {
+          "canonical": "appartement",
+          "chinese": "公寓",
+          "german": "Wohnung",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "buildings",
+          "elision": true,
+          "nameOfImage": "appartement_image.png"
+        },
+        {
+          "canonical": "musée",
+          "chinese": "博物馆",
+          "german": "Museum",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "buildings",
+          "elision": false,
+          "nameOfImage": "musée_image.png"
+        },
+        {
+          "canonical": "école",
+          "chinese": "学校",
+          "german": "Schule",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "buildings",
+          "elision": true,
+          "nameOfImage": "école_image.png"
+        },
+        {
+          "canonical": "café",
+          "chinese": "咖啡馆",
+          "german": "Café",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "buildings",
+          "elision": false,
+          "nameOfImage": "café_image.png"
+        },
+        {
+          "canonical": "magasin de jouets",
+          "chinese": "玩具店",
+          "german": "Spielwarenladen",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "buildings",
+          "elision": false,
+          "nameOfImage": "magasin_de_jouets_image.png"
+        },
+        {
+          "canonical": "magasin de vêtements",
+          "chinese": "服装店",
+          "german": "Bekleidungsladen",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "buildings",
+          "elision": false,
+          "nameOfImage": "magasin_de_vêtements_image.png"
+        },
+        {
+          "canonical": "magasin de chaussures",
+          "chinese": "鞋店",
+          "german": "Schuhladen",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "buildings",
+          "elision": false,
+          "nameOfImage": "magasin_de_chaussures_image.png"
+        }
+      ]
+    },
+    {
+      "id": "section4_3",
+      "name": "les moyens de transport",
+      "orderIndex": 3,
+      "words": [
+        {
+          "canonical": "vélo",
+          "chinese": "自行车",
+          "german": "Fahrrad",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "transportation",
+          "elision": false,
+          "nameOfImage": "vélo_image.png"
+        },
+        {
+          "canonical": "trottinette",
+          "chinese": "滑板车",
+          "german": "Roller",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "transportation",
+          "elision": false,
+          "nameOfImage": "trottinette_image.png"
+        },
+        {
+          "canonical": "moto",
+          "chinese": "摩托车",
+          "german": "Motorrad",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "transportation",
+          "elision": false,
+          "nameOfImage": "moto_image.png"
+        },
+        {
+          "canonical": "train",
+          "chinese": "火车",
+          "german": "Zug",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "transportation",
+          "elision": false,
+          "nameOfImage": "train_image.png"
+        },
+        {
+          "canonical": "locomotive",
+          "chinese": "火车头",
+          "german": "Lokomotive",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "transportation",
+          "elision": false,
+          "nameOfImage": "locomotive_image.png"
+        },
+        {
+          "canonical": "voiture",
+          "chinese": "汽车",
+          "german": "Auto",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "transportation",
+          "elision": false,
+          "nameOfImage": "voiture_image.png"
+        },
+        {
+          "canonical": "bus",
+          "chinese": "公共汽车",
+          "german": "Bus",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "transportation",
+          "elision": false,
+          "nameOfImage": "bus_image.png"
+        },
+        {
+          "canonical": "aller à pied",
+          "chinese": "步行",
+          "german": "zu Fuß gehen",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "transportation",
+          "elision": false,
+          "nameOfImage": "aller_à_pied_image.png"
+        },
+        {
+          "canonical": "avion",
+          "chinese": "飞机",
+          "german": "Flugzeug",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "transportation",
+          "elision": true,
+          "nameOfImage": "avion_image.png"
+        }
+      ]
+    },
+    {
+      "id": "section4_4",
+      "name": "les directions",
+      "orderIndex": 4,
+      "words": [
+        {
+          "canonical": "avancer",
+          "chinese": "直走",
+          "german": "geradeaus gehen",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "directions",
+          "elision": false,
+          "nameOfImage": "avancer_image.png"
+        },
+        {
+          "canonical": "traverser",
+          "chinese": "穿过",
+          "german": "überqueren",
+          "type": "vocabulary",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "directions",
+          "elision": false,
+          "nameOfImage": "traverser_image.png"
+        },
+        {
+          "canonical": "tourner à gauche",
+          "chinese": "向左转",
+          "german": "nach links gehen",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "directions",
+          "elision": false,
+          "nameOfImage": "tourner_à_gauche_image.png"
+        },
+        {
+          "canonical": "tourner à droite",
+          "chinese": "向右转",
+          "german": "nach rechts gehen",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "directions",
+          "elision": false,
+          "nameOfImage": "tourner_à_droite_image.png"
+        },
+        {
+          "canonical": "passer devant",
+          "chinese": "经过",
+          "german": "an etwas vorbeigehen",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "directions",
+          "elision": false,
+          "nameOfImage": "passer_devant_image.png"
+        },
+        {
+          "canonical": "aller jusqu'à",
+          "chinese": "走到",
+          "german": "bis zum/zur ... gehen",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "directions",
+          "elision": false,
+          "nameOfImage": "aller_jusqu'à_image.png"
+        },
+        {
+          "canonical": "être à côté de",
+          "chinese": "在...旁边",
+          "german": "neben der/dem ... sein",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "directions",
+          "elision": true,
+          "nameOfImage": "être_à_côté_de_image.png"
+        }
+      ]
+    },
+    {
+      "id": "section4_5",
+      "name": "les verbes",
+      "orderIndex": 5,
+      "words": [
+        {
+          "canonical": "aller",
+          "chinese": "去",
+          "german": "gehen",
+          "type": "vocabulary",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false,
+          "nameOfImage": "aller_image.png"
+        },
+        {
+          "canonical": "faire",
+          "chinese": "做",
+          "german": "machen",
+          "type": "vocabulary",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false,
+          "nameOfImage": "faire_image.png"
+        },
+        {
+          "canonical": "mettre",
+          "chinese": "放",
+          "german": "legen, stellen",
+          "type": "vocabulary",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false,
+          "nameOfImage": "mettre_image.png"
+        },
+        {
+          "canonical": "prendre",
+          "chinese": "拿",
+          "german": "nehmen",
+          "type": "vocabulary",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false,
+          "nameOfImage": "prendre_image.png"
+        }
+      ]
+    },
+    {
+      "id": "section4_6",
+      "name": "les adjectifs",
+      "orderIndex": 6,
+      "words": [
+        {
+          "canonical": "grand",
+          "chinese": "大的",
+          "german": "groß",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "adjectives",
+          "elision": false,
+          "nameOfImage": "grand_image.png"
+        },
+        {
+          "canonical": "petit",
+          "chinese": "小的",
+          "german": "klein",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "adjectives",
+          "elision": false,
+          "nameOfImage": "petit_image.png"
+        },
+        {
+          "canonical": "froid",
+          "chinese": "冷的",
+          "german": "kalt",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "adjectives",
+          "elision": false,
+          "nameOfImage": "froid_image.png"
+        },
+        {
+          "canonical": "chaud",
+          "chinese": "热的",
+          "german": "warm",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "adjectives",
+          "elision": false,
+          "nameOfImage": "chaud_image.png"
+        },
+        {
+          "canonical": "sucré",
+          "chinese": "甜的",
+          "german": "süß",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "adjectives",
+          "elision": false,
+          "nameOfImage": "sucré_image.png"
+        },
+        {
+          "canonical": "content",
+          "chinese": "高兴的",
+          "german": "froh",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "adjectives",
+          "elision": false,
+          "nameOfImage": "content_image.png"
+        },
+        {
+          "canonical": "joli",
+          "chinese": "漂亮的",
+          "german": "hübsch",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "adjectives",
+          "elision": false,
+          "nameOfImage": "joli_image.png"
+        },
+        {
+          "canonical": "préféré",
+          "chinese": "最喜欢的",
+          "german": "bevorzugt",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "adjectives",
+          "elision": false,
+          "nameOfImage": "préféré_image.png"
+        },
+        {
+          "canonical": "bleu",
+          "chinese": "蓝色的",
+          "german": "blau",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "colors",
+          "elision": false,
+          "nameOfImage": "bleu_image.png"
+        },
+        {
+          "canonical": "noir",
+          "chinese": "黑色的",
+          "german": "schwarz",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "colors",
+          "elision": false,
+          "nameOfImage": "noir_image.png"
+        },
+        {
+          "canonical": "blanc",
+          "chinese": "白色的",
+          "german": "weiß",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "colors",
+          "elision": false,
+          "nameOfImage": "blanc_image.png"
+        },
+        {
+          "canonical": "mauve",
+          "chinese": "紫色的",
+          "german": "violett",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "colors",
+          "elision": false,
+          "nameOfImage": "mauve_image.png"
+        },
+        {
+          "canonical": "rose",
+          "chinese": "粉色的",
+          "german": "rosa",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "colors",
+          "elision": false,
+          "nameOfImage": "rose_image.png"
+        },
+        {
+          "canonical": "jaune",
+          "chinese": "黄色的",
+          "german": "gelb",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "colors",
+          "elision": false,
+          "nameOfImage": "jaune_image.png"
+        },
+        {
+          "canonical": "orange",
+          "chinese": "橙色的",
+          "german": "orange",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "colors",
+          "elision": false,
+          "nameOfImage": "orange_image.png"
+        },
+        {
+          "canonical": "rouge",
+          "chinese": "红色的",
+          "german": "rot",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "colors",
+          "elision": false,
+          "nameOfImage": "rouge_image.png"
+        },
+        {
+          "canonical": "énorme",
+          "chinese": "巨大的",
+          "german": "enorm, riesig",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "adjectives",
+          "elision": true,
+          "nameOfImage": "énorme_image.png"
+        },
+        {
+          "canonical": "triste",
+          "chinese": "悲伤的",
+          "german": "traurig",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "adjectives",
+          "elision": false,
+          "nameOfImage": "triste_image.png"
+        },
+        {
+          "canonical": "génial",
+          "chinese": "很棒的",
+          "german": "genial, super",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "adjectives",
+          "elision": false,
+          "nameOfImage": "génial_image.png"
+        },
+        {
+          "canonical": "gris",
+          "chinese": "灰色的",
+          "german": "grau",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "colors",
+          "elision": false,
+          "nameOfImage": "gris_image.png"
+        },
+        {
+          "canonical": "brun",
+          "chinese": "棕色的",
+          "german": "braun",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "colors",
+          "elision": false,
+          "nameOfImage": "brun_image.png"
+        },
+        {
+          "canonical": "vert",
+          "chinese": "绿色的",
+          "german": "grün",
+          "type": "vocabulary",
+          "partOfSpeech": "adjective",
+          "genderOrPos": "adjective",
+          "category": "colors",
+          "elision": false,
+          "nameOfImage": "vert_image.png"
+        }
+      ]
+    },
+    {
+      "id": "section4_7",
+      "name": "les expressions avec le verbe « faire »",
+      "orderIndex": 7,
+      "words": [
+        {
+          "canonical": "faire un gâteau",
+          "chinese": "做蛋糕",
+          "german": "einen Kuchen backen",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "expressions",
+          "elision": false,
+          "nameOfImage": "faire_un_gâteau_image.png"
+        },
+        {
+          "canonical": "faire une liste",
+          "chinese": "列清单",
+          "german": "eine Liste schreiben",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "expressions",
+          "elision": false,
+          "nameOfImage": "faire_une_liste_image.png"
+        },
+        {
+          "canonical": "faire pipi",
+          "chinese": "上厕所",
+          "german": "Pipi machen, pinkeln",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "expressions",
+          "elision": false,
+          "nameOfImage": "faire_pipi_image.png"
+        },
+        {
+          "canonical": "faire le cochon",
+          "chinese": "做傻事",
+          "german": "Dummheiten machen",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "expressions",
+          "elision": false,
+          "nameOfImage": "faire_le_cochon_image.png"
+        },
+        {
+          "canonical": "faire du vélo",
+          "chinese": "骑自行车",
+          "german": "Fahrrad fahren",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "expressions",
+          "elision": false,
+          "nameOfImage": "faire_du_vélo_image.png"
+        },
+        {
+          "canonical": "faire de la trottinette",
+          "chinese": "骑滑板车",
+          "german": "Roller fahren",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "expressions",
+          "elision": false,
+          "nameOfImage": "faire_de_la_trottinette_image.png"
+        },
+        {
+          "canonical": "faire ses devoirs",
+          "chinese": "做作业",
+          "german": "seine Hausaufgaben machen, seine Aufgaben machen",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "expressions",
+          "elision": false,
+          "nameOfImage": "faire_ses_devoirs_image.png"
+        },
+        {
+          "canonical": "faire du foot",
+          "chinese": "踢足球",
+          "german": "Fußball spielen",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "expressions",
+          "elision": false,
+          "nameOfImage": "faire_du_foot_image.png"
+        },
+        {
+          "canonical": "faire les courses",
+          "chinese": "购物",
+          "german": "die Einkäufe machen, einkaufen gehen",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "expressions",
+          "elision": false,
+          "nameOfImage": "faire_les_courses_image.png"
+        },
+        {
+          "canonical": "faire sa valise",
+          "chinese": "打包行李",
+          "german": "seinen Koffer packen",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "expressions",
+          "elision": false,
+          "nameOfImage": "faire_sa_valise_image.png"
+        },
+        {
+          "canonical": "faire un tour de magie",
+          "chinese": "变魔术",
+          "german": "einen Zaubertrick machen",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "expressions",
+          "elision": false,
+          "nameOfImage": "faire_un_tour_de_magie_image.png"
+        },
+        {
+          "canonical": "faire son lit",
+          "chinese": "铺床",
+          "german": "sein Bett machen",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "expressions",
+          "elision": false,
+          "nameOfImage": "faire_son_lit_image.png"
+        },
+        {
+          "canonical": "faire la vaisselle",
+          "chinese": "洗碗",
+          "german": "den Abwasch machen, spülen",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "expressions",
+          "elision": false,
+          "nameOfImage": "faire_la_vaisselle_image.png"
+        },
+        {
+          "canonical": "faire la queue",
+          "chinese": "排队",
+          "german": "Schlange stehen",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "expressions",
+          "elision": false,
+          "nameOfImage": "faire_la_queue_image.png"
+        },
+        {
+          "canonical": "faire un dessin",
+          "chinese": "画画",
+          "german": "ein Bild malen",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "expressions",
+          "elision": false,
+          "nameOfImage": "faire_un_dessin_image.png"
+        }
+      ]
+    }
+  ]
+}

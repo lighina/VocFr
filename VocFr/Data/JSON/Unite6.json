@@ -1,0 +1,803 @@
+{
+  "id": "unite6",
+  "number": 6,
+  "title": "En colonie",
+  "isUnlocked": true,
+  "requiredStars": 0,
+  "requiredGems": 0,
+  "sections": [
+    {
+      "id": "section6_1",
+      "name": "la colonie de vacances",
+      "orderIndex": 1,
+      "words": [
+        {
+          "canonical": "colonie de vacances",
+          "chinese": "夏令营",
+          "german": "Sommercamp",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "camp",
+          "elision": false,
+          "nameOfImage": "colonie_de_vacances_image.png"
+        },
+        {
+          "canonical": "auberge",
+          "chinese": "青年旅社",
+          "german": "Jugendherberge",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "camp",
+          "elision": true,
+          "nameOfImage": "auberge_image.png"
+        },
+        {
+          "canonical": "dortoir",
+          "chinese": "宿舍",
+          "german": "Schlafsaal",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "camp",
+          "elision": false,
+          "nameOfImage": "dortoir_image.png"
+        },
+        {
+          "canonical": "vestiaire",
+          "chinese": "更衣室",
+          "german": "Umkleideraum",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "camp",
+          "elision": false,
+          "nameOfImage": "vestiaire_image.png"
+        },
+        {
+          "canonical": "moniteur",
+          "chinese": "男辅导员",
+          "german": "Betreuer",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "people",
+          "elision": false,
+          "nameOfImage": "moniteur_image.png"
+        },
+        {
+          "canonical": "monitrice",
+          "chinese": "女辅导员",
+          "german": "Betreuerin",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "people",
+          "elision": false,
+          "nameOfImage": "monitrice_image.png"
+        },
+        {
+          "canonical": "cheval",
+          "chinese": "马",
+          "german": "Pferd",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "animals",
+          "elision": false,
+          "nameOfImage": "cheval_image.png"
+        }
+      ]
+    },
+    {
+      "id": "section6_2",
+      "name": "les alentours",
+      "orderIndex": 2,
+      "words": [
+        {
+          "canonical": "lac",
+          "chinese": "湖",
+          "german": "See",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "nature",
+          "elision": false,
+          "nameOfImage": "lac_image.png"
+        },
+        {
+          "canonical": "forêt",
+          "chinese": "森林",
+          "german": "Wald",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "nature",
+          "elision": false,
+          "nameOfImage": "forêt_image.png"
+        },
+        {
+          "canonical": "grotte",
+          "chinese": "洞穴",
+          "german": "Höhle",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "nature",
+          "elision": false,
+          "nameOfImage": "grotte_image.png"
+        },
+        {
+          "canonical": "château",
+          "chinese": "城堡",
+          "german": "Schloss",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "buildings",
+          "elision": false,
+          "nameOfImage": "château_image.png"
+        },
+        {
+          "canonical": "chemin",
+          "chinese": "小路",
+          "german": "Weg",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "nature",
+          "elision": false,
+          "nameOfImage": "chemin_image.png"
+        },
+        {
+          "canonical": "plage",
+          "chinese": "海滩",
+          "german": "Strand",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "nature",
+          "elision": false,
+          "nameOfImage": "plage_image.png"
+        },
+        {
+          "canonical": "mer",
+          "chinese": "海",
+          "german": "Meer",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "nature",
+          "elision": false,
+          "nameOfImage": "mer_image.png"
+        }
+      ]
+    },
+    {
+      "id": "section6_3",
+      "name": "les accessoires",
+      "orderIndex": 3,
+      "words": [
+        {
+          "canonical": "sac à dos",
+          "chinese": "背包",
+          "german": "Rucksack",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "accessories",
+          "elision": false,
+          "nameOfImage": "sac_à_dos_image.png"
+        },
+        {
+          "canonical": "gourde",
+          "chinese": "水壶",
+          "german": "Trinkflasche",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "accessories",
+          "elision": false,
+          "nameOfImage": "gourde_image.png"
+        },
+        {
+          "canonical": "casque",
+          "chinese": "头盔",
+          "german": "Helm",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "accessories",
+          "elision": false,
+          "nameOfImage": "casque_image.png"
+        },
+        {
+          "canonical": "lampe de poche",
+          "chinese": "手电筒",
+          "german": "Taschenlampe",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "accessories",
+          "elision": false,
+          "nameOfImage": "lampe_de_poche_image.png"
+        },
+        {
+          "canonical": "crème solaire",
+          "chinese": "防晒霜",
+          "german": "Sonnencreme",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "accessories",
+          "elision": false,
+          "nameOfImage": "crème_solaire_image.png"
+        },
+        {
+          "canonical": "appareil photo",
+          "chinese": "相机",
+          "german": "Fotoapparat",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "accessories",
+          "elision": true,
+          "nameOfImage": "appareil_photo_image.png"
+        },
+        {
+          "canonical": "brosse à cheveux",
+          "chinese": "梳子",
+          "german": "Haarbürste",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "accessories",
+          "elision": false,
+          "nameOfImage": "brosse_à_cheveux_image.png"
+        },
+        {
+          "canonical": "brosse à dents",
+          "chinese": "牙刷",
+          "german": "Zahnbürste",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "accessories",
+          "elision": false,
+          "nameOfImage": "brosse_à_dents_image.png"
+        },
+        {
+          "canonical": "dentifrice",
+          "chinese": "牙膏",
+          "german": "Zahnpasta",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "accessories",
+          "elision": false,
+          "nameOfImage": "dentifrice_image.png"
+        },
+        {
+          "canonical": "savon",
+          "chinese": "肥皂",
+          "german": "Seife",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "accessories",
+          "elision": false,
+          "nameOfImage": "savon_image.png"
+        },
+        {
+          "canonical": "lunettes de soleil",
+          "chinese": "太阳镜",
+          "german": "Sonnenbrille",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "accessories",
+          "elision": false,
+          "nameOfImage": "lunettes_de_soleil_image.png"
+        },
+        {
+          "canonical": "lunettes",
+          "chinese": "眼镜",
+          "german": "Brille",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "accessories",
+          "elision": false,
+          "nameOfImage": "lunettes_image.png"
+        },
+        {
+          "canonical": "shampooing",
+          "chinese": "洗发水",
+          "german": "Schampoo",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "accessories",
+          "elision": false,
+          "nameOfImage": "shampooing_image.png"
+        },
+        {
+          "canonical": "serviette de bain",
+          "chinese": "浴巾",
+          "german": "Badetuch",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "accessories",
+          "elision": false,
+          "nameOfImage": "serviette_de_bain_image.png"
+        }
+      ]
+    },
+    {
+      "id": "section6_4",
+      "name": "les vêtements",
+      "orderIndex": 4,
+      "words": [
+        {
+          "canonical": "short",
+          "chinese": "短裤",
+          "german": "Shorts, kurze Hose",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "clothing",
+          "elision": false,
+          "nameOfImage": "short_image.png"
+        },
+        {
+          "canonical": "t-shirt",
+          "chinese": "T恤",
+          "german": "T-shirt",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "clothing",
+          "elision": false,
+          "nameOfImage": "t-shirt_image.png"
+        },
+        {
+          "canonical": "pantalon",
+          "chinese": "裤子",
+          "german": "Hose",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "clothing",
+          "elision": false,
+          "nameOfImage": "pantalon_image.png"
+        },
+        {
+          "canonical": "casquette",
+          "chinese": "鸭舌帽",
+          "german": "Schirmmütze",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "clothing",
+          "elision": false,
+          "nameOfImage": "casquette_image.png"
+        },
+        {
+          "canonical": "veste",
+          "chinese": "夹克",
+          "german": "Jacke",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "clothing",
+          "elision": false,
+          "nameOfImage": "veste_image.png"
+        },
+        {
+          "canonical": "slip",
+          "chinese": "内裤",
+          "german": "Unterhose",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "clothing",
+          "elision": false,
+          "nameOfImage": "slip_image.png"
+        },
+        {
+          "canonical": "maillot de bain",
+          "chinese": "泳衣",
+          "german": "Badeanzug",
+          "type": "expression",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "clothing",
+          "elision": false,
+          "nameOfImage": "maillot_de_bain_image.png"
+        },
+        {
+          "canonical": "chapeau",
+          "chinese": "帽子",
+          "german": "Hut",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "clothing",
+          "elision": false,
+          "nameOfImage": "chapeau_image.png"
+        },
+        {
+          "canonical": "chaussettes",
+          "chinese": "袜子",
+          "german": "Socken",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "clothing",
+          "elision": false,
+          "nameOfImage": "chaussettes_image.png"
+        },
+        {
+          "canonical": "chaussures",
+          "chinese": "鞋子",
+          "german": "Schuhe",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "clothing",
+          "elision": false,
+          "nameOfImage": "chaussures_image.png"
+        },
+        {
+          "canonical": "baskets",
+          "chinese": "运动鞋",
+          "german": "Turnschuhe",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "clothing",
+          "elision": false,
+          "nameOfImage": "baskets_image.png"
+        },
+        {
+          "canonical": "bottes",
+          "chinese": "靴子",
+          "german": "Stiefel",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "clothing",
+          "elision": false,
+          "nameOfImage": "bottes_image.png"
+        },
+        {
+          "canonical": "sandales",
+          "chinese": "凉鞋",
+          "german": "Sandalen",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "clothing",
+          "elision": false,
+          "nameOfImage": "sandales_image.png"
+        },
+        {
+          "canonical": "pullover",
+          "chinese": "毛衣",
+          "german": "Pullover",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "clothing",
+          "elision": false,
+          "nameOfImage": "pullover_image.png"
+        },
+        {
+          "canonical": "pyjama",
+          "chinese": "睡衣",
+          "german": "Pyjama",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "clothing",
+          "elision": false,
+          "nameOfImage": "pyjama_image.png"
+        }
+      ]
+    },
+    {
+      "id": "section6_5",
+      "name": "voler",
+      "orderIndex": 5,
+      "words": [
+        {
+          "canonical": "fusée",
+          "chinese": "火箭",
+          "german": "Rakete",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "feminine",
+          "category": "flying",
+          "elision": false,
+          "nameOfImage": "fusée_image.png"
+        },
+        {
+          "canonical": "avion",
+          "chinese": "飞机",
+          "german": "Flugzeug",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "flying",
+          "elision": true,
+          "nameOfImage": "avion_image.png"
+        },
+        {
+          "canonical": "soleil",
+          "chinese": "太阳",
+          "german": "Sonne",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "nature",
+          "elision": false,
+          "nameOfImage": "soleil_image.png"
+        },
+        {
+          "canonical": "nuage",
+          "chinese": "云",
+          "german": "Wolke",
+          "type": "vocabulary",
+          "partOfSpeech": "noun",
+          "genderOrPos": "masculine",
+          "category": "nature",
+          "elision": false,
+          "nameOfImage": "nuage_image.png"
+        },
+        {
+          "canonical": "voler",
+          "chinese": "飞",
+          "german": "fliegen",
+          "type": "vocabulary",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false,
+          "nameOfImage": "voler_image.png"
+        }
+      ]
+    },
+    {
+      "id": "section6_6",
+      "name": "les expressions avec le verbe « faire »",
+      "orderIndex": 6,
+      "words": [
+        {
+          "canonical": "faire du cheval",
+          "chinese": "骑马",
+          "german": "reiten",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "expressions",
+          "elision": false,
+          "nameOfImage": "faire_du_cheval_image.png"
+        },
+        {
+          "canonical": "faire une excursion",
+          "chinese": "远足",
+          "german": "einen Ausflug machen",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "expressions",
+          "elision": false,
+          "nameOfImage": "faire_une_excursion_image.png"
+        },
+        {
+          "canonical": "faire une visite",
+          "chinese": "参观",
+          "german": "eine Besichtigung machen",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "expressions",
+          "elision": false,
+          "nameOfImage": "faire_une_visite_image.png"
+        },
+        {
+          "canonical": "faire de l'escalade",
+          "chinese": "攀岩",
+          "german": "klettern",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "expressions",
+          "elision": false,
+          "nameOfImage": "faire_de_l'escalade_image.png"
+        },
+        {
+          "canonical": "faire du pédalo",
+          "chinese": "踩脚踏船",
+          "german": "mit dem Pedalo fahren",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "expressions",
+          "elision": false,
+          "nameOfImage": "faire_du_pédalo_image.png"
+        },
+        {
+          "canonical": "faire sa valise",
+          "chinese": "打包行李",
+          "german": "seinen Koffer packen",
+          "type": "expression",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "expressions",
+          "elision": false,
+          "nameOfImage": "faire_sa_valise_image.png"
+        }
+      ]
+    },
+    {
+      "id": "section6_7",
+      "name": "les verbes",
+      "orderIndex": 7,
+      "words": [
+        {
+          "canonical": "attendre",
+          "chinese": "等待",
+          "german": "warten",
+          "type": "vocabulary",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false,
+          "nameOfImage": "attendre_image.png"
+        },
+        {
+          "canonical": "descendre",
+          "chinese": "下来",
+          "german": "hinuntergehen, herunterkommen, absteigen, aussteigen",
+          "type": "vocabulary",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false,
+          "nameOfImage": "descendre_image.png"
+        },
+        {
+          "canonical": "nager",
+          "chinese": "游泳",
+          "german": "schwimmen",
+          "type": "vocabulary",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false,
+          "nameOfImage": "nager_image.png"
+        },
+        {
+          "canonical": "demander",
+          "chinese": "询问",
+          "german": "fragen",
+          "type": "vocabulary",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false,
+          "nameOfImage": "demander_image.png"
+        },
+        {
+          "canonical": "marcher",
+          "chinese": "走路",
+          "german": "gehen",
+          "type": "vocabulary",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false,
+          "nameOfImage": "marcher_image.png"
+        },
+        {
+          "canonical": "décider",
+          "chinese": "决定",
+          "german": "entscheiden",
+          "type": "vocabulary",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false,
+          "nameOfImage": "décider_image.png"
+        },
+        {
+          "canonical": "rigoler",
+          "chinese": "笑",
+          "german": "lachen",
+          "type": "vocabulary",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false,
+          "nameOfImage": "rigoler_image.png"
+        },
+        {
+          "canonical": "visiter",
+          "chinese": "参观",
+          "german": "besuchen, besichtigen",
+          "type": "vocabulary",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false,
+          "nameOfImage": "visiter_image.png"
+        },
+        {
+          "canonical": "crier",
+          "chinese": "叫喊",
+          "german": "schreien",
+          "type": "vocabulary",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false,
+          "nameOfImage": "crier_image.png"
+        },
+        {
+          "canonical": "rentrer",
+          "chinese": "回家",
+          "german": "nach Hause gehen, nach Hause kommen",
+          "type": "vocabulary",
+          "partOfSpeech": "verb",
+          "genderOrPos": "verb",
+          "category": "verbs",
+          "elision": false,
+          "nameOfImage": "rentrer_image.png"
+        }
+      ]
+    },
+    {
+      "id": "section6_8",
+      "name": "autres vocables",
+      "orderIndex": 8,
+      "words": [
+        {
+          "canonical": "parce que",
+          "chinese": "因为",
+          "german": "weil",
+          "type": "expression",
+          "partOfSpeech": "conjunction",
+          "genderOrPos": "conjunction",
+          "category": "conjunctions",
+          "elision": false,
+          "nameOfImage": "parce_que_image.png"
+        },
+        {
+          "canonical": "d'abord",
+          "chinese": "首先",
+          "german": "zuerst",
+          "type": "expression",
+          "partOfSpeech": "adverb",
+          "genderOrPos": "adverb",
+          "category": "adverbs",
+          "elision": false,
+          "nameOfImage": "d'abord_image.png"
+        },
+        {
+          "canonical": "ensuite",
+          "chinese": "然后",
+          "german": "dann",
+          "type": "vocabulary",
+          "partOfSpeech": "adverb",
+          "genderOrPos": "adverb",
+          "category": "adverbs",
+          "elision": false,
+          "nameOfImage": "ensuite_image.png"
+        }
+      ]
+    }
+  ]
+}
