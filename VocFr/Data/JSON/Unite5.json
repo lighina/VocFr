@@ -2,7 +2,7 @@
   "id": "unite5",
   "number": 5,
   "title": "À table",
-  "isUnlocked": true,
+  "isUnlocked": false,
   "requiredStars": 4000,
   "requiredGems": 200,
   "sections": [

@@ -2,7 +2,7 @@
   "id": "unite6",
   "number": 6,
   "title": "En colonie",
-  "isUnlocked": true,
+  "isUnlocked": false,
   "requiredStars": 5000,
   "requiredGems": 200,
   "sections": [

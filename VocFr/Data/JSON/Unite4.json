@@ -2,7 +2,7 @@
   "id": "unite4",
   "number": 4,
   "title": "Au village",
-  "isUnlocked": true,
+  "isUnlocked": false,
   "requiredStars": 3000,
   "requiredGems": 200,
   "sections": [
