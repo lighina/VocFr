@@ -10,16 +10,42 @@ class FrenchVocabularySeeder {
         let existingUnitesDescriptor = FetchDescriptor<Unite>()
         let existingUnites = try modelContext.fetch(existingUnitesDescriptor)
 
+        // Clean up duplicate unites (keep only the first occurrence of each number)
+        if !existingUnites.isEmpty {
+            var seenNumbers = Set<Int>()
+            var duplicates: [Unite] = []
+
+            for unite in existingUnites.sorted(by: { $0.number < $1.number }) {
+                if seenNumbers.contains(unite.number) {
+                    duplicates.append(unite)
+                } else {
+                    seenNumbers.insert(unite.number)
+                }
+            }
+
+            if !duplicates.isEmpty {
+                print("🧹 Cleaning up \(duplicates.count) duplicate unités...")
+                for duplicate in duplicates {
+                    modelContext.delete(duplicate)
+                }
+                try modelContext.save()
+                print("✅ Removed duplicate unités")
+            }
+        }
+
+        // Refresh existing unites after cleanup
+        let refreshedUnites = try modelContext.fetch(existingUnitesDescriptor)
+
         // Load vocabulary data from JSON
         print("📖 Loading vocabulary data from JSON...")
         let unitesFromJSON = try VocabularyDataLoader.loadVocabularyData()
         print("✅ Successfully loaded \(unitesFromJSON.count) unités from JSON")
 
-        if !existingUnites.isEmpty {
-            print("⚠️ Found \(existingUnites.count) existing unités in database.")
+        if !refreshedUnites.isEmpty {
+            print("⚠️ Found \(refreshedUnites.count) existing unités in database.")
 
             // Check for missing unites
-            let existingUniteNumbers = Set(existingUnites.map { $0.number })
+            let existingUniteNumbers = Set(refreshedUnites.map { $0.number })
             let missingUnites = unitesFromJSON.filter { !existingUniteNumbers.contains($0.number) }
 
             if !missingUnites.isEmpty {
