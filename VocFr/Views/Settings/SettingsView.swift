@@ -49,7 +49,7 @@ struct SettingsView: View {
                 }
 
                 // Debug section (cheat codes)
-                SwiftUI.Section("Debug") {
+                SwiftUI.Section {
                     HStack {
                         TextField("Enter cheat code", text: $cheatCode)
                             .textFieldStyle(.roundedBorder)
