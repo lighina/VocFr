@@ -4,6 +4,13 @@
 
 本指南介绍如何使用 OpenAI DALL-E API 为法语词汇自动生成教育插图。
 
+**脚本位置**：`Scripts/Vocabulary/image_dalle/`
+
+**相关脚本**：
+- `generate_image_dalle.py` - 单个/单节生成
+- `batch_generate_images.py` - 批量生成
+- `generate_image.py` - 旧版脚本（已弃用）
+
 ## 🎨 生成流程
 
 ### 两步生成过程
@@ -28,6 +35,9 @@
 #### 基本用法
 
 ```bash
+# 进入脚本目录
+cd Scripts/Vocabulary/image_dalle/
+
 # 使用默认设置 (Unite 1, Section 1)
 python generate_image_dalle.py
 
@@ -68,6 +78,9 @@ python generate_image_dalle.py --model dall-e-2 --size 512x512
 #### 基本用法
 
 ```bash
+# 进入脚本目录
+cd Scripts/Vocabulary/image_dalle/
+
 # 预览模式（不实际生成）
 python batch_generate_images.py --dry-run
 
@@ -102,6 +115,9 @@ python batch_generate_images.py --output-dir /path/to/output
 # 设置 API key
 export OPENAI_API_KEY=sk-your-api-key-here
 
+# 进入脚本目录
+cd Scripts/Vocabulary/image_dalle/
+
 # 生成图片
 python generate_image_dalle.py --unite 1 --section 1
 ```
@@ -125,6 +141,9 @@ python generate_image_dalle.py --unite 1 --section 1
 ### 示例 2: 批量生成所有图片（预览）
 
 ```bash
+# 进入脚本目录
+cd Scripts/Vocabulary/image_dalle/
+
 # 先预览一下
 python batch_generate_images.py --dry-run
 
@@ -135,6 +154,9 @@ python batch_generate_images.py
 ### 示例 3: 节省成本 - 使用 DALL-E 2
 
 ```bash
+# 进入脚本目录
+cd Scripts/Vocabulary/image_dalle/
+
 # DALL-E 2 成本约为 DALL-E 3 的一半
 python batch_generate_images.py --model dall-e-2 --size 512x512
 ```
@@ -389,6 +411,9 @@ pip install openai
 ### 1. 分批生成
 
 ```bash
+# 进入脚本目录
+cd Scripts/Vocabulary/image_dalle/
+
 # 一次生成一个 Unite
 for i in {1..6}; do
   python generate_image_dalle.py --unite $i --section 1
@@ -399,6 +424,9 @@ done
 ### 2. 测试先行
 
 ```bash
+# 进入脚本目录
+cd Scripts/Vocabulary/image_dalle/
+
 # 先生成 1 个 Section 测试
 python generate_image_dalle.py --unite 1 --section 1
 
