@@ -44,6 +44,37 @@ class FrenchVocabularySeeder {
         if !refreshedUnites.isEmpty {
             print("⚠️ Found \(refreshedUnites.count) existing unités in database.")
 
+            // Update existing unites with latest properties from JSON
+            var updatedCount = 0
+            for jsonUnite in unitesFromJSON {
+                if let existingUnite = refreshedUnites.first(where: { $0.number == jsonUnite.number }) {
+                    // Update properties if they differ
+                    var hasChanges = false
+
+                    if existingUnite.isUnlocked != jsonUnite.isUnlocked {
+                        existingUnite.isUnlocked = jsonUnite.isUnlocked
+                        hasChanges = true
+                    }
+                    if existingUnite.requiredStars != jsonUnite.requiredStars {
+                        existingUnite.requiredStars = jsonUnite.requiredStars
+                        hasChanges = true
+                    }
+                    if existingUnite.requiredGems != jsonUnite.requiredGems {
+                        existingUnite.requiredGems = jsonUnite.requiredGems
+                        hasChanges = true
+                    }
+
+                    if hasChanges {
+                        updatedCount += 1
+                        print("🔄 Updated Unite \(existingUnite.number): isUnlocked=\(existingUnite.isUnlocked), requiredStars=\(existingUnite.requiredStars), requiredGems=\(existingUnite.requiredGems)")
+                    }
+                }
+            }
+
+            if updatedCount > 0 {
+                print("✅ Updated \(updatedCount) existing unités with new properties")
+            }
+
             // Check for missing unites
             let existingUniteNumbers = Set(refreshedUnites.map { $0.number })
             let missingUnites = unitesFromJSON.filter { !existingUniteNumbers.contains($0.number) }
@@ -57,8 +88,8 @@ class FrenchVocabularySeeder {
                     modelContext.insert(unite)
                 }
                 print("✅ Successfully added \(missingUnites.count) new unités to SwiftData")
-            } else {
-                print("✅ All unités are already imported. No action needed.")
+            } else if updatedCount == 0 {
+                print("✅ All unités are already imported and up to date. No action needed.")
             }
         } else {
             // 开始一次完整播种前清空全局缓存
