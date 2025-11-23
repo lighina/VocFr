@@ -10,21 +10,38 @@ class FrenchVocabularySeeder {
         let existingUnitesDescriptor = FetchDescriptor<Unite>()
         let existingUnites = try modelContext.fetch(existingUnitesDescriptor)
 
+        // Load vocabulary data from JSON
+        print("📖 Loading vocabulary data from JSON...")
+        let unitesFromJSON = try VocabularyDataLoader.loadVocabularyData()
+        print("✅ Successfully loaded \(unitesFromJSON.count) unités from JSON")
+
         if !existingUnites.isEmpty {
-            print("⚠️ Unite data already imported. Found \(existingUnites.count) existing unités. Skipping Unite import to prevent duplicates.")
+            print("⚠️ Found \(existingUnites.count) existing unités in database.")
+
+            // Check for missing unites
+            let existingUniteNumbers = Set(existingUnites.map { $0.number })
+            let missingUnites = unitesFromJSON.filter { !existingUniteNumbers.contains($0.number) }
+
+            if !missingUnites.isEmpty {
+                print("📥 Adding \(missingUnites.count) missing unités: \(missingUnites.map { $0.number })")
+                // 清空全局缓存以便处理新单元
+                Self.globalWordCache.removeAll()
+
+                for unite in missingUnites {
+                    modelContext.insert(unite)
+                }
+                print("✅ Successfully added \(missingUnites.count) new unités to SwiftData")
+            } else {
+                print("✅ All unités are already imported. No action needed.")
+            }
         } else {
             // 开始一次完整播种前清空全局缓存
             Self.globalWordCache.removeAll()
 
-            // Load vocabulary data from JSON
-            print("📖 Loading vocabulary data from JSON...")
-            let unites = try VocabularyDataLoader.loadVocabularyData()
-            print("✅ Successfully loaded \(unites.count) unités from JSON")
-
-            for unite in unites {
+            for unite in unitesFromJSON {
                 modelContext.insert(unite)
             }
-            print("✅ 成功导入 \(unites.count) 个单元的数据到 SwiftData")
+            print("✅ 成功导入 \(unitesFromJSON.count) 个单元的数据到 SwiftData")
         }
 
         // 创建初始用户进度 (only if it doesn't exist)
