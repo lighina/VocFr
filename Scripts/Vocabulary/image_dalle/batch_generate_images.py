@@ -49,7 +49,9 @@ def get_all_sections() -> List[Tuple[int, int, str, int]]:
         List of tuples: (unite_number, section_index, section_name, word_count)
     """
     sections = []
-    base_path = Path(__file__).parent / "VocFr" / "Data" / "JSON"
+    # Navigate up to project root: image_dalle -> Vocabulary -> Scripts -> VocFr (project root)
+    project_root = Path(__file__).parent.parent.parent.parent
+    base_path = project_root / "VocFr" / "Data" / "JSON"
 
     # Try to find all Unite JSON files
     for unite_num in range(1, 10):  # Try up to Unite 9

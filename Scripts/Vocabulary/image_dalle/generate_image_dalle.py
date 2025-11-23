@@ -221,7 +221,9 @@ def generate_image_file(
 
 def load_unite_data(unite_num: int) -> Dict:
     """Load unite data from JSON file."""
-    json_file = Path(__file__).parent / "VocFr" / "Data" / "JSON" / f"Unite{unite_num}.json"
+    # Navigate up to project root: image_dalle -> Vocabulary -> Scripts -> VocFr (project root)
+    project_root = Path(__file__).parent.parent.parent.parent
+    json_file = project_root / "VocFr" / "Data" / "JSON" / f"Unite{unite_num}.json"
 
     if not json_file.exists():
         raise FileNotFoundError(f"Unite file not found: {json_file}")

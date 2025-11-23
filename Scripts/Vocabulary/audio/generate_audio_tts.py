@@ -195,7 +195,9 @@ def generate_audio_file(
 
 def load_unite_data(unite_num: int) -> Dict:
     """Load unite data from JSON file."""
-    json_file = Path(__file__).parent / "VocFr" / "Data" / "JSON" / f"Unite{unite_num}.json"
+    # Navigate up to project root: audio -> Vocabulary -> Scripts -> VocFr (project root)
+    project_root = Path(__file__).parent.parent.parent.parent
+    json_file = project_root / "VocFr" / "Data" / "JSON" / f"Unite{unite_num}.json"
 
     if not json_file.exists():
         raise FileNotFoundError(f"Unite file not found: {json_file}")
@@ -337,7 +339,9 @@ def main():
     if args.output_dir:
         output_base_dir = Path(args.output_dir)
     else:
-        output_base_dir = Path(__file__).parent / "VocFr" / "Resources" / "Audio" / "Words"
+        # Navigate up to project root: audio -> Vocabulary -> Scripts -> VocFr (project root)
+        project_root = Path(__file__).parent.parent.parent.parent
+        output_base_dir = project_root / "VocFr" / "Resources" / "Audio" / "Words"
 
     print("=" * 60)
     print("🎵 VocFr Audio Generator (OpenAI TTS)")
