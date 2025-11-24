@@ -86,7 +86,7 @@
           "elision": false,
           "german": "Großvater",
           "type": "vocabulary",
-          "nameOfImage": "grand-pere_image.png"
+          "nameOfImage": "grand_pere_image.png"
         },
         {
           "canonical": "grand-mère",
@@ -97,7 +97,7 @@
           "elision": false,
           "german": "Großmutter",
           "type": "vocabulary",
-          "nameOfImage": "grand-mere_image.png"
+          "nameOfImage": "grand_mere_image.png"
         },
         {
           "canonical": "grands-parents",
@@ -108,7 +108,7 @@
           "elision": false,
           "german": "Großeltern",
           "type": "vocabulary",
-          "nameOfImage": "grands-parents_image.png"
+          "nameOfImage": "grands_parents_image.png"
         },
         {
           "canonical": "papy",
@@ -972,7 +972,7 @@
           "elision": false,
           "german": "siebzehn",
           "type": "vocabulary",
-          "nameOfImage": "dix-sept_image.png"
+          "nameOfImage": "dix_sept_image.png"
         },
         {
           "canonical": "dix-huit",
@@ -983,7 +983,7 @@
           "elision": false,
           "german": "achtzehn",
           "type": "vocabulary",
-          "nameOfImage": "dix-huit_image.png"
+          "nameOfImage": "dix_huit_image.png"
         },
         {
           "canonical": "dix-neuf",
@@ -994,7 +994,7 @@
           "elision": false,
           "german": "neunzehn",
           "type": "vocabulary",
-          "nameOfImage": "dix-neuf_image.png"
+          "nameOfImage": "dix_neuf_image.png"
         },
         {
           "canonical": "vingt",

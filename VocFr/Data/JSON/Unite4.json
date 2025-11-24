@@ -649,7 +649,7 @@
           "genderOrPos": "adjective",
           "category": "adjectives",
           "elision": false,
-          "nameOfImage": null
+          "nameOfImage": "none"
         },
         {
           "canonical": "bleu",
@@ -770,7 +770,7 @@
           "genderOrPos": "adjective",
           "category": "adjectives",
           "elision": false,
-          "nameOfImage": null
+          "nameOfImage": "none"
         },
         {
           "canonical": "gris",
