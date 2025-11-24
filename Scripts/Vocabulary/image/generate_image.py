@@ -200,11 +200,15 @@ def iter_words_with_images(data: Dict[str, Any], section_num: int = None) -> Ite
 
         for section in sections:
             for word in section.get("words", []):
-                if word.get("nameOfImage"):
+                name_of_image = word.get("nameOfImage")
+                # Exclude words without images or with explicit "none"/"null" markers
+                if name_of_image and name_of_image.lower() not in ("none", "null"):
                     yield word
     elif "words" in data:
         for word in data["words"]:
-            if word.get("nameOfImage"):
+            name_of_image = word.get("nameOfImage")
+            # Exclude words without images or with explicit "none"/"null" markers
+            if name_of_image and name_of_image.lower() not in ("none", "null"):
                 yield word
     else:
         raise ValueError("JSON 不包含 'sections' 或 'words' 字段，无法识别结构。")
