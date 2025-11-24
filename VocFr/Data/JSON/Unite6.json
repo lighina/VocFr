@@ -115,7 +115,7 @@
           "genderOrPos": "feminine",
           "category": "nature",
           "elision": false,
-          "nameOfImage": "forêt_image.png"
+          "nameOfImage": "foret_image.png"
         },
         {
           "canonical": "grotte",
@@ -137,7 +137,7 @@
           "genderOrPos": "masculine",
           "category": "buildings",
           "elision": false,
-          "nameOfImage": "château_image.png"
+          "nameOfImage": "chateau_image.png"
         },
         {
           "canonical": "chemin",
@@ -188,7 +188,7 @@
           "genderOrPos": "masculine",
           "category": "accessories",
           "elision": false,
-          "nameOfImage": "sac_à_dos_image.png"
+          "nameOfImage": "sac_a_dos_image.png"
         },
         {
           "canonical": "gourde",
@@ -232,7 +232,7 @@
           "genderOrPos": "feminine",
           "category": "accessories",
           "elision": false,
-          "nameOfImage": "crème_solaire_image.png"
+          "nameOfImage": "creme_solaire_image.png"
         },
         {
           "canonical": "appareil photo",
@@ -254,7 +254,7 @@
           "genderOrPos": "feminine",
           "category": "accessories",
           "elision": false,
-          "nameOfImage": "brosse_à_cheveux_image.png"
+          "nameOfImage": "brosse_a_cheveux_image.png"
         },
         {
           "canonical": "brosse à dents",
@@ -265,7 +265,7 @@
           "genderOrPos": "feminine",
           "category": "accessories",
           "elision": false,
-          "nameOfImage": "brosse_à_dents_image.png"
+          "nameOfImage": "brosse_a_dents_image.png"
         },
         {
           "canonical": "dentifrice",
@@ -521,7 +521,7 @@
           "genderOrPos": "feminine",
           "category": "flying",
           "elision": false,
-          "nameOfImage": "fusée_image.png"
+          "nameOfImage": "fusee_image.png"
         },
         {
           "canonical": "avion",
@@ -616,7 +616,7 @@
           "genderOrPos": "verb",
           "category": "expressions",
           "elision": false,
-          "nameOfImage": "faire_de_l'escalade_image.png"
+          "nameOfImage": "faire_de_l_escalade_image.png"
         },
         {
           "canonical": "faire du pédalo",
@@ -627,7 +627,7 @@
           "genderOrPos": "verb",
           "category": "expressions",
           "elision": false,
-          "nameOfImage": "faire_du_pédalo_image.png"
+          "nameOfImage": "faire_du_pedalo_image.png"
         },
         {
           "canonical": "faire sa valise",
@@ -711,7 +711,7 @@
           "genderOrPos": "verb",
           "category": "verbs",
           "elision": false,
-          "nameOfImage": "décider_image.png"
+          "nameOfImage": "decider_image.png"
         },
         {
           "canonical": "rigoler",

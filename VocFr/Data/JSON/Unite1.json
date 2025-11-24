@@ -196,7 +196,7 @@
           "elision": true,
           "german": "Schwamm",
           "type": "vocabulary",
-          "nameOfImage": "éponge_image.png"
+          "nameOfImage": "eponge_image.png"
         },
         {
           "canonical": "sac",
@@ -262,7 +262,7 @@
           "elision": false,
           "german": "Fenster",
           "type": "vocabulary",
-          "nameOfImage": "fenêtre_image.png"
+          "nameOfImage": "fenetre_image.png"
         },
         {
           "canonical": "salle de classe",
@@ -284,7 +284,7 @@
           "elision": true,
           "german": "Schule",
           "type": "vocabulary",
-          "nameOfImage": "école_image.png"
+          "nameOfImage": "ecole_image.png"
         },
         {
           "canonical": "image",
@@ -518,7 +518,7 @@
           "elision": false,
           "german": "null",
           "type": "vocabulary",
-          "nameOfImage": "zéro_image.png"
+          "nameOfImage": "zero_image.png"
         },
         {
           "canonical": "un",
@@ -756,7 +756,7 @@
           "elision": false,
           "german": "zuhören",
           "type": "vocabulary",
-          "nameOfImage": "écouter_image.png"
+          "nameOfImage": "ecouter_image.png"
         },
         {
           "canonical": "coller",
@@ -884,7 +884,7 @@
           "elision": false,
           "german": "hinter",
           "type": "vocabulary",
-          "nameOfImage": "derrière_image.png"
+          "nameOfImage": "derriere_image.png"
         }
       ]
     }

@@ -97,7 +97,7 @@
           "genderOrPos": "feminine",
           "category": "tableware",
           "elision": false,
-          "nameOfImage": "cuillère_image.png"
+          "nameOfImage": "cuillere_image.png"
         },
         {
           "canonical": "serviette",
@@ -203,7 +203,7 @@
           "genderOrPos": "masculine",
           "category": "food",
           "elision": false,
-          "nameOfImage": "thé_image.png"
+          "nameOfImage": "the_image.png"
         },
         {
           "canonical": "chocolat chaud",
@@ -280,7 +280,7 @@
           "genderOrPos": "feminine",
           "category": "food",
           "elision": false,
-          "nameOfImage": "céréales_image.png"
+          "nameOfImage": "cereales_image.png"
         },
         {
           "canonical": "crêpe",
@@ -291,7 +291,7 @@
           "genderOrPos": "feminine",
           "category": "food",
           "elision": false,
-          "nameOfImage": "crêpe_image.png"
+          "nameOfImage": "crepe_image.png"
         },
         {
           "canonical": "sucre",
@@ -448,7 +448,7 @@
           "genderOrPos": "masculine",
           "category": "meals",
           "elision": false,
-          "nameOfImage": "petit-déjeuner_image.png"
+          "nameOfImage": "petit-dejeuner_image.png"
         },
         {
           "canonical": "déjeuner",
@@ -459,7 +459,7 @@
           "genderOrPos": "masculine",
           "category": "meals",
           "elision": false,
-          "nameOfImage": "déjeuner_image.png"
+          "nameOfImage": "dejeuner_image.png"
         },
         {
           "canonical": "gouter",
@@ -481,7 +481,7 @@
           "genderOrPos": "masculine",
           "category": "meals",
           "elision": false,
-          "nameOfImage": "dîner_image.png"
+          "nameOfImage": "diner_image.png"
         }
       ]
     },
@@ -521,7 +521,7 @@
           "genderOrPos": "masculine",
           "category": "time",
           "elision": true,
-          "nameOfImage": "après-midi_image.png"
+          "nameOfImage": "apres-midi_image.png"
         },
         {
           "canonical": "soir",
@@ -612,7 +612,7 @@
           "genderOrPos": "adjective",
           "category": "feelings",
           "elision": false,
-          "nameOfImage": "gêné_image.png"
+          "nameOfImage": "gene_image.png"
         },
         {
           "canonical": "énervé",
@@ -623,7 +623,7 @@
           "genderOrPos": "adjective",
           "category": "feelings",
           "elision": false,
-          "nameOfImage": "énervé_image.png"
+          "nameOfImage": "enerve_image.png"
         },
         {
           "canonical": "surpris",
@@ -645,7 +645,7 @@
           "genderOrPos": "adjective",
           "category": "feelings",
           "elision": false,
-          "nameOfImage": "effrayé_image.png"
+          "nameOfImage": "effraye_image.png"
         },
         {
           "canonical": "heureux",
@@ -667,7 +667,7 @@
           "genderOrPos": "adjective",
           "category": "feelings",
           "elision": false,
-          "nameOfImage": "fâché_image.png"
+          "nameOfImage": "fache_image.png"
         }
       ]
     }

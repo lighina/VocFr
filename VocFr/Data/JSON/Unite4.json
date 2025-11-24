@@ -75,7 +75,7 @@
           "genderOrPos": "masculine",
           "category": "places",
           "elision": true,
-          "nameOfImage": "arrêt_de_bus_image.png"
+          "nameOfImage": "arret_de_bus_image.png"
         },
         {
           "canonical": "aire de jeux",
@@ -159,7 +159,7 @@
           "genderOrPos": "masculine",
           "category": "buildings",
           "elision": false,
-          "nameOfImage": "supermarché_image.png"
+          "nameOfImage": "supermarche_image.png"
         },
         {
           "canonical": "bibliothèque",
@@ -170,7 +170,7 @@
           "genderOrPos": "feminine",
           "category": "buildings",
           "elision": false,
-          "nameOfImage": "bibliothèque_image.png"
+          "nameOfImage": "bibliotheque_image.png"
         },
         {
           "canonical": "cinéma",
@@ -181,7 +181,7 @@
           "genderOrPos": "masculine",
           "category": "buildings",
           "elision": false,
-          "nameOfImage": "cinéma_image.png"
+          "nameOfImage": "cinema_image.png"
         },
         {
           "canonical": "pharmacie",
@@ -203,7 +203,7 @@
           "genderOrPos": "masculine",
           "category": "buildings",
           "elision": false,
-          "nameOfImage": "marché_image.png"
+          "nameOfImage": "marche_image.png"
         },
         {
           "canonical": "restaurant",
@@ -258,7 +258,7 @@
           "genderOrPos": "masculine",
           "category": "buildings",
           "elision": false,
-          "nameOfImage": "musée_image.png"
+          "nameOfImage": "musee_image.png"
         },
         {
           "canonical": "école",
@@ -269,7 +269,7 @@
           "genderOrPos": "feminine",
           "category": "buildings",
           "elision": true,
-          "nameOfImage": "école_image.png"
+          "nameOfImage": "ecole_image.png"
         },
         {
           "canonical": "café",
@@ -280,7 +280,7 @@
           "genderOrPos": "masculine",
           "category": "buildings",
           "elision": false,
-          "nameOfImage": "café_image.png"
+          "nameOfImage": "cafe_place_image.png"
         },
         {
           "canonical": "magasin de jouets",
@@ -302,7 +302,7 @@
           "genderOrPos": "masculine",
           "category": "buildings",
           "elision": false,
-          "nameOfImage": "magasin_de_vêtements_image.png"
+          "nameOfImage": "magasin_de_vetements_image.png"
         },
         {
           "canonical": "magasin de chaussures",
@@ -331,7 +331,7 @@
           "genderOrPos": "masculine",
           "category": "transportation",
           "elision": false,
-          "nameOfImage": "vélo_image.png"
+          "nameOfImage": "velo_image.png"
         },
         {
           "canonical": "trottinette",
@@ -408,7 +408,7 @@
           "genderOrPos": "verb",
           "category": "transportation",
           "elision": false,
-          "nameOfImage": "aller_à_pied_image.png"
+          "nameOfImage": "aller_a_pied_image.png"
         },
         {
           "canonical": "avion",
@@ -459,7 +459,7 @@
           "genderOrPos": "verb",
           "category": "directions",
           "elision": false,
-          "nameOfImage": "tourner_à_gauche_image.png"
+          "nameOfImage": "tourner_a_gauche_image.png"
         },
         {
           "canonical": "tourner à droite",
@@ -470,7 +470,7 @@
           "genderOrPos": "verb",
           "category": "directions",
           "elision": false,
-          "nameOfImage": "tourner_à_droite_image.png"
+          "nameOfImage": "tourner_a_droite_image.png"
         },
         {
           "canonical": "passer devant",
@@ -492,7 +492,7 @@
           "genderOrPos": "verb",
           "category": "directions",
           "elision": false,
-          "nameOfImage": "aller_jusqu'à_image.png"
+          "nameOfImage": "aller_jusqu_a_image.png"
         },
         {
           "canonical": "être à côté de",
@@ -503,7 +503,7 @@
           "genderOrPos": "verb",
           "category": "directions",
           "elision": true,
-          "nameOfImage": "être_à_côté_de_image.png"
+          "nameOfImage": "etre_a_cote_de_image.png"
         }
       ]
     },
@@ -616,7 +616,7 @@
           "genderOrPos": "adjective",
           "category": "adjectives",
           "elision": false,
-          "nameOfImage": "sucré_image.png"
+          "nameOfImage": "sucre_image.png"
         },
         {
           "canonical": "content",
@@ -748,7 +748,7 @@
           "genderOrPos": "adjective",
           "category": "adjectives",
           "elision": true,
-          "nameOfImage": "énorme_image.png"
+          "nameOfImage": "enorme_image.png"
         },
         {
           "canonical": "triste",
@@ -821,7 +821,7 @@
           "genderOrPos": "verb",
           "category": "expressions",
           "elision": false,
-          "nameOfImage": "faire_un_gâteau_image.png"
+          "nameOfImage": "faire_un_gateau_image.png"
         },
         {
           "canonical": "faire une liste",
@@ -865,7 +865,7 @@
           "genderOrPos": "verb",
           "category": "expressions",
           "elision": false,
-          "nameOfImage": "faire_du_vélo_image.png"
+          "nameOfImage": "faire_du_velo_image.png"
         },
         {
           "canonical": "faire de la trottinette",
