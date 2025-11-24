@@ -41,7 +41,23 @@ python generate_image.py --unite 2 --outdir custom_output
 
 ---
 
-## ✔ 模式 2 — 从 Unite 中只生成一个单词
+## ✔ 模式 2 — 从 Unite 中生成特定 Section
+
+```bash
+# 进入脚本目录
+cd Scripts/Vocabulary/image/
+
+# 只生成 Unite 4 的 Section 2
+python generate_image.py --unite 4 --section 2
+
+# 输出到：tempVocPic/u4s2/
+```
+
+当需要按章节生成图片时非常方便，图片会自动保存到 `u{Unite}s{Section}` 格式的子目录中。
+
+---
+
+## ✔ 模式 3 — 从 Unite 中只生成一个单词
 
 ```bash
 # 进入脚本目录
@@ -55,7 +71,7 @@ python generate_image.py --unite 4 --only-word chemin
 
 ---
 
-## ✔ 模式 3 — 不依赖 JSON，单独生成任意一个词
+## ✔ 模式 4 — 不依赖 JSON，单独生成任意一个词
 
 ```bash
 # 进入脚本目录
@@ -250,19 +266,27 @@ VocFr/Resources/Images/tempVocPic/bateau_image.png
 
 ## generate_image.py 参数
 
-| **参数**                 | **简写** | **用途**                              |
-| ------------------------ | -------- | ------------------------------------- |
-| --unite NUM              | -u       | Unite 编号（1-6）                     |
-| --json PATH              |          | 指定 Unite JSON 文件（完整路径）       |
-| --outdir DIR             | -o       | 输出目录（默认：tempVocPic）           |
-| --only-word WORD         |          | JSON 模式中只生成某一个词             |
-| --plain-word WORD        |          | 不依赖 JSON，生成一个单词             |
-| --prompt-type icon/scene |          | 指定单词模式下的图像风格              |
-| --extra-prompt TEXT      |          | 单词模式下追加 prompt                 |
-| --remove-background      |          | 对最终图像执行简单抠背景              |
-| --save-raw               |          | 保存模型原始输出到 _raw 子目录        |
-| --size                   |          | OpenAI 图像生成尺寸（默认 1024x1024） |
-| --target                 |          | 最终输出尺寸（默认 512）              |
+| **参数**                 | **简写** | **用途**                                          |
+| ------------------------ | -------- | ------------------------------------------------- |
+| --unite NUM              | -u       | Unite 编号（1-6）                                 |
+| --section NUM            | -s       | Section 编号（必须与 --unite 一起使用）           |
+| --json PATH              |          | 指定 Unite JSON 文件（完整路径）                   |
+| --outdir DIR             | -o       | 输出目录（默认根据 unite/section 自动创建子目录） |
+| --only-word WORD         |          | 只生成某一个词（与 --unite/--json 配合）          |
+| --plain-word WORD        |          | 不依赖 JSON，生成一个单词                         |
+| --prompt-type icon/scene |          | 指定单词模式下的图像风格                          |
+| --extra-prompt TEXT      |          | 单词模式下追加 prompt                             |
+| --remove-background      |          | 对最终图像执行简单抠背景                          |
+| --save-raw               |          | 保存模型原始输出到 _raw 子目录                    |
+| --size                   |          | OpenAI 图像生成尺寸（默认 1024x1024）             |
+| --target                 |          | 最终输出尺寸（默认 512）                          |
+
+### 📁 输出目录规则
+
+- **`--plain-word`**: 输出到 `tempVocPic/`
+- **`--unite 4`**: 输出到 `tempVocPic/u4/`
+- **`--unite 4 --section 2`**: 输出到 `tempVocPic/u4s2/`
+- **`--outdir custom/`**: 使用自定义目录（覆盖默认规则）
 
 ---
 
@@ -273,43 +297,57 @@ VocFr/Resources/Images/tempVocPic/bateau_image.png
 ```bash
 cd Scripts/Vocabulary/image/
 
-# 使用 Unite 编号（推荐）
+# 使用 Unite 编号（推荐）- 输出到 tempVocPic/u4/
 python generate_image.py --unite 4
 
 # 或使用完整路径
 python generate_image.py --json ../../VocFr/Data/JSON/Unite4.json
 ```
 
-### 2. 补充或修复单个单词
+### 2. 只生成某个 Section
+
+```bash
+cd Scripts/Vocabulary/image/
+
+# 只生成 Unite 4 的 Section 2 - 输出到 tempVocPic/u4s2/
+python generate_image.py --unite 4 --section 2
+```
+
+### 3. 补充或修复单个单词
 
 ```bash
 cd Scripts/Vocabulary/image/
 
 # 重新生成 Unite 4 中的 "chemin"
 python generate_image.py --unite 4 --only-word chemin
+
+# 或指定特定 Section 中的单词
+python generate_image.py --unite 4 --section 2 --only-word chemin
 ```
 
-### 3. 批量生成所有 Unite
+### 4. 批量生成所有 Unite
 
 ```bash
 cd Scripts/Vocabulary/image/
 
-# 预览
+# 预览（会显示每个 Unite 将输出到 u1/, u2/, ... 等子目录）
 python batch_generate_images.py --dry-run
 
-# 生成
+# 批量生成（自动为每个 Unite 创建子目录）
 python batch_generate_images.py
 ```
 
-### 4. 生成 JSON 里没有的新单词
+### 5. 生成 JSON 里没有的新单词
 
 ```bash
 cd Scripts/Vocabulary/image/
 
-python generate_image.py --plain-word papillon
+# 注意：带空格的单词会自动转换为下划线
+python generate_image.py --plain-word "arrêt de bus"
+# 生成文件：arrêt_de_bus_image.png
 ```
 
-### 5. 生成场景风格图片
+### 6. 生成场景风格图片
 
 ```bash
 cd Scripts/Vocabulary/image/
@@ -317,7 +355,7 @@ cd Scripts/Vocabulary/image/
 python generate_image.py --plain-word jardin --prompt-type scene
 ```
 
-### 6. 生成时增加特定艺术指令
+### 7. 生成时增加特定艺术指令
 
 ```bash
 cd Scripts/Vocabulary/image/
@@ -358,9 +396,16 @@ VocFr/
 │   └── Resources/
 │       ├── Images/
 │       │   └── tempVocPic/                # 生成的图片输出目录
-│       │       ├── village_image.png
-│       │       ├── rue_image.png
-│       │       └── ...
+│       │       ├── u1/                    # Unite 1 图片
+│       │       │   ├── chat_image.png
+│       │       │   └── ...
+│       │       ├── u4/                    # Unite 4 图片
+│       │       │   ├── village_image.png
+│       │       │   ├── rue_image.png
+│       │       │   └── ...
+│       │       ├── u4s2/                  # Unite 4, Section 2 图片
+│       │       │   └── ...
+│       │       └── custom_image.png       # plain-word 模式图片
 │       │
 │       └── Audio/
 │           └── Words/

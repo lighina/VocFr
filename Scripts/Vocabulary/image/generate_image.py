@@ -48,10 +48,41 @@ def get_unite_json_path(unite_num: int) -> Path:
     project_root = get_project_root()
     return project_root / "VocFr" / "Data" / "JSON" / f"Unite{unite_num}.json"
 
-def get_default_output_dir() -> Path:
-    """Get default output directory for generated images."""
+def get_default_output_dir(unite_num: int = None, section_num: int = None) -> Path:
+    """
+    Get default output directory for generated images.
+
+    Args:
+        unite_num: Unite number (optional)
+        section_num: Section number (optional)
+
+    Returns:
+        Path to output directory:
+        - With unite + section: tempVocPic/u{unite}s{section}/
+        - With unite only: tempVocPic/u{unite}/
+        - Without unite: tempVocPic/
+    """
     project_root = get_project_root()
-    return project_root / "VocFr" / "Resources" / "Images" / "tempVocPic"
+    base_dir = project_root / "VocFr" / "Resources" / "Images" / "tempVocPic"
+
+    if unite_num is not None:
+        if section_num is not None:
+            return base_dir / f"u{unite_num}s{section_num}"
+        else:
+            return base_dir / f"u{unite_num}"
+
+    return base_dir
+
+def sanitize_filename(text: str) -> str:
+    """
+    Sanitize text for use in filenames.
+    Replaces spaces with underscores and removes problematic characters.
+    """
+    # Replace spaces with underscores
+    text = text.replace(" ", "_")
+    # Remove quotes and other problematic characters
+    text = text.replace("'", "").replace('"', "")
+    return text
 
 # ================== 统一 Studio Ghibli 风格 Prompt ===================
 
@@ -119,15 +150,28 @@ def load_unite_json(path: str) -> Dict[str, Any]:
         return json.load(f)
 
 
-def iter_words_with_images(data: Dict[str, Any]) -> Iterable[Dict[str, Any]]:
+def iter_words_with_images(data: Dict[str, Any], section_num: int = None) -> Iterable[Dict[str, Any]]:
     """
     支持两种结构：
     - data["sections"][i]["words"][j]
     - data["words"][j]
     只返回有 nameOfImage 的词条。
+
+    Args:
+        data: Unite JSON data
+        section_num: Optional section number to filter (1-indexed)
     """
     if "sections" in data:
-        for section in data["sections"]:
+        sections = data["sections"]
+
+        # Filter by section number if specified
+        if section_num is not None:
+            if 1 <= section_num <= len(sections):
+                sections = [sections[section_num - 1]]  # Convert to 0-indexed
+            else:
+                raise ValueError(f"Section {section_num} not found. Unite has {len(sections)} sections.")
+
+        for section in sections:
             for word in section.get("words", []):
                 if word.get("nameOfImage"):
                     yield word
@@ -287,16 +331,21 @@ def main():
         help="Unite number (e.g., 1, 2, 3). Will load from VocFr/Data/JSON/UniteX.json",
     )
     parser.add_argument(
+        "--section", "-s",
+        type=int,
+        help="Section number (e.g., 1, 2, 3). Must be used with --unite. Generates only words from this section.",
+    )
+    parser.add_argument(
         "--json",
         help="Path to Unite JSON file (alternative to --unite). e.g., Unite4.json or full path",
     )
     parser.add_argument(
         "--outdir", "-o",
-        help="Output directory for final PNG images. Default: VocFr/Resources/Images/tempVocPic",
+        help="Output directory. Default: tempVocPic/ or tempVocPic/u{N}/ or tempVocPic/u{N}s{M}/ based on --unite/--section",
     )
     parser.add_argument(
         "--only-word",
-        help="When used with --json: only generate this single word (match against 'canonical').",
+        help="When used with --json/--unite: only generate this single word (match against 'canonical').",
     )
     parser.add_argument(
         "--plain-word",
@@ -346,6 +395,9 @@ def main():
     if not args.plain_word and not args.json and not args.unite:
         raise SystemExit("必须至少指定 --plain-word、--json 或 --unite 之一。")
 
+    if args.section and not args.unite:
+        raise SystemExit("--section 必须与 --unite 一起使用。")
+
     if args.extra_prompt and not args.plain_word:
         raise SystemExit("--extra-prompt 只能与 --plain-word 一起使用，在 JSON 模式下禁止使用。")
 
@@ -353,15 +405,20 @@ def main():
     if args.outdir:
         outdir = args.outdir
     else:
-        outdir = str(get_default_output_dir())
+        # Use unite/section for directory structure if specified
+        outdir = str(get_default_output_dir(args.unite, args.section))
 
     os.makedirs(outdir, exist_ok=True)
 
     # Determine JSON path
     json_path = None
+    section_num = args.section
     if args.unite:
         json_path = str(get_unite_json_path(args.unite))
-        print(f"[Unite mode] Loading Unite {args.unite} from {json_path}")
+        if section_num:
+            print(f"[Unite mode] Loading Unite {args.unite}, Section {section_num} from {json_path}")
+        else:
+            print(f"[Unite mode] Loading Unite {args.unite} from {json_path}")
     elif args.json:
         json_path = args.json
 
@@ -369,9 +426,12 @@ def main():
         word_str = args.plain_word.strip()
         prompt_type = args.prompt_type or "icon"
 
+        # Sanitize the word for filename (replace spaces with underscores)
+        sanitized_word = sanitize_filename(word_str)
+
         word_obj: Dict[str, Any] = {
             "canonical": word_str,
-            "nameOfImage": f"{word_str}_image.png",
+            "nameOfImage": f"{sanitized_word}_image.png",
             "category": "standalone",
             "promptType": prompt_type,
         }
@@ -398,7 +458,7 @@ def main():
 
     # JSON mode (either --json or --unite)
     data = load_unite_json(json_path)
-    words = list(iter_words_with_images(data))
+    words = list(iter_words_with_images(data, section_num=section_num))
 
     if args.only_word:
         target_word_lower = args.only_word.strip().lower()
@@ -407,7 +467,8 @@ def main():
             print(f"No word with canonical == '{args.only_word}' found in {json_path}.")
             return
 
-    print(f"Loaded {len(words)} word(s) with images from {json_path}")
+    section_info = f", Section {section_num}" if section_num else ""
+    print(f"Loaded {len(words)} word(s) with images from {json_path}{section_info}")
     print(f"Output directory: {outdir}")
 
     for word in words:

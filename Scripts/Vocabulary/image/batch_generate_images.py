@@ -43,6 +43,7 @@ from generate_image import (
     iter_words_with_images,
     get_canonical,
     process_word,
+    sanitize_filename,
 )
 
 
@@ -74,10 +75,17 @@ def get_all_unites() -> List[int]:
 def get_words_to_generate(
     unite_num: int,
     output_dir: Path,
-    skip_existing: bool = True
+    skip_existing: bool = True,
+    section_num: int = None
 ) -> Tuple[List[Dict[str, Any]], int, int]:
     """
-    Get list of words to generate for a given unite.
+    Get list of words to generate for a given unite/section.
+
+    Args:
+        unite_num: Unite number
+        output_dir: Output directory path
+        skip_existing: Whether to skip existing images
+        section_num: Optional section number to filter
 
     Returns:
         (words_to_generate, total_words, skipped_count)
@@ -90,7 +98,7 @@ def get_words_to_generate(
 
     try:
         data = load_unite_json(str(json_path))
-        all_words = list(iter_words_with_images(data))
+        all_words = list(iter_words_with_images(data, section_num=section_num))
 
         if not skip_existing:
             return all_words, len(all_words), 0
@@ -163,13 +171,14 @@ def main():
 
     args = parser.parse_args()
 
-    # Determine output directory
+    # Note: For batch mode, we'll create subdirectories per unite
+    # Base output directory
     if args.outdir:
-        output_dir = Path(args.outdir)
+        base_output_dir = Path(args.outdir)
     else:
-        output_dir = get_default_output_dir()
+        base_output_dir = get_default_output_dir()
 
-    output_dir.mkdir(parents=True, exist_ok=True)
+    base_output_dir.mkdir(parents=True, exist_ok=True)
     skip_existing = not args.no_skip_existing
 
     # Get unite numbers to process
@@ -189,7 +198,7 @@ def main():
     print("=" * 70)
     print("VocFr Batch Image Generation")
     print("=" * 70)
-    print(f"Output directory: {output_dir}")
+    print(f"Base output directory: {base_output_dir}")
     print(f"Skip existing: {skip_existing}")
     print(f"Unites to process: {unite_numbers}")
     print(f"Mode: {'DRY RUN (preview only)' if args.dry_run else 'GENERATE'}")
@@ -204,8 +213,12 @@ def main():
     generation_plan = []
 
     for unite_num in unite_numbers:
+        # Create unite-specific subdirectory
+        unite_output_dir = base_output_dir / f"u{unite_num}"
+        unite_output_dir.mkdir(parents=True, exist_ok=True)
+
         words, count, skipped = get_words_to_generate(
-            unite_num, output_dir, skip_existing
+            unite_num, unite_output_dir, skip_existing
         )
 
         total_words += count
@@ -213,13 +226,14 @@ def main():
         total_skipped += skipped
 
         if words or count > 0:
-            generation_plan.append((unite_num, words, count, skipped))
+            generation_plan.append((unite_num, words, count, skipped, unite_output_dir))
 
             status = f"Unite {unite_num}: {len(words)} to generate"
             if skipped > 0:
                 status += f", {skipped} exist"
             if count > 0:
                 status += f" (total: {count})"
+            status += f" → {unite_output_dir.name}/"
             print(status)
 
     print()
@@ -257,11 +271,11 @@ def main():
     success_count = 0
     failure_count = 0
 
-    for unite_num, words, total, skipped in generation_plan:
+    for unite_num, words, total, skipped, unite_output_dir in generation_plan:
         if not words:
             continue
 
-        print(f"\n--- Unite {unite_num} ({len(words)} words) ---")
+        print(f"\n--- Unite {unite_num} ({len(words)} words) → {unite_output_dir.name}/ ---")
 
         for i, word in enumerate(words, 1):
             canonical = get_canonical(word)
@@ -271,7 +285,7 @@ def main():
                 print(f"  [{i}/{len(words)}] {canonical} ({image_name})...", end=" ")
                 final_path = process_word(
                     word,
-                    outdir=str(output_dir),
+                    outdir=str(unite_output_dir),
                     remove_background=args.remove_background,
                     save_raw=args.save_raw,
                     size=args.size,
