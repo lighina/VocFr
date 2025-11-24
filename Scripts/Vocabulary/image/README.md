@@ -256,11 +256,21 @@ python generate_image.py --plain-word bateau
 VocFr/Resources/Images/tempVocPic/bateau_image.png
 ```
 
-### 命名规范
+### 命名规范（ASCII Safe）
 
-- 使用下划线连接多个单词：`aire_de_jeux_image.png`
-- 保留法语重音符号：`arrêt_de_bus_image.png`
-- 统一后缀：`_image.png`
+**重要**：文件名必须使用 ASCII 规范化以匹配 Swift 代码的查找规则。
+
+- **法语重音 → ASCII**：`arrêt` → `arret`, `école` → `ecole`, `café` → `cafe`
+- **空格/撇号/连字符 → 下划线**：`aire de jeux` → `aire_de_jeux`, `l'école` → `l_ecole`
+- **统一后缀**：`_image.png`
+
+示例：
+- `"arrêt de bus"` → `arret_de_bus_image.png` ✅
+- `"l'école"` → `l_ecole_image.png` ✅
+- `"château"` → `chateau_image.png` ✅
+
+**为什么需要 ASCII 规范化？**
+Swift 应用使用 `normalizeForAssetName()` 函数查找图片资源，该函数会将所有重音字符转换为 ASCII。如果文件名保留重音符号，Swift 将无法找到图片。
 
 # 🔧 命令行参数一览
 
@@ -342,9 +352,12 @@ python batch_generate_images.py
 ```bash
 cd Scripts/Vocabulary/image/
 
-# 注意：带空格的单词会自动转换为下划线
+# 注意：自动应用 ASCII 规范化
 python generate_image.py --plain-word "arrêt de bus"
-# 生成文件：arrêt_de_bus_image.png
+# 生成文件：arret_de_bus_image.png (重音已转换为 ASCII)
+
+python generate_image.py --plain-word "l'école"
+# 生成文件：l_ecole_image.png
 ```
 
 ### 6. 生成场景风格图片

@@ -75,14 +75,41 @@ def get_default_output_dir(unite_num: int = None, section_num: int = None) -> Pa
 
 def sanitize_filename(text: str) -> str:
     """
-    Sanitize text for use in filenames.
-    Replaces spaces with underscores and removes problematic characters.
+    Sanitize text for use in filenames using ASCII-safe normalization.
+    This MUST match the Swift normalizeForAssetName() function in VocabularyDataLoader.swift
+
+    Converts:
+    - French accented characters to ASCII equivalents (é→e, è→e, à→a, ç→c, etc.)
+    - Spaces, apostrophes, hyphens to underscores
+    - Removes quotes and other problematic characters
+
+    Examples:
+        "arrêt de bus" -> "arret_de_bus"
+        "l'école" -> "l_ecole"
+        "fenêtre" -> "fenetre"
     """
-    # Replace spaces with underscores
-    text = text.replace(" ", "_")
-    # Remove quotes and other problematic characters
-    text = text.replace("'", "").replace('"', "")
-    return text
+    import unicodedata
+    import re
+
+    # Use Unicode normalization to decompose accented characters
+    # NFKD = Compatibility Decomposition
+    nfkd = unicodedata.normalize('NFKD', text)
+    # Remove combining characters (accents)
+    ascii_text = ''.join([c for c in nfkd if not unicodedata.combining(c)])
+
+    # Convert to lowercase for consistency
+    ascii_text = ascii_text.lower()
+
+    # Replace spaces, apostrophes, and hyphens with underscores
+    # This matches Swift's normalizeForAssetName behavior
+    ascii_text = ascii_text.replace(' ', '_')
+    ascii_text = ascii_text.replace("'", '_')
+    ascii_text = ascii_text.replace('-', '_')
+
+    # Remove any remaining special characters except underscores
+    ascii_text = re.sub(r'[^a-z0-9_]', '', ascii_text)
+
+    return ascii_text
 
 # ================== 统一 Studio Ghibli 风格 Prompt ===================
 
