@@ -27,6 +27,7 @@ import json
 import argparse
 import base64
 from io import BytesIO
+from pathlib import Path
 from typing import Any, Dict, Iterable
 
 import numpy as np
@@ -34,6 +35,23 @@ from PIL import Image
 from openai import OpenAI
 
 client = OpenAI()
+
+# ================== VocFr Project Path Configuration ===================
+
+def get_project_root() -> Path:
+    """Get the VocFr project root directory."""
+    # Navigate up from: image -> Vocabulary -> Scripts -> VocFr (project root)
+    return Path(__file__).parent.parent.parent.parent
+
+def get_unite_json_path(unite_num: int) -> Path:
+    """Get path to Unite JSON file."""
+    project_root = get_project_root()
+    return project_root / "VocFr" / "Data" / "JSON" / f"Unite{unite_num}.json"
+
+def get_default_output_dir() -> Path:
+    """Get default output directory for generated images."""
+    project_root = get_project_root()
+    return project_root / "VocFr" / "Resources" / "Images" / "tempVocPic"
 
 # ================== 统一 Studio Ghibli 风格 Prompt ===================
 
@@ -264,13 +282,17 @@ def main():
         description="Generate Studio Ghibli–style watercolor images from Unite JSON or a single word."
     )
     parser.add_argument(
-        "--json",
-        help="Path to Unite JSON file, e.g. Unite4.json",
+        "--unite", "-u",
+        type=int,
+        help="Unite number (e.g., 1, 2, 3). Will load from VocFr/Data/JSON/UniteX.json",
     )
     parser.add_argument(
-        "--outdir",
-        required=True,
-        help="Output directory for final PNG images.",
+        "--json",
+        help="Path to Unite JSON file (alternative to --unite). e.g., Unite4.json or full path",
+    )
+    parser.add_argument(
+        "--outdir", "-o",
+        help="Output directory for final PNG images. Default: VocFr/Resources/Images/tempVocPic",
     )
     parser.add_argument(
         "--only-word",
@@ -314,16 +336,34 @@ def main():
 
     args = parser.parse_args()
 
-    if args.plain_word and args.json:
-        raise SystemExit("不能同时使用 --plain-word 和 --json，请二选一。")
+    # Validate argument combinations
+    if args.plain_word and (args.json or args.unite):
+        raise SystemExit("不能同时使用 --plain-word 和 --json/--unite，请二选一。")
 
-    if not args.plain_word and not args.json:
-        raise SystemExit("必须至少指定 --plain-word 或 --json 之一。")
+    if args.unite and args.json:
+        raise SystemExit("不能同时使用 --unite 和 --json，请二选一。")
+
+    if not args.plain_word and not args.json and not args.unite:
+        raise SystemExit("必须至少指定 --plain-word、--json 或 --unite 之一。")
 
     if args.extra_prompt and not args.plain_word:
         raise SystemExit("--extra-prompt 只能与 --plain-word 一起使用，在 JSON 模式下禁止使用。")
 
-    os.makedirs(args.outdir, exist_ok=True)
+    # Determine output directory
+    if args.outdir:
+        outdir = args.outdir
+    else:
+        outdir = str(get_default_output_dir())
+
+    os.makedirs(outdir, exist_ok=True)
+
+    # Determine JSON path
+    json_path = None
+    if args.unite:
+        json_path = str(get_unite_json_path(args.unite))
+        print(f"[Unite mode] Loading Unite {args.unite} from {json_path}")
+    elif args.json:
+        json_path = args.json
 
     if args.plain_word:
         word_str = args.plain_word.strip()
@@ -344,7 +384,7 @@ def main():
         try:
             final_path = process_word(
                 word_obj,
-                outdir=args.outdir,
+                outdir=outdir,
                 remove_background=args.remove_background,
                 save_raw=args.save_raw,
                 size=args.size,
@@ -356,18 +396,19 @@ def main():
             print(f"FAILED for {word_str}: {e}")
         return
 
-    data = load_unite_json(args.json)
+    # JSON mode (either --json or --unite)
+    data = load_unite_json(json_path)
     words = list(iter_words_with_images(data))
 
     if args.only_word:
         target_word_lower = args.only_word.strip().lower()
         words = [w for w in words if get_canonical(w).lower() == target_word_lower]
         if not words:
-            print(f"No word with canonical == '{args.only_word}' found in {args.json}.")
+            print(f"No word with canonical == '{args.only_word}' found in {json_path}.")
             return
 
-    print(f"Loaded {len(words)} word(s) with images from {args.json}")
-    print(f"Output directory: {args.outdir}")
+    print(f"Loaded {len(words)} word(s) with images from {json_path}")
+    print(f"Output directory: {outdir}")
 
     for word in words:
         canonical = get_canonical(word)
@@ -375,7 +416,7 @@ def main():
             print(f"Generating image for: {canonical} ...")
             final_path = process_word(
                 word,
-                outdir=args.outdir,
+                outdir=outdir,
                 remove_background=args.remove_background,
                 save_raw=args.save_raw,
                 size=args.size,
