@@ -125,9 +125,10 @@ class MatchingGameViewModel {
 
     /// Setup the game with shuffled cards
     private func setupGame() {
-        // Get words from section and shuffle for random selection
+        // Get words from section that have images, and shuffle for random selection
         let words = section.sectionWords
             .compactMap { $0.word }
+            .filter { $0.hasImage }
             .shuffled()
 
         // Take 6 random words (or all if less than 6)

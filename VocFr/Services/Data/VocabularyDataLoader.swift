@@ -159,10 +159,10 @@ class VocabularyDataLoader {
         var sectionWords: [SectionWord] = []
 
         for (index, wordJSON) in json.words.enumerated() {
-            // Create unique cache key: canonical + partOfSpeech
-            // This ensures words with same spelling but different meanings/parts of speech
-            // (e.g., "orange" as adjective vs. noun) are treated as separate entities
-            let cacheKey = "\(wordJSON.canonical)-\(wordJSON.partOfSpeech)"
+            // Create unique cache key: canonical + partOfSpeech + chinese
+            // This ensures words with same spelling but different meanings
+            // (e.g., "café" coffee vs. "café" coffee shop) are treated as separate entities
+            let cacheKey = "\(wordJSON.canonical)-\(wordJSON.partOfSpeech)-\(wordJSON.chinese)"
 
             // Check cache first
             let word: Word
@@ -222,10 +222,10 @@ class VocabularyDataLoader {
             imageName = normalizeForAssetName(json.canonical) + "_image"
         }
 
-        // Generate unique ID: canonical + partOfSpeech
+        // Generate unique ID: canonical + partOfSpeech + chinese
         // This ensures words with same spelling but different meanings
-        // (e.g., "orange" as adjective vs. noun) have unique IDs
-        let wordId = "\(json.canonical)-\(json.partOfSpeech)"
+        // (e.g., "café" coffee vs. "café" coffee shop) have unique IDs
+        let wordId = "\(json.canonical)-\(json.partOfSpeech)-\(json.chinese)"
 
         let word = Word(
             id: wordId,

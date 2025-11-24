@@ -87,9 +87,9 @@ class PracticeViewModel {
         self.section = section
         self.modelContext = modelContext
 
-        // Initialize and shuffle words
+        // Initialize and shuffle words (only words with images for visual practice)
         let allWords = section.sectionWords.compactMap { $0.word }
-        self.words = allWords.shuffled()
+        self.words = allWords.filter { $0.hasImage }.shuffled()
 
         generateOptions()
     }
