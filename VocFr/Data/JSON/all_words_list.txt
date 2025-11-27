@@ -1,0 +1,563 @@
+Unite 1
+
+Section à l'école
+
+bureau
+table
+chaise
+cahier
+livre
+feuille
+classeur
+crayon
+gomme
+taille-crayon
+stylo
+feutre
+colle
+trousse
+devoir
+craie
+éponge
+sac
+cartable
+tableau
+ordinateur
+porte
+fenêtre
+salle de classe
+école
+image
+balle
+ballon
+enseignante
+enseignant
+fille
+garçon
+
+Section les couleurs
+
+vert
+jaune
+orange
+rouge
+rose
+mauve
+violet
+bleu
+brun
+gris
+noir
+blanc
+
+Section les nombres
+
+zéro
+un
+deux
+trois
+quatre
+cinq
+six
+sept
+huit
+neuf
+dix
+onze
+douze
+
+Section les verbes
+
+je
+tu
+il
+elle
+chercher
+dessiner
+jouer
+montrer
+écouter
+coller
+chanter
+trouver
+fermer
+ranger
+regarder
+
+Section les prépositions
+
+sur
+sous
+dans
+devant
+derrière
+
+
+Unite 2
+
+Section la famille
+
+famille
+père
+mère
+parents
+papa
+maman
+grand-père
+grand-mère
+grands-parents
+papy
+mamie
+frère
+soeur
+oncle
+tante
+
+Section les aliments
+
+gâteau
+tarte
+glace
+bonbon
+chocolat
+pain
+baguette
+fruits
+citron
+banane
+pomme
+poire
+fraise
+orange
+melon
+ananas
+salade de fruits
+légumes
+poivron
+salade
+carotte
+tomate
+concombre
+champignon
+pomme de terre
+fromage
+saucisse
+poisson
+viande
+boissons
+eau
+limonade
+jus
+jus d'orange
+lait
+café
+thé
+sucre
+poivre
+sel
+
+Section autres vocables
+
+fête
+invitation
+musique
+il est
+et
+
+Section les verbes
+
+avoir
+aimer
+manger
+couper
+éplucher
+prendre
+mettre
+
+Section les nombres jusqu'à 20
+
+zéro
+un
+deux
+trois
+quatre
+cinq
+six
+sept
+huit
+neuf
+dix
+onze
+douze
+treize
+quatorze
+quinze
+seize
+dix-sept
+dix-huit
+dix-neuf
+vingt
+
+
+Unite 3
+
+Section la maison
+
+maison
+chambre
+salle de bain
+salon
+cuisine
+grenier
+cave
+balcon
+garage
+terrasse
+jardin
+escalier
+
+Section dans la chambre
+
+chaise
+bureau
+tapis
+lit
+armoire
+tiroir
+miroir
+lampe
+boite
+étagère
+ordinateur
+vêtements
+jouets
+affaires de classe
+porte
+fenêtre
+
+Section les jouets
+
+jeu de cartes
+guitare
+roi
+poisson
+nounours
+peluche
+poupée
+ballon
+balle
+dé
+moto
+vélo
+voiture
+tente
+
+Section les verbes
+
+avoir
+être
+aimer
+manger
+couper
+éplucher
+chercher
+trouver
+ranger
+jouer
+dessiner
+chanter
+danser
+prendre
+mettre
+
+Section les prépositions
+
+sur
+sous
+dans
+devant
+derrière
+à côté de
+
+
+Unite 4
+
+Section au village
+
+village
+rue
+trottoir
+coin
+chemin
+arrêt de bus
+aire de jeux
+feu rouge
+parc
+
+Section les bâtiments
+
+boulangerie
+boucherie
+librairie
+supermarché
+bibliothèque
+cinéma
+pharmacie
+marché
+restaurant
+gare
+maison
+appartement
+musée
+école
+café
+magasin de jouets
+magasin de vêtements
+magasin de chaussures
+
+Section les moyens de transport
+
+vélo
+trottinette
+moto
+train
+locomotive
+voiture
+bus
+aller à pied
+avion
+
+Section les directions
+
+avancer
+traverser
+tourner à gauche
+tourner à droite
+passer devant
+aller jusqu'à
+être à côté de
+
+Section les verbes
+
+aller
+faire
+mettre
+prendre
+
+Section les adjectifs
+
+grand
+petit
+froid
+chaud
+sucré
+content
+joli
+préféré
+bleu
+noir
+blanc
+mauve
+rose
+jaune
+orange
+rouge
+énorme
+triste
+génial
+gris
+brun
+vert
+
+Section les expressions avec le verbe « faire »
+
+faire un gâteau
+faire une liste
+faire pipi
+faire le cochon
+faire du vélo
+faire de la trottinette
+faire ses devoirs
+faire du foot
+faire les courses
+faire sa valise
+faire un tour de magie
+faire son lit
+faire la vaisselle
+faire la queue
+faire un dessin
+
+
+Unite 5
+
+Section à table
+
+assiette
+bol
+tasse
+verre
+bouteille
+couteau
+fourchette
+cuillère
+serviette
+
+Section les aliments
+
+tartine
+beurre
+confiture
+miel
+fromage
+jambon
+lait
+thé
+chocolat chaud
+yaourt
+sel
+poivre
+omelette
+oeuf
+céréales
+crêpe
+sucre
+radis
+ananas
+melon
+noix
+
+Section les quantités
+
+une tranche de
+une tartine de
+un kilo de
+un morceau de
+une bouteille de
+un verre de
+un jus de
+
+Section les repas
+
+petit-déjeuner
+déjeuner
+gouter
+dîner
+
+Section la journée
+
+matin
+midi
+après-midi
+soir
+
+Section les verbes
+
+manger
+ranger
+boire
+
+Section les adjectifs
+
+content
+triste
+gêné
+énervé
+surpris
+effrayé
+heureux
+fâché
+
+
+Unite 6
+
+Section la colonie de vacances
+
+colonie de vacances
+auberge
+dortoir
+vestiaire
+moniteur
+monitrice
+cheval
+
+Section les alentours
+
+lac
+forêt
+grotte
+château
+chemin
+plage
+mer
+
+Section les accessoires
+
+sac à dos
+gourde
+casque
+lampe de poche
+crème solaire
+appareil photo
+brosse à cheveux
+brosse à dents
+dentifrice
+savon
+lunettes de soleil
+lunettes
+shampooing
+serviette de bain
+
+Section les vêtements
+
+short
+t-shirt
+pantalon
+casquette
+veste
+slip
+maillot de bain
+chapeau
+chaussettes
+chaussures
+baskets
+bottes
+sandales
+pullover
+pyjama
+
+Section voler
+
+fusée
+avion
+soleil
+nuage
+voler
+
+Section les expressions avec le verbe « faire »
+
+faire du cheval
+faire une excursion
+faire une visite
+faire de l'escalade
+faire du pédalo
+faire sa valise
+
+Section les verbes
+
+attendre
+descendre
+nager
+demander
+marcher
+décider
+rigoler
+visiter
+crier
+rentrer
+
+Section autres vocables
+
+parce que
+d'abord
+ensuite
+
