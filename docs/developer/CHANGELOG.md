@@ -4,6 +4,70 @@
 
 ---
 
+## [1.0.1] - 2025-11-28
+
+### 🐛 重要修复
+
+#### 图片显示和过滤问题
+
+**问题1: 同形异义词ID冲突**
+- 🐛 **问题**: 相同`canonical`和`partOfSpeech`的单词（如café咖啡和café咖啡馆）共享同一个Word ID，导致图片显示错误
+- ✅ **修复**: 更新Word ID生成逻辑，从`canonical-partOfSpeech`改为`canonical-partOfSpeech-chinese`
+- 📁 **影响文件**: `VocFr/Services/Data/VocabularyDataLoader.swift`
+- ⚠️ **注意**: 需要删除并重新安装应用以重建数据库
+
+**问题2: nameOfImage为"none"的单词仍出现在练习中**
+- 🐛 **问题**: 标记为`nameOfImage: "none"`的单词（如génial, préféré）仍出现在Visual Practice和Matching游戏中
+- ✅ **修复**: 在PracticeViewModel和MatchingGameViewModel中添加`.filter { $0.hasImage }`过滤器
+- 📁 **影响文件**:
+  - `VocFr/ViewModels/PracticeViewModel.swift`
+  - `VocFr/ViewModels/MatchingGameViewModel.swift`
+
+**问题3: Python脚本未过滤"none"/"null"**
+- 🐛 **问题**: 图片生成脚本将`nameOfImage: "none"`当作truthy值，仍尝试生成图片
+- ✅ **修复**: 在`iter_words_with_images()`函数中明确排除"none"和"null"值
+- 📁 **影响文件**: `Scripts/Vocabulary/image/generate_image.py`
+
+### ✨ 新功能
+
+#### 词汇列表生成工具
+- ✅ 新增`generate_word_list.py`脚本
+- 自动从所有Unite JSON文件提取单词
+- 按Unite和Section组织输出
+- 生成格式化的文本列表到`VocFr/Data/JSON/all_words_list.txt`
+
+### 📚 文档更新
+
+- ✅ 更新`Scripts/README.md`添加词汇列表生成工具说明
+- ✅ 更新`Scripts/IMAGE_FIXES_NEEDED.md`标记所有问题已修复
+- ✅ 更新`Scripts/Vocabulary/image/README.md`添加"none"/"null"过滤说明
+- ✅ 添加完整的修复文档和示例
+
+### 🔧 技术改进
+
+**Word模型**:
+- 确认`hasImage`属性正确检查`imageName.isEmpty`和`imageName == "none"`
+- 所有图片相关功能现在使用统一的`hasImage`属性判断
+
+**数据一致性**:
+- ASCII规范化规则更加明确
+- 同形异义词使用后缀区分（如`cafe_place_image.png` vs `cafe_image.png`）
+- 统一文件命名规范（重音→ASCII, 空格/撇号/连字符→下划线）
+
+### 📊 影响统计
+
+- **修复的单词**: 8个（4个连字符问题 + 2个同形异义词 + 2个"none"过滤）
+- **修复的文件**: 3个Swift文件 + 1个Python脚本
+- **更新的文档**: 4个markdown文件
+
+### 🎯 提交记录
+
+- `73ec10e` - fix: Exclude words with nameOfImage 'none'/'null' from image generation
+- `ed31f9a` - fix: Filter words without images from practice modes and fix homonym ID conflicts
+- `8755beb` - docs: Add word list generator and complete vocabulary list
+
+---
+
 ## [1.0.0] - 2025-11-18
 
 ### 🎉 首次发布

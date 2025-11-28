@@ -457,7 +457,13 @@ Unite JSON 文件中每个单词需要包含：
 - `promptType`: 风格类型（"icon" 或 "scene"）
 - `imagePrompt`: 自定义提示词（例如："make it colorful"）
 
-示例：
+**特殊值**：
+- `nameOfImage: "none"` 或 `null` - 标记单词无需图片
+  - 这些单词会被自动排除在图片生成之外
+  - 也会从Visual Practice和Matching游戏中排除
+  - 适用于抽象词汇或短语（如 "génial", "préféré"）
+
+**示例 - 有图片的单词**：
 
 ```json
 {
@@ -472,6 +478,22 @@ Unite JSON 文件中每个单词需要包含：
   "nameOfImage": "village_image.png",
   "promptType": "scene",
   "imagePrompt": "focus on traditional French architecture"
+}
+```
+
+**示例 - 无图片的单词**：
+
+```json
+{
+  "canonical": "génial",
+  "chinese": "很棒的",
+  "german": "genial, super",
+  "type": "vocabulary",
+  "partOfSpeech": "adjective",
+  "genderOrPos": "adjective",
+  "category": "adjectives",
+  "elision": false,
+  "nameOfImage": "none"  // 标记为无图片
 }
 ```
 

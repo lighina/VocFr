@@ -1,140 +1,126 @@
-# 图片名称修复清单
+# 图片名称修复清单 - 已完成 ✅
 
-## 问题分类
+**状态**: 所有问题已于 2025-11-28 修复完成
 
-### 1️⃣ 连字符未转换为下划线（4个）
-
-Swift 的 `normalizeForAssetName()` 将 `-` 转换为 `_`，但 JSON 中的 nameOfImage 保留了连字符。
-
-| Unite | 单词 | 中文 | 当前 nameOfImage | 应修改为 | 状态 |
-|-------|------|------|-----------------|---------|------|
-| U2 | grands-parents | 祖父母 | `grands-parents_image.png` | `grands_parents_image.png` | ❌ 需修复 |
-| U2 | dix-sept | 十七 | `dix-sept_image.png` | `dix_sept_image.png` | ❌ 需修复 |
-| U2 | dix-huit | 十八 | `dix-huit_image.png` | `dix_huit_image.png` | ❌ 需修复 |
-| U2 | dix-neuf | 十九 | `dix-neuf_image.png` | `dix_neuf_image.png` | ❌ 需修复 |
-
-**修复方法**：
-```bash
-# 方式 1: 手动编辑 Unite2.json，将上述4个词的 nameOfImage 字段中的 - 改为 _
-
-# 方式 2: 使用修复脚本
-cd /home/user/VocFr/Scripts
-python3 fix_image_names.py
-```
+**修复提交**:
+- `73ec10e` - 修复Python脚本过滤 "none"/"null" 图片生成
+- `ed31f9a` - 修复Swift应用的图片过滤和同形异义词ID冲突
 
 ---
 
-### 2️⃣ 重音未转换 + 同形异义词冲突（2个）
+## 已修复的问题总结
 
-| Unite | 单词 | 中文 | PartOfSpeech | 当前 nameOfImage | 应修改为 | 冲突词 |
-|-------|------|------|--------------|-----------------|---------|--------|
-| U4S2 | café | 咖啡馆 | noun | `café_image.png` | `cafe_place_image.png` | U2 café(咖啡) |
-| U4 | sucré | 甜的 | adjective | `sucré_image.png` | `sucre_adjective_image.png` | U2/U5 sucre(糖) |
+### 1️⃣ 连字符未转换为下划线 ✅
 
-**问题说明**：
-1. **café**: 保留了重音 `é`，且与 Unite 2 的 café(咖啡) 冲突
-2. **sucré**: 保留了重音 `é`，且规范化后与 sucre(糖) 冲突
+**问题**: JSON中的nameOfImage保留了连字符，但Swift的normalizeForAssetName()将`-`转换为`_`
 
-**修复方法**：
-```bash
-# 手动编辑 Unite4.json
-# 1. 找到 café (chinese="咖啡馆")，修改 nameOfImage 为 "cafe_place_image.png"
-# 2. 找到 sucré，修改 nameOfImage 为 "sucre_adjective_image.png"
-```
+**影响的单词**（4个）:
+| Unite | 单词 | 中文 | 修复前 | 修复后 |
+|-------|------|------|--------|--------|
+| U2 | grands-parents | 祖父母 | `grands-parents_image.png` | `grands_parents_image.png` |
+| U2 | dix-sept | 十七 | `dix-sept_image.png` | `dix_sept_image.png` |
+| U2 | dix-huit | 十八 | `dix-huit_image.png` | `dix_huit_image.png` |
+| U2 | dix-neuf | 十九 | `dix-neuf_image.png` | `dix_neuf_image.png` |
+
+**修复方法**: 用户已手动更新JSON和资源文件 ✅
 
 ---
 
-### 3️⃣ nameOfImage 为 null 导致自动生成不存在的图片（2个）
+### 2️⃣ 同形异义词ID冲突 ✅
 
-| Unite | 单词 | 中文 | 当前 nameOfImage | Swift 自动生成 | 图片是否存在 |
-|-------|------|------|-----------------|---------------|-------------|
-| U4 | génial | 很棒的 | `null` | `genial_image` | ❌ 不存在 |
-| U4 | préféré | 最喜欢的 | `null` | `prefere_image` | ❌ 不存在 |
+**问题**: 相同canonical和partOfSpeech的单词共享同一个Word ID，导致图片错误
 
-**问题说明**：
-当 nameOfImage 为 null 时，Swift 代码会自动生成默认图片名：
+**影响的单词**（2个）:
+| Unite | 单词 | 中文 | 修复前 | 修复后 |
+|-------|------|------|--------|--------|
+| U4S2 | café | 咖啡馆 | `café_image.png` (错误) | `cafe_place_image.png` ✅ |
+| U4 | sucré | 甜的 | `sucré_image.png` | `sucre_adj_image.png` ✅ |
+
+**根本原因**:
 ```swift
-imageName = normalizeForAssetName(json.canonical) + "_image"
+// 旧的ID生成逻辑（造成冲突）
+let wordId = "\(json.canonical)-\(json.partOfSpeech)"
+// 两个café都是noun → 同一个ID "café-noun" ❌
 ```
 
-但这些图片不存在，导致：
-- ✅ 在词汇列表中可能不显示（正常）
-- ❌ 在 Visual Practice 和 Matching 中仍然出现（错误）
+**修复方案**:
+```swift
+// 新的ID生成逻辑（已修复）
+let wordId = "\(json.canonical)-\(json.partOfSpeech)-\(json.chinese)"
+// café (咖啡) → "café-noun-咖啡" ✅
+// café (咖啡馆) → "café-noun-咖啡馆" ✅
+```
 
-**解决方案 A（推荐）**：将 nameOfImage 设置为 "none" 明确禁用图片
-```json
-{
-  "canonical": "génial",
-  "nameOfImage": "none"  // 明确标记为无图片
+**修复文件**: `VocFr/Services/Data/VocabularyDataLoader.swift`
+- 行165: 更新缓存键包含chinese
+- 行228: 更新Word ID包含chinese
+
+**注意**: 用户需要删除并重新安装应用以重建数据库 ⚠️
+
+---
+
+### 3️⃣ nameOfImage为"none"的单词仍出现在图片练习中 ✅
+
+**问题**: Words with `nameOfImage: "none"` still appear in Visual Practice and Matching games
+
+**影响的单词**（2个）:
+| Unite | 单词 | 中文 | nameOfImage | 状态 |
+|-------|------|------|-------------|------|
+| U4 | génial | 很棒的 | `"none"` | 已从练习中排除 ✅ |
+| U4 | préféré | 最喜欢的 | `"none"` | 已从练习中排除 ✅ |
+
+**根本原因**:
+```swift
+// 旧代码 - 未过滤"none"
+let words = section.sectionWords.compactMap { $0.word }.shuffled()
+```
+
+**修复方案**:
+```swift
+// 新代码 - 使用hasImage属性过滤
+let words = section.sectionWords
+    .compactMap { $0.word }
+    .filter { $0.hasImage }  // ✅ 排除imageName为空或"none"的单词
+    .shuffled()
+```
+
+**修复文件**:
+- `VocFr/ViewModels/PracticeViewModel.swift:92`
+- `VocFr/ViewModels/MatchingGameViewModel.swift:131`
+
+**hasImage属性定义** (Models.swift:114):
+```swift
+var hasImage: Bool {
+    return !imageName.isEmpty && imageName.lowercased() != "none"
 }
 ```
 
-**解决方案 B**：生成这些图片
-```bash
-cd Scripts/Vocabulary/image/
-python generate_image.py --unite 4 --only-word génial
-python generate_image.py --unite 4 --only-word préféré
+---
+
+### 4️⃣ Python图片生成脚本过滤"none"/"null" ✅
+
+**问题**: Python脚本将`nameOfImage: "none"`当作truthy值，仍尝试生成图片
+
+**修复方案**:
+```python
+# Scripts/Vocabulary/image/generate_image.py:201-212
+for section in sections:
+    for word in section.get("words", []):
+        name_of_image = word.get("nameOfImage")
+        # 明确排除"none"和"null"
+        if name_of_image and name_of_image.lower() not in ("none", "null"):
+            yield word
 ```
+
+**修复文件**: `Scripts/Vocabulary/image/generate_image.py`
 
 ---
 
-## 🔧 快速修复步骤
+## 📋 ASCII 规范化规则
 
-### Step 1: 修复 JSON 文件
+所有修复都遵循以下规则：
 
-使用修复脚本或手动编辑：
-
-```bash
-cd /home/user/VocFr/Scripts
-python3 fix_image_names.py
-```
-
-或手动编辑：
-- `VocFr/Data/JSON/Unite2.json`: 修复 4 个连字符单词
-- `VocFr/Data/JSON/Unite4.json`: 修复 café 和 sucré
-
-### Step 2: 重命名已有图片文件（如果存在）
-
-```bash
-cd VocFr/Assets.xcassets
-
-# 如果已经有旧的图片，需要重命名
-# 示例：
-# mv "grands-parents_image.imageset" "grands_parents_image.imageset"
-```
-
-### Step 3: 生成缺失的图片
-
-```bash
-cd Scripts/Vocabulary/image/
-
-# 为修复后的文件名生成图片
-python generate_image.py --unite 2 --only-word "grands-parents"
-python generate_image.py --unite 2 --only-word "dix-sept"
-python generate_image.py --unite 2 --only-word "dix-huit"
-python generate_image.py --unite 2 --only-word "dix-neuf"
-
-python generate_image.py --unite 4 --section 2 --only-word café
-python generate_image.py --unite 4 --only-word sucré
-
-# 可选：为 génial 和 préféré 生成图片
-python generate_image.py --unite 4 --only-word génial
-python generate_image.py --unite 4 --only-word préféré
-```
-
-### Step 4: 测试
-
-在 Xcode 中运行应用，检查：
-- ✅ 所有单词的图片都能正常显示
-- ✅ Visual Practice 和 Matching 中不再显示没有图片的单词（génial, préféré）
-
----
-
-## 📋 ASCII 规范化规则提醒
-
-为了避免类似问题，JSON 中的 `nameOfImage` 字段必须遵守：
-
-1. **所有法语重音必须转换为 ASCII**：
+1. **法语重音 → ASCII**：
    - é, è, ê, ë → e
    - à, â, ä → a
    - ô, ö → o
@@ -142,26 +128,45 @@ python generate_image.py --unite 4 --only-word préféré
    - ï, î → i
    - ç → c
 
-2. **空格、撇号、连字符必须转换为下划线**：
+2. **特殊字符 → 下划线**：
    - ` ` (空格) → `_`
    - `'` (撇号) → `_`
    - `-` (连字符) → `_`
 
-3. **同形异义词必须用后缀区分**：
+3. **同形异义词使用后缀**：
    - café (咖啡) → `cafe_image.png`
    - café (咖啡馆) → `cafe_place_image.png`
    - sucre (糖) → `sucre_image.png`
-   - sucré (甜的) → `sucre_adjective_image.png`
+   - sucré (甜的) → `sucre_adj_image.png`
 
-4. **没有图片的词应该明确标记**：
+4. **无图片单词标记**：
    ```json
    "nameOfImage": "none"  // 或 null
    ```
 
 ---
 
-## 🛠️ 自动化工具
+## ✅ 验证清单
 
-我已经创建了修复脚本：`/home/user/VocFr/Scripts/fix_image_names.py`
+- [x] 所有连字符单词已更新JSON
+- [x] 所有连字符单词的图片资源已重命名
+- [x] café和sucré的同形异义词已区分
+- [x] Swift代码已更新Word ID生成逻辑
+- [x] Python脚本已添加"none"/"null"过滤
+- [x] Swift ViewModels已添加hasImage过滤
+- [x] 所有修改已提交并推送到GitHub
 
-运行后会自动修复所有已知问题。
+---
+
+## 📚 相关文档
+
+- [图片生成指南](Vocabulary/image/README.md) - 图片生成工具使用说明
+- [词汇导入指南](Vocabulary/VOCABULARY_IMPORT_GUIDE.md) - JSON数据格式说明
+- [开发者变更日志](../docs/developer/CHANGELOG.md) - 完整修复记录
+
+---
+
+**创建日期**: 2025-11-27
+**完成日期**: 2025-11-28
+**维护者**: VocFr Development Team
+**状态**: ✅ 已完成 - 此文档保留作为历史记录

@@ -1,10 +1,54 @@
-# VocFr Localization Automation Scripts
+# VocFr 自动化脚本工具集
 
-这些Python脚本帮助您维护VocFr应用的多语言支持，自动化翻译管理流程。
+这些Python脚本帮助您维护VocFr应用的多语言支持、词汇管理和数据处理，自动化日常开发流程。
 
 ## 脚本概览
 
-### 1. add_new_strings.py - 添加新翻译字符串
+### 📝 词汇管理工具
+
+#### generate_word_list.py - 生成完整词汇列表
+
+从所有Unite JSON文件中提取单词，生成格式化的文本列表。
+
+**功能**:
+- 自动扫描所有Unite JSON文件
+- 按Unite和Section组织
+- 仅提取canonical（标准）形式
+- 输出到 `VocFr/Data/JSON/all_words_list.txt`
+
+**使用方法**:
+
+```bash
+# 生成完整词汇列表
+python Scripts/generate_word_list.py
+```
+
+**输出格式**:
+```
+Unite 1
+
+Section à l'école
+
+bureau
+table
+chaise
+...
+
+Section les couleurs
+
+vert
+jaune
+orange
+...
+```
+
+**输出位置**: `VocFr/Data/JSON/all_words_list.txt`
+
+---
+
+### 🌐 本地化管理工具
+
+#### add_new_strings.py - 添加新翻译字符串
 
 当您添加新功能需要新的翻译字符串时使用此脚本。
 
@@ -59,7 +103,7 @@ python Scripts/add_new_strings.py --file new_strings.json
 
 ---
 
-### 2. validate_localizations.py - 验证翻译完整性
+#### validate_localizations.py - 验证翻译完整性
 
 检查所有语言文件的一致性和完整性。
 
@@ -110,7 +154,7 @@ python Scripts/validate_localizations.py --output validation_report.json
 
 ---
 
-### 3. export_base_strings.py - 导出基准翻译文件
+#### export_base_strings.py - 导出基准翻译文件
 
 导出英文基准文件，用于外部翻译或备份。
 
@@ -160,7 +204,7 @@ python Scripts/export_base_strings.py \
 
 ---
 
-### 4. import_translations.py - 导入外部翻译
+#### import_translations.py - 导入外部翻译
 
 从JSON或CSV文件导入翻译到指定语言。
 
